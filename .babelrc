@@ -1,0 +1,31 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    ],
+    "@babel/react"
+  ],
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": true
+      }
+    ],
+    "react-hot-loader/babel",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-syntax-dynamic-import"
+  ],
+  "ignore": ["node_modules", "dist"]
+}

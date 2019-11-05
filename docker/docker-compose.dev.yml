@@ -1,0 +1,15 @@
+version: '3.5'
+
+services:
+  react-boilerplate_dev:
+    ports:
+      - 3000:3000
+    build:
+      context: ../
+      dockerfile: Dockerfile.dev
+    container_name: 'react-boilerplate_dev'
+    volumes:
+      - ../src:/usr/src/app/src
+      - ../server:/usr/src/app/server
+      - ../internals:/usr/src/app/internals
+      - ../mock:/usr/src/app/mock

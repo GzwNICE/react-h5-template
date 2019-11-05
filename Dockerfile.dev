@@ -1,0 +1,15 @@
+# 基础镜像
+FROM node:latest
+
+# 定义工作目录
+WORKDIR /usr/src/app/
+
+# 复制
+COPY package.json ./
+
+# 安装依赖
+RUN yarn config set registry http://registry.npm.taobao.org/ && yarn install
+
+COPY ./ ./
+
+CMD ["npm", "run", "start"]

@@ -1,0 +1,7 @@
+# 忽略eslint校验
+
+/config
+/internals
+/server
+/public
+/mock
