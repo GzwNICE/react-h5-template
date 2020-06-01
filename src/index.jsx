@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import intl from 'react-intl-universal';
 import { history, store } from '@/utils/store';
-
+import './index.less';
 import App from './App';
 
 const locales = {
