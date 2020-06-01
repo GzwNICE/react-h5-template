@@ -32,8 +32,7 @@
   "license": "ISC",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "pre-commit": "npm run lint-staged"
     }
   },
   "lint-staged": {
@@ -73,7 +72,7 @@
     "@hot-loader/react-dom": "^16.10.2",
     "@rematch/core": "^1.2.0",
     "@rematch/loading": "^1.2.1",
-    "antd": "^3.24.3",
+    "antd-mobile": "^2.3.3",
     "connected-react-router": "^6.5.2",
     "core-js": "^3.3.5",
     "enzyme": "^3.10.0",
@@ -83,6 +82,7 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-hot-loader": "^4.12.15",
+    "react-intl-universal": "^2.2.5",
     "react-redux": "^7.1.1",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",

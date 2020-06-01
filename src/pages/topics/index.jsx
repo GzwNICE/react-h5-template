@@ -88,7 +88,4 @@ const mapDispatch = dispatch => ({
   go: () => dispatch(push('/comments')),
 });
 
-export default connect(
-  mapState,
-  mapDispatch
-)(TopicPage);
+export default connect(mapState, mapDispatch)(TopicPage);

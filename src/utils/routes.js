@@ -1,20 +1,20 @@
-import CommentPage from '@/pages/comments';
-import TopicPage from '@/pages/topics';
+// import CommentPage from '@/pages/comments';
+import homePage from '@/pages/home';
 
 export const routes = [
   {
-    path: '/',
+    path: '/home',
     exact: true,
-    component: TopicPage,
+    component: homePage,
   },
-  {
-    path: '/topics',
-    exact: true,
-    component: TopicPage,
-  },
-  {
-    path: '/comments',
-    exact: true,
-    component: CommentPage,
-  },
+  // {
+  //   path: '/topics',
+  //   exact: true,
+  //   component: TopicPage,
+  // },
+  // {
+  //   path: '/comments',
+  //   exact: true,
+  //   component: CommentPage,
+  // },
 ];

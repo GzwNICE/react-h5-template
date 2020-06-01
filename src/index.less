@@ -87,23 +87,19 @@ body {
   user-select: none;*/
 }
 
-/* rem + vw 移动端适配 , 设计稿宽度为750px, 1rem = 150px */
+/* rem + vw 移动端适配 , 设计稿宽度为750px, 1rem = 75px */
+
 html {
   font-size: 20vw;
-  // 通过Media Queries 限制根元素最大最小值
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+  -webkit-tap-highlight-color: transparent;
+  // 同时，通过Media Queries 限制根元素最大最小值
   @media screen and (max-width: 320px) {
-    html {
-      font-size: 64px;
-    }
+    font-size: 64px;
   }
   @media screen and (min-width: 540px) {
-    html {
-      font-size: 108px;
-    }
+    font-size: 108px;
   }
-}
-
-body {
-  max-width: 540px;
-  min-width: 320px;
 }
