@@ -1,34 +1,40 @@
-# react-boilerplate
+# gagago-h5
+
+## 项目介绍
+gagago h5项目
+
+## 运行
+1. yarn / npm install  安装依赖
+2. yarn start  / npm run start  本地启动
 
 ## :star: 特性
 
 - 支持 ES6+ 源码，编译生成生产代码
 - 集成代码风格校验 (eslint)
-- 集成单元测试环境（jest+enzyme）
-- 集成测试覆盖率（istanbul）
 - 集成 git commit 校验（lint-staged）
-- 集成代码格式化（prettier)
-- 集成后台服务（express)
 - 集成代码热替换（react-hot-loader）
-- 集成 mock（umi-mock)
 - 集成 API 代理（http-proxy-middleware)
-- 集成 docker
-
-## :pill: 兼容性
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://browserl.ist/images/android.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Android | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | IOS >= 8                                                                                                                                                                                                      | Android >= 4.4                                                                                                                                                | last 2 versions                                                                                                                                                                                           |
 
 ## :open_file_folder: 目录介绍
 
     ├── dist 编译产出代码
     ├── docs 项目文档
     ├── internals 内部部件，包括 webpack 等 node 脚本
-    ├── mock mock 文件
     ├── public 公共文件
     ├── server 服务端，承载 HMR，mock，proxy
     ├── src 源代码
+
+## 使用说明
+1. react / react-redux 前端框架 / 状态管理
+   react: https://reactjs.bootcss.com/docs/getting-started.html
+   redux: https://www.redux.org.cn/docs/react-redux/
+
+2. 国际化多语言使用  react-intl-universal 由阿里巴巴推出的react国际化库
+   github官网：https://github.com/alibaba/react-intl-universal
+   多类型字段国际化使用参考： https://juejin.im/post/5d11ae8b6fb9a07ee4637047#heading-18
+
+3. UI库使用  antd-mobile  阿里巴巴前端UI框架
+   官网：https://mobile.ant.design/docs/react/introduce-cn
 
 ## :bookmark_tabs: 文档
 

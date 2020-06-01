@@ -14,6 +14,38 @@
   <body>
     <div id="root"></div>
   </body>
+  <script>
+    !(function(win, doc) {
+        function setFontSize() {
+            var baseFontSize = 100;
+            var baseWidth = 320;
+            var clientWidth = document.documentElement.clientWidth ||         window.innerWidth;
+            var innerWidth = Math.max(Math.min(clientWidth, 480), 320);
+            var rem = 100;
+            if (innerWidth > 362 && innerWidth <= 375) {
+                rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.9);
+            }
+            if (innerWidth > 375) {
+                rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.84);
+            }
+            window.__baseREM = rem;
+            document.querySelector('html').style.fontSize = rem + 'px';
+        }
+        var evt = 'onorientationchange' in win ? 'orientationchange' : 'resize';
+        var timer = null;
+        win.addEventListener(evt, function() {
+            clearTimeout(timer);
+            timer = setTimeout(setFontSize, 300);
+        }, false);
+        win.addEventListener("pageshow", function(e) {
+            if (e.persisted) {
+                clearTimeout(timer);
+                timer = setTimeout(setFontSize, 300);
+            }
+        }, false);
+        setFontSize();
+    }(window, document));
+  </script>
   <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
   <script>
     if ('addEventListener' in document) {

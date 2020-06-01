@@ -20,7 +20,10 @@ module.exports = require('./webpack.config.base')({
       chunks: 'all',
     },
   },
-
+  devServer: {
+    contentBase: path.resolve(__dirname),
+    hot: true
+  },
   // Add development plugins
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

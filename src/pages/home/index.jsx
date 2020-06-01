@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button } from 'antd-mobile';
 import intl from 'react-intl-universal';
 import { push } from 'connected-react-router';
-
+import styles from './index.less';
 // const { Header, Content, Footer } = Layout;
 
 class homePage extends PureComponent {
@@ -27,7 +27,9 @@ class homePage extends PureComponent {
     return (
       <div>
         <div>{intl.get('home.title')}</div>
-        <Button type="primary">primary</Button>
+        <Button type="primary" className={styles.btn}>
+          button
+        </Button>
       </div>
     );
   }
