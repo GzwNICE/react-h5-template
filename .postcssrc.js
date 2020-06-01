@@ -4,7 +4,7 @@ module.exports = {
     'postcss-url': {},
     'postcss-preset-env': {},
     'postcss-plugin-px2rem': {
-      rootValue: 150,
+      rootValue: 100,
       selectorBlackList: [/^html$/, /^body$/],
       exclude: /(node_module)/,
       mediaQuery: false,
