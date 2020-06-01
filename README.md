@@ -34,6 +34,13 @@ gagago h5项目
     ├── public 公共文件
     ├── server 服务端，承载 HMR，mock，proxy
     ├── src 源代码
+        ├── components 公共组件
+        ├── locales 国际化文档
+        ├── models  sotre/reducers
+        ├── pages  页面文件
+        ├── services  请求方法地址
+        ├── utlis   各种封装/路由/请求
+
 
 ## :bookmark_tabs: 文档
 
