@@ -18,7 +18,6 @@ gagago h5项目
 ## :open_file_folder: 目录介绍
 
     ├── dist 编译产出代码
-    ├── docs 项目文档
     ├── internals 内部部件，包括 webpack 等 node 脚本
     ├── public 公共文件
     ├── server 服务端，承载 HMR，mock，proxy
