@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
 import styles from './index.less';
 
-class userPage extends PureComponent {
+class User extends PureComponent {
   render() {
     return (
       <div>
@@ -17,4 +17,4 @@ const mapState = state => ({});
 
 const mapDispatch = dispatch => ({});
 
-export default connect(mapState, mapDispatch)(userPage);
+export default connect(mapState, mapDispatch)(User);

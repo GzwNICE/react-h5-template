@@ -1,8 +1,13 @@
-// import CommentPage from '@/pages/comments';
+import indexPage from '@/pages/homePage';
 import homePage from '@/pages/home';
 import userPage from '@/pages/user';
 
 export const routes = [
+  {
+    path: '/index',
+    exact: true,
+    component: indexPage,
+  },
   {
     path: '/home',
     exact: true,
