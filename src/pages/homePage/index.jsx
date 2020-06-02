@@ -7,7 +7,9 @@ import { push } from 'connected-react-router';
 import UserPage from '@/pages/user';
 import HomePage from '@/pages/home';
 import homeSelPng from '@/assets/images/home_selected.png';
+import homePng from '@/assets/images/home.png';
 import personal from '@/assets/images/personal.png';
+import personalSel from '@/assets/images/personal_selected.png';
 import styles from './index.less';
 
 class homePage extends PureComponent {
@@ -42,8 +44,7 @@ class homePage extends PureComponent {
                 style={{
                   width: '22px',
                   height: '22px',
-                  background:
-                    'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat',
+                  background: `url(${homePng}) center center /  21px 21px no-repeat`,
                 }}
               />
             }
@@ -81,8 +82,7 @@ class homePage extends PureComponent {
                 style={{
                   width: '22px',
                   height: '22px',
-                  background:
-                    'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat',
+                  background: `url(${personalSel}) center center /  21px 21px no-repeat`,
                 }}
               />
             }

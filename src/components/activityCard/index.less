@@ -1,0 +1,73 @@
+.card {
+  width: 170px;
+  max-height: 258px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+  margin: 10px 0;
+
+  .topBox {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .shopImg {
+      width: auto;
+      height: auto;
+      max-width: 170px;
+      max-height: 170px;
+    }
+
+    .hotImg {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 38px;
+      height: 23px;
+    }
+  }
+
+  .bottomBox {
+    width: 100%;
+    padding: 0 12px 8px;
+    .shopTitle {
+      font-size:14px;
+      font-family:PingFangSC-Regular,PingFang SC;
+      font-weight:400;
+      color:rgba(51,51,51,1);
+      line-height:17px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .schedule {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin: 8px 0;
+      .progress {
+        width: 100%;
+      }
+      .remaining {
+        font-size:10px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(255,82,9,1);
+        line-height:10px;
+        margin-left: 4px;
+      }
+    }
+    .oddsOfWinning {
+      font-size:10px;
+      font-family:PingFangSC-Regular,PingFang SC;
+      font-weight:400;
+      color:rgba(153,153,153,1);
+      line-height:10px;
+    }
+  }
+}
