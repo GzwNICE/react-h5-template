@@ -1,43 +1,70 @@
 import { createModel } from '@rematch/core';
 
-import { topicService } from '@/services';
+import { homeService } from '@/services';
 
 export const home = createModel({
   state: {
     data: {
-      title: 'aaaa',
+      winnerList: [],
+      bannerList: [],
+      classData: [],
+      hotList: [],
     },
   },
   reducers: {
-    save(state, payload) {
+    getWinner(state, payload) {
       return {
         ...state,
         data: {
           ...state.data,
-          // list: payload.map(data => ({
-          //   ...data,
-          //   key: data.id,
-          // })),
-          // title: payload.num
+          winnerList: payload.data,
+        },
+      };
+    },
+    getBanner(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          bannerList: payload.data,
+        },
+      };
+    },
+    getClass(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          classData: payload.data,
+        },
+      };
+    },
+    getHotList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          hotList: payload.data.rows,
         },
       };
     },
   },
   effects: dispatch => ({
-    async fetchAsync(payload) {
-      const response = await topicService.query(payload);
-      dispatch.home.save(response);
+    async fetchGetWin(payload) {
+      const response = await homeService.homeCarousel(payload);
+      dispatch.home.getWinner(response);
     },
-    // async addAsync(payload) {
-    //   await topicService.post(payload);
-    // },
-    // async updateAsync(payload) {
-    //   const { id, ...params } = payload;
-    //   await topicService.patch(id, params);
-    // },
-    // async deleteAsync(payload) {
-    //   const { id } = payload;
-    //   await topicService.post(id);
-    // },
+    async fetchGetBanner(payload) {
+      const response = await homeService.homeBanner(payload);
+      dispatch.home.getBanner(response);
+    },
+    async fetchGetClass(payload) {
+      const response = await homeService.homeClass(payload);
+      dispatch.home.getClass(response);
+    },
+    async fetchGetHotList(payload) {
+      const response = await homeService.homeHotLit(payload);
+      dispatch.home.getHotList(response);
+    },
   }),
 });

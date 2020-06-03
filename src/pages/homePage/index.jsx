@@ -17,14 +17,19 @@ class homePage extends PureComponent {
     super(props);
     this.state = {
       selectedTab: 'blueTab',
-      hidden: false,
-      fullScreen: false,
+      // hidden: false,
+      // fullScreen: false,
     };
   }
   componentDidMount() {
-    const query = this.props.location.search;
-    console.log(22, query);
+    // const query = this.props.location.search;
+    // console.log(22, query);
+    window.addEventListener('scroll', this.scroll);
   }
+
+  scroll = event => {
+    console.log(123123, event);
+  };
 
   render() {
     const { selectedTab, hidden } = this.state;

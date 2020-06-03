@@ -1,28 +1,41 @@
 import React, { PureComponent } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 // import intl from 'react-intl-universal';
 import { Carousel, Grid, Tabs } from 'antd-mobile';
-import ActivityCard from '@/components/activityCard';
-import personal from '@/assets/images/personal.png';
+import HotList from '@/pages/hotList';
 import styles from './index.less';
 
 class Home extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.myRef = React.createRef();
+  }
+
+  componentDidMount() {
+    const { getWin, getBanner, getClass } = this.props;
+    getWin();
+    getBanner();
+    getClass();
+    // console.log(ReactDOM.findDOMNode(this.hlv));
+  }
+
   render() {
-    const winnerList = [
-      { id: '1', value: 'carousel 1 sdbc98dbcs抽中了iPhone X max256Gshoujiyitaihah萨达阿斯顿' },
-      { id: '2', value: 'carousel 2' },
-      { id: '3', value: 'carousel 3' },
-    ];
-    const bannerList = ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'];
-    const classData = Array.from(new Array(10)).map(() => ({
-      icon: 'https://gw.alipayobjects.com/zos/rmsportal/WXoqXTHrSnRcUwEaQgXJ.png',
-    }));
+    const { home } = this.props;
+    console.log('home', home);
+    const winnerList = home.winnerList;
+    const bannerList = home.bannerList;
+    const classData = home.classData;
+    // const bannerList = ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'];
+    // const classData = Array.from(new Array(10)).map(() => ({
+    //   icon: 'https://gw.alipayobjects.com/zos/rmsportal/WXoqXTHrSnRcUwEaQgXJ.png',
+    // }));
     const tabs = [{ title: '人气' }, { title: '最新' }, { title: '将止' }, { title: '价值' }];
     return (
       <div className={styles.home}>
         {winnerList.length > 0 ? ( //中奖信息
           <div className={styles.winning}>
-            <img src={personal} alt="" className={styles.icImg} />
             <Carousel
               className={styles.my_carousel}
               vertical
@@ -34,8 +47,9 @@ class Home extends PureComponent {
             >
               {winnerList.map(i => {
                 return (
-                  <div className={styles.v_item} key={i.id}>
-                    {i.value}
+                  <div className={styles.v_item} key={i.activityTurnId}>
+                    <img src={i.photoUrl} alt="" className={styles.icImg} />
+                    {i.carouselContent}
                   </div>
                 );
               })}
@@ -44,29 +58,14 @@ class Home extends PureComponent {
         ) : null}
         {bannerList.length > 0 ? ( //banner
           <div className={styles.banner}>
-            <Carousel
-              autoplay
-              infinite
-              // beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-              // afterChange={index => console.log('slide to', index)}
-            >
+            <Carousel autoplay infinite>
               {bannerList.map(val => (
                 <a
-                  key={val}
-                  href="http://www.alipay.com"
+                  key={val.id}
+                  href={val.jumpUrl}
                   style={{ display: 'inline-block', width: '100%', height: '130px' }}
                 >
-                  <img
-                    src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                    alt=""
-                    style={{ width: '100%', verticalAlign: 'top' }}
-                    onLoad={() => {
-                      // fire window resize event to change height
-                      window.dispatchEvent(new Event('resize'));
-                      // eslint-disable-next-line react/no-unused-state
-                      this.setState({ imgHeight: 'auto' });
-                    }}
-                  />
+                  <img src={val.imgURL} alt="" style={{ width: '100%', verticalAlign: 'center' }} />
                 </a>
               ))}
             </Carousel>
@@ -80,14 +79,14 @@ class Home extends PureComponent {
               hasLine={false}
               renderItem={item => (
                 <div>
-                  <img src={item.icon} className={styles.classImg} alt="" />
-                  <div className={styles.tips}>抽中了没有啊抽中了抽中了</div>
+                  <img src={item.imgURL} className={styles.classImg} alt="" />
+                  <div className={styles.tips}>{item.title}</div>
                 </div>
               )}
             />
           </div>
         ) : null}
-        <div className={styles.tabs}>
+        <div className={styles.tabs} ref={el => (this.hlv = el)}>
           <Tabs //活动列表
             tabs={tabs}
             initialPage={0}
@@ -108,9 +107,7 @@ class Home extends PureComponent {
             //   console.log('onTabClick', index, tab);
             // }}
           >
-            <div>
-              <ActivityCard />
-            </div>
+            <HotList />
             <div
               style={{
                 display: 'flex',
@@ -148,8 +145,14 @@ class Home extends PureComponent {
   }
 }
 
-const mapState = state => ({});
+const mapState = state => ({
+  home: state.home.data,
+});
 
-const mapDispatch = dispatch => ({});
+const mapDispatch = dispatch => ({
+  getWin: params => dispatch.home.fetchGetWin(params),
+  getBanner: params => dispatch.home.fetchGetBanner(params),
+  getClass: params => dispatch.home.fetchGetClass(params),
+});
 
 export default connect(mapState, mapDispatch)(Home);

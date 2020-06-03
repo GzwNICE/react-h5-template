@@ -3,13 +3,10 @@ const express = require('express');
 const mock = require('umi-mock');
 const proxy = require('http-proxy-middleware');
 const logger = require('./logger');
-
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
-
 const { resolve, join } = require('path');
-
 const app = express();
 
 const proxyOptions = {

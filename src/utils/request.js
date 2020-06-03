@@ -3,6 +3,15 @@
  * 更详细的 api 文档: https://github.com/umijs/umi-request
  */
 import { extend } from 'umi-request';
+import { Toast } from 'antd-mobile';
+import { push } from 'connected-react-router';
+
+const domain =
+  process.env.NODE_ENV === 'development'
+    ? `${window.location.protocol}//gagago-app-api-test.51moneygo.com`
+    : process.env.NODE_ENV === 'production'
+    ? `${window.location.protocol}//app-api.winmybonus.com`
+    : `${window.location.protocol}//gagago-app-api-vn.9191money.com`;
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -25,13 +34,28 @@ const codeMessage = {
 /**
  * 异常处理程序
  */
+// const errorHandler = error => {
+//   const { response } = error;
+//   const errorless = codeMessage[response.status] || response.statusText;
+//   const { status, url } = response;
+//   throw `请求错误 ${status}: ${url}; ${errorless}`;
+// };
 const errorHandler = error => {
-  const { response } = error;
-  const errortext = codeMessage[response.status] || response.statusText;
-  const { status, url } = response;
-
-  /* eslint-disable-next-line */
-  throw `请求错误 ${status}: ${url}; ${errortext}`;
+  const { response = {} } = error;
+  let errorless = codeMessage[response.status] || response.statusText;
+  const { status } = response;
+  // console.log(`response${JSON.stringify(response)}`)
+  if (status === 400 && !window.sessionStorage.getItem('token')) {
+    errorless = '账户名或密码错误';
+  }
+  if (status === 401) {
+    Toast.info(`登录已过期，请重新登录`, 2);
+    window.sessionStorage.clear();
+    push('/login');
+    return;
+  }
+  Toast.info(`请求错误 ${status}`, 2);
+  return error;
 };
 
 /**
@@ -40,6 +64,48 @@ const errorHandler = error => {
 const request = extend({
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+});
+
+// request拦截器, 改变url 或 options.
+request.interceptors.request.use(async (url, options) => {
+  let uri = `${domain}${url}`;
+  if (options.method === 'get') {
+    options.params = {
+      ...options.params,
+    };
+  }
+  let token = localStorage.getItem('token');
+  if (token) {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'x-auth-token': token,
+    };
+    return {
+      url: uri,
+      options: { ...options, headers: headers },
+    };
+  } else {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+    return {
+      url: uri,
+      options: { ...options, headers: headers },
+    };
+  }
+});
+
+// response拦截器, 处理response
+request.interceptors.response.use(async response => {
+  const data = await response.clone().json();
+  if (data.code === 200) {
+    return response;
+  } else {
+    Toast.info(data.message || '网络异常', 2);
+    return response;
+  }
 });
 
 export { request };

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production ESLINT=true webpack --config internals/webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
     "build:nolint": "npm run clean && cross-env NODE_ENV=production ESLINT=false webpack --config internals/webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
-    "start": "cross-env NODE_ENV=development node server --proxy",
+    "start": "cross-env NODE_ENV=development node server noproxy",
     "start:production": "npm run build && npm run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
     "start:noproxy": "cross-env NODE_ENV=development node server"
