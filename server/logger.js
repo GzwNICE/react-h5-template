@@ -24,7 +24,7 @@ const logger = {
       console.log(`Tunnel initialised ${chalk.green('✓')}`);
     }
 
-    openBrowser(`http://${host}:${port}/index?lang=zh`);
+    openBrowser(`http://${host}:${port}/home?lang=zh`);
 
     console.log(`
       ${chalk.bold('Access URLs:')}${divider}

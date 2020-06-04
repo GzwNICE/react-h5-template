@@ -2,6 +2,7 @@
   width: 100%;
   background-color: #ffffff;
   overflow: hidden;
+  padding-bottom: 50px;
 
   .winning {
     height: 30px;
@@ -38,7 +39,7 @@
   }
 
   .banner {
-    height: 130px;
+    // height: 130px;
     padding: 0 12px;
     box-sizing: border-box;
   }
@@ -47,8 +48,8 @@
     margin-top: 20px;
     max-height: 180px;
     .classImg {
-      width: 46px;
-      height: 46px;
+      max-width: 46px;
+      max-height: 46px;
       border-radius: 5px;
       margin-left: -2px;
     }
@@ -81,5 +82,28 @@
     :global(.am-tabs-default-bar-top .am-tabs-default-bar-tab:after) {
       display: none;
     }
+  }
+
+  .tBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+  }
+  .tBarIPhone {
+    position: fixed;
+    bottom: 17px;
+    left: 0;
+    height: 50px;
+    width: 100%;
+  }
+  .filling {
+    width: 100%;
+    height: 17px;
+    background-color: #fff;
+    position: fixed;
+    bottom: 17px;
+    left: 0;
   }
 }

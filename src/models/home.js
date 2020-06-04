@@ -8,7 +8,10 @@ export const home = createModel({
       winnerList: [],
       bannerList: [],
       classData: [],
-      hotList: [],
+      hotList: {
+        data: [],
+        total: 0,
+      },
     },
   },
   reducers: {
@@ -44,7 +47,10 @@ export const home = createModel({
         ...state,
         data: {
           ...state.data,
-          hotList: payload.data.rows,
+          hotList: {
+            data: state.data.hotList.data.concat(payload.data.rows),
+            total: payload.data.total,
+          },
         },
       };
     },

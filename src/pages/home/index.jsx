@@ -1,15 +1,20 @@
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 // import intl from 'react-intl-universal';
 import { Carousel, Grid, Tabs } from 'antd-mobile';
+import Cookies from 'js-cookie';
 import HotList from '@/pages/hotList';
+import TabBarBox from '@/components/tabBar';
 import styles from './index.less';
 
 class Home extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      IPhoneX: Cookies.get('IPhoneX'),
+      tabBarH: '50',
+    };
     this.myRef = React.createRef();
   }
 
@@ -18,19 +23,18 @@ class Home extends PureComponent {
     getWin();
     getBanner();
     getClass();
-    // console.log(ReactDOM.findDOMNode(this.hlv));
+    this.setState({
+      // eslint-disable-next-line react/no-unused-state
+      tabBarH: this.myRef.current.clientHeight,
+    });
   }
 
   render() {
     const { home } = this.props;
-    console.log('home', home);
+    const { IPhoneX, tabBarH } = this.state;
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
     const classData = home.classData;
-    // const bannerList = ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'];
-    // const classData = Array.from(new Array(10)).map(() => ({
-    //   icon: 'https://gw.alipayobjects.com/zos/rmsportal/WXoqXTHrSnRcUwEaQgXJ.png',
-    // }));
     const tabs = [{ title: '人气' }, { title: '最新' }, { title: '将止' }, { title: '价值' }];
     return (
       <div className={styles.home}>
@@ -139,6 +143,9 @@ class Home extends PureComponent {
               Content of four tab
             </div>
           </Tabs>
+        </div>
+        <div className={styles.tBar} ref={this.myRef}>
+          <TabBarBox selectedTab="homePage" />
         </div>
       </div>
     );
