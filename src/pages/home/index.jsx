@@ -3,19 +3,38 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 // import intl from 'react-intl-universal';
 import { Carousel, Grid, Tabs } from 'antd-mobile';
+import { StickyContainer, Sticky } from 'react-sticky';
 import Cookies from 'js-cookie';
 import HotList from '@/pages/hotList';
+import LatestList from '@/pages/latestList';
+import OpenList from '@/pages/willEndList';
+import ValueList from '@/pages/sortValueList';
 import TabBarBox from '@/components/tabBar';
+import sorting from '@/assets/images/sorting.png';
+import all from '@/assets/images/all.png';
+import allSel from '@/assets/images/allSelected.png';
 import styles from './index.less';
 
+function renderTabBar(props) {
+  return (
+    <Sticky>
+      {({ style }) => (
+        <div style={{ ...style, zIndex: 1 }}>
+          <Tabs.DefaultTabBar {...props} />
+          <img src={props.tabs[3].icon} alt="" className={styles.sortImg} />
+        </div>
+      )}
+    </Sticky>
+  );
+}
 class Home extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
       tabBarH: '50',
+      sortImg: sorting,
     };
-    this.myRef = React.createRef();
   }
 
   componentDidMount() {
@@ -23,19 +42,32 @@ class Home extends PureComponent {
     getWin();
     getBanner();
     getClass();
-    this.setState({
-      // eslint-disable-next-line react/no-unused-state
-      tabBarH: this.myRef.current.clientHeight,
-    });
   }
+
+  handleTabClick = (tab, index) => {
+    if (index === 3) {
+      this.setState({
+        sortImg: this.state.sortImg === sorting ? all : allSel,
+      });
+    } else {
+      this.setState({
+        sortImg: sorting,
+      });
+    }
+  };
 
   render() {
     const { home } = this.props;
-    const { IPhoneX, tabBarH } = this.state;
+    const { IPhoneX, tabBarH, sortImg } = this.state;
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
     const classData = home.classData;
-    const tabs = [{ title: '人气' }, { title: '最新' }, { title: '将止' }, { title: '价值' }];
+    const tabs = [
+      { title: '人气' },
+      { title: '最新' },
+      { title: '将止' },
+      { title: '价值', icon: sortImg },
+    ];
     return (
       <div className={styles.home}>
         {winnerList.length > 0 ? ( //中奖信息
@@ -91,58 +123,32 @@ class Home extends PureComponent {
           </div>
         ) : null}
         <div className={styles.tabs} ref={el => (this.hlv = el)}>
-          <Tabs //活动列表
-            tabs={tabs}
-            initialPage={0}
-            swipeable={false}
-            tabBarBackgroundColor="#f7f7f7"
-            tabBarUnderlineStyle={{
-              border: '2px solid #FF5209',
-              width: '11%',
-              marginLeft: '7%',
-              borderRadius: '2px',
-            }}
-            tabBarActiveTextColor="#FF5209"
-            tabBarInactiveTextColor="#333333"
-            // onChange={(tab, index) => {
-            //   console.log('onChange', index, tab);
-            // }}
-            // onTabClick={(tab, index) => {
-            //   console.log('onTabClick', index, tab);
-            // }}
-          >
-            <HotList />
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '150px',
+          <StickyContainer>
+            <Tabs //活动列表
+              tabs={tabs}
+              initialPage={0}
+              swipeable={false}
+              renderTabBar={renderTabBar}
+              tabBarBackgroundColor="#f7f7f7"
+              tabBarUnderlineStyle={{
+                border: '2px solid #FF5209',
+                width: '11%',
+                marginLeft: '7%',
+                borderRadius: '2px',
               }}
+              tabBarActiveTextColor="#FF5209"
+              tabBarInactiveTextColor="#333333"
+              // onChange={(tab, index) => {
+              //   console.log('onChange', index, tab);
+              // }}
+              onTabClick={this.handleTabClick}
             >
-              Content of second tab
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '150px',
-              }}
-            >
-              Content of third tab
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '150px',
-              }}
-            >
-              Content of four tab
-            </div>
-          </Tabs>
+              <HotList />
+              <LatestList />
+              <OpenList />
+              <ValueList />
+            </Tabs>
+          </StickyContainer>
         </div>
         <div className={styles.tBar} ref={this.myRef}>
           <TabBarBox selectedTab="homePage" />

@@ -12,6 +12,19 @@ export const home = createModel({
         data: [],
         total: 0,
       },
+      latestList: {
+        data: [],
+        total: 0,
+      },
+      endList: {
+        data: [],
+        total: 0,
+      },
+      sortList: {
+        data: [],
+        total: 0,
+      },
+      order: null,
     },
   },
   reducers: {
@@ -54,6 +67,54 @@ export const home = createModel({
         },
       };
     },
+    getLatestList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          latestList: {
+            data: state.data.latestList.data.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    getEndList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          endList: {
+            data: state.data.endList.data.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    getSortList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          sortList: {
+            data: state.data.sortList.data.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    getValueList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          sortList: {
+            data: payload.data.rows,
+            total: payload.data.total,
+          },
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async fetchGetWin(payload) {
@@ -71,6 +132,22 @@ export const home = createModel({
     async fetchGetHotList(payload) {
       const response = await homeService.homeHotLit(payload);
       dispatch.home.getHotList(response);
+    },
+    async fetchGetLatestList(payload) {
+      const response = await homeService.homeLatestLit(payload);
+      dispatch.home.getLatestList(response);
+    },
+    async fetchGetEndList(payload) {
+      const response = await homeService.homeEndLit(payload);
+      dispatch.home.getEndList(response);
+    },
+    async fetchGetSortList(payload) {
+      const response = await homeService.homeSortLit(payload);
+      if (payload.order) {
+        dispatch.home.getValueList(response);
+      } else {
+        dispatch.home.getSortList(response);
+      }
     },
   }),
 });

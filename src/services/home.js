@@ -16,3 +16,15 @@ export async function homeClass() {
 export async function homeHotLit(params) {
   return request('/app/home/hot/page', { method: 'get', params: params });
 }
+// 首页最新列表
+export async function homeLatestLit(params) {
+  return request('/app/home/latest', { method: 'get', params: params });
+}
+// 首页将止列表
+export async function homeEndLit(params) {
+  return request('/app/home/upcoming/open', { method: 'get', params: params });
+}
+// 首页价值列表
+export async function homeSortLit(params) {
+  return request('/app/home/sort/value', { method: 'get', params: params });
+}
