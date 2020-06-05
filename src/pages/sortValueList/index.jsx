@@ -1,3 +1,4 @@
+// 首页价值列表
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';

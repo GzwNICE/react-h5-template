@@ -1,54 +1,57 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
-    />
-    <meta name="renderer" content="webkit" />
-    <meta name="force-rendering" content="webkit" />
-    <title>GAGAGO</title>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-  <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
-  <script>
-    if ('addEventListener' in document) {
-      document.addEventListener(
-        'DOMContentLoaded',
-        function() {
-          FastClick.attach(document.body);
-        },
-        false
-      );
-    }
-    if (!window.Promise) {
-      document.writeln(
-        '<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"' +
-          '>' +
-          '<' +
-          '/' +
-          'script>'
-      );
-    }
-  </script>
-  <script>
-    ( function (doc, win) {
-        var docEl = doc.documentElement,
-            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-            recalc = function () {
-                var clientWidth = docEl.clientWidth
-                if (!clientWidth) return
-                docEl.style.fontSize = 100 * ( clientWidth / 375 ) + 'px' //iphone6 clientWidth=375
-            }
-        if (!doc.addEventListener) return
-        win.addEventListener(resizeEvt, recalc, false)
-        doc.addEventListener('DOMContentLoaded', recalc, false)
-    } )(document, window)
-  </script>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/eruda"></script>
-  <script>eruda.init();</script>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta name="renderer" content="webkit" />
+  <meta name="force-rendering" content="webkit" />
+  <link rel="icon" href="./favicon.ico" />
+  <link rel="manifest" href="./manifest.json" />
+  <title>GaGaGo</title>
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+<script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+<script>
+  if ('addEventListener' in document) {
+    document.addEventListener(
+      'DOMContentLoaded',
+      function () {
+        FastClick.attach(document.body);
+      },
+      false
+    );
+  }
+  if (!window.Promise) {
+    document.writeln(
+      '<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"' +
+      '>' +
+      '<' +
+      '/' +
+      'script>'
+    );
+  }
+</script>
+<script>
+  (function (doc, win) {
+    var docEl = doc.documentElement,
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+      recalc = function () {
+        var clientWidth = docEl.clientWidth
+        if (!clientWidth) return
+        docEl.style.fontSize = 100 * (clientWidth / 375) + 'px' //iphone6 clientWidth=375
+      }
+    if (!doc.addEventListener) return
+    win.addEventListener(resizeEvt, recalc, false)
+    doc.addEventListener('DOMContentLoaded', recalc, false)
+  })(document, window)
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
+
 </html>

@@ -1,5 +1,5 @@
+// 首页
 import React, { PureComponent } from 'react';
-// import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 // import intl from 'react-intl-universal';
 import { Carousel, Grid, Tabs } from 'antd-mobile';
