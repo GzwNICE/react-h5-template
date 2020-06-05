@@ -1,6 +1,6 @@
 import homePage from '@/pages/home';
 import userPage from '@/pages/user';
-import loginPage from '@/pages/loginPage';
+import loginPage from '@/pages/login';
 
 export const routes = [
   {
