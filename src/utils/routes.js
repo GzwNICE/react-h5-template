@@ -1,6 +1,7 @@
 import homePage from '@/pages/home';
 import userPage from '@/pages/user';
 import loginPage from '@/pages/login';
+import regPage from '@/pages/register';
 
 export const routes = [
   {
@@ -17,5 +18,10 @@ export const routes = [
     path: '/login',
     exact: true,
     component: loginPage,
+  },
+  {
+    path: '/register',
+    exact: true,
+    component: regPage,
   },
 ];
