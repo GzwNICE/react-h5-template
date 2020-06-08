@@ -1,9 +1,108 @@
-.box {
-  height: 170px;
-  width: 170px;
-  background-color: #000000;
+.topBox {
+  height: 150px;
+  width: 100%;
+  background-color: #ff5209;
   color: #ffffff;
+
+  .title{
+    text-align:center;
+    margin: 0 auto;
+    vertical-align: middle;
+    width: 100%;
+    line-height: 40px;
+    height: 40px;
+  }
+  .authorInfo{
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    margin-top: 20px;
+    .authorImg{
+      height: 60px;
+      margin-left: 24px;
+      width: 60px;
+      border-radius:50%;
+      -webkit-border-radius:50%;
+      -moz-border-radius:50%;
+    
+    }
+    .authorLoginType{
+      display: flex;
+      flex-direction: column;
+      justify-content: left;
+      align-items: center;
+      margin-left: 15px ;
+      margin-top: 5px;
+      .authorName{
+        font-size:14px;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 15px;
+        padding-right: 15px;
+        width: auto;
+        color: #ff5209;
+        background: #ffffff;
+        border-radius: 15px;
+        position: relative;
+        font-family:PingFangSC-Regular,PingFang SC;
+      
+      }
+      .authorCoin{
+        width: 100%;
+        height: 18px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        background:rgba(0,0,0,0.2);
+        border-radius:10px;
+        margin-top: 10px;
+        padding-right: 3px;
+        .coin{
+          height: 18px;
+          width: 18px;
+          border-radius:50%;
+          -webkit-border-radius:50%;
+          -moz-border-radius:50%;
+        }
+        .label{
+          font-size:10px;
+          font-family:PingFangSC-Regular,PingFang SC;
+          color:rgba(255,255,255,1);
+          margin-right: 6px;
+          margin-left: 4px;
+          transform: scale(0.8);
+        }
+        .arrow{
+          height: 8px;
+          width: 8px;
+          border-radius:50%;
+          -webkit-border-radius:50%;
+          -moz-border-radius:50%;
+        }
+      }
+    }
+    
+  }
+ 
 }
+.order{
+  margin-top: 20px;
+  max-height: 100px;
+  .itembg{
+    background-color: #ff5209;
+  }
+  .icon{
+    height: 30px;
+    width: 30px;
+  }
+  .label{
+
+  }
+  :global(.am-flexbox) {
+    background-color:#ff5209;
+  }
+}
+
 .tBar {
   position: fixed;
   bottom: 0;

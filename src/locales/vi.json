@@ -3,6 +3,8 @@
     "title": "Sao chép"
   },
   "user": {
-    "aaa": "999999"
+    "title": "我的",
+    "loginOrRegister":"登录/注册",
+    "myGoCoin":"我的GO币"
   }
 }
