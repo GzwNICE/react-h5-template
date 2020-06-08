@@ -5,6 +5,9 @@
   "user": {
     "title": "我的",
     "loginOrRegister":"登录/注册",
-    "myGoCoin":"我的GO币"
+    "myGoCoin":"我的GO币",
+    "wait_open":"Chờ quay\nthưởng",
+    "winning":"Đã trúng\nthưởng",
+    "nowin":"Không trúng thưởng"
   }
 }

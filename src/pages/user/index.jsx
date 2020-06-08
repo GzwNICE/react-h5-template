@@ -7,13 +7,31 @@ import styles from './index.less';
 import authorImg from '@/assets/images/avatar_notlogin.png';
 import ic_gocoin_s from '@/assets/images/ic_gocoin_s.png';
 import goin_arrow from '@/assets/images/personal_ic_arrow@2x.png';
+import arrow_right from '@/assets/images/ic_arrow_white.png';
+import wait from '@/assets/images/ic_waiting.png';
+import win from '@/assets/images/ic_gift.png';
+import nowin from '@/assets/images/ic_order.png';
+
 class User extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    // this.props.history.push('/login');
+  }
+
+  feedBackClick() {
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.history.push('/login');
+  }
+
   render() {
     // eslint-disable-next-line react/destructuring-assignment
     const tabs = [
-      { label: '待开奖', icon: authorImg },
-      { label: '已中奖', icon: authorImg },
-      { label: '未中奖', icon: authorImg },
+      { label: '待开奖', icon: wait },
+      { label: '已中奖', icon: win },
+      { label: '未中奖', icon: nowin },
     ];
     return (
       <div>
@@ -33,11 +51,12 @@ class User extends PureComponent {
         </div>
         <div>
           <div className={styles.order}>
-            <div>我的订单</div>
+            <div className={styles.myorder}>我的订单</div>
             <Grid
               data={tabs}
               columnNum={3}
               hasLine={false}
+              onClick={_el => console.log(_el)}
               renderItem={item => (
                 <div>
                   <img src={item.icon} className={styles.icon} alt="" />
@@ -45,6 +64,10 @@ class User extends PureComponent {
                 </div>
               )}
             />
+            <div className={styles.feedBack} onClick={this.feedBackClick.bind(this)}>
+              <span className={styles.title}>意见反馈</span>
+              <img className={styles.arrow} src={arrow_right} />
+            </div>
           </div>
         </div>
         <div className={styles.tBar}>

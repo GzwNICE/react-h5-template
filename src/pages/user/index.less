@@ -75,9 +75,6 @@
         .arrow{
           height: 8px;
           width: 8px;
-          border-radius:50%;
-          -webkit-border-radius:50%;
-          -moz-border-radius:50%;
         }
       }
     }
@@ -86,8 +83,12 @@
  
 }
 .order{
-  margin-top: 20px;
-  max-height: 100px;
+  max-height: 120px;
+  margin-top: 12px;
+  background-color: #ffffff;
+  .myorder{
+   padding: 12px;
+  }
   .itembg{
     background-color: #ff5209;
   }
@@ -96,13 +97,36 @@
     width: 30px;
   }
   .label{
+    margin-top: 10px;
+    transform: scale(0.9);
+    color: #333333;
 
   }
   :global(.am-flexbox) {
-    background-color:#ff5209;
+    background-color:transparent;
+    height: 70px;
   }
 }
-
+.feedBack{
+  height: 44px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background:rgba(255,255,255,1);
+  .title{
+    font-size: 14px;
+    color: #333333;;
+    line-height: 44px;
+    margin-left: 12px;
+  }
+  .arrow{
+    height: 8px;
+    width: 8px;
+    right: 12px;
+    margin-right: 12px;
+  }
+}
 .tBar {
   position: fixed;
   bottom: 0;
