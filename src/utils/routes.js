@@ -3,6 +3,7 @@ import userPage from '@/pages/user';
 import loginPage from '@/pages/login';
 import regPage from '@/pages/register';
 import Password from '@/pages/password';
+import Order from '@/pages/order';
 
 export const routes = [
   {
@@ -29,5 +30,10 @@ export const routes = [
     path: '/password',
     exact: true,
     component: Password,
+  },
+  {
+    path: '/order',
+    exact: true,
+    component: Order,
   },
 ];

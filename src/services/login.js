@@ -7,3 +7,6 @@ export async function userExist(params) {
 export async function userLogin(params) {
   return request('/app/v1/user/login', { method: 'post', data: params });
 }
+export async function getUserInfo() {
+  return request('/app/v1/user/detail', { method: 'get' });
+}
