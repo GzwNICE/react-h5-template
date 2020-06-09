@@ -11,7 +11,7 @@ import wait from '@/assets/images/ic_waiting.png';
 import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
 import styles from './index.less';
-import cookie from 'js-cookie';
+
 class User extends PureComponent {
   constructor(props) {
     super(props);
@@ -19,23 +19,29 @@ class User extends PureComponent {
 
   componentDidMount() {
     // this.props.history.push('/login');
+    const { userInfo } = this.props;
+    const token = localStorage.getItem('token');
+    if (token) {
+      userInfo();
+    }
   }
   loginCLick() {
     this.props.history.push('/login');
   }
   feedBackClick() {
     // eslint-disable-next-line react/destructuring-assignment
-    cookie.set('userId', 'asdasd');
-    console.log(cookie.get('userId'));
+    // const token = localStorage.get('token');
   }
-
   render() {
     // eslint-disable-next-line react/destructuring-assignment
     const tabs = [
-      { label: '待开奖', icon: wait },
-      { label: '已中奖', icon: win },
-      { label: '未中奖', icon: nowin },
+      { label: '待开奖', icon: wait,type:1 },
+      { label: '已中奖', icon: win,type:2 },
+      { label: '未中奖', icon: nowin,type:3 },
     ];
+    const { user } = this.props;
+    console.log('user1', user);
+    const isLogin = user.userInfo.code != 10002;
     return (
       <div>
         <div className={styles.topBox}>
@@ -43,7 +49,13 @@ class User extends PureComponent {
           <div className={styles.authorInfo}>
             <img className={styles.authorImg} src={authorImg}></img>
             <div className={styles.authorLoginType}>
-              <div className={styles.authorName} onClick={this.loginCLick.bind(this)}>{intl.get('user.loginOrRegister')}</div>
+              {!isLogin ? (
+                <div className={styles.authorLogin} onClick={this.loginCLick.bind(this)}>
+                  {intl.get('user.loginOrRegister')}
+                </div>
+              ) : (
+                <div className={styles.authorName}>{user.userInfo.mobile}</div>
+              )}
               <div className={styles.authorCoin}>
                 <img className={styles.coin} src={ic_gocoin_s}></img>
                 <span className={styles.label}>{intl.get('user.myGoCoin')}</span>
@@ -59,7 +71,14 @@ class User extends PureComponent {
               data={tabs}
               columnNum={3}
               hasLine={false}
-              onClick={_el => console.log(_el)}
+              onClick={_el => {
+                console.log(_el)
+                if(_el.type == 1){
+                  this.props.history.push('/order');
+                }
+              }
+                
+              }
               renderItem={item => (
                 <div>
                   <img src={item.icon} className={styles.icon} alt="" />
@@ -81,8 +100,12 @@ class User extends PureComponent {
   }
 }
 
-const mapState = state => ({});
+const mapState = state => ({
+  user: state.user.data,
+});
 
-const mapDispatch = dispatch => ({});
+const mapDispatch = dispatch => ({
+  userInfo: params => dispatch.user.getUserInfo(params),
+});
 
 export default connect(mapState, mapDispatch)(User);
