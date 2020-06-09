@@ -11,6 +11,7 @@ import passwordClose from '@/assets/images/passwordClose.png';
 import passwordOpen from '@/assets/images/passwordOpen.png';
 import styles from './index.less';
 
+const { lang } = queryString.parse(window.location.search);
 class Register extends PureComponent {
   constructor(props) {
     super(props);
@@ -20,40 +21,103 @@ class Register extends PureComponent {
       codeModal: false,
       codeUrl: `${window.location.protocol}//${getBaseUrl()}/app/sms/img/code?t=`,
       codeImgUrl: '',
+      index: 5,
+      sendCodeText: '发送验证码',
+      disableCode: false,
     };
   }
 
   componentDidMount() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.props.history.push(`/home?lang=${lang}`);
+      return;
+    }
     const { mobile } = queryString.parse(window.location.search);
     this.setState({
       mobile,
     });
-    this.changeCodeImg();
   }
 
   handleCodeClick = e => {
     e.preventDefault();
+    this.setState({
+      codeModal: true,
+    });
+    this.changeCodeImg();
+  };
+
+  // 发送短信验证码
+  sendCode = e => {
+    e.preventDefault();
     this.props.form.validateFields((err, value) => {
       if (err) return;
-      console.log(value);
-      if (!value.mobile) {
-        return Toast.info('请输入手机号', 2);
+      if (!value.picCode) {
+        return Toast.info('请输入图形验证码', 2);
       } else {
-        this.setState({
-          mobile: value.mobile,
-        });
+        this.props
+          .sendCode({
+            phone: this.state.mobile,
+            countryCode: '84',
+            picCode: value.picCode,
+          })
+          .then(res => {
+            if (res.code === 200) {
+              this.setState({
+                codeModal: false,
+              });
+              this.timer = setInterval(() => {
+                if (this.state.index <= 0) {
+                  return this.Clear();
+                }
+                this.setState({
+                  index: this.state.index - 1,
+                  sendCodeText: `${this.state.index - 1}s`,
+                  disableCode: true,
+                });
+              }, 999);
+            }
+          });
       }
     });
   };
 
+  Clear = () => {
+    this.setState({
+      disableCode: false,
+      index: 5,
+      sendCodeText: '重新发送',
+    });
+    clearInterval(this.timer);
+  };
+
+  // 注册
   handleRegClick = e => {
     e.preventDefault();
     this.props.form.validateFields((err, value) => {
       if (err) return;
-      if (!value.password) {
+      if (!value.smsCode) {
         return Toast.info('请输入短信验证码', 2);
+      } else if (!value.pwd) {
+        return Toast.info('请输入登录密码', 2);
       } else {
         console.log(value);
+        this.props
+          .fetchRegister({
+            countryCode: '84',
+            mobile: this.state.mobile,
+            smsCode: value.smsCode,
+            pwd: value.pwd,
+          })
+          .then(res => {
+            console.log(res);
+            if (res.code === 200) {
+              Toast.success('注册成功', 2);
+              localStorage.setItem('token', `Bearer ${res.data.token}`);
+              localStorage.setItem('refreshToken', res.data.refreshToken);
+              this.props.history.push(`/home?lang=${lang}`);
+            }
+          });
       }
     });
   };
@@ -62,6 +126,10 @@ class Register extends PureComponent {
     this.setState({
       [key]: false,
     });
+  };
+
+  afterCloseModal = () => {
+    this.props.form.resetFields();
   };
 
   changeCodeImg = () => {
@@ -78,7 +146,7 @@ class Register extends PureComponent {
 
   render() {
     const { getFieldProps } = this.props.form;
-    const { mobile, pwVisible, codeImgUrl, codeModal } = this.state;
+    const { mobile, pwVisible, codeImgUrl, codeModal, sendCodeText, disableCode } = this.state;
     return (
       <div className={styles.regPage}>
         <NavBar
@@ -94,22 +162,35 @@ class Register extends PureComponent {
           <div className={styles.loginMobile}>+84 {mobile}</div>
           <div className={styles.codeBox}>
             <InputItem
-              {...getFieldProps('code')}
+              {...getFieldProps('smsCode')}
               clear
               placeholder="请输入短信验证码"
               className={styles.code}
+              ref={el => (this.codeInput = el)}
+              onClick={() => {
+                this.codeInput.focus();
+              }}
             />
-            <Button type="primary" className={styles.sendCode} onClick={this.handleCodeClick}>
-              发送验证码
+            <Button
+              type="primary"
+              className={styles.sendCode}
+              onClick={this.handleCodeClick}
+              disabled={disableCode}
+            >
+              {sendCodeText}
             </Button>
           </div>
           <div className={`${styles.mobileBox} ${styles.passBox}`}>
             <InputItem
-              {...getFieldProps('password')}
+              {...getFieldProps('pwd')}
               clear
               placeholder="请设置6-16位登录密码"
               type={pwVisible ? 'text' : 'password'}
               className={styles.password}
+              ref={el => (this.passInput = el)}
+              onClick={() => {
+                this.passInput.focus();
+              }}
             />
             <img
               src={pwVisible ? passwordOpen : passwordClose}
@@ -128,24 +209,27 @@ class Register extends PureComponent {
           maskClosable={false}
           title="请输入图形验证码"
           className={styles.codeModal}
+          afterClose={this.afterCloseModal}
         >
           <div className={styles.imgCode}>
             <InputItem
-              {...getFieldProps('codeImg')}
+              {...getFieldProps('picCode')}
               clear
               placeholder="请输入图形验证码"
               className={styles.codeInput}
+              ref={el => (this.picCodeInput = el)}
+              onClick={() => {
+                this.picCodeInput.focus();
+              }}
             />
             <img src={codeImgUrl} alt="" onClick={this.changeCodeImg} className={styles.codePic} />
           </div>
-          <span className={styles.change} onClick={this.changeCodeImg}>
-            看不清？换一张
-          </span>
+          <p className={styles.change}>看不清？换一张</p>
           <div className={styles.footer}>
             <Button className={styles.cancel} onClick={this.onClose('codeModal')}>
               取消
             </Button>
-            <Button type="primary" className={styles.determine} onClick={this.onClose('codeModal')}>
+            <Button type="primary" className={styles.determine} onClick={this.sendCode}>
               确定
             </Button>
           </div>
@@ -157,6 +241,9 @@ class Register extends PureComponent {
 
 const mapState = state => ({});
 
-const mapDispatch = dispatch => ({});
+const mapDispatch = dispatch => ({
+  sendCode: params => dispatch.register.sendCode(params),
+  fetchRegister: params => dispatch.register.userRegister(params),
+});
 
 export default connect(mapState, mapDispatch)(createForm()(Register));
