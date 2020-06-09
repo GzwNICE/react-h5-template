@@ -5,13 +5,9 @@
 import { extend } from 'umi-request';
 import { Toast } from 'antd-mobile';
 import { push } from 'connected-react-router';
+import { getBaseUrl } from '@/utils/util';
 
-const domain =
-  process.env.NODE_ENV === 'development'
-    ? `${window.location.protocol}//gagago-app-api-test.51moneygo.com`
-    : process.env.NODE_ENV === 'production'
-    ? `${window.location.protocol}//app-api.winmybonus.com`
-    : `${window.location.protocol}//gagago-app-api-vn.9191money.com`;
+const domain = `${window.location.protocol}//${getBaseUrl()}`;
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -69,17 +65,11 @@ const request = extend({
 // request拦截器, 改变url 或 options.
 request.interceptors.request.use(async (url, options) => {
   let uri = `${domain}${url}`;
-  if (options.method === 'get') {
-    options.params = {
-      ...options.params,
-    };
-  }
   let token = localStorage.getItem('token');
   if (token) {
     const headers = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'x-auth-token': token,
+      'Authorization': token,
     };
     return {
       url: uri,
@@ -88,7 +78,6 @@ request.interceptors.request.use(async (url, options) => {
   } else {
     const headers = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
     };
     return {
       url: uri,

@@ -2,7 +2,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import queryString from 'query-string';
 // import intl from 'react-intl-universal';
 import { NavBar, Icon, InputItem, Button, Toast, Modal } from 'antd-mobile';
 import { createForm } from 'rc-form';
@@ -11,7 +10,7 @@ import passwordClose from '@/assets/images/passwordClose.png';
 import passwordOpen from '@/assets/images/passwordOpen.png';
 import styles from './index.less';
 
-class Register extends PureComponent {
+class Password extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,10 +23,7 @@ class Register extends PureComponent {
   }
 
   componentDidMount() {
-    const { mobile } = queryString.parse(window.location.search);
-    this.setState({
-      mobile,
-    });
+    console.log(this.props);
     this.changeCodeImg();
   }
 
@@ -87,10 +83,10 @@ class Register extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => console.log('onLeftClick')}
         >
-          注册
+          找回密码
         </NavBar>
         <div className={styles.regBox}>
-          <span className={styles.title}>注册GAGA GO</span>
+          <span className={styles.title}>手机号</span>
           <div className={styles.loginMobile}>+84 {mobile}</div>
           <div className={styles.codeBox}>
             <InputItem
@@ -107,7 +103,7 @@ class Register extends PureComponent {
             <InputItem
               {...getFieldProps('password')}
               clear
-              placeholder="请设置6-16位登录密码"
+              placeholder="请设置新的6-16位登录密码"
               type={pwVisible ? 'text' : 'password'}
               className={styles.password}
             />
@@ -119,7 +115,7 @@ class Register extends PureComponent {
             />
           </div>
           <Button type="primary" className={styles.nextBut} onClick={this.handleRegClick}>
-            注册
+            确定
           </Button>
         </div>
         <Modal
@@ -133,7 +129,7 @@ class Register extends PureComponent {
             <InputItem
               {...getFieldProps('codeImg')}
               clear
-              placeholder="请输入图形验证码"
+              placeholder="请输入"
               className={styles.codeInput}
             />
             <img src={codeImgUrl} alt="" onClick={this.changeCodeImg} className={styles.codePic} />
@@ -159,4 +155,4 @@ const mapState = state => ({});
 
 const mapDispatch = dispatch => ({});
 
-export default connect(mapState, mapDispatch)(createForm()(Register));
+export default connect(mapState, mapDispatch)(createForm()(Password));

@@ -2,6 +2,8 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
+import md5 from 'md5';
 // import intl from 'react-intl-universal';
 import { NavBar, Icon, InputItem, Button, Toast } from 'antd-mobile';
 import { Link } from 'react-router-dom';
@@ -11,6 +13,7 @@ import passwordClose from '@/assets/images/passwordClose.png';
 import passwordOpen from '@/assets/images/passwordOpen.png';
 import styles from './index.less';
 
+const { lang } = queryString.parse(window.location.search);
 class Login extends PureComponent {
   constructor(props) {
     super(props);
@@ -20,18 +23,39 @@ class Login extends PureComponent {
       pwVisible: false,
     };
   }
+  componentDidMount() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.props.history.push(`/home?lang=${lang}`);
+      return;
+    }
+    this.autoFocusInst.focus();
+  }
 
   handleNextClick = e => {
     e.preventDefault();
+    const { judgeUser } = this.props;
     this.props.form.validateFields((err, value) => {
       if (err) return;
-      console.log(value);
       if (!value.mobile) {
         return Toast.info('请输入手机号', 2);
       } else {
         this.setState({
-          login: true,
           mobile: value.mobile,
+        });
+        judgeUser({
+          mobile: value.mobile,
+          countryCode: '84',
+        }).then(res => {
+          if (res.code === 200) {
+            if (res.data) {
+              this.setState({
+                login: true,
+              });
+            } else {
+              this.props.history.push(`/register?lang=${lang}&mobile=${value.mobile}`);
+            }
+          }
         });
       }
     });
@@ -39,12 +63,25 @@ class Login extends PureComponent {
 
   handleLoginClick = e => {
     e.preventDefault();
+    const { login } = this.props;
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.password) {
         return Toast.info('请输入登录密码', 2);
       } else {
-        console.log(value);
+        login({
+          mobile: this.state.mobile,
+          checkCode: md5(value.password),
+          type: 'password',
+          countryCode: '84',
+        }).then(res => {
+          if (res.code === 200) {
+            Toast.success('登录成功', 2);
+            localStorage.setItem('token', `Bearer ${res.data.token}`);
+            localStorage.setItem('refreshToken', res.data.refreshToken);
+            this.props.history.push(`/home?lang=${lang}`);
+          }
+        });
       }
     });
   };
@@ -107,7 +144,14 @@ class Login extends PureComponent {
             <Button type="primary" className={styles.nextBut} onClick={this.handleLoginClick}>
               登录
             </Button>
-            <Link to="/home" className={styles.forgetPassword}>
+            <Link
+              to={{
+                pathname: '/password',
+                search: `${this.props.history.location.search}`,
+                state: { mobile: mobile },
+              }}
+              className={styles.forgetPassword}
+            >
               忘记密码？
             </Link>
           </div>
@@ -119,6 +163,9 @@ class Login extends PureComponent {
 
 const mapState = state => ({});
 
-const mapDispatch = dispatch => ({});
+const mapDispatch = dispatch => ({
+  judgeUser: params => dispatch.login.exist(params),
+  login: params => dispatch.login.login(params),
+});
 
 export default connect(mapState, mapDispatch)(createForm()(Login));

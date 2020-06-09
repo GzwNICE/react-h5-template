@@ -1,3 +1,16 @@
+const getBaseUrl = () => {
+  let env = process.env.NODE_ENV;
+  let baseUrl = '';
+  if (env === 'development') {
+    baseUrl = 'gagago-app-api-test.51moneygo.com';
+  } else if (env === 'test') {
+    baseUrl = 'gagago-app-api-vn.9191money.com';
+  } else if (env === 'production') {
+    baseUrl = 'app-api.winmybonus.com';
+  }
+  return baseUrl;
+};
+
 const isIPhoneX = () => {
   if (typeof window !== 'undefined' && window) {
     return /iphone/gi.test(window.navigator.userAgent) && window.screen.height >= 812;
@@ -26,4 +39,4 @@ const debounce = (func, wait, immediate) => {
   };
 };
 
-export { isIPhoneX, debounce };
+export { isIPhoneX, debounce, getBaseUrl };

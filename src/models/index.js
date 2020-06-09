@@ -1,5 +1,5 @@
 import { comment } from '@/models/comment';
-import { topic } from '@/models/topic';
+import { login } from '@/models/login';
 import { home } from '@/models/home';
 
-export { topic, comment, home };
+export { login, comment, home };
