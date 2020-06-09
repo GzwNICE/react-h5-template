@@ -3,7 +3,6 @@ import { Grid } from 'antd-mobile';
 import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
 import TabBarBox from '@/components/tabBar';
-import styles from './index.less';
 import authorImg from '@/assets/images/avatar_notlogin.png';
 import ic_gocoin_s from '@/assets/images/ic_gocoin_s.png';
 import goin_arrow from '@/assets/images/personal_ic_arrow@2x.png';
@@ -11,7 +10,8 @@ import arrow_right from '@/assets/images/ic_arrow_white.png';
 import wait from '@/assets/images/ic_waiting.png';
 import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
-
+import styles from './index.less';
+import cookie from 'js-cookie';
 class User extends PureComponent {
   constructor(props) {
     super(props);
@@ -20,10 +20,13 @@ class User extends PureComponent {
   componentDidMount() {
     // this.props.history.push('/login');
   }
-
+  loginCLick() {
+    this.props.history.push('/login');
+  }
   feedBackClick() {
     // eslint-disable-next-line react/destructuring-assignment
-    this.props.history.push('/login');
+    cookie.set('userId', 'asdasd');
+    console.log(cookie.get('userId'));
   }
 
   render() {
@@ -40,12 +43,12 @@ class User extends PureComponent {
           <div className={styles.authorInfo}>
             <img className={styles.authorImg} src={authorImg}></img>
             <div className={styles.authorLoginType}>
-              <div className={styles.authorName}>{intl.get('user.loginOrRegister')}</div>
+              <div className={styles.authorName} onClick={this.loginCLick.bind(this)}>{intl.get('user.loginOrRegister')}</div>
               <div className={styles.authorCoin}>
                 <img className={styles.coin} src={ic_gocoin_s}></img>
                 <span className={styles.label}>{intl.get('user.myGoCoin')}</span>
                 <img className={styles.arrow} src={goin_arrow}></img>
-            </div>
+              </div>
             </div>
           </div>
         </div>
