@@ -153,7 +153,9 @@ class Register extends PureComponent {
           mode="dark"
           icon={<Icon type="left" />}
           style={{ backgroundColor: '#FF5209' }}
-          onLeftClick={() => console.log('onLeftClick')}
+          onLeftClick={() => {
+            this.props.history.go(-1);
+          }}
         >
           注册
         </NavBar>

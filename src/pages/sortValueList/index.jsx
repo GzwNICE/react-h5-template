@@ -81,7 +81,7 @@ class SortValueList extends PureComponent {
         <Flex wrap="wrap" justify="between">
           {sortList.data.map(i => {
             return (
-              <div key={i.activityTurnId} className={styles.hotItem}>
+              <div key={i.activityTurnId + 3} className={styles.hotItem}>
                 <ActivityCard data={i} />
               </div>
             );

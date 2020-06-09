@@ -78,7 +78,7 @@ class LatestList extends PureComponent {
         <Flex wrap="wrap" justify="between">
           {latestList.data.map(i => {
             return (
-              <div key={i.activityTurnId} className={styles.hotItem}>
+              <div key={i.activityTurnId + 1} className={styles.hotItem}>
                 <ActivityCard data={i} />
               </div>
             );

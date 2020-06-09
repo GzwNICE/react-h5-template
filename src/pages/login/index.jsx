@@ -111,7 +111,9 @@ class Login extends PureComponent {
           mode="dark"
           icon={<Icon type="left" />}
           style={{ backgroundColor: '#FF5209' }}
-          onLeftClick={() => console.log('onLeftClick')}
+          onLeftClick={() => {
+            this.props.history.go(-1);
+          }}
         />
         <img src={loginBg} alt="" className={styles.banner} />
         {!login ? (

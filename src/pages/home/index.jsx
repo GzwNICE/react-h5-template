@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 // 首页
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
@@ -21,7 +22,6 @@ function renderTabBar(props) {
       {({ style }) => (
         <div style={{ ...style, zIndex: 1 }}>
           <Tabs.DefaultTabBar {...props} />
-          <img src={props.tabs[3].icon} alt="" className={styles.sortImg} />
         </div>
       )}
     </Sticky>
@@ -44,17 +44,17 @@ class Home extends PureComponent {
     getClass();
   }
 
-  handleTabClick = (tab, index) => {
-    if (index === 3) {
-      this.setState({
-        sortImg: this.state.sortImg === sorting ? all : allSel,
-      });
-    } else {
-      this.setState({
-        sortImg: sorting,
-      });
-    }
-  };
+  // handleTabClick = (tab, index) => {
+  // if (index === 3) {
+  //   this.setState({
+  //     sortImg: this.state.sortImg === sorting ? all : allSel,
+  //   });
+  // } else {
+  //   this.setState({
+  //     sortImg: sorting,
+  //   });
+  // }
+  // };
 
   render() {
     const { home } = this.props;
@@ -62,12 +62,7 @@ class Home extends PureComponent {
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
     const classData = home.classData;
-    const tabs = [
-      { title: '人气' },
-      { title: '最新' },
-      { title: '将止' },
-      { title: '价值', icon: sortImg },
-    ];
+    const tabs = [{ title: '人气' }, { title: '最新' }, { title: '将止' }, { title: '价值' }];
     return (
       <div className={styles.home}>
         {winnerList.length > 0 ? ( //中奖信息
@@ -141,7 +136,7 @@ class Home extends PureComponent {
               // onChange={(tab, index) => {
               //   console.log('onChange', index, tab);
               // }}
-              onTabClick={this.handleTabClick}
+              // onTabClick={this.handleTabClick}
             >
               <HotList />
               <LatestList />
@@ -151,7 +146,7 @@ class Home extends PureComponent {
           </StickyContainer>
         </div>
         <div className={styles.tBar} ref={this.myRef}>
-          <TabBarBox selectedTab="homePage" />
+          <TabBarBox selectedTab="homePage" search={this.props.history.location.search} />
         </div>
       </div>
     );
