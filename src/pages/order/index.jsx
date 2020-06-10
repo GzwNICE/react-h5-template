@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import WaitOpen from '@/components/waitOpen';
 import Win from '@/components/win';
 import NoWin from '@/components/nowin';
+import Empty from '@/components/empty';
 import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
 import styles from './index.less';
 
@@ -15,8 +16,8 @@ class OrderList extends PureComponent {
     });
     this.state = {
       dataSource,
-      page: 1,
-      size: 20,
+      page: 0,
+      size: 10,
       isLoading: true,
       orderType: 1,
       useBodyScroll: false,
@@ -34,8 +35,9 @@ class OrderList extends PureComponent {
   componentDidMount() {
     this.setState({
       orderType: this.props.location.query.orderType.type,
+      title: this.props.location.query.orderType.label,
     });
-    this.getPageList(true);
+    this.getPageList();
   }
   //在componentWillUnmount，进行scroll事件的注销
   componentWillUnmount() {
@@ -43,13 +45,14 @@ class OrderList extends PureComponent {
     clearList();
   }
 
-  getPageList = isRefresh => {
+  getPageList = () => {
     // eslint-disable-next-line react/destructuring-assignment
     // if (!this.state.hasMore) return false;
+    this.fetch = true;
     const { getList } = this.props;
     this.setState(
       {
-        page: isRefresh ? 1 : this.state.page+1,
+        page: 1,
       },
       () => {
         const params = {
@@ -58,6 +61,7 @@ class OrderList extends PureComponent {
           type: this.state.orderType,
         };
         getList(params).then(() => {
+          this.fetch = false;
           this.setState({
             refreshing: false,
             dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
@@ -66,8 +70,31 @@ class OrderList extends PureComponent {
       }
     );
   };
-
+  loadPageList = () => {
+    this.fetch = true;
+    const { getList } = this.props;
+    this.setState(
+      {
+        page: this.state.page+1,
+      },
+      () => {
+        const params = {
+          page: this.state.page,
+          size: this.state.size,
+          type: this.state.orderType,
+        };
+        getList(params).then(() => {
+          this.fetch = false;
+          this.setState({
+            refreshing: false,
+            dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
+          });
+        });
+      }
+    );
+  };
   componentWillReceiveProps(nextPorps) {
+    // console.log(nextPorps.orderList);
     if (nextPorps.result.data.length === nextPorps.result.total) {
       this.setState({
         isLoading: false,
@@ -78,7 +105,7 @@ class OrderList extends PureComponent {
     this.setState({ refreshing: true, isLoading: true });
     const { clearList } = this.props;
     clearList();
-    this.getPageList(true);
+    this.getPageList();
   };
   render() {
     const Row = d => {
@@ -100,7 +127,7 @@ class OrderList extends PureComponent {
       />
     );
     const { result } = this.props;
-    const { isLoading, orderType } = this.state;
+    const { isLoading, orderType,title } = this.state;
     return (
       <div className={styles.order}>
         <NavBar
@@ -109,10 +136,10 @@ class OrderList extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => console.log('onLeftClick')}
         >
-          <div className={styles.title}>待开奖</div>
+          <div className={styles.title}>{title}</div>
         </NavBar>
         {result.total == 0 ? (
-          <div>kong</div>
+         <Empty />
         ) : (
           <ListView
             ref={el => {
@@ -142,13 +169,13 @@ class OrderList extends PureComponent {
                   refreshing={this.state.refreshing}
                   onRefresh={this.onRefresh}
             />}
-            onEndReached={this.getPageList(false)} // 上啦加载
+            onEndReached={this.loadPageList} // 上啦加载
             renderFooter={() => (
               <div style={{ padding: 10, textAlign: 'center' }}>
                 {isLoading ? 'Loading...' : '已经到底了！'}
               </div>
             )}
-            pageSize={20}
+            pageSize={10}
 
           />
         )}
