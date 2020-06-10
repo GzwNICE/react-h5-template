@@ -41,8 +41,9 @@ class User extends PureComponent {
       { label: '未中奖', icon: nowin, type: 3 },
     ];
     const { user } = this.props;
-    console.log('user1', user);
     const isLogin = user.userInfo.code != 10002;
+    console.log('isLogin', isLogin);
+
     return (
       <div>
         <div className={styles.topBox}>
@@ -59,7 +60,9 @@ class User extends PureComponent {
               )}
               <div className={styles.authorCoin}>
                 <img className={styles.coin} src={ic_gocoin_s}></img>
-                <span className={styles.label}>{intl.get('user.myGoCoin')}</span>
+                <span className={styles.label}>{`${intl.get('user.myGoCoin')} ${
+                  user.userInfo.goMoney
+                }`}</span>
                 <img className={styles.arrow} src={goin_arrow}></img>
               </div>
             </div>
@@ -73,9 +76,7 @@ class User extends PureComponent {
               columnNum={3}
               hasLine={false}
               onClick={_el => {
-                if (_el.type == 1) {
-                  this.props.history.push({ pathname: '/order', query: { orderType: _el } });
-                }
+                this.props.history.push({ pathname: '/order', query: { orderType: _el } });
               }}
               renderItem={item => (
                 <div>

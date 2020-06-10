@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import WaitOpen from '@/components/waitOpen';
 import Win from '@/components/win';
 import NoWin from '@/components/nowin';
-
-
 import { Flex, NavBar, Icon } from 'antd-mobile';
 import styles from './index.less';
 
@@ -18,14 +16,14 @@ class OrderList extends PureComponent {
       size: 20,
       isLoading: true,
       hasMore: true,
+      orderType: 1,
     };
   }
 
   componentDidMount() {
     this.getPageList();
+    this.state.orderType =  this.props.location.query.orderType.type;
     window.addEventListener('scroll', this.bindHandleScroll);
-    const a = this.props.location.query;
-    console.log('orderType', a);
   }
   bindHandleScroll = event => {
     // 滚动的高度
@@ -59,7 +57,7 @@ class OrderList extends PureComponent {
         const params = {
           page: this.state.page,
           size: this.state.size,
-          type: 0,
+          type: this.state.orderType,
         };
         getList(params).then(() => {
           this.fetch = false;
@@ -70,7 +68,7 @@ class OrderList extends PureComponent {
 
   componentWillReceiveProps(nextPorps) {
     console.log(nextPorps.orderList);
-    if (nextPorps.orderList.length === nextPorps.orderList.total) {
+    if (nextPorps.result.data.length === nextPorps.result.total) {
       this.setState({
         hasMore: false,
         isLoading: false,
@@ -79,27 +77,34 @@ class OrderList extends PureComponent {
   }
 
   render() {
-    const { orderList } = this.props;
+    const { result } = this.props;
     const { isLoading } = this.state;
-    console.log("页面数据",orderList);
+    const orderType = this.state.orderType;
     return (
       <div className={styles.order}>
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF5209'}}
-          onLeftClick={() => console.log('onLeftClick')}>
+          style={{ backgroundColor: '#FF5209' }}
+          onLeftClick={() => console.log('onLeftClick')}
+        >
           <div className={styles.title}>待开奖</div>
         </NavBar>
-        <Flex wrap="wrap" justify="between">
-          {orderList.map((i, index) => {
-            return (
-              <div key={i.activityId} className={styles.item}>
-                <NoWin data={i} />
-              </div>
-            );
-          })}
-        </Flex>
+        {result.total == 0 ? (
+          <div>kong</div>
+        ) : (
+          <Flex wrap="wrap" justify="between">
+            {result.data.map(i => {
+              return (
+                <div key={i.id} className={styles.item}>
+                  {orderType === 1 ? <WaitOpen data={i} /> : null}
+                  {orderType === 2 ? <Win data={i} /> : null}
+                  {orderType === 3 ? <NoWin data={i} /> : null}
+                </div>
+              );
+            })}
+          </Flex>
+        )}
         <div ref={lv => (this.load = lv)} className={styles.loading}>
           {isLoading ? 'loading...' : '已经到底了！'}
         </div>
@@ -109,7 +114,7 @@ class OrderList extends PureComponent {
 }
 
 const mapState = state => ({
-  orderList: state.order.data.orderList,
+  result: state.order.data.orderList,
 });
 
 const mapDispatch = dispatch => ({

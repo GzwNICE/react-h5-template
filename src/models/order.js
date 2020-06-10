@@ -5,7 +5,10 @@ import { orderService } from '@/services';
 export const order = createModel({
   state: {
     data: {
-      orderList: [],
+      orderList: {
+        data: [],
+        total: 0,
+      },
     },
   },
   reducers: {
@@ -14,17 +17,10 @@ export const order = createModel({
         ...state,
         data: {
           ...state.data,
-          orderList: payload.data
-            ? payload.data
-            : [
-                {
-                  imgUrl:
-                    'http://f.winmybonus.com/businessRecord/JBLPulse4/pic1.png?x-oss-process=image/resize,w_600,h_600',
-                  remainingCount: 4,
-                  progress: 70,
-                  activityId: 111,
-                },
-              ],
+          orderList: {
+            data: state.data.orderList.data.concat(payload.data.rows),
+            total: payload.data.total,
+          },
         },
       };
     },
@@ -32,7 +28,8 @@ export const order = createModel({
   effects: dispatch => ({
     async getOrderList(payload) {
       const response = await orderService.getOrderList(payload);
-      console.log("result",response)
+      console.log('response', response);
+
       dispatch.order.saveOrderList(response);
     },
   }),
