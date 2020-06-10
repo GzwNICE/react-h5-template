@@ -37,6 +37,7 @@ const codeMessage = {
 //   throw `请求错误 ${status}: ${url}; ${errorless}`;
 // };
 const errorHandler = error => {
+  console.log(12312313);
   const { response = {} } = error;
   let errorless = codeMessage[response.status] || response.statusText;
   const { status } = response;
