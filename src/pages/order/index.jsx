@@ -21,9 +21,13 @@ class OrderList extends PureComponent {
   }
 
   componentDidMount() {
-    this.getPageList();
-    this.state.orderType =  this.props.location.query.orderType.type;
+    console.log(111, this.props);
+    this.setState({
+      orderType: this.props.location.query.orderType.type,
+    });
+    // this.state.orderType =  this.props.location.query.orderType.type;
     window.addEventListener('scroll', this.bindHandleScroll);
+    this.getPageList();
   }
   bindHandleScroll = event => {
     // 滚动的高度

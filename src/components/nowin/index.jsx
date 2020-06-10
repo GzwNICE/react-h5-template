@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 // import intl from 'react-intl-universal';
+import moment from 'moment';
 import styles from './index.less';
-import moment from 'moment'; 
 
 class NoWin extends PureComponent {
   render() {
