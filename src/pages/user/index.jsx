@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { Grid } from 'antd-mobile';
 import { connect } from 'react-redux';

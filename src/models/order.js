@@ -24,6 +24,19 @@ export const order = createModel({
         },
       };
     },
+
+    clearList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          orderList: {
+            data: [],
+            total: 0,
+          },
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async getOrderList(payload) {
@@ -31,6 +44,11 @@ export const order = createModel({
       console.log('response', response);
 
       dispatch.order.saveOrderList(response);
+    },
+    async clearOrderList(payload) {
+      console.log('clearOrderList');
+
+      dispatch.order.clearList(payload);
     },
   }),
 });

@@ -1,5 +1,3 @@
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
@@ -26,6 +24,7 @@ class Login extends PureComponent {
   componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
+      // eslint-disable-next-line react/destructuring-assignment
       this.props.history.push(`/home?lang=${lang}`);
       return;
     }
@@ -39,6 +38,7 @@ class Login extends PureComponent {
   handleNextClick = e => {
     e.preventDefault();
     const { judgeUser } = this.props;
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.mobile) {
@@ -57,6 +57,7 @@ class Login extends PureComponent {
                 login: true,
               });
             } else {
+              // eslint-disable-next-line react/destructuring-assignment
               this.props.history.push(`/register?lang=${lang}&mobile=${value.mobile}`);
             }
           }

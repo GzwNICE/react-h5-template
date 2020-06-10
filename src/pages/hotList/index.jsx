@@ -62,7 +62,6 @@ class HotList extends PureComponent {
   };
 
   componentWillReceiveProps(nextPorps) {
-    console.log(nextPorps.hotList);
     if (nextPorps.hotList.data.length === nextPorps.hotList.total) {
       this.setState({
         hasMore: false,

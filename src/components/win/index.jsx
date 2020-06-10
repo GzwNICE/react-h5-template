@@ -9,9 +9,9 @@ class Win extends PureComponent {
     return (
       <div className={styles.box}>
         <div className={styles.orderInfo}>
-          <img className={styles.orderImg} src={data.imgUrl}></img>
+          <img className={styles.orderImg} src={data.pic}></img>
           <div>
-            <div className={styles.orderTitle}>第1轮 APP STORE充值卡500元APP STORE充值卡500元</div>
+    <div className={styles.orderTitle}>第{data.currentTurn}轮 {data.activityName}</div>
             <div className={styles.status}>
               <div className={styles.state}>奖品待确认</div>
               <div className={styles.btn}>去确认</div>

@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 // import intl from 'react-intl-universal';
 import { Progress } from 'antd-mobile';
+import moment from 'moment';
+
 import styles from './index.less';
 
 class WaitOpen extends PureComponent {
@@ -8,7 +10,9 @@ class WaitOpen extends PureComponent {
     const { data } = this.props;
     return (
       <div className={styles.box}>
-        <div className={styles.orderTime}>下单时间：2019/10/01 13：00</div>
+        <div className={styles.orderTime}>
+          下单时间：{moment(data.createTime).format('DD/MM/YYYY HH:mm')}
+        </div>
         <div className={styles.orderBox}>
           <img className={styles.orderImg} src={data.pic}></img>
           <div className={styles.orderInfo}>

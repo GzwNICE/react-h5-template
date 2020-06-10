@@ -1,57 +1,55 @@
 // 我的订单列表
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import WaitOpen from '@/components/waitOpen';
 import Win from '@/components/win';
 import NoWin from '@/components/nowin';
-import { Flex, NavBar, Icon } from 'antd-mobile';
+import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
 import styles from './index.less';
 
 class OrderList extends PureComponent {
   constructor(props) {
     super(props);
+    const dataSource = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+    });
     this.state = {
-      page: 0,
+      dataSource,
+      page: 1,
       size: 20,
       isLoading: true,
-      hasMore: true,
       orderType: 1,
+      useBodyScroll: false,
+      height: document.documentElement.clientHeight,
+      refreshing: true,
     };
   }
-
-  componentDidMount() {
-    this.getPageList();
-    this.state.orderType =  this.props.location.query.orderType.type;
-    window.addEventListener('scroll', this.bindHandleScroll);
-  }
-  bindHandleScroll = event => {
-    // 滚动的高度
-    const scrollTop =
-      (event.srcElement ? event.srcElement.documentElement.scrollTop : false) ||
-      window.pageYOffset || (event.srcElement ? event.srcElement.body.scrollTop : 0);
-    const sh = scrollTop + event.srcElement.documentElement.clientHeight - 200;
-    // eslint-disable-next-line react/no-find-dom-node
-    const h = ReactDOM.findDOMNode(this.load).offsetTop;
-    if (sh > h) {
-      if (!this.fetch) {
-        this.getPageList();
-      }
+  componentDidUpdate() {
+    if ( this.state.useBodyScroll) {
+      document.body.style.overflow = 'auto';
+    } else {
+      document.body.style.overflow = 'hidden';
     }
-  };
+  }
+  componentDidMount() {
+    this.setState({
+      orderType: this.props.location.query.orderType.type,
+    });
+    this.getPageList(true);
+  }
   //在componentWillUnmount，进行scroll事件的注销
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.bindHandleScroll);
+    const { clearList } = this.props;
+    clearList();
   }
 
-  getPageList = () => {
+  getPageList = isRefresh => {
     // eslint-disable-next-line react/destructuring-assignment
-    if (!this.state.hasMore) return false;
-    this.fetch = true;
+    // if (!this.state.hasMore) return false;
     const { getList } = this.props;
     this.setState(
       {
-        page: this.state.page + 1,
+        page: isRefresh ? 1 : this.state.page+1,
       },
       () => {
         const params = {
@@ -60,26 +58,49 @@ class OrderList extends PureComponent {
           type: this.state.orderType,
         };
         getList(params).then(() => {
-          this.fetch = false;
+          this.setState({
+            refreshing: false,
+            dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
+          });
         });
       }
     );
   };
 
   componentWillReceiveProps(nextPorps) {
-    console.log(nextPorps.orderList);
     if (nextPorps.result.data.length === nextPorps.result.total) {
       this.setState({
-        hasMore: false,
         isLoading: false,
       });
     }
   }
-
+  onRefresh = () => {
+    this.setState({ refreshing: true, isLoading: true });
+    const { clearList } = this.props;
+    clearList();
+    this.getPageList(true);
+  };
   render() {
+    const Row = d => {
+      return (
+        <div>
+          {orderType === 1 ? <WaitOpen data={d} /> : null}
+          {orderType === 2 ? <Win data={d} /> : null}
+          {orderType === 3 ? <NoWin data={d} /> : null}
+        </div>
+      );
+    };
+    const separator = (sectionID, rowID) => (
+      <div
+        key={`${sectionID}-${rowID}`}
+        style={{
+          backgroundColor: '#F5F5F9',
+          height: 8,
+        }}
+      />
+    );
     const { result } = this.props;
-    const { isLoading } = this.state;
-    const orderType = this.state.orderType;
+    const { isLoading, orderType } = this.state;
     return (
       <div className={styles.order}>
         <NavBar
@@ -93,21 +114,44 @@ class OrderList extends PureComponent {
         {result.total == 0 ? (
           <div>kong</div>
         ) : (
-          <Flex wrap="wrap" justify="between">
-            {result.data.map(i => {
-              return (
-                <div key={i.id} className={styles.item}>
-                  {orderType === 1 ? <WaitOpen data={i} /> : null}
-                  {orderType === 2 ? <Win data={i} /> : null}
-                  {orderType === 3 ? <NoWin data={i} /> : null}
-                </div>
-              );
-            })}
-          </Flex>
+          <ListView
+            ref={el => {
+              this.load = el;
+            }}
+            className={styles.liseView}
+            key={this.state.useBodyScroll ? '0' : '1'}
+            dataSource={this.state.dataSource}
+            renderRow={Row}
+            renderSeparator={separator}
+            useBodyScroll={this.state.useBodyScroll}
+            style={
+              this.state.useBodyScroll
+                ? {}
+                : {
+                    height: this.state.height,
+                    border: '1px solid #ddd',
+                    margin: '5px 0',
+                  }}
+            scrollRenderAheadDistance={100}
+            onEndReachedThreshold={10}
+            scrollEventThrottle={100}
+            initialListSize={1000}
+            pageSize={2000}
+            pullToRefresh={
+              <PullToRefresh 
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.onRefresh}
+            />}
+            onEndReached={this.getPageList(false)} // 上啦加载
+            renderFooter={() => (
+              <div style={{ padding: 10, textAlign: 'center' }}>
+                {isLoading ? 'Loading...' : '已经到底了！'}
+              </div>
+            )}
+            pageSize={20}
+
+          />
         )}
-        <div ref={lv => (this.load = lv)} className={styles.loading}>
-          {isLoading ? 'loading...' : '已经到底了！'}
-        </div>
       </div>
     );
   }
@@ -119,6 +163,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   getList: params => dispatch.order.getOrderList(params),
+  clearList: params => dispatch.order.clearOrderList(params),
 });
 
 export default connect(mapState, mapDispatch)(OrderList);
