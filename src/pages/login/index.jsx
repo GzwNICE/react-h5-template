@@ -26,7 +26,7 @@ class Login extends PureComponent {
   componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
-      this.props.history.push(`/home?lang=${lang}`);
+      this.props.history.push(`/user?lang=${lang}`);
       return;
     }
     const { mobile } = queryString.parse(window.location.search);
@@ -84,7 +84,7 @@ class Login extends PureComponent {
             localStorage.setItem('token', `Bearer ${res.data.token}`);
             localStorage.setItem('refreshToken', res.data.refreshToken);
             setTimeout(() => {
-              this.props.history.push(`/home?lang=${lang}`);
+              this.props.history.go(-1);
             }, 2000);
           }
         });
