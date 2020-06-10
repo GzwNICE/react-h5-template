@@ -35,9 +35,9 @@ class User extends PureComponent {
   render() {
     // eslint-disable-next-line react/destructuring-assignment
     const tabs = [
-      { label: '待开奖', icon: wait,type:1 },
-      { label: '已中奖', icon: win,type:2 },
-      { label: '未中奖', icon: nowin,type:3 },
+      { label: '待开奖', icon: wait, type: 1 },
+      { label: '已中奖', icon: win, type: 2 },
+      { label: '未中奖', icon: nowin, type: 3 },
     ];
     const { user } = this.props;
     console.log('user1', user);
@@ -72,13 +72,10 @@ class User extends PureComponent {
               columnNum={3}
               hasLine={false}
               onClick={_el => {
-                console.log(_el)
-                if(_el.type == 1){
-                  this.props.history.push('/order');
+                if (_el.type == 1) {
+                  this.props.history.push({ pathname: '/order', query: { orderType: _el } });
                 }
-              }
-                
-              }
+              }}
               renderItem={item => (
                 <div>
                   <img src={item.icon} className={styles.icon} alt="" />

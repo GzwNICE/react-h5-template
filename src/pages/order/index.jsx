@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import WaitOpen from '@/components/waitOpen';
 import Win from '@/components/win';
+import NoWin from '@/components/nowin';
+
 
 import { Flex, NavBar, Icon } from 'antd-mobile';
 import styles from './index.less';
@@ -22,6 +24,8 @@ class OrderList extends PureComponent {
   componentDidMount() {
     this.getPageList();
     window.addEventListener('scroll', this.bindHandleScroll);
+    const a = this.props.location.query;
+    console.log('orderType', a);
   }
   bindHandleScroll = event => {
     // 滚动的高度
@@ -91,7 +95,7 @@ class OrderList extends PureComponent {
           {orderList.map((i, index) => {
             return (
               <div key={i.activityId} className={styles.item}>
-                <Win data={i} />
+                <NoWin data={i} />
               </div>
             );
           })}

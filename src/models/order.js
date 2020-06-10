@@ -22,6 +22,7 @@ export const order = createModel({
                     'http://f.winmybonus.com/businessRecord/JBLPulse4/pic1.png?x-oss-process=image/resize,w_600,h_600',
                   remainingCount: 4,
                   progress: 70,
+                  activityId: 111,
                 },
               ],
         },
