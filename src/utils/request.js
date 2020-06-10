@@ -6,6 +6,7 @@ import { extend } from 'umi-request';
 import { Toast } from 'antd-mobile';
 import { push } from 'connected-react-router';
 import { getBaseUrl } from '@/utils/util';
+import queryString from 'query-string';
 
 const domain = `${window.location.protocol}//${getBaseUrl()}`;
 
@@ -66,11 +67,20 @@ const request = extend({
 // request拦截器, 改变url 或 options.
 request.interceptors.request.use(async (url, options) => {
   let uri = `${domain}${url}`;
+  // 防止缓存，GET请求默认带_t参数
+  if (options.method === 'get') {
+    options.params = {
+      ...options.params,
+      ...{ _t: new Date().getTime() },
+    };
+  }
   let token = localStorage.getItem('token');
+  const { lang } = queryString.parse(window.location.search);
   if (token) {
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': token,
+      'language': lang,
     };
     return {
       url: uri,
@@ -79,6 +89,7 @@ request.interceptors.request.use(async (url, options) => {
   } else {
     const headers = {
       'Content-Type': 'application/json',
+      'language': lang,
     };
     return {
       url: uri,
