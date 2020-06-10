@@ -109,25 +109,25 @@
   justify-content: space-between;
 
   .codePic {
-    width: 98px;
+    width: 120px;
     height: 40px;
+    margin-left: 14px;
   }
 
   .codeInput {
-    width: 136px;
+    flex: 1;
     height: 40px;
     line-height: 40px;
     overflow: hidden;
     box-sizing: border-box;
     background: rgba(255, 255, 255, 1);
-    border-radius: 8px;
-    border: 1px solid rgba(203, 203, 203, 1);
+    border-bottom: 1px solid rgba(203, 203, 203, 1);
     padding-left: 0;
 
     input {
       font-size: 14px;
       height: 40px;
-      padding-left: 10px;
+      padding-left: 0;
     }
 
     :global(.am-input-control) {
@@ -142,6 +142,7 @@
 
 
 .codeModal {
+  width: 80%;
   :global(.am-modal-title) {
     font-size: 16px;
     font-family: PingFangSC-Regular, PingFang SC;
@@ -158,8 +159,7 @@
     line-height: 12px;
     margin-top: 6px;
     text-align: right;
-    padding-right: 8px;
-    margin-left: 61%;
+    padding-right: 16px;
   }
 
   .footer {

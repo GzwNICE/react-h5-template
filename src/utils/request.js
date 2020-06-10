@@ -92,7 +92,7 @@ request.interceptors.response.use(async response => {
   if (data.code === 200) {
     return response;
   } else {
-    Toast.info(data.message || '网络异常', 2);
+    Toast.info(data.msg || '网络异常', 2);
     return response;
   }
 });

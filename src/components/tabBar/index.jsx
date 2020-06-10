@@ -95,13 +95,18 @@ class TabBarBox extends PureComponent {
   //   );
   // }
   render() {
-    const { selectedTab } = this.props;
+    const { selectedTab, search } = this.props;
     // const { IPhoneX } = this.state;
     return (
       <div className={styles.tabBox}>
         <Flex>
           <Flex.Item className={styles.Item}>
-            <Link to="/home">
+            <Link
+              to={{
+                pathname: '/home',
+                search: `${search}`,
+              }}
+            >
               {selectedTab === 'homePage' ? (
                 <img src={homeSelPng} alt="" />
               ) : (
@@ -111,7 +116,12 @@ class TabBarBox extends PureComponent {
             </Link>
           </Flex.Item>
           <Flex.Item className={styles.Item}>
-            <Link to="/user">
+            <Link
+              to={{
+                pathname: '/user',
+                search: `${search}`,
+              }}
+            >
               {selectedTab === 'userPage' ? (
                 <img src={personalSel} alt="" />
               ) : (

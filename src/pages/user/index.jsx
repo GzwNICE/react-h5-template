@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { Grid } from 'antd-mobile';
 import { connect } from 'react-redux';
@@ -73,7 +74,11 @@ class User extends PureComponent {
               hasLine={false}
               onClick={_el => {
                 if (_el.type == 1) {
+<<<<<<< HEAD
                   this.props.history.push({ pathname: '/order', query: { orderType: _el } });
+=======
+                  this.props.history.push('/order');
+>>>>>>> b1162c7c4d1a4d69d878df79f17e511a7eb6b32a
                 }
               }}
               renderItem={item => (
@@ -90,7 +95,7 @@ class User extends PureComponent {
           </div>
         </div>
         <div className={styles.tBar}>
-          <TabBarBox selectedTab="userPage" />
+          <TabBarBox selectedTab="userPage" search={this.props.history.location.search} />
         </div>
       </div>
     );

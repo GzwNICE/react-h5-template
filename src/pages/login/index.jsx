@@ -29,7 +29,11 @@ class Login extends PureComponent {
       this.props.history.push(`/home?lang=${lang}`);
       return;
     }
-    this.autoFocusInst.focus();
+    const { mobile } = queryString.parse(window.location.search);
+    this.setState({
+      mobile,
+      login: mobile ? true : false,
+    });
   }
 
   handleNextClick = e => {
@@ -79,7 +83,9 @@ class Login extends PureComponent {
             Toast.success('登录成功', 2);
             localStorage.setItem('token', `Bearer ${res.data.token}`);
             localStorage.setItem('refreshToken', res.data.refreshToken);
-            this.props.history.push(`/home?lang=${lang}`);
+            setTimeout(() => {
+              this.props.history.push(`/home?lang=${lang}`);
+            }, 2000);
           }
         });
       }
@@ -92,6 +98,10 @@ class Login extends PureComponent {
     });
   };
 
+  // focus = e => {
+  //   this[e].focus();
+  // };
+
   render() {
     const { getFieldProps } = this.props.form;
     const { login, mobile, pwVisible } = this.state;
@@ -101,7 +111,9 @@ class Login extends PureComponent {
           mode="dark"
           icon={<Icon type="left" />}
           style={{ backgroundColor: '#FF5209' }}
-          onLeftClick={() => console.log('onLeftClick')}
+          onLeftClick={() => {
+            this.props.history.go(-1);
+          }}
         />
         <img src={loginBg} alt="" className={styles.banner} />
         {!login ? (
@@ -113,8 +125,11 @@ class Login extends PureComponent {
                 {...getFieldProps('mobile')}
                 clear
                 placeholder="请输入手机号"
-                ref={el => (this.autoFocusInst = el)}
                 className={styles.mobile}
+                ref={el => (this.mobileInput = el)}
+                onClick={() => {
+                  this.mobileInput.focus();
+                }}
               ></InputItem>
             </div>
             <span className={styles.tips}>* 未注册的手机号验证后将自动创建账号</span>
@@ -133,6 +148,10 @@ class Login extends PureComponent {
                 placeholder="请输入登录密码"
                 type={pwVisible ? 'text' : 'password'}
                 className={styles.password}
+                ref={el => (this.pawInput = el)}
+                onClick={() => {
+                  this.pawInput.focus();
+                }}
               ></InputItem>
               <img
                 src={pwVisible ? passwordOpen : passwordClose}
