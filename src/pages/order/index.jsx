@@ -33,10 +33,19 @@ class OrderList extends PureComponent {
     }
   }
   componentDidMount() {
+<<<<<<< HEAD
     this.setState({
       orderType: this.props.location.query.orderType.type,
       title: this.props.location.query.orderType.label,
     });
+=======
+    console.log(111, this.props);
+    this.setState({
+      orderType: this.props.location.query.orderType.type,
+    });
+    // this.state.orderType =  this.props.location.query.orderType.type;
+    window.addEventListener('scroll', this.bindHandleScroll);
+>>>>>>> 2eb13c2ddadf362225c52aa0ab7b478c2f5105ee
     this.getPageList();
   }
   //在componentWillUnmount，进行scroll事件的注销
