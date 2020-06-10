@@ -74,11 +74,7 @@ class User extends PureComponent {
               hasLine={false}
               onClick={_el => {
                 if (_el.type == 1) {
-<<<<<<< HEAD
                   this.props.history.push({ pathname: '/order', query: { orderType: _el } });
-=======
-                  this.props.history.push('/order');
->>>>>>> b1162c7c4d1a4d69d878df79f17e511a7eb6b32a
                 }
               }}
               renderItem={item => (
