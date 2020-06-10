@@ -39,10 +39,13 @@ class Login extends PureComponent {
   handleNextClick = e => {
     e.preventDefault();
     const { judgeUser } = this.props;
+    const Reg = /^[0-9]*$/;
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.mobile) {
         return Toast.info('请输入手机号', 2);
+      } else if (!Reg.test(value.mobile)) {
+        return Toast.info('请输入正确的手机号', 2);
       } else {
         this.setState({
           mobile: value.mobile,

@@ -1,0 +1,90 @@
+.productPage {
+  width: 100%;
+  position: relative;
+  .navBar {
+    background-color: rgba(1,1,1,0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+  }
+  .carousel {
+    width: 100%;
+    overflow: hidden;
+    height: 375px;
+    position: relative;
+    .dotsBox {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 9px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-family: PingFangSC, PingFangSC-Medium;
+      font-weight: 500;
+      text-align: center;
+      color: #ffffff;
+      line-height: 14px;
+      letter-spacing: 1px;
+    }
+  }
+  .openTips {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 14px;
+    box-sizing: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    font-size: 12px;
+  }
+
+  .priceBox {
+    width: 100%;
+    height: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 0 14px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .price {
+      font-size: 14px;
+      font-family: PingFangSC, PingFangSC-Medium;
+      text-align: left;
+      color: #ffffff;
+      display: flex;
+      align-items: baseline;
+      overflow: hidden;
+      span {
+        font-size: 30px;
+        margin-right: 4px;
+      }
+    }
+    .remainBox {
+      width: 80px;
+      span {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 10px;
+        font-family: PingFangSC, PingFangSC-Regular;
+        font-weight: 400;
+        text-align: right;
+        color: #ff5209;
+        line-height: 10px;
+      }
+      .progress {
+        width: 100%;
+        height: 8px;
+        border: 1px solid #ff5209;
+        border-radius: 4px;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+    }
+  }
+}
