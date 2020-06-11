@@ -46,11 +46,13 @@ class WaitOpen extends PureComponent {
         <div className={styles.line}></div>
 
         <div className={styles.buyInfo}>
-          <div className={styles.buyCount}>已购买：1人次</div>
-          <div className={styles.buyCode}>查看我的抽奖号码</div>
+          <div className={styles.buyCount}>已购买：{data.luckCodeCount}人次</div>
+          <div className={styles.buyCode} onClick={this.onCodeClick.bind(this)}>查看我的抽奖号码</div>
         </div>
       </div>
     );
+  }
+  onCodeClick(){
   }
 }
 

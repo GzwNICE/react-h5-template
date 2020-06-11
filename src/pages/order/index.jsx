@@ -101,6 +101,7 @@ class OrderList extends PureComponent {
     }
   }
   onRefresh = () => {
+    
     this.setState({ refreshing: true, isLoading: true });
     this.getPageList();
   };

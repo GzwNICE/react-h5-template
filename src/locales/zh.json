@@ -9,5 +9,15 @@
     "wait_open":"待开奖",
     "winning":"已中奖",
     "nowin":"未中奖"
+  },
+  "order": {
+    "win": "奖品待确认",
+    "wait_provide": "奖品未发放",
+    "provided": "奖品已发放",
+    "refunded": "退回",
+    "coin_recycle": "已兑换Go币",
+    "wait_cash": "已兑换现金 审核中",
+    "cashed": "已兑换现金",
+    "no_confirm": "流奖"
   }
 }
