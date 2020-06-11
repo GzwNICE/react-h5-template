@@ -52,7 +52,7 @@ class WaitOpen extends PureComponent {
       </div>
     );
   }
-  onCodeClick(){
+  onCodeClick() {
   }
 }
 

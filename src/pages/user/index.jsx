@@ -40,7 +40,7 @@ class User extends PureComponent {
       { label: '未中奖', icon: nowin, type: 3 },
     ];
     const { user } = this.props;
-    const isLogin = user.userInfo.code != 10002;
+    const isLogin = localStorage.getItem('token') != null;
     console.log('isLogin', isLogin);
 
     return (
@@ -59,9 +59,9 @@ class User extends PureComponent {
               )}
               <div className={styles.authorCoin}>
                 <img className={styles.coin} src={ic_gocoin_s}></img>
-                <span className={styles.label}>{`${intl.get('user.myGoCoin')} ${
-                  user.userInfo.goMoney
-                }`}</span>
+                <span className={styles.label}>
+                  {intl.get('user.myGoCoin')} {user.userInfo.goMoney}
+                </span>
                 <img className={styles.arrow} src={goin_arrow}></img>
               </div>
             </div>

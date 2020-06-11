@@ -21,7 +21,10 @@ export const user = createModel({
   },
   effects: dispatch => ({
     async getUserInfo(payload) {
+      console.log('response',payload)
+
       const response = await userService.getUserInfo(payload);
+      console.log('response',response)
       dispatch.user.saveUserInfo(response);
     },
   }),
