@@ -75,7 +75,11 @@ class User extends PureComponent {
               columnNum={3}
               hasLine={false}
               onClick={_el => {
-                this.props.history.push({ pathname: '/order', query: { orderType: _el } });
+                if (isLogin) {
+                  this.props.history.push({ pathname: '/order', query: { orderType: _el } });
+                } else {
+                  this.props.history.push('/login');
+                }
               }}
               renderItem={item => (
                 <div>
