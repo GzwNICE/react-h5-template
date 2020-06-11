@@ -4,6 +4,7 @@ import loginPage from '@/pages/login';
 import regPage from '@/pages/register';
 import Password from '@/pages/password';
 import Order from '@/pages/order';
+import ProductDetail from '@/pages/productDetail';
 
 export const routes = [
   {
@@ -35,5 +36,10 @@ export const routes = [
     path: '/order',
     exact: true,
     component: Order,
+  },
+  {
+    path: '/product/:activityTurnId',
+    exact: true,
+    component: ProductDetail,
   },
 ];

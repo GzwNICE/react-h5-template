@@ -94,12 +94,15 @@ class Register extends PureComponent {
   // 注册
   handleRegClick = e => {
     e.preventDefault();
+    const Reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.smsCode) {
         return Toast.info('请输入短信验证码', 2);
       } else if (!value.pwd) {
         return Toast.info('请输入登录密码', 2);
+      } else if (!Reg.test(value.pwd)) {
+        return Toast.info('密码只能为6-16位由数字和字母组成', 2);
       } else {
         console.log(value);
         this.props
@@ -110,12 +113,13 @@ class Register extends PureComponent {
             pwd: value.pwd,
           })
           .then(res => {
-            console.log(res);
             if (res.code === 200) {
               Toast.success('注册成功', 2);
               localStorage.setItem('token', `Bearer ${res.data.token}`);
               localStorage.setItem('refreshToken', res.data.refreshToken);
-              this.props.history.push(`/home?lang=${lang}`);
+              setTimeout(() => {
+                this.props.history.push(`/home?lang=${lang}`);
+              }, 2000);
             }
           });
       }
@@ -168,6 +172,7 @@ class Register extends PureComponent {
               clear
               placeholder="请输入短信验证码"
               className={styles.code}
+              maxLength={6}
               ref={el => (this.codeInput = el)}
               onClick={() => {
                 this.codeInput.focus();

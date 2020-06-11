@@ -33,19 +33,11 @@ class OrderList extends PureComponent {
     }
   }
   componentDidMount() {
-<<<<<<< HEAD
     this.setState({
       orderType: this.props.location.query.orderType.type,
       title: this.props.location.query.orderType.label,
     });
-=======
-    console.log(111, this.props);
-    this.setState({
-      orderType: this.props.location.query.orderType.type,
-    });
-    // this.state.orderType =  this.props.location.query.orderType.type;
     window.addEventListener('scroll', this.bindHandleScroll);
->>>>>>> 2eb13c2ddadf362225c52aa0ab7b478c2f5105ee
     this.getPageList();
   }
   //在componentWillUnmount，进行scroll事件的注销
@@ -55,10 +47,8 @@ class OrderList extends PureComponent {
   }
 
   getPageList = () => {
-    // eslint-disable-next-line react/destructuring-assignment
-    // if (!this.state.hasMore) return false;
     this.fetch = true;
-    const { getList } = this.props;
+    const { refreshList } = this.props;
     this.setState(
       {
         page: 1,
@@ -69,7 +59,7 @@ class OrderList extends PureComponent {
           size: this.state.size,
           type: this.state.orderType,
         };
-        getList(params).then(() => {
+        refreshList(params).then(() => {
           this.fetch = false;
           this.setState({
             refreshing: false,
@@ -81,7 +71,7 @@ class OrderList extends PureComponent {
   };
   loadPageList = () => {
     this.fetch = true;
-    const { getList } = this.props;
+    const { loadList } = this.props;
     this.setState(
       {
         page: this.state.page+1,
@@ -92,7 +82,7 @@ class OrderList extends PureComponent {
           size: this.state.size,
           type: this.state.orderType,
         };
-        getList(params).then(() => {
+        loadList(params).then(() => {
           this.fetch = false;
           this.setState({
             refreshing: false,
@@ -112,8 +102,6 @@ class OrderList extends PureComponent {
   }
   onRefresh = () => {
     this.setState({ refreshing: true, isLoading: true });
-    const { clearList } = this.props;
-    clearList();
     this.getPageList();
   };
   render() {
@@ -198,7 +186,8 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  getList: params => dispatch.order.getOrderList(params),
+  refreshList: params => dispatch.order.getRefreshList(params),
+  loadList: params => dispatch.order.getLoadList(params),
   clearList: params => dispatch.order.clearOrderList(params),
 });
 

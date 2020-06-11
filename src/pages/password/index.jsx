@@ -95,12 +95,15 @@ class Password extends PureComponent {
   handleRegClick = e => {
     e.preventDefault();
     const that = this;
+    const Reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.smsCode) {
         return Toast.info('请输入短信验证码', 2);
       } else if (!value.pwd) {
         return Toast.info('请输入新密码', 2);
+      } else if (!Reg.test(value.pwd)) {
+        return Toast.info('密码只能为6-16位由数字和字母组成', 2);
       } else {
         that.props
           .resetPassword({
@@ -110,7 +113,6 @@ class Password extends PureComponent {
             pwd: md5(value.pwd),
           })
           .then(res => {
-            console.log(res);
             if (res.code === 200) {
               Toast.success('密码修改成功，请重新登录', 2);
               setTimeout(() => {

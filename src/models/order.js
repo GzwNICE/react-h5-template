@@ -12,7 +12,19 @@ export const order = createModel({
     },
   },
   reducers: {
-    saveOrderList(state, payload) {
+    refreshList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          orderList: {
+            data: payload.data.rows,
+            total:payload.data.total,
+          },
+        },
+      };
+    },
+    loadList(state, payload) {
       return {
         ...state,
         data: {
@@ -39,15 +51,15 @@ export const order = createModel({
     },
   },
   effects: dispatch => ({
-    async getOrderList(payload) {
+    async getRefreshList(payload) {
       const response = await orderService.getOrderList(payload);
-      console.log('response', response);
-
-      dispatch.order.saveOrderList(response);
+      dispatch.order.refreshList(response);
+    },
+    async getLoadList(payload) {
+      const response = await orderService.getOrderList(payload);
+      dispatch.order.loadList(response);
     },
     async clearOrderList(payload) {
-      console.log('clearOrderList');
-
       dispatch.order.clearList(payload);
     },
   }),
