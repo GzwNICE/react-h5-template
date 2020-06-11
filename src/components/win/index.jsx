@@ -3,9 +3,13 @@ import React, { PureComponent } from 'react';
 import intl from 'react-intl-universal';
 import copy from 'copy-to-clipboard';
 import { Toast } from 'antd-mobile';
+import queryString from 'query-string';
 
 import moment from 'moment';
 import styles from './index.less';
+import { Link } from 'react-router-dom';
+
+const { lang } = queryString.parse(window.location.search);
 
 class Win extends PureComponent {
   render() {
@@ -67,9 +71,14 @@ class Win extends PureComponent {
               </div>
               {data.status === 'WAIT_CASH' ? <div className={styles.apply}>审核中</div> : null}
               {data.status === 'WIN' ? (
-                <div className={styles.btn} onClick={this.onConfirmClick.bind(this, data)}>
-                  去确认
-                </div>
+                <Link
+                  to={{
+                    pathname: `/product/${data.activityTurnId}`,
+                    search: `?lang=${lang}`,
+                  }}
+                >
+                  <div className={styles.btn}>去确认</div>
+                </Link>
               ) : null}
             </div>
           </div>
@@ -121,9 +130,10 @@ class Win extends PureComponent {
       </div>
     );
   }
-  onConfirmClick(data) {
-    console.log('跳转到详情页', data);
-  }
+  // onConfirmClick(data) {
+  //   console.log('跳转到详情页', data);
+  //   this.props.history.push(`/product/${data.activityTurnId}?lang=${lang}`);
+  // }
 
   onCopyClick(copyContent) {
     if (copy(copyContent)) {

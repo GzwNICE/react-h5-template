@@ -101,7 +101,6 @@ class OrderList extends PureComponent {
     }
   }
   onRefresh = () => {
-    
     this.setState({ refreshing: true, isLoading: true });
     this.getPageList();
   };
@@ -132,7 +131,7 @@ class OrderList extends PureComponent {
           mode="dark"
           icon={<Icon type="left" />}
           style={{ backgroundColor: '#FF5209' }}
-          onLeftClick={() => console.log('onLeftClick')}
+          onLeftClick={() =>  this.props.history.go(-1)}
         >
           <div className={styles.title}>{title}</div>
         </NavBar>
