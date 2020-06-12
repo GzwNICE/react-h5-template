@@ -12,6 +12,7 @@ import priceOpen from '@/assets/images/activity_pic_countdown.png';
 import remind from '@/assets/images/remind.png';
 import avatar from '@/assets/images/avatar_notlogin.png';
 import winning from '@/assets/images/winning_crown.png';
+import RaffleCode from '@/components/luckyCode';
 
 import styles from './index.less';
 
@@ -42,6 +43,7 @@ class ProductDetail extends PureComponent {
 
   render() {
     const { current, allCur } = this.state;
+    console.log(123);
     return (
       <div className={styles.productPage}>
         <NavBar
@@ -158,6 +160,7 @@ class ProductDetail extends PureComponent {
           </span>
           <Button type="primary" className={styles.goNow}>立即前往</Button>
         </div>
+        <RaffleCode />
       </div>
     );
   }
