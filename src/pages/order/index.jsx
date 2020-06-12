@@ -5,10 +5,14 @@ import WaitOpen from '@/components/waitOpen';
 import Win from '@/components/win';
 import NoWin from '@/components/nowin';
 import Empty from '@/components/empty';
+import queryString from 'query-string';
+
 import GoCoinDetailDialog from '@/components/gocoinDetailDialog';
 
 import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
 import styles from './index.less';
+
+const { label,type } = queryString.parse(window.location.search);
 
 class OrderList extends PureComponent {
   constructor(props) {
@@ -21,7 +25,7 @@ class OrderList extends PureComponent {
       page: 0,
       size: 10,
       isLoading: true,
-      orderType: 1,
+      title: label,
       useBodyScroll: false,
       height: document.documentElement.clientHeight,
       refreshing: true,
@@ -36,10 +40,6 @@ class OrderList extends PureComponent {
     }
   }
   componentDidMount() {
-    this.setState({
-      orderType: this.props.location.query.orderType.type,
-      title: this.props.location.query.orderType.label,
-    });
     window.addEventListener('scroll', this.bindHandleScroll);
     this.getPageList();
   }
@@ -60,10 +60,11 @@ class OrderList extends PureComponent {
         const params = {
           page: this.state.page,
           size: this.state.size,
-          type: this.state.orderType,
+          type: type,
         };
         refreshList(params).then(() => {
           this.fetch = false;
+          console.log("结果",this.props.result.data)
           this.setState({
             refreshing: false,
             dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
@@ -83,7 +84,7 @@ class OrderList extends PureComponent {
         const params = {
           page: this.state.page,
           size: this.state.size,
-          type: this.state.orderType,
+          type: type,
         };
         loadList(params).then(() => {
           this.fetch = false;
@@ -117,9 +118,9 @@ class OrderList extends PureComponent {
     const Row = d => {
       return (
         <div>
-          {orderType === 1 ? <WaitOpen data={d} /> : null}
-          {orderType === 2 ? <Win parent={this} data={d} /> : null}
-          {orderType === 3 ? <NoWin data={d} /> : null}
+          {type === '1' ? <WaitOpen data={d} /> : null}
+          {type === '2' ? <Win parent={this} data={d} /> : null}
+          {type === '3' ? <NoWin data={d} /> : null}
         </div>
       );
     };
@@ -133,7 +134,7 @@ class OrderList extends PureComponent {
       />
     );
     const { result } = this.props;
-    const { isLoading, orderType, title, goCoinDialog } = this.state;
+    const { isLoading, goCoinDialog } = this.state;
     console.log('render', goCoinDialog);
 
     return (
@@ -144,7 +145,7 @@ class OrderList extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() =>  this.props.history.go(-1)}
         >
-          <div className={styles.title}>{title}</div>
+          <div className={styles.title}>{label}</div>
         </NavBar>
         {result.total == 0 ? (
          <Empty />
