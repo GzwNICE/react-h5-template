@@ -146,8 +146,9 @@ class Win extends PureComponent {
     }
   }
   onDetailClick(status) {
+    console.log(1111, this.props);
     if (status === 'NO_CONFIRM') {
-      this.props.parent.setGoCoinDialog(this, true);
+      this.props.parent.setGoCoinDialog(true);
     }
   }
 }

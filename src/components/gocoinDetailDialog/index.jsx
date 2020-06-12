@@ -9,7 +9,7 @@ class DetailDialog extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      showDialog: true,
+      showDialog: this.props.codeModal,
     };
   }
   onClose = key => () => {
@@ -19,13 +19,14 @@ class DetailDialog extends PureComponent {
   };
 
   render() {
-    console.log('render');
+    // console.log(3333, 'render', this.props.codeModal);
     const { codeModal } = this.props;
-    const { showDialog } = this.state;
+    // const { showDialog } = this.state;
+    console.log(999, codeModal);
     return (
       <div className={styles.regPage}>
         <Modal
-          visible={showDialog}
+          visible={codeModal}
           transparent
           maskClosable={false}
           title="兑换详情"

@@ -107,11 +107,16 @@ class OrderList extends PureComponent {
     this.setState({ refreshing: true, isLoading: true });
     this.getPageList();
   };
-  setGoCoinDialog = (result,_bool) => {
-    console.log('setGoCoinDialog', _bool);
+  setGoCoinDialog = (_bool) => {
+    console.log(222, 'setGoCoinDialog', _bool);
     this.setState({
       goCoinDialog: _bool,
     });
+    setTimeout(() => {
+      this.setState({
+        goCoinDialog: false,
+      });
+    }, 2000);
   };
   render() {
     const Row = d => {
@@ -134,7 +139,6 @@ class OrderList extends PureComponent {
     );
     const { result } = this.props;
     const { isLoading, orderType, title, goCoinDialog } = this.state;
-    console.log('render', goCoinDialog);
 
     return (
       <div className={styles.order}>
@@ -173,7 +177,7 @@ class OrderList extends PureComponent {
             initialListSize={1000}
             pageSize={10}
             pullToRefresh={
-              <PullToRefresh 
+              <PullToRefresh
                   refreshing={this.state.refreshing}
                   onRefresh={this.onRefresh}
             />}
@@ -186,7 +190,7 @@ class OrderList extends PureComponent {
 
           />
         )}
-        <GoCoinDetailDialog data={{ codeModal: this.state.goCoinDialog }} />
+        <GoCoinDetailDialog codeModal={this.state.goCoinDialog} />
       </div>
     );
   }
