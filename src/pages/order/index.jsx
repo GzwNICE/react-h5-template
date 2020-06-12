@@ -140,6 +140,7 @@ class OrderList extends PureComponent {
     );
     const { result } = this.props;
     const { isLoading, orderType, title, goCoinDialog } = this.state;
+    console.log('render', goCoinDialog);
 
     return (
       <div className={styles.order}>
