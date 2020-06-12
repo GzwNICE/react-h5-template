@@ -1,32 +1,47 @@
 import React, { PureComponent } from 'react';
 // import intl from 'react-intl-universal';
-import { Progress } from 'antd-mobile';
-import moment from 'moment';
+import { Button, Modal } from 'antd-mobile';
+import DialogItem from '@/components/dialogItem';
 
 import styles from './index.less';
 
 class DetailDialog extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showDialog: true,
+    };
+  }
+  onClose = key => () => {
+    this.setState({
+      [key]: false,
+    });
+  };
+
   render() {
-    const { data } = this.props;
+    console.log('render');
+    const { codeModal } = this.props;
+    const { showDialog } = this.state;
     return (
-        <div className={styles.root}>
-        <div className={styles.header}>
-          <div className={styles.title}>{title}</div>
-        </div>
-        <div className={styles.message}>{message}</div>
-        <div className={styles.buttons}>
-            <button className={styles.button} onClick={onCancel}>
-               取消
-            </button>
-          <button className={cx(styles.button, styles.active)} onClick={onConfirm}>
-            确定
-          </button>
-        </div>
+      <div className={styles.regPage}>
+        <Modal
+          visible={showDialog}
+          transparent
+          maskClosable={false}
+          title="兑换详情"
+          className={styles.codeModal}
+        >
+          <DialogItem data={{ title: '奖品价值', value: '3912 GO币' }} />
+          <DialogItem data={{ title: '额外赠送比例', value: '5%' }} />
+          <DialogItem data={{ title: '额外赠送数量', value: '3912 GO币' }} />
+          <DialogItem data={{ title: '最终兑换金额', value: '3912 GO币' }} />
+          <DialogItem data={{ title: '兑换时间', value: '11/01/2020 12:23' }} />
+          <div className={styles.footer}>
+            <Button className={styles.cancel} onClick={this.onClose('showDialog')}>知道了</Button>
+          </div>
+        </Modal>
       </div>
-       
     );
   }
-  }
 }
-
 export default DetailDialog;

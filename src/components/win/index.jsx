@@ -12,6 +12,9 @@ import { Link } from 'react-router-dom';
 const { lang } = queryString.parse(window.location.search);
 
 class Win extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
   render() {
     const { data } = this.props;
     let orderStatus = '';
@@ -117,7 +120,7 @@ class Win extends PureComponent {
             <div className={styles.winTime}>
               中奖时间： {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
             </div>
-            {data.status === 'COIN_RECYCLE' ||
+            {data.status === 'NO_CONFIRM' ||
             data.status === 'WAIT_CASH' ||
             data.status === 'CASHED' ? (
               <div className={styles.detail} onClick={this.onDetailClick.bind(this, data.status)}>
@@ -142,8 +145,10 @@ class Win extends PureComponent {
       Toast.info('复制失败', 2);
     }
   }
-  onDetailClick(ststus) {
-    console.log(ststus);
+  onDetailClick(status) {
+    if (status === 'NO_CONFIRM') {
+      this.props.parent.setGoCoinDialog(this, true);
+    }
   }
 }
 
