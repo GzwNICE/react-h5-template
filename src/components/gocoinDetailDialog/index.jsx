@@ -8,10 +8,6 @@ import styles from './index.less';
 class DetailDialog extends PureComponent {
   constructor(props) {
     super(props);
-    const { data } = this.props;
-    this.state = {
-      showDialog: data.codeModal,
-    };
   }
   onClose = key => () => {
     this.setState({
