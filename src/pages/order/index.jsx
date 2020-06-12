@@ -5,6 +5,8 @@ import WaitOpen from '@/components/waitOpen';
 import Win from '@/components/win';
 import NoWin from '@/components/nowin';
 import Empty from '@/components/empty';
+import GoCoinDetailDialog from '@/components/gocoinDetailDialog';
+
 import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
 import styles from './index.less';
 
@@ -23,6 +25,7 @@ class OrderList extends PureComponent {
       useBodyScroll: false,
       height: document.documentElement.clientHeight,
       refreshing: true,
+      goCoinDialog: false,
     };
   }
   componentDidUpdate() {
@@ -104,12 +107,18 @@ class OrderList extends PureComponent {
     this.setState({ refreshing: true, isLoading: true });
     this.getPageList();
   };
+  setGoCoinDialog = (result,_bool) => {
+    console.log('setGoCoinDialog', _bool);
+    this.setState({
+      goCoinDialog: _bool,
+    });
+  };
   render() {
     const Row = d => {
       return (
         <div>
           {orderType === 1 ? <WaitOpen data={d} /> : null}
-          {orderType === 2 ? <Win data={d} /> : null}
+          {orderType === 2 ? <Win parent={this} data={d} /> : null}
           {orderType === 3 ? <NoWin data={d} /> : null}
         </div>
       );
@@ -124,7 +133,9 @@ class OrderList extends PureComponent {
       />
     );
     const { result } = this.props;
-    const { isLoading, orderType,title } = this.state;
+    const { isLoading, orderType, title, goCoinDialog } = this.state;
+    console.log('render', goCoinDialog);
+
     return (
       <div className={styles.order}>
         <NavBar
@@ -160,7 +171,7 @@ class OrderList extends PureComponent {
             onEndReachedThreshold={10}
             scrollEventThrottle={100}
             initialListSize={1000}
-            pageSize={2000}
+            pageSize={10}
             pullToRefresh={
               <PullToRefresh 
                   refreshing={this.state.refreshing}
@@ -172,10 +183,10 @@ class OrderList extends PureComponent {
                 {isLoading ? 'Loading...' : '已经到底了！'}
               </div>
             )}
-            pageSize={10}
 
           />
         )}
+        <GoCoinDetailDialog data={{ codeModal: this.state.goCoinDialog }} />
       </div>
     );
   }
