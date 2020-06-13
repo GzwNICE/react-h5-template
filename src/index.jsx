@@ -6,7 +6,7 @@ import intl from 'react-intl-universal';
 import { history, store } from '@/utils/store';
 import { isIPhoneX } from '@/utils/util';
 import Cookies from 'js-cookie';
-// import 'antd-mobile/dist/antd-mobile.less';
+import 'antd-mobile/dist/antd-mobile.less';
 import './index.less';
 import App from './App';
 

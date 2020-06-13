@@ -11,7 +11,7 @@ class LuckyCode extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      modal1: true,
+      modal1: false,
     };
   }
 
