@@ -13,6 +13,7 @@ import remind from '@/assets/images/remind.png';
 import avatar from '@/assets/images/avatar_notlogin.png';
 import winning from '@/assets/images/winning_crown.png';
 import RaffleCode from '@/components/luckyCode';
+import Participants from '@/components/participants';
 
 import styles from './index.less';
 
@@ -26,6 +27,8 @@ class ProductDetail extends PureComponent {
       data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
       current: 1,
       allCur: 0,
+      visibleRaffle: false,
+      visiblePartic: false,
     };
   }
 
@@ -41,8 +44,20 @@ class ProductDetail extends PureComponent {
     });
   };
 
+  closeRaffle = key => () => {
+    this.setState({
+      [key]: false,
+    });
+  };
+
+  viewLottery = key => () => {
+    this.setState({
+      [key]: true,
+    });
+  };
+
   render() {
-    const { current, allCur } = this.state;
+    const { current, allCur, visibleRaffle, visiblePartic } = this.state;
     return (
       <div className={styles.productPage}>
         <NavBar
@@ -107,10 +122,14 @@ class ProductDetail extends PureComponent {
               如何用6000VND拿走这件商品。
             </NoticeBar>
           </div>
-          <div className={styles.viewLottery}>查看我的抽奖码</div>
+          <div className={styles.viewLottery} onClick={this.viewLottery('visibleRaffle')}>
+            查看我的抽奖码
+          </div>
           <div className={styles.buyLottery}>
             <span className={styles.buyTimes}>已购买：10次</span>
-            <span className={styles.lottery}>查看我的抽奖码</span>
+            <span className={styles.lottery} onClick={this.viewLottery('visibleRaffle')}>
+              查看我的抽奖码
+            </span>
           </div>
           <div className={styles.winningBox}>
             <div className={styles.info}>
@@ -130,7 +149,9 @@ class ProductDetail extends PureComponent {
               <Button className={styles.rule}>计算规则</Button>
             </div>
           </div>
-          <div className={styles.sweepstakes}>查看本期抽奖人员</div>
+          <div className={styles.sweepstakes} onClick={this.viewLottery('visiblePartic')}>
+            查看本期抽奖人员
+          </div>
         </div>
         <div className={styles.shopDetail}>
           <h3 className={styles.h3tle}>商品详情</h3>
@@ -159,7 +180,8 @@ class ProductDetail extends PureComponent {
           </span>
           <Button type="primary" className={styles.goNow}>立即前往</Button>
         </div>
-        <RaffleCode />
+        <RaffleCode visible={visibleRaffle} closeRaffle={this.closeRaffle('visibleRaffle')} />
+        <Participants visible={visiblePartic} closeRaffle={this.closeRaffle('visiblePartic')} />
       </div>
     );
   }
