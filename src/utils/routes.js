@@ -6,6 +6,7 @@ import Password from '@/pages/password';
 import Order from '@/pages/order';
 import ProductDetail from '@/pages/productDetail';
 import Personal from '@/pages/personal';
+import RulePage from '@/pages/rules';
 
 export const routes = [
   {
@@ -47,5 +48,10 @@ export const routes = [
     path: '/personal',
     exact: true,
     component: Personal,
+  },
+  {
+    path: '/rules',
+    exact: true,
+    component: RulePage,
   },
 ];
