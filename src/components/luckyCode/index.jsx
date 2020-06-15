@@ -11,7 +11,7 @@ class LuckyCode extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      modal1: true,
+      modal1: false,
     };
   }
 
@@ -31,19 +31,19 @@ class LuckyCode extends PureComponent {
           maskClosable={false}
           onClose={this.onClose('modal1')}
           title="Title"
-          footer={[
-            {
-              text: 'Ok',
-              onPress: () => {
-                console.log('ok');
-                this.onClose('modal1')();
-              },
-            },
-          ]}
-          wrapProps={{ onTouchStart: this.onWrapTouchStart }}
-          afterClose={() => {
-            alert('afterClose');
-          }}
+          // footer={[
+          //   {
+          //     text: 'Ok',
+          //     onPress: () => {
+          //       console.log('ok');
+          //       this.onClose('modal1')();
+          //     },
+          //   },
+          // ]}
+          // wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+          // afterClose={() => {
+          //   alert('afterClose');
+          // }}
         >
           <div style={{ height: 100, overflow: 'scroll' }}>
             scoll content...<br />

@@ -43,7 +43,6 @@ class ProductDetail extends PureComponent {
 
   render() {
     const { current, allCur } = this.state;
-    console.log(123);
     return (
       <div className={styles.productPage}>
         <NavBar
