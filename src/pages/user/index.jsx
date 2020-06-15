@@ -10,7 +10,10 @@ import arrow_right from '@/assets/images/ic_arrow_white.png';
 import wait from '@/assets/images/ic_waiting.png';
 import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
+import queryString from 'query-string';
 import styles from './index.less';
+
+const { lang } = queryString.parse(window.location.search);
 
 class User extends PureComponent {
   constructor(props) {
@@ -28,6 +31,9 @@ class User extends PureComponent {
   loginCLick() {
     this.props.history.push('/login');
   }
+  onPersonClick(){
+    this.props.history.push(`/personal?lang=${lang}`);
+  }
   feedBackClick() {
     // eslint-disable-next-line react/destructuring-assignment
     // const token = localStorage.get('token');
@@ -41,14 +47,16 @@ class User extends PureComponent {
     ];
     const { user } = this.props;
     const isLogin = localStorage.getItem('token') != null;
-    console.log('isLogin', isLogin);
-
     return (
       <div>
         <div className={styles.topBox}>
           <div className={styles.title}>{intl.get('user.title')}</div>
           <div className={styles.authorInfo}>
-            <img className={styles.authorImg} src={authorImg}></img>
+            <img
+              className={styles.authorImg}
+              src={user.userInfo.photoUrl?user.userInfo.photoUrl:authorImg}
+              onClick={this.onPersonClick.bind(this)}
+            ></img>
             <div className={styles.authorLoginType}>
               {!isLogin ? (
                 <div className={styles.authorLogin} onClick={this.loginCLick.bind(this)}>
@@ -76,9 +84,11 @@ class User extends PureComponent {
               hasLine={false}
               onClick={_el => {
                 if (isLogin) {
-                  this.props.history.push(`/order?label=${_el.label}&type=${_el.type}`);
+                  this.props.history.push(
+                    `/order?label=${_el.label}&type=${_el.type}&lang=${lang}`
+                  );
                 } else {
-                  this.props.history.push('/login');
+                  this.props.history.push(`/login?lang=${lang}`);
                 }
               }}
               renderItem={item => (

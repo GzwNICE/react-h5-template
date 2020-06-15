@@ -31,6 +31,10 @@ class DetailDialog extends PureComponent {
           <DialogItem data={{ title: '持卡人姓名', value: '张三' }} />
           <DialogItem data={{ title: '银行名称', value: '招商银行' }} />
           <DialogItem data={{ title: '卡号', value: '6229 1345 1234 1234 321' }} />
+
+          <div className={styles.companyInfo}>
+            GaGaGO已对接第三方礼品回收公司，并委托第三方公司进行奖品兑现工作。
+          </div>
           <div className={styles.footer}>
             <Button className={styles.cancel} onClick={this.onClose.bind(this)}>
               知道了

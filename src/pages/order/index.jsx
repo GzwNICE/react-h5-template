@@ -13,7 +13,7 @@ import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
 import { exchangeDetail } from '@/services/order';
 import styles from './index.less';
 
-const { label } = queryString.parse(window.location.search);
+const { lang } = queryString.parse(window.location.search);
 
 class OrderList extends PureComponent {
   constructor(props) {
@@ -31,11 +31,11 @@ class OrderList extends PureComponent {
       refreshing: true,
       goCoinDialog: false,
       cashDialog: false,
-      orderId:'',
+      orderId: '',
     };
   }
   componentDidUpdate() {
-    if ( this.state.useBodyScroll) {
+    if (this.state.useBodyScroll) {
       document.body.style.overflow = 'auto';
     } else {
       document.body.style.overflow = 'hidden';
@@ -53,7 +53,6 @@ class OrderList extends PureComponent {
 
   getPageList = () => {
     const { refreshList } = this.props;
-    console.log("order_type", queryString.parse(window.location.search).type)
     this.setState(
       {
         page: 1,
@@ -143,6 +142,7 @@ class OrderList extends PureComponent {
   render() {
     const { result } = this.props;
     const { isLoading, goCoinDialog, cashDialog, type } = this.state;
+    const label = queryString.parse(window.location.search).label;
     const Row = d => {
       return (
         <div>
@@ -161,7 +161,6 @@ class OrderList extends PureComponent {
         }}
       />
     );
-  
     return (
       <div className={styles.order}>
         <NavBar

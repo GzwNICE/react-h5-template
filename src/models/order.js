@@ -9,7 +9,7 @@ export const order = createModel({
         data: [],
         total: 0,
       },
-      goCoinDetail:{}
+      goCoinDetail: {},
     },
   },
   reducers: {
@@ -20,7 +20,7 @@ export const order = createModel({
           ...state.data,
           orderList: {
             data: payload.data.rows,
-            total:payload.data.total,
+            total: payload.data.total,
           },
         },
       };
@@ -38,7 +38,7 @@ export const order = createModel({
       };
     },
 
-    clearList(state, payload) {
+    clearList(state) {
       return {
         ...state,
         data: {
