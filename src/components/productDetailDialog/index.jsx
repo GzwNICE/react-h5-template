@@ -6,12 +6,15 @@ import DialogItem from '@/components/dialogItem';
 import styles from './index.less';
 
 class DetailDialog extends PureComponent {
+  onClose() {
+    this.props.parent.setCashDialog(false);
+  }
   render() {
     const { codeModal } = this.props;
     return (
       <div className={styles.regPage}>
         <Modal
-          visible={true}
+          visible={codeModal}
           transparent
           maskClosable={false}
           title="兑换详情"
@@ -29,7 +32,9 @@ class DetailDialog extends PureComponent {
           <DialogItem data={{ title: '银行名称', value: '招商银行' }} />
           <DialogItem data={{ title: '卡号', value: '6229 1345 1234 1234 321' }} />
           <div className={styles.footer}>
-            <Button className={styles.cancel} >知道了</Button>
+            <Button className={styles.cancel} onClick={this.onClose.bind(this)}>
+              知道了
+            </Button>
           </div>
         </Modal>
       </div>

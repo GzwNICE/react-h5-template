@@ -10,15 +10,11 @@ class DetailDialog extends PureComponent {
     super(props);
   }
   onClose() {
-    console.log("close")
-    this.props.parent.closeDialog();
+    this.props.parent.setGoCoinDialog(false);
   }
 
   render() {
-    // console.log(3333, 'render', this.props.codeModal);
     const { codeModal } = this.props;
-    // const { showDialog } = this.state;
-    // const { showDialog } = this.state;
     return (
       <div className={styles.regPage}>
         <Modal
