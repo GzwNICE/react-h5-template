@@ -9,6 +9,7 @@ export const order = createModel({
         data: [],
         total: 0,
       },
+      goCoinDetail: {},
     },
   },
   reducers: {
@@ -19,7 +20,7 @@ export const order = createModel({
           ...state.data,
           orderList: {
             data: payload.data.rows,
-            total:payload.data.total,
+            total: payload.data.total,
           },
         },
       };
@@ -37,7 +38,7 @@ export const order = createModel({
       };
     },
 
-    clearList(state, payload) {
+    clearList(state) {
       return {
         ...state,
         data: {
@@ -46,6 +47,15 @@ export const order = createModel({
             data: [],
             total: 0,
           },
+        },
+      };
+    },
+    exchangeDetail(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          goCoinDetail: payload.data,
         },
       };
     },
@@ -61,6 +71,10 @@ export const order = createModel({
     },
     async clearOrderList(payload) {
       dispatch.order.clearList(payload);
+    },
+    async getExchangeDetail(payload) {
+      const response = await orderService.exchangeDetail(payload);
+      dispatch.order.exchangeDetail(response);
     },
   }),
 });

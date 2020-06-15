@@ -80,7 +80,7 @@ class Win extends PureComponent {
                     search: `?lang=${lang}`,
                   }}
                 >
-                  <div className={styles.btn}>去确认</div>
+                  <div className={styles.btn} onClick={this.onDetailClick.bind(this)}>去确认</div>
                 </Link>
               ) : null}
             </div>
@@ -120,10 +120,10 @@ class Win extends PureComponent {
             <div className={styles.winTime}>
               中奖时间： {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
             </div>
-            {data.status === 'NO_CONFIRM' ||
+            {data.status === 'COIN_RECYCLE' ||
             data.status === 'WAIT_CASH' ||
             data.status === 'CASHED' ? (
-              <div className={styles.detail} onClick={this.onDetailClick.bind(this, data.status)}>
+              <div className={styles.detail} onClick={this.onDetailDialogClick.bind(this, data.status,data.orderId)}>
                 兑换详情
               </div>
             ) : null}
@@ -133,10 +133,10 @@ class Win extends PureComponent {
       </div>
     );
   }
-  // onConfirmClick(data) {
-  //   console.log('跳转到详情页', data);
-  //   this.props.history.push(`/product/${data.activityTurnId}?lang=${lang}`);
-  // }
+  onDetailClick(data) {
+    console.log('跳转到详情页', data);
+    this.props.history.push(`/product/${data.activityTurnId}?lang=${lang}`);
+  }
 
   onCopyClick(copyContent) {
     if (copy(copyContent)) {
@@ -145,10 +145,11 @@ class Win extends PureComponent {
       Toast.info('复制失败', 2);
     }
   }
-  onDetailClick(status) {
-    console.log(1111, this.props);
-    if (status === 'NO_CONFIRM') {
-      this.props.parent.setGoCoinDialog(true);
+  onDetailDialogClick(status, orderId) {
+    if (status === 'COIN_RECYCLE') {
+      this.props.parent.setGoCoinDialog(true, orderId);
+    } else if (status === 'WAIT_CASH' || status === 'CASHED') {
+      this.props.parent.setCashDialog(true, orderId);
     }
   }
 }

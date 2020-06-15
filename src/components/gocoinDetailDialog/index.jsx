@@ -9,17 +9,12 @@ class DetailDialog extends PureComponent {
   constructor(props) {
     super(props);
   }
-  onClose = key => () => {
-    this.setState({
-      [key]: false,
-    });
-  };
+  onClose() {
+    this.props.parent.setGoCoinDialog(false);
+  }
 
   render() {
-    // console.log(3333, 'render', this.props.codeModal);
     const { codeModal } = this.props;
-    // const { showDialog } = this.state;
-    // const { showDialog } = this.state;
     return (
       <div className={styles.regPage}>
         <Modal
@@ -35,7 +30,7 @@ class DetailDialog extends PureComponent {
           <DialogItem data={{ title: '最终兑换金额', value: '3912 GO币' }} />
           <DialogItem data={{ title: '兑换时间', value: '11/01/2020 12:23' }} />
           <div className={styles.footer}>
-            <Button className={styles.cancel} onClick={this.onClose('showDialog')}>知道了</Button>
+            <Button className={styles.cancel} onClick={this.onClose.bind(this)}>知道了</Button>
           </div>
         </Modal>
       </div>

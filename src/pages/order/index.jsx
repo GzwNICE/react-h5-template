@@ -8,11 +8,12 @@ import Empty from '@/components/empty';
 import queryString from 'query-string';
 
 import GoCoinDetailDialog from '@/components/gocoinDetailDialog';
-
+import CashDetailDialog from '@/components/productDetailDialog';
 import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
+import { exchangeDetail } from '@/services/order';
 import styles from './index.less';
 
-const { label,type } = queryString.parse(window.location.search);
+const { lang } = queryString.parse(window.location.search);
 
 class OrderList extends PureComponent {
   constructor(props) {
@@ -25,15 +26,16 @@ class OrderList extends PureComponent {
       page: 0,
       size: 10,
       isLoading: true,
-      title: label,
       useBodyScroll: false,
       height: document.documentElement.clientHeight,
       refreshing: true,
       goCoinDialog: false,
+      cashDialog: false,
+      orderId: '',
     };
   }
   componentDidUpdate() {
-    if ( this.state.useBodyScroll) {
+    if (this.state.useBodyScroll) {
       document.body.style.overflow = 'auto';
     } else {
       document.body.style.overflow = 'hidden';
@@ -50,21 +52,19 @@ class OrderList extends PureComponent {
   }
 
   getPageList = () => {
-    this.fetch = true;
     const { refreshList } = this.props;
     this.setState(
       {
         page: 1,
+        type: queryString.parse(window.location.search).type,
       },
       () => {
         const params = {
           page: this.state.page,
           size: this.state.size,
-          type: type,
+          type: this.state.type,
         };
         refreshList(params).then(() => {
-          this.fetch = false;
-          console.log("结果",this.props.result.data)
           this.setState({
             refreshing: false,
             dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
@@ -74,7 +74,6 @@ class OrderList extends PureComponent {
     );
   };
   loadPageList = () => {
-    this.fetch = true;
     const { loadList } = this.props;
     this.setState(
       {
@@ -84,10 +83,9 @@ class OrderList extends PureComponent {
         const params = {
           page: this.state.page,
           size: this.state.size,
-          type: type,
+          type: this.state.type,
         };
         loadList(params).then(() => {
-          this.fetch = false;
           this.setState({
             refreshing: false,
             dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
@@ -108,18 +106,43 @@ class OrderList extends PureComponent {
     this.setState({ refreshing: true, isLoading: true });
     this.getPageList();
   };
-  setGoCoinDialog = (_bool) => {
-    console.log(222, 'setGoCoinDialog', _bool);
-    this.setState({
-      goCoinDialog: _bool,
-    });
-    setTimeout(() => {
-      this.setState({
-        goCoinDialog: false,
-      });
-    }, 2000);
+  setGoCoinDialog = (_bool, orderId) => {
+    this.setState(
+      {
+        goCoinDialog: _bool,
+        orderId: orderId,
+      },
+      () => {
+        if (_bool) {
+          const params = {
+            orderId: this.state.orderId,
+          };
+          exchangeDetail(params);
+        }
+      }
+    );
   };
+  setCashDialog = (_bool, orderId) => {
+    this.setState(
+      {
+        cashDialog: _bool,
+        orderId: orderId,
+      },
+      () => {
+        if (_bool) {
+          const params = {
+            orderId: this.state.orderId,
+          };
+          exchangeDetail(params);
+        }
+      }
+    );
+  };
+
   render() {
+    const { result } = this.props;
+    const { isLoading, goCoinDialog, cashDialog, type } = this.state;
+    const label = queryString.parse(window.location.search).label;
     const Row = d => {
       return (
         <div>
@@ -138,10 +161,6 @@ class OrderList extends PureComponent {
         }}
       />
     );
-    const { result } = this.props;
-    const { isLoading, orderType, title, goCoinDialog } = this.state;
-    console.log('render', goCoinDialog);
-
     return (
       <div className={styles.order}>
         <NavBar
@@ -192,7 +211,9 @@ class OrderList extends PureComponent {
 
           />
         )}
-        <GoCoinDetailDialog codeModal={this.state.goCoinDialog} />
+        <GoCoinDetailDialog parent={this} codeModal={goCoinDialog} />
+        <CashDetailDialog parent={this} codeModal={cashDialog} />
+
       </div>
     );
   }
@@ -206,6 +227,7 @@ const mapDispatch = dispatch => ({
   refreshList: params => dispatch.order.getRefreshList(params),
   loadList: params => dispatch.order.getLoadList(params),
   clearList: params => dispatch.order.clearOrderList(params),
+  exchangeDetail: params => dispatch.order.getExchangeDetail(params),
 });
 
 export default connect(mapState, mapDispatch)(OrderList);
