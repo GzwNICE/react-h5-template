@@ -109,15 +109,14 @@ class OrderList extends PureComponent {
     this.getPageList();
   };
   setGoCoinDialog = (_bool) => {
-    console.log(222, 'setGoCoinDialog', _bool);
     this.setState({
       goCoinDialog: _bool,
     });
-    setTimeout(() => {
-      this.setState({
-        goCoinDialog: false,
-      });
-    }, 2000);
+  };
+  closeDialog(){
+    this.setState({
+      goCoinDialog: false,
+    });
   };
   render() {
     const Row = d => {
@@ -192,7 +191,7 @@ class OrderList extends PureComponent {
 
           />
         )}
-        <GoCoinDetailDialog codeModal={this.state.goCoinDialog} />
+        <GoCoinDetailDialog parent={this} codeModal={this.state.goCoinDialog} />
       </div>
     );
   }
