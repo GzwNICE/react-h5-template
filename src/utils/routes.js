@@ -7,6 +7,7 @@ import Order from '@/pages/order';
 import ProductDetail from '@/pages/productDetail';
 import Personal from '@/pages/personal';
 import RulePage from '@/pages/rules';
+import Editname from '@/pages/editname';
 
 export const routes = [
   {
@@ -53,5 +54,10 @@ export const routes = [
     path: '/rules',
     exact: true,
     component: RulePage,
+  },
+  {
+    path: '/editname',
+    exact: true,
+    component: Editname,
   },
 ];
