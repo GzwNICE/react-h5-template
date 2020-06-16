@@ -35,8 +35,8 @@ class User extends PureComponent {
     this.props.history.push(`/personal?lang=${lang}`);
   }
   feedBackClick() {
-    // eslint-disable-next-line react/destructuring-assignment
-    // const token = localStorage.get('token');
+    this.props.history.push(`/feedback?lang=${lang}`);
+
   }
   render() {
     // eslint-disable-next-line react/destructuring-assignment

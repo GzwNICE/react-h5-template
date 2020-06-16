@@ -8,6 +8,7 @@ import ProductDetail from '@/pages/productDetail';
 import Personal from '@/pages/personal';
 import RulePage from '@/pages/rules';
 import Editname from '@/pages/editname';
+import Feedback from '@/pages/feedback';
 
 export const routes = [
   {
@@ -59,5 +60,10 @@ export const routes = [
     path: '/editname',
     exact: true,
     component: Editname,
+  },
+  {
+    path: '/feedback',
+    exact: true,
+    component: Feedback,
   },
 ];

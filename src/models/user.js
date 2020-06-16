@@ -22,14 +22,18 @@ export const user = createModel({
   effects: dispatch => ({
     async getUserInfo(payload) {
       const response = await userService.getUserInfo(payload);
-      console.log('getUserInfo', response);
-
       dispatch.user.saveUserInfo(response);
     },
     async updateUserInfo(payload) {
       const response = await userService.commitUserInfo(payload);
-      console.log('resultUserInfo', response);
       dispatch.user.saveUserInfo(response);
+    },
+    async requestUpdateImage(payload) {
+      console.log("requestImage",payload)
+
+      const response = await userService.doUpdateImage(payload);
+      console.log("responseImage",response)
+      dispatch.user.resultImageInfo(response);
     },
   }),
 });

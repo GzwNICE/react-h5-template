@@ -7,3 +7,10 @@ export async function getUserInfo() {
 export async function commitUserInfo(params) {
   return request('/app/v1/user/edit/info', { method: 'post', data: params });
 }
+export async function doUpdateImage(params) {
+  return request('/app/v1/file/upload', {
+    method: 'post',
+    data: params,
+    accepts: 'multipart/form-data',
+  });
+}
