@@ -25,7 +25,7 @@ background-color: #f7f7f7;
 }
 .itemBox{
     overflow: hidden;
-    padding: 12px;
+    padding: 12px 15px 12px 15px;
     background-color: #fff;
     .title{
         color: #333333;
@@ -33,19 +33,29 @@ background-color: #f7f7f7;
         float: left;
     }
     .content{
-        color: #cbcbcb;
+        color: #888;
         font-size: 14px;
         float: right;
         margin-right: 5px;
 
     }
     .arrow{
-        width:8px;
-        height:12px;
+        display: block;
+        width: 15px;
+        height: 15px;
+        margin-left: 8px;
         float: right;
-        margin-top: 4px;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='26' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 0L0 2l11.5 11L0 24l2 2 14-13z' fill='%23C7C7CC' fill-rule='evenodd'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
     
     }
 }
 }
-
+.title{
+    color: #333333;
+    font-size: 16px;
+    float: left;
+    left: 0px;
+}
