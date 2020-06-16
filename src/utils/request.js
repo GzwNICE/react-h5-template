@@ -13,6 +13,8 @@ const domain = `${window.location.protocol}//${getBaseUrl()}`;
 const history = createBrowserHistory();
 const { lang } = queryString.parse(window.location.search);
 
+console.log(1111, domain);
+
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
