@@ -4,6 +4,8 @@ const getBaseUrl = () => {
   if (env === 'development') {
     baseUrl = 'gagago-app-api-test.51moneygo.com';
   } else if (env === 'test') {
+    baseUrl = 'gagago-app-api-test.51moneygo.com';
+  } else if (env === 'release') {
     baseUrl = 'gagago-app-api-vn.9191money.com';
   } else if (env === 'production') {
     baseUrl = 'app-api.winmybonus.com';
