@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { NavBar, Icon, Picker, List } from 'antd-mobile';
 import authorImg from '@/assets/images/avatar_notlogin.png';
-import arrow_right from '@/assets/images/ic_arrow_white.png';
 
 import styles from './index.less';
 

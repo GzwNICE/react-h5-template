@@ -9,6 +9,8 @@ import queryString from 'query-string';
 
 import GoCoinDetailDialog from '@/components/gocoinDetailDialog';
 import CashDetailDialog from '@/components/productDetailDialog';
+import RaffleCodeDialog from '@/components/luckyCode';
+
 import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
 import { exchangeDetail } from '@/services/order';
 import styles from './index.less';
@@ -132,21 +134,30 @@ class OrderList extends PureComponent {
         if (_bool) {
           const params = {
             orderId: this.state.orderId,
-          };
+           };
           exchangeDetail(params);
         }
       }
     );
   };
-
+  showCodeDialog= turnId =>{
+    this.setState({
+      visibleRaffle: true,
+    });
+  };
+  closeRaffle = key => () => {
+    this.setState({
+      [key]: false,
+    });
+  };
   render() {
     const { result } = this.props;
-    const { isLoading, goCoinDialog, cashDialog, type } = this.state;
+    const { isLoading, goCoinDialog, cashDialog, type, visibleRaffle } = this.state;
     const label = queryString.parse(window.location.search).label;
     const Row = d => {
       return (
         <div>
-          {type === '1' ? <WaitOpen data={d} /> : null}
+          {type === '1' ? <WaitOpen parent={this} data={d} /> : null}
           {type === '2' ? <Win parent={this} data={d} /> : null}
           {type === '3' ? <NoWin data={d} /> : null}
         </div>
@@ -210,6 +221,8 @@ class OrderList extends PureComponent {
             )}
           />
         )}
+        <RaffleCodeDialog visible={visibleRaffle} closeRaffle={this.closeRaffle('visibleRaffle')} />
+
         <GoCoinDetailDialog parent={this} codeModal={goCoinDialog} />
         <CashDetailDialog parent={this} codeModal={cashDialog} />
       </div>

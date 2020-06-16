@@ -1,13 +1,17 @@
 import homePage from '@/pages/home';
+
 import userPage from '@/pages/user';
+import PayList from '@/pages/user/paylist';
+import Feedback from '@/pages/user/feedback';
+import Personal from '@/pages/user/personal';
+import Editname from '@/pages/user/personal/editname';
+import Order from '@/pages/user/order';
+
 import loginPage from '@/pages/login';
 import regPage from '@/pages/register';
 import Password from '@/pages/password';
-import Order from '@/pages/order';
 import ProductDetail from '@/pages/productDetail';
-import Personal from '@/pages/personal';
 import RulePage from '@/pages/rules';
-import Editname from '@/pages/editname';
 
 export const routes = [
   {
@@ -59,5 +63,15 @@ export const routes = [
     path: '/editname',
     exact: true,
     component: Editname,
+  },
+  {
+    path: '/feedback',
+    exact: true,
+    component: Feedback,
+  },
+  {
+    path: '/paylist',
+    exact: true,
+    component: PayList,
   },
 ];

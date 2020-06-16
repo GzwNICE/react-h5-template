@@ -12,8 +12,6 @@ import OpenList from '@/pages/willEndList';
 import ValueList from '@/pages/sortValueList';
 import TabBarBox from '@/components/tabBar';
 import sorting from '@/assets/images/sorting.png';
-import all from '@/assets/images/all.png';
-import allSel from '@/assets/images/allSelected.png';
 import styles from './index.less';
 
 function renderTabBar(props) {
