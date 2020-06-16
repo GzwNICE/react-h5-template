@@ -4,7 +4,7 @@
  */
 import { extend } from 'umi-request';
 import { Toast } from 'antd-mobile';
-import { push } from 'connected-react-router';
+// import { push } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { getBaseUrl } from '@/utils/util';
 import queryString from 'query-string';
@@ -12,6 +12,8 @@ import queryString from 'query-string';
 const domain = `${window.location.protocol}//${getBaseUrl()}`;
 const history = createBrowserHistory();
 const { lang } = queryString.parse(window.location.search);
+
+console.log(1111, domain);
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
