@@ -208,12 +208,10 @@ class OrderList extends PureComponent {
                 {isLoading ? 'Loading...' : '已经到底了！'}
               </div>
             )}
-
           />
         )}
         <GoCoinDetailDialog parent={this} codeModal={goCoinDialog} />
         <CashDetailDialog parent={this} codeModal={cashDialog} />
-
       </div>
     );
   }
