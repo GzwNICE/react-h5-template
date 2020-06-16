@@ -1,5 +1,5 @@
 const getBaseUrl = () => {
-  let env = process.env.NODE_ENV;
+  let env = process.env.ENV_CONFIG;
   let baseUrl = '';
   if (env === 'development') {
     baseUrl = 'gagago-app-api-test.51moneygo.com';

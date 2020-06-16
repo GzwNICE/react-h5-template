@@ -5,14 +5,13 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production ESLINT=true webpack --config internals/webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
     "build:nolint": "npm run clean && cross-env NODE_ENV=production ESLINT=false webpack --config internals/webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
-    "build:test": "cross-env NODE_ENV=test ENV_CONFIG=test ESLINT=false webpack --config internals/webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
-    "build:release": "cross-env NODE_ENV=release ENV_CONFIG=prod ESLINT=false webpack --config internals/webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
-    "build:prod": "cross-env NODE_ENV=production ENV_CONFIG=prod ESLINT=false webpack --config internals/webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
+    "build:test": "cross-env NODE_ENV=production ENV_CONFIG=test ESLINT=false webpack --config internals/webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
+    "build:release": "cross-env NODE_ENV=production ENV_CONFIG=release ESLINT=false webpack --config internals/webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
+    "build:prod": "cross-env NODE_ENV=production ENV_CONFIG=production ESLINT=false webpack --config internals/webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
     "start": "cross-env NODE_ENV=development ENV_CONFIG=development node server",
-    "start:test": "cross-env NODE_ENV=development ENV_CONFIG=test node server",
+    "start:test": "cross-env NODE_ENV=test ENV_CONFIG=test node server",
     "start:release": "cross-env NODE_ENV=release ENV_CONFIG=release node server",
-    "start:production": "cross-env NODE_ENV=release ENV_CONFIG=release node server",
-    "start:prod": "cross-env NODE_ENV=production node server"
+    "start:production": "cross-env NODE_ENV=production ENV_CONFIG=production node server"
   },
   "author": "",
   "license": "ISC",
