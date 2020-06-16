@@ -152,8 +152,13 @@ module.exports = options => {
       ],
     },
     plugins: options.plugins.concat([
-      new webpack.EnvironmentPlugin({
-        NODE_ENV: 'development',
+      // new webpack.EnvironmentPlugin({
+      //   NODE_ENV: 'development',
+      //   ENV_CONFIG: 'development'
+      // }),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': process.env.NODE_ENV,
+        'process.env.ENV_CONFIG': process.env.ENV_CONFIG
       }),
       new ProgressBarPlugin(),
       new FirendlyErrorePlugin(),
