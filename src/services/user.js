@@ -11,6 +11,9 @@ export async function doUpdateImage(params) {
   return request('/app/v1/file/upload', {
     method: 'post',
     data: params,
-    accepts: 'multipart/form-data',
+    Accept: 'multipart/form-data',
   });
+}
+export async function doAddMessage(params) {
+  return request('/app/v1/user/feedback', { method: 'post', data: params });
 }

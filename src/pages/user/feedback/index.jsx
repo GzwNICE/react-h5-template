@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
-import { NavBar, Icon, TextareaItem, ImagePicker } from 'antd-mobile';
+import { NavBar, Icon, TextareaItem, ImagePicker, Button, Toast } from 'antd-mobile';
 
 import styles from './index.less';
 
@@ -12,7 +12,14 @@ class FeedBack extends PureComponent {
       files: [],
     };
   }
-  onChange = (files, type, index) => {
+  componentDidMount() {
+    this.setState({
+      isEmpty: true,
+      content: '',
+    });
+  }
+
+  onImageChange = (files, type, index) => {
     console.log(files, type, index);
     const { updateImage } = this.props;
     this.setState(
@@ -31,9 +38,24 @@ class FeedBack extends PureComponent {
       }
     );
   };
-  render() {
-    const { files } = this.state;
+  onAreaChange = ret => {
+    this.setState({
+      isEmpty: ret.length == 0,
+      content: ret,
+    });
+  };
+  submitMsg() {
+    const { addMessage } = this.props;
+    addMessage({
+      feedbackContent: this.state.content,
+    }).then(() => {
+      Toast.info('感谢您的反馈', 2);
+      this.props.history.go(-1);
+    });
+  }
 
+  render() {
+    const { files, isEmpty } = this.state;
     return (
       <div className={styles.contentBox}>
         <NavBar
@@ -45,8 +67,10 @@ class FeedBack extends PureComponent {
           意见反馈
         </NavBar>
         <TextareaItem
-          placeholder='对我们的服务有什么建议吗？请告诉我们'
+          placeholder="对我们的服务有什么建议吗？请告诉我们"
           autoHeight
+          autoFocus
+          onChange={this.onAreaChange}
           rows={5}
           count={500}
           ref={el => (this.customFocusInst = el)}
@@ -55,12 +79,15 @@ class FeedBack extends PureComponent {
           <ImagePicker
             length="6"
             files={files}
-            onChange={this.onChange}
+            onChange={this.onImageChange}
             onImageClick={(index, fs) => console.log(index, fs)}
             selectable={files.length < 9}
             accept="image/gif,image/jpeg,image/jpg,image/png"
-        />
+          />
         </div>
+        <Button disabled={isEmpty} className={styles.submit} onClick={this.submitMsg.bind(this)}>
+          提交
+        </Button>
       </div>
     );
   }
@@ -71,8 +98,8 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  userInfo: params => dispatch.user.getUserInfo(params),
   updateImage: params => dispatch.user.requestUpdateImage(params),
+  addMessage: params => dispatch.user.requestAddMessage(params),
 });
 
 export default connect(mapState, mapDispatch)(FeedBack);

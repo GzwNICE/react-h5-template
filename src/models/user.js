@@ -6,6 +6,7 @@ export const user = createModel({
   state: {
     data: {
       userInfo: {},
+      imageInfo:{}
     },
   },
   reducers: {
@@ -18,6 +19,16 @@ export const user = createModel({
         },
       };
     },
+    resultImageInfo(state,payload){
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          imageInfo: payload.data ? payload.data : payload,
+        },
+      };
+    }
+   
   },
   effects: dispatch => ({
     async getUserInfo(payload) {
@@ -29,11 +40,12 @@ export const user = createModel({
       dispatch.user.saveUserInfo(response);
     },
     async requestUpdateImage(payload) {
-      console.log("requestImage",payload)
-
       const response = await userService.doUpdateImage(payload);
-      console.log("responseImage",response)
       dispatch.user.resultImageInfo(response);
+    },
+    async requestAddMessage(payload) {
+      const response = await userService.doAddMessage(payload);
+      return response;
     },
   }),
 });
