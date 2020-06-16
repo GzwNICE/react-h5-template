@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 // import intl from 'react-intl-universal';
 import { NavBar, Carousel, Progress, NoticeBar, Button, Toast } from 'antd-mobile';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import navBack from '@/assets/images/navBack.png';
 import priceBg from '@/assets/images/activity_bg_price.png';
 import priceOpen from '@/assets/images/activity_pic_countdown.png';
@@ -23,7 +23,7 @@ class ProductDetail extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      // id: this.props.match.params.activityTurnId,
+      activityTurnId: this.props.match.params.activityTurnId,
       data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
       current: 1,
       allCur: 0,
@@ -57,7 +57,7 @@ class ProductDetail extends PureComponent {
   };
 
   render() {
-    const { current, allCur, visibleRaffle, visiblePartic } = this.state;
+    const { current, allCur, visibleRaffle, visiblePartic, activityTurnId } = this.state;
     return (
       <div className={styles.productPage}>
         <NavBar
@@ -146,7 +146,15 @@ class ProductDetail extends PureComponent {
             </div>
             <div className={styles.winNum}>
               <span className={styles.num}>中奖号码 10000174</span>
-              <Button className={styles.rule}>计算规则</Button>
+              <Link
+                to={{
+                  pathname: `/rules/${activityTurnId}`,
+                  search: `?lang=${lang}`,
+                }}
+                className={styles.rule}
+              >
+                计算规则
+              </Link>
             </div>
           </div>
           <div className={styles.sweepstakes} onClick={this.viewLottery('visiblePartic')}>
