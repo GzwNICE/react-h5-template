@@ -5,6 +5,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import intl from 'react-intl-universal';
 import { history, store } from '@/utils/store';
 import { isIPhoneX } from '@/utils/util';
+import { request } from '@/utils/request';
 import Cookies from 'js-cookie';
 import 'antd-mobile/dist/antd-mobile.less';
 import './index.less';
@@ -25,6 +26,10 @@ intl.init({
 });
 
 Cookies.set('IPhoneX', isIPhoneX(), { expires: 30 });
+
+request('/app/system/conf/enable', { method: 'get' }).then(res => {
+  localStorage.setItem('configuration', JSON.stringify(res.data));
+});
 
 const Root = () => (
   <Provider store={store}>

@@ -19,7 +19,7 @@ export const user = createModel({
         },
       };
     },
-    resultImageInfo(state,payload){
+    resultImageInfo(state, payload) {
       return {
         ...state,
         data: {
@@ -27,7 +27,7 @@ export const user = createModel({
           imageInfo: payload.data ? payload.data : payload,
         },
       };
-    }
+    },
   },
   effects: dispatch => ({
     async getUserInfo(payload) {

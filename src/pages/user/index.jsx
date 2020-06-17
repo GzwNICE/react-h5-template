@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { Grid } from 'antd-mobile';
 import { connect } from 'react-redux';
@@ -29,7 +30,7 @@ class User extends PureComponent {
     }
   }
   loginCLick() {
-    this.props.history.push('/login');
+    this.props.history.push(`/login?lang=${lang}`);
   }
   onPersonClick() {
     this.props.history.push(`/personal?lang=${lang}`);
@@ -56,7 +57,7 @@ class User extends PureComponent {
           <div className={styles.authorInfo}>
             <img
               className={styles.authorImg}
-              src={user.userInfo.photoUrl?user.userInfo.photoUrl:authorImg}
+              src={user.userInfo.photoUrl ? user.userInfo.photoUrl : authorImg}
               onClick={this.onPersonClick.bind(this)}
             ></img>
             <div className={styles.authorLoginType}>

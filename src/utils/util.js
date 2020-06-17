@@ -1,6 +1,5 @@
 const getBaseUrl = () => {
   let env = process.env.ENV_CONFIG;
-  console.log(222, env);
   let baseUrl = '';
   if (env === 'development') {
     baseUrl = 'gagago-app-api-test.51moneygo.com';
@@ -29,7 +28,7 @@ const debounce = (func, wait, immediate) => {
 
     if (timeout) clearTimeout(timeout);
     if (immediate) {
-      var callNow = !timeout;
+      let callNow = !timeout;
       timeout = setTimeout(() => {
         timeout = null;
       }, wait);
@@ -42,4 +41,28 @@ const debounce = (func, wait, immediate) => {
   };
 };
 
-export { isIPhoneX, debounce, getBaseUrl };
+const format = (data, type) => {
+  function add(m) {
+    return m < 10 ? '0' + m : m;
+  }
+  let time = new Date(Number(data));
+  let y = time.getFullYear();
+  let m = time.getMonth() + 1;
+  let d = time.getDate();
+  let h = time.getHours();
+  let mm = time.getMinutes();
+  let s = time.getSeconds();
+  let sm = time.getMilliseconds();
+  if (type === 'arr') {
+    return [
+      y + '-' + add(m) + '-' + add(d),
+      add(h) + ' ' + ':' + ' ' + add(mm) + ' ' + ':' + ' ' + add(s) + ' ' + add(sm),
+    ];
+  } else {
+    return (
+      y + '-' + add(m) + '-' + add(d) + ' ' + add(h) + ':' + add(mm) + ':' + add(s) + ' ' + add(sm)
+    );
+  }
+};
+
+export { isIPhoneX, debounce, getBaseUrl, format };

@@ -10,8 +10,8 @@ export async function commitUserInfo(params) {
 export async function doUpdateImage(params) {
   return request('/app/v1/file/upload', {
     method: 'post',
+    requestType: 'form',
     data: params,
-    Accept: 'multipart/form-data',
   });
 }
 export async function doAddMessage(params) {

@@ -1,6 +1,16 @@
 .rules {
   width: 100%;
   background-color: #fff;
+  padding-top: 45px;
+  padding-bottom: 219px;
+  .navBar {
+    background-color: #FF5209;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+  }
   .content {
     width: 100%;
     .title {
@@ -13,6 +23,79 @@
       color: #333333;
       padding-left: 12px;
       box-sizing: border-box;
+    }
+    :global(.am-list-header),
+    :global(.am-list-footer) {
+      padding: 0;
+    }
+    .header {
+      width: 100%;
+      height: 28px;
+      background-color: #ffeae1;
+      padding: 0 12px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+    }
+    .username, .code {
+      width: 25%;
+    }
+    .time {
+      width: 50%;
+    }
+    // :global(.am-list-body) {
+    //   height: 222px;
+    // }
+    :global(.am-list-item) {
+      padding-left: 0;
+      min-height: 0;
+      border-bottom: 1px solid #f1f1f1;
+    }
+    .listItem {
+      width: 100%;
+      padding: 0 12px;
+      box-sizing: border-box;
+      font-size: 12px;
+      font-family: PingFangSC, PingFangSC-Regular;
+      color: #333333;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer {
+      width: 100%;
+      padding: 12px;
+      height: 219px;
+      box-sizing: border-box;
+      background-color: #ffeae1;
+      position: fixed;
+      bottom: 0;
+      h4 {
+        font-size: 14px;
+        font-family: PingFangSC, PingFangSC-Medium;
+        font-weight: 500;
+        text-align: left;
+        color: #333333;
+        line-height: 20px;
+      }
+      p {
+        font-size: 12px;
+        font-family: PingFangSC, PingFangSC-Regular;
+        font-weight: 400;
+        text-align: left;
+        color: #333333;
+        line-height: 17px;
+        margin: 8px 0;
+      }
+      .winCode {
+        background: #ff5209;
+        border-radius: 8px;
+        margin-top: 16px;
+        font-size: 16px;
+        font-family: PingFangSC, PingFangSC-Medium;
+        font-weight: 500;
+        color: #ffffff;
+      }
     }
   }
 }

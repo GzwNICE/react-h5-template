@@ -55,7 +55,7 @@ export const routes = [
     component: Personal,
   },
   {
-    path: '/rules',
+    path: '/rules/:activityTurnId',
     exact: true,
     component: RulePage,
   },

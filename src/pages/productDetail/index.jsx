@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 // import intl from 'react-intl-universal';
 import { NavBar, Carousel, Progress, NoticeBar, Button, Toast } from 'antd-mobile';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import navBack from '@/assets/images/navBack.png';
 import priceBg from '@/assets/images/activity_bg_price.png';
 import priceOpen from '@/assets/images/activity_pic_countdown.png';
@@ -23,7 +23,7 @@ class ProductDetail extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      // id: this.props.match.params.activityTurnId,
+      activityTurnId: this.props.match.params.activityTurnId,
       data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
       current: 1,
       allCur: 0,
@@ -33,8 +33,13 @@ class ProductDetail extends PureComponent {
   }
 
   componentDidMount() {
-    this.setState({
-      allCur: this.state.data.length,
+    const { getDetail } = this.props;
+    getDetail({ activityTurnId: this.state.activityTurnId }).then(res => {
+      if (res.code === 200) {
+        this.setState({
+          allCur: res.data.imgUrlList.length,
+        });
+      }
     });
   }
 
@@ -57,7 +62,8 @@ class ProductDetail extends PureComponent {
   };
 
   render() {
-    const { current, allCur, visibleRaffle, visiblePartic } = this.state;
+    const { current, allCur, visibleRaffle, visiblePartic, activityTurnId } = this.state;
+    const { detail } = this.props;
     return (
       <div className={styles.productPage}>
         <NavBar
@@ -70,19 +76,15 @@ class ProductDetail extends PureComponent {
         />
         <div className={styles.carousel}>
           <Carousel autoplay={false} infinite dots={false} beforeChange={this.carBeforeChange}>
-            {this.state.data.map(val => (
-              <a
-                key={val}
-                href="http://www.alipay.com"
-                style={{ display: 'inline-block', width: '100%', height: '3.75rem' }}
-              >
+            {detail.imgUrlList &&
+              detail.imgUrlList.map(val => (
                 <img
-                  src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                  key={val}
+                  src={val}
                   alt=""
                   style={{ width: '100%', verticalAlign: 'top', height: '3.75rem' }}
                 />
-              </a>
-            ))}
+              ))}
           </Carousel>
           <div className={styles.dotsBox}>{`${current}/${allCur}`}</div>
         </div>
@@ -99,12 +101,13 @@ class ProductDetail extends PureComponent {
         </div>
         <div className={styles.priceBox} style={{ backgroundImage: `url(${priceBg})` }}>
           <span className={styles.price}>
-            <span>1</span>GO xu / quay
+            <span className={styles.pPrice}>{detail.participatePrice}</span>
+            <span>GO xu</span> / <span>奖券</span>
           </span>
           <div className={styles.remainBox}>
-            <span>剩余12人次</span>
+            <span>{`剩余${detail.remainingCount}人次`}</span>
             <Progress
-              percent={40}
+              percent={detail.progressRate}
               position="normal"
               unfilled
               barStyle={{ border: '4px solid #FF5209', boxSizing: 'border-box' }}
@@ -114,9 +117,10 @@ class ProductDetail extends PureComponent {
         </div>
         <div className={styles.infoBox}>
           <div className={styles.titleBox}>
-            <span className={styles.round}>第1轮</span>AirPods 苹果无线蓝牙耳机二代
+            <span className={styles.round}>{`第${detail.currentTurn}轮`}</span>
+            {detail.activityName}
           </div>
-          <div className={styles.moreBuy}>多买10张奖券可提升 43.48% 中奖率</div>
+          <div className={styles.moreBuy}>{`多买10张奖券可提升 ${detail.addWinRate}% 中奖率`}</div>
           <div className={styles.msgBox}>
             <NoticeBar icon={<img src={remind} alt="" width="14" />}>
               如何用6000VND拿走这件商品。
@@ -126,7 +130,7 @@ class ProductDetail extends PureComponent {
             查看我的抽奖码
           </div>
           <div className={styles.buyLottery}>
-            <span className={styles.buyTimes}>已购买：10次</span>
+            <span className={styles.buyTimes}>{`已购买：${detail.buyCount}次`}</span>
             <span className={styles.lottery} onClick={this.viewLottery('visibleRaffle')}>
               查看我的抽奖码
             </span>
@@ -138,15 +142,23 @@ class ProductDetail extends PureComponent {
                 <img src={winning} alt="win" className={styles.winning} />
               </div>
               <ul className={styles.right}>
-                <li>获奖者：张三</li>
-                <li>轮次：第1轮</li>
-                <li>本轮参与：18人次</li>
-                <li>开奖时间：2019/10/03 13：00</li>
+                <li>{`获奖者：${detail.winnerUserName}`}</li>
+                <li>{`轮次：第${detail.currentTurn}轮`}</li>
+                <li>{`本轮参与：${detail.winnerBuyCount}人次`}</li>
+                <li>{`开奖时间：${detail.openTime}`}</li>
               </ul>
             </div>
             <div className={styles.winNum}>
               <span className={styles.num}>中奖号码 10000174</span>
-              <Button className={styles.rule}>计算规则</Button>
+              <Link
+                to={{
+                  pathname: `/rules/${activityTurnId}`,
+                  search: `?lang=${lang}`,
+                }}
+                className={styles.rule}
+              >
+                计算规则
+              </Link>
             </div>
           </div>
           <div className={styles.sweepstakes} onClick={this.viewLottery('visiblePartic')}>
@@ -155,21 +167,12 @@ class ProductDetail extends PureComponent {
         </div>
         <div className={styles.shopDetail}>
           <h3 className={styles.h3tle}>商品详情</h3>
-          <p className={styles.text}>
-            Families traveling with kids will find Amboseli national park a safari destination
-            matched to no other, with less tourist traffic, breathtaking open spaces, easy access
-            from Nairobi, the list is endless. The park described by writers as ‘ a home for the
-            Gods’ covers 150sq mile south of Nairobi and lies just at the foot of Mt Kilimanjaro,
-            Africa’s highest mountain at 5,895m. The park is currently on the{' '}
-          </p>
-          <img
-            src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591872597136&di=095a9ae669cc4887911865732129117a&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F14%2F75%2F01300000164186121366756803686.jpg"
-            alt="img"
-          />
-          <img
-            src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591873066586&di=a940819a42658c278b439cee5bab52eb&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F9vo3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2F3b292df5e0fe99257d8c844b34a85edf8db1712d.jpg"
-            alt="img"
-          />
+          <p className={styles.text}>{detail.content}</p>
+          {detail.contentImgList
+            ? detail.contentImgList.map(i => {
+                return <img src="i" alt="img" key={i.index} />;
+              })
+            : null}
         </div>
         <div className={styles.snapped}>立即抢购</div>
         <div className={styles.newActBox}>
@@ -187,8 +190,12 @@ class ProductDetail extends PureComponent {
   }
 }
 
-const mapState = state => ({});
+const mapState = state => ({
+  detail: state.product.data.detail,
+});
 
-const mapDispatch = dispatch => ({});
+const mapDispatch = dispatch => ({
+  getDetail: params => dispatch.product.getDetail(params),
+});
 
 export default connect(mapState, mapDispatch)(ProductDetail);
