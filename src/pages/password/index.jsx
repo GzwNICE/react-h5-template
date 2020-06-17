@@ -133,10 +133,15 @@ class Password extends PureComponent {
     });
   };
 
+  afterCloseModal = () => {
+    this.props.form.resetFields();
+  };
+
   changeCodeImg = () => {
     this.setState({
       codeImgUrl: `${this.state.codeUrl}${new Date().getTime()}`,
     });
+    this.afterCloseModal();
   };
 
   ShowPassWord = () => {
@@ -212,6 +217,7 @@ class Password extends PureComponent {
           maskClosable={false}
           title="请输入图形验证码"
           className={styles.codeModal}
+          afterClose={this.afterCloseModal}
         >
           <div className={styles.imgCode}>
             <InputItem

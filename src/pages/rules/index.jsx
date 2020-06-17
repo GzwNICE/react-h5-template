@@ -9,6 +9,7 @@ import { NavBar, Icon, List, Button } from 'antd-mobile';
 // import loginBg from '@/assets/images/loginBg.png';
 // import passwordClose from '@/assets/images/passwordClose.png';
 // import passwordOpen from '@/assets/images/passwordOpen.png';
+import { format } from '@/utils/util';
 import styles from './index.less';
 
 const Item = List.Item;
@@ -29,10 +30,6 @@ class RulePage extends PureComponent {
   render() {
     const { rules } = this.props;
     const list = rules.orders;
-    const data = Array.from(new Array(100)).map(() => ({
-      i: 1,
-    }));
-    console.log(this.props);
     const head = () => {
       return (
         <div className={styles.header}>
@@ -65,7 +62,11 @@ class RulePage extends PureComponent {
                       <span className={styles.username}>{i.name}</span>
                       <span className={styles.code}>{i.prizesCode}</span>
                       <span className={styles.time}>
-                        2019-10-03 <span style={{ color: '#FF9F0A' }}>09：36：01：878</span>
+                        {format(i.distributeTime, 'arr')[0]}
+                        <span style={{ color: '#FF9F0A' }}>
+                          {' '}
+                          {format(i.distributeTime, 'arr')[1]}
+                        </span>
                       </span>
                     </div>
                   </Item>
@@ -74,10 +75,12 @@ class RulePage extends PureComponent {
           </List>
           <div className={styles.footer}>
             <h4>计算规则：</h4>
-            <p>1. 求和，抽取最后100条购买记录，取时/分/秒/毫秒，相加之和为 9348134966 </p>
-            <p>2. 取余，时间因子相加之和除以本轮活动需要参与的总人数： 9348134966 / 3499 = 145（余数）</p>
-            <p>3. 结果：余数+第一位抽奖号码 = 145 + 10000001 = 100000146</p>
-            <Button className={styles.winCode}>中奖号码：10000146</Button>
+            <p>{`1. 求和，抽取最后100条购买记录，取时/分/秒/毫秒，相加之和为 ${rules.totalMillis} `}</p>
+            <p>{`2. 取余，时间因子相加之和除以本轮活动需要参与的总人数： ${rules.totalMillis} / ${rules.partakeCount} = ${rules.remainder}`}</p>
+            <p>{`3. 结果：余数+第一位抽奖号码 = ${rules.remainder} + ${
+              rules.firstPrizesCode
+            } = ${rules.remainder + rules.firstPrizesCode}`}</p>
+            <Button className={styles.winCode}>{`中奖号码：${rules.prizesCode}`}</Button>
           </div>
         </div>
       </div>

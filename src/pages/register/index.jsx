@@ -140,6 +140,7 @@ class Register extends PureComponent {
     this.setState({
       codeImgUrl: `${this.state.codeUrl}${new Date().getTime()}`,
     });
+    this.afterCloseModal();
   };
 
   ShowPassWord = () => {
