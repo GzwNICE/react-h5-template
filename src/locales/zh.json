@@ -19,5 +19,18 @@
     "wait_cash": "已兑换现金 审核中",
     "cashed": "已兑换现金",
     "no_confirm": "流奖"
+  },
+
+  "payment": {
+    "recharge": "充值GO币",
+    "concume": "GO币消费",
+    "reward_back": "流奖退回",
+    "reward": "中奖GO币",
+    "sys_reward": "系统奖励",
+    "new_register_given": "首次注册赠送",
+    "go_convert": "兑换GO币",
+    "go_reward_expire": "赠币过期",
+    "friend_recharge_given": "好友充值赠送GO币"
+
   }
 }

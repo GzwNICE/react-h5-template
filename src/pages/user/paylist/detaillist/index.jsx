@@ -1,23 +1,12 @@
 // 我的订单列表
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import WaitOpen from '@/components/waitOpen';
-import Win from '@/components/win';
-import NoWin from '@/components/nowin';
+import PaymentItem from '@/components/paymentitem';
 import Empty from '@/components/empty';
-import queryString from 'query-string';
-
-import GoCoinDetailDialog from '@/components/gocoinDetailDialog';
-import CashDetailDialog from '@/components/productDetailDialog';
-import RaffleCodeDialog from '@/components/luckyCode';
-
-import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
-import { exchangeDetail } from '@/services/order';
+import { PullToRefresh, ListView } from 'antd-mobile';
 import styles from './index.less';
 
-const { lang } = queryString.parse(window.location.search);
-
-class OrderList extends PureComponent {
+class DetailList extends PureComponent {
   constructor(props) {
     super(props);
     const dataSource = new ListView.DataSource({
@@ -29,11 +18,8 @@ class OrderList extends PureComponent {
       size: 10,
       isLoading: true,
       useBodyScroll: false,
-      height: document.documentElement.clientHeight-50,
+      height: document.documentElement.clientHeight - 220,
       refreshing: true,
-      goCoinDialog: false,
-      cashDialog: false,
-      orderId: '',
     };
   }
   componentDidUpdate() {
@@ -44,8 +30,12 @@ class OrderList extends PureComponent {
     }
   }
   componentDidMount() {
-    window.addEventListener('scroll', this.bindHandleScroll);
+    const { type } = this.props;
+    this.setState({
+      type: type,
+    });
     this.getPageList();
+    window.addEventListener('scroll', this.bindHandleScroll);
   }
   //在componentWillUnmount，进行scroll事件的注销
   componentWillUnmount() {
@@ -58,13 +48,12 @@ class OrderList extends PureComponent {
     this.setState(
       {
         page: 1,
-        type: queryString.parse(window.location.search).type,
       },
       () => {
         const params = {
           page: this.state.page,
           size: this.state.size,
-          type: this.state.type,
+          tradeType: this.state.type,
         };
         refreshList(params).then(() => {
           this.setState({
@@ -85,7 +74,7 @@ class OrderList extends PureComponent {
         const params = {
           page: this.state.page,
           size: this.state.size,
-          type: this.state.type,
+          tradeType: this.state.type,
         };
         loadList(params).then(() => {
           this.setState({
@@ -97,7 +86,6 @@ class OrderList extends PureComponent {
     );
   };
   componentWillReceiveProps(nextPorps) {
-    // console.log(nextPorps.orderList);
     if (nextPorps.result.data.length === nextPorps.result.total) {
       this.setState({
         isLoading: false,
@@ -108,58 +96,13 @@ class OrderList extends PureComponent {
     this.setState({ refreshing: true, isLoading: true });
     this.getPageList();
   };
-  setGoCoinDialog = (_bool, orderId) => {
-    this.setState(
-      {
-        goCoinDialog: _bool,
-        orderId: orderId,
-      },
-      () => {
-        if (_bool) {
-          const params = {
-            orderId: this.state.orderId,
-          };
-          exchangeDetail(params);
-        }
-      }
-    );
-  };
-  setCashDialog = (_bool, orderId) => {
-    this.setState(
-      {
-        cashDialog: _bool,
-        orderId: orderId,
-      },
-      () => {
-        if (_bool) {
-          const params = {
-            orderId: this.state.orderId,
-           };
-          exchangeDetail(params);
-        }
-      }
-    );
-  };
-  showCodeDialog= turnId =>{
-    this.setState({
-      visibleRaffle: true,
-    });
-  };
-  closeRaffle = key => () => {
-    this.setState({
-      [key]: false,
-    });
-  };
   render() {
     const { result } = this.props;
-    const { isLoading, goCoinDialog, cashDialog, type, visibleRaffle } = this.state;
-    const label = queryString.parse(window.location.search).label;
+    const { isLoading, type } = this.state;
     const Row = d => {
       return (
         <div>
-          {type === '1' ? <WaitOpen parent={this} data={d} /> : null}
-          {type === '2' ? <Win parent={this} data={d} /> : null}
-          {type === '3' ? <NoWin data={d} /> : null}
+          <PaymentItem data={d} type={type} />
         </div>
       );
     };
@@ -174,16 +117,8 @@ class OrderList extends PureComponent {
     );
     return (
       <div className={styles.order}>
-        <NavBar
-          mode="dark"
-          icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF5209' }}
-          onLeftClick={() =>  this.props.history.go(-1)}
-        >
-          <div className={styles.title}>{label}</div>
-        </NavBar>
         {result.total == 0 ? (
-         <Empty />
+          <Empty />
         ) : (
           <ListView
             ref={el => {
@@ -220,24 +155,19 @@ class OrderList extends PureComponent {
             )}
           />
         )}
-        <RaffleCodeDialog visible={visibleRaffle} closeRaffle={this.closeRaffle('visibleRaffle')} />
-
-        <GoCoinDetailDialog parent={this} codeModal={goCoinDialog} />
-        <CashDetailDialog parent={this} codeModal={cashDialog} />
       </div>
     );
   }
 }
 
 const mapState = state => ({
-  result: state.order.data.orderList,
+  result: state.payment.data.paymentList,
 });
 
 const mapDispatch = dispatch => ({
-  refreshList: params => dispatch.order.getRefreshList(params),
-  loadList: params => dispatch.order.getLoadList(params),
-  clearList: params => dispatch.order.clearOrderList(params),
-  exchangeDetail: params => dispatch.order.getExchangeDetail(params),
+  refreshList: params => dispatch.payment.getRefreshList(params),
+  loadList: params => dispatch.payment.getLoadList(params),
+  clearList: params => dispatch.payment.clearPaymentList(params),
 });
 
-export default connect(mapState, mapDispatch)(OrderList);
+export default connect(mapState, mapDispatch)(DetailList);

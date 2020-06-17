@@ -31,12 +31,14 @@ class User extends PureComponent {
   loginCLick() {
     this.props.history.push('/login');
   }
-  onPersonClick(){
+  onPersonClick() {
     this.props.history.push(`/personal?lang=${lang}`);
+  }
+  onPayListClick() {
+    this.props.history.push(`/paylist?lang=${lang}`);
   }
   feedBackClick() {
     this.props.history.push(`/feedback?lang=${lang}`);
-
   }
   render() {
     // eslint-disable-next-line react/destructuring-assignment
@@ -65,7 +67,7 @@ class User extends PureComponent {
               ) : (
                 <div className={styles.authorName}>{user.userInfo.mobile}</div>
               )}
-              <div className={styles.authorCoin}>
+              <div className={styles.authorCoin} onClick={this.onPayListClick.bind(this)}>
                 <img className={styles.coin} src={ic_gocoin_s}></img>
                 <span className={styles.label}>
                   {intl.get('user.myGoCoin')} {user.userInfo.goMoney}

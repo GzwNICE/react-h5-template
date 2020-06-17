@@ -28,7 +28,6 @@ export const user = createModel({
         },
       };
     }
-   
   },
   effects: dispatch => ({
     async getUserInfo(payload) {
