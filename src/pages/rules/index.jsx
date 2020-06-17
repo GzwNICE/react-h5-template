@@ -24,7 +24,7 @@ class RulePage extends PureComponent {
 
   componentDidMount() {
     const { getLists } = this.props;
-    getLists({ activityTurnId: 1042 });
+    getLists({ activityTurnId: this.state.id });
   }
 
   render() {

@@ -6,6 +6,7 @@ export const product = createModel({
   state: {
     data: {
       rules: {},
+      detail: {},
     },
   },
   reducers: {
@@ -18,11 +19,24 @@ export const product = createModel({
         },
       };
     },
+    saveDetail(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          detail: payload.data,
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async getRules(payload) {
       const response = await productService.fetchRules(payload);
       dispatch.product.saveRules(response);
+    },
+    async getDetail(payload) {
+      const response = await productService.fetchInfo(payload);
+      dispatch.product.saveDetail(response);
       return response;
     },
   }),
