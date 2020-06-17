@@ -87,7 +87,7 @@ class Login extends PureComponent {
             localStorage.setItem('token', `Bearer ${res.data.token}`);
             localStorage.setItem('refreshToken', res.data.refreshToken);
             setTimeout(() => {
-              this.props.history.push(`/home?lang=${lang}`);
+              this.props.history.go(-1);
             }, 2000);
           }
         });
