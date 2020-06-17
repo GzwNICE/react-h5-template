@@ -13,8 +13,6 @@ const domain = `${window.location.protocol}//${getBaseUrl()}`;
 const history = createBrowserHistory();
 const { lang } = queryString.parse(window.location.search);
 
-console.log(1111, domain);
-
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -61,28 +59,21 @@ request.interceptors.request.use(async (url, options) => {
       ...{ _t: new Date().getTime() },
     };
   }
+  let headers = {
+    // 'Content-Type': options.headers.ContentType || 'application/json',
+    language: lang,
+  };
   let token = localStorage.getItem('token');
-  const { lang } = queryString.parse(window.location.search);
   if (token) {
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': token,
-      'language': lang,
-    };
-    return {
-      url: uri,
-      options: { ...options, headers: headers },
-    };
-  } else {
-    const headers = {
-      'Content-Type': 'application/json',
-      'language': lang,
-    };
-    return {
-      url: uri,
-      options: { ...options, headers: headers },
+    headers = {
+      ...headers,
+      Authorization: token,
     };
   }
+  return {
+    url: uri,
+    options: { ...options, headers: headers },
+  };
 });
 
 // response拦截器, 处理response

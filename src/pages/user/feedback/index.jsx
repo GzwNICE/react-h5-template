@@ -19,24 +19,19 @@ class FeedBack extends PureComponent {
     });
   }
 
-  onImageChange = (files, type, index) => {
-    console.log(files, type, index);
+  onImageChange = (files, type) => {
     const { updateImage } = this.props;
-    this.setState(
-      {
-        files,
-      },
-      () => {
-        if (type == 'add') {
-          updateImage({
-            multipartFile: files[files.length - 1],
-            type: 'image',
-            timeLimit: 'shortPeriod',
-            attributeName: 'feedback',
-          });
-        }
-      }
-    );
+    this.setState({
+      files,
+    });
+    let formData = new FormData();
+    formData.append('type', 'image');
+    formData.append('timeLimit', 'longPeriod');
+    formData.append('multipartFile', files[files.length - 1].file);
+    formData.append('attributeName', 'feedback');
+    if (type == 'add') {
+      updateImage(formData);
+    }
   };
   onAreaChange = ret => {
     this.setState({

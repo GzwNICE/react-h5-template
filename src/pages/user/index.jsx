@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { Grid } from 'antd-mobile';
 import { connect } from 'react-redux';
@@ -29,14 +30,13 @@ class User extends PureComponent {
     }
   }
   loginCLick() {
-    this.props.history.push('/login');
+    this.props.history.push(`/login?lang=${lang}`);
   }
-  onPersonClick(){
+  onPersonClick() {
     this.props.history.push(`/personal?lang=${lang}`);
   }
   feedBackClick() {
     this.props.history.push(`/feedback?lang=${lang}`);
-
   }
   render() {
     // eslint-disable-next-line react/destructuring-assignment
@@ -54,7 +54,7 @@ class User extends PureComponent {
           <div className={styles.authorInfo}>
             <img
               className={styles.authorImg}
-              src={user.userInfo.photoUrl?user.userInfo.photoUrl:authorImg}
+              src={user.userInfo.photoUrl ? user.userInfo.photoUrl : authorImg}
               onClick={this.onPersonClick.bind(this)}
             ></img>
             <div className={styles.authorLoginType}>
@@ -63,8 +63,8 @@ class User extends PureComponent {
                   {intl.get('user.loginOrRegister')}
                 </div>
               ) : (
-                <div className={styles.authorName}>{user.userInfo.mobile}</div>
-              )}
+                  <div className={styles.authorName}>{user.userInfo.mobile}</div>
+                )}
               <div className={styles.authorCoin}>
                 <img className={styles.coin} src={ic_gocoin_s}></img>
                 <span className={styles.label}>
