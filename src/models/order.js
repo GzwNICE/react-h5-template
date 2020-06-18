@@ -50,12 +50,12 @@ export const order = createModel({
         },
       };
     },
-    exchangeDetail(state, payload) {
+    resultDetail(state, payload) {
       return {
         ...state,
         data: {
           ...state.data,
-          goCoinDetail: payload.data,
+          goCoinDetail: payload.msg,
         },
       };
     },
@@ -72,9 +72,16 @@ export const order = createModel({
     async clearOrderList(payload) {
       dispatch.order.clearList(payload);
     },
+     /**
+     * 虚拟物品详情
+     * @param {} payload
+     */
     async getExchangeDetail(payload) {
       const response = await orderService.exchangeDetail(payload);
-      dispatch.order.exchangeDetail(response);
+      console.log("detail", response)
+      dispatch.order.resultDetail(response);
+      return response;
+
     },
   }),
 });

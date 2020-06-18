@@ -11,21 +11,21 @@ class HistoryItem extends PureComponent {
     const { moneySymbol } = JSON.parse(localStorage.getItem('configuration'));
     let content = '';
 
-    if (data.status === '0') {
+    if (data.status == 0) {
       content = intl.get('payhistory.unup');
-    } else if (data.tradeFrom === '1') {
+    } else if (data.status == 1) {
       content = intl.get('payhistory.topuping');
-    } else if (data.tradeFrom === '2') {
+    } else if (data.status == 2) {
       content = intl.get('payhistory.topup_success');
-    } else if (data.tradeFrom === '3') {
+    } else if (data.status == 3) {
       content = intl.get('payhistory.topup_faile');
-    } else if (data.tradeFrom === '4') {
+    } else if (data.status == 4) {
       content = intl.get('payhistory.topup_cancel');
     }
     return (
       <div className={styles.box}>
         <div className={styles.orderIdBox}>
-          <div className={styles.orderId}>订单ID：{data.tradeNumber}</div>
+          <div className={styles.orderId}>订单ID：{data.orderNumber}</div>
           <div className={styles.createTime}>
             {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
           </div>
@@ -34,16 +34,16 @@ class HistoryItem extends PureComponent {
           <div className={styles.orderType}>
             兑换 {data.goMoneyTotal} {moneyVirtualCn}
           </div>
-          <div style={data.status === '1' ? { color: '#ff5209' } : { color: '#333333' }}>
+          <div style={data.status == 1 ? { color: '#ff5209' } : { color: '#333333' }}>
             {content}
           </div>
         </div>
-        {data.rechargeMoney ? (
+        {data.payMoneyTotal ? (
           <div className={styles.payAmount}>
-            支付：{data.rechargeMoney} {moneySymbol}
+            支付：{data.payMoneyTotal} {moneySymbol}
           </div>
         ) : null}
-        {data.giveAwayMoney ? (
+        {data.serviceFee ? (
           <div className={styles.givenAmount}>
             含服务费：{data.serviceFee} {moneySymbol}
           </div>

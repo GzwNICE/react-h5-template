@@ -12,10 +12,8 @@ import CashDetailDialog from '@/components/productDetailDialog';
 import RaffleCodeDialog from '@/components/luckyCode';
 
 import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
-import { exchangeDetail } from '@/services/order';
 import styles from './index.less';
 
-const { lang } = queryString.parse(window.location.search);
 
 class OrderList extends PureComponent {
   constructor(props) {
@@ -29,11 +27,13 @@ class OrderList extends PureComponent {
       size: 10,
       isLoading: true,
       useBodyScroll: false,
-      height: document.documentElement.clientHeight-50,
+      height: document.documentElement.clientHeight - 50,
       refreshing: true,
       goCoinDialog: false,
       cashDialog: false,
-      orderId: '',
+      goCoinOrderId: '',
+      cashOrderId: '',
+
     };
   }
   componentDidUpdate() {
@@ -79,7 +79,7 @@ class OrderList extends PureComponent {
     const { loadList } = this.props;
     this.setState(
       {
-        page: this.state.page+1,
+        page: this.state.page + 1,
       },
       () => {
         const params = {
@@ -109,38 +109,18 @@ class OrderList extends PureComponent {
     this.getPageList();
   };
   setGoCoinDialog = (_bool, orderId) => {
-    this.setState(
-      {
-        goCoinDialog: _bool,
-        orderId: orderId,
-      },
-      () => {
-        if (_bool) {
-          const params = {
-            orderId: this.state.orderId,
-          };
-          exchangeDetail(params);
-        }
-      }
-    );
+    this.setState({
+      goCoinDialog: _bool,
+      goCoinOrderId: orderId,
+    });
   };
   setCashDialog = (_bool, orderId) => {
-    this.setState(
-      {
-        cashDialog: _bool,
-        orderId: orderId,
-      },
-      () => {
-        if (_bool) {
-          const params = {
-            orderId: this.state.orderId,
-           };
-          exchangeDetail(params);
-        }
-      }
-    );
+    this.setState({
+      cashDialog: _bool,
+      cashOrderId: orderId,
+    });
   };
-  showCodeDialog= turnId =>{
+  showCodeDialog = turnId => {
     this.setState({
       visibleRaffle: true,
     });
@@ -178,52 +158,60 @@ class OrderList extends PureComponent {
           mode="dark"
           icon={<Icon type="left" />}
           style={{ backgroundColor: '#FF5209' }}
-          onLeftClick={() =>  this.props.history.go(-1)}
+          onLeftClick={() => this.props.history.go(-1)}
         >
           <div className={styles.title}>{label}</div>
         </NavBar>
         {result.total == 0 ? (
-         <Empty />
+          <Empty />
         ) : (
-          <ListView
-            ref={el => {
-              this.load = el;
-            }}
-            key={this.state.useBodyScroll ? '0' : '1'}
-            dataSource={this.state.dataSource}
-            renderRow={Row}
-            renderSeparator={separator}
-            useBodyScroll={this.state.useBodyScroll}
-            style={
-              this.state.useBodyScroll
-                ? {}
-                : {
+            <ListView
+              ref={el => {
+                this.load = el;
+              }}
+              key={this.state.useBodyScroll ? '0' : '1'}
+              dataSource={this.state.dataSource}
+              renderRow={Row}
+              renderSeparator={separator}
+              useBodyScroll={this.state.useBodyScroll}
+              style={
+                this.state.useBodyScroll
+                  ? {}
+                  : {
                     height: this.state.height,
                     border: '1px solid #ddd',
                     margin: '5px 0',
                   }}
-            scrollRenderAheadDistance={100}
-            onEndReachedThreshold={10}
-            scrollEventThrottle={100}
-            initialListSize={1000}
-            pageSize={10}
-            pullToRefresh={
-              <PullToRefresh
+              scrollRenderAheadDistance={100}
+              onEndReachedThreshold={10}
+              scrollEventThrottle={100}
+              initialListSize={1000}
+              pageSize={10}
+              pullToRefresh={
+                <PullToRefresh
                   refreshing={this.state.refreshing}
                   onRefresh={this.onRefresh}
-            />}
-            onEndReached={this.loadPageList} // 上啦加载
-            renderFooter={() => (
-              <div style={{ padding: 10, textAlign: 'center' }}>
-                {isLoading ? 'Loading...' : '已经到底了！'}
-              </div>
-            )}
-          />
-        )}
+                />}
+              onEndReached={this.loadPageList} // 上啦加载
+              renderFooter={() => (
+                <div style={{ padding: 10, textAlign: 'center' }}>
+                  {isLoading ? 'Loading...' : '已经到底了！'}
+                </div>
+              )}
+            />
+          )}
         <RaffleCodeDialog visible={visibleRaffle} closeRaffle={this.closeRaffle('visibleRaffle')} />
 
-        <GoCoinDetailDialog parent={this} codeModal={goCoinDialog} />
-        <CashDetailDialog parent={this} codeModal={cashDialog} />
+        {this.state.goCoinOrderId ? (
+          <GoCoinDetailDialog
+            parent={this}
+            codeModal={goCoinDialog}
+            orderId={this.state.goCoinOrderId}
+          />
+        ) : null}
+        {this.state.cashOrderId ? (
+          <CashDetailDialog parent={this} codeModal={cashDialog} orderId={this.state.cashOrderId} />
+        ) : null}
       </div>
     );
   }

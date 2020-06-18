@@ -79,7 +79,7 @@ export const payment = createModel({
       };
     },
 
-    cHList(state) {
+    removeHistoryList(state) {
       return {
         ...state,
         data: {
@@ -107,7 +107,6 @@ export const payment = createModel({
 
     async getRefreshHistoryList(payload) {
       const response = await paymentService.getHistoryList(payload);
-      console.log('response',response)
       dispatch.payment.refreshHistoryList(response);
     },
     async getLoadHistoryList(payload) {
@@ -115,7 +114,7 @@ export const payment = createModel({
       dispatch.payment.loadHistoryList(response);
     },
     async clearHistoryList(payload) {
-      dispatch.payment.cHList(payload);
+      dispatch.payment.removeHistoryList(payload);
     },
   }),
 });
