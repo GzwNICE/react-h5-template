@@ -26,7 +26,6 @@ class PayList extends PureComponent {
   constructor(props) {
     super(props);
   }
-<<<<<<< HEAD
   componentDidMount() {
     // this.props.history.push('/login');
     const { userInfo, goMoney } = this.props;
@@ -34,23 +33,6 @@ class PayList extends PureComponent {
     goMoney();
   }
   onHistoryClick() {
-=======
-
-  // handleTabClick = (tab, index) => {
-  // if (index === 3) {
-  //   this.setState({
-  //     sortImg: this.state.sortImg === sorting ? all : allSel,
-  //   });
-  // } else {
-  //   this.setState({
-  //     sortImg: sorting,
-  //   });
-  // }
-  // };
-  onHistoryClick = () => {
-    // eslint-disable-next-line react/destructuring-assignment
-    console.log(123123);
->>>>>>> f679f0661b11589aecf3867847d64514f9b7ae1c
     this.props.history.push(`/payhistory?lang=${lang}`);
   };
   render() {

@@ -47,7 +47,6 @@ class FeedBack extends PureComponent {
   };
   submitMsg() {
     const { addMessage, imageIds } = this.props;
-    console.log('imageIds', imageIds)
     addMessage({
       feedbackContent: this.state.content,
       imgIds: imageIds,
