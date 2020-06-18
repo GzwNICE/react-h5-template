@@ -18,9 +18,13 @@ class FeedBack extends PureComponent {
       content: '',
     });
   }
-
-  onImageChange = (files, type) => {
-    const { updateImage } = this.props;
+  componentWillUnmount() {
+    const { clearImage } = this.props;
+    clearImage();
+  }
+  onImageChange = (files, type, index) => {
+    console.log(files, type, index);
+    const { updateImage, removeImage } = this.props;
     this.setState({
       files,
     });
@@ -31,6 +35,8 @@ class FeedBack extends PureComponent {
     formData.append('attributeName', 'feedback');
     if (type == 'add') {
       updateImage(formData);
+    } else {
+      removeImage(index);
     }
   };
   onAreaChange = ret => {
@@ -40,9 +46,11 @@ class FeedBack extends PureComponent {
     });
   };
   submitMsg() {
-    const { addMessage } = this.props;
+    const { addMessage, imageIds } = this.props;
+    console.log('imageIds', imageIds)
     addMessage({
       feedbackContent: this.state.content,
+      imgIds: imageIds,
     }).then(() => {
       Toast.info('感谢您的反馈', 2);
       this.props.history.go(-1);
@@ -89,12 +97,14 @@ class FeedBack extends PureComponent {
 }
 
 const mapState = state => ({
-  user: state.user.data,
+  imageIds: state.user.data.imageIds,
 });
 
 const mapDispatch = dispatch => ({
   updateImage: params => dispatch.user.requestUpdateImage(params),
   addMessage: params => dispatch.user.requestAddMessage(params),
+  removeImage: params => dispatch.user.removeImage(params),
+  clearImage: params => dispatch.user.clearImage(params),
 });
 
 export default connect(mapState, mapDispatch)(FeedBack);
