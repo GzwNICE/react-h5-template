@@ -5,10 +5,12 @@ import { Tabs, NavBar, Icon } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
 import bg_label_vip from '@/assets/images/bg_label_vip.png';
 import ic_income_coin from '@/assets/images/ic_income_coin.png';
+import queryString from 'query-string';
 
 import DetailList from '@/pages/user/paylist/detaillist';
 import sorting from '@/assets/images/sorting.png';
 import styles from './index.less';
+const { lang } = queryString.parse(window.location.search);
 
 function renderTabBar(props) {
   return (
@@ -40,7 +42,9 @@ class PayList extends PureComponent {
   //   });
   // }
   // };
-
+  onHistoryClick() {
+    this.props.history.push(`/payhistory?lang=${lang}`);
+  }
   render() {
     const tabs = [{ title: '支出明细' }, { title: '收入明细' }];
     return (
@@ -50,7 +54,7 @@ class PayList extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           icon={<Icon type="left" />}
           onLeftClick={() => this.props.history.go(-1)}
-          rightContent={<div onClick={() => console.log('充值流水')}>充值流水</div>}
+          rightContent={<div onClick={this.onHistoryClick.bind(this)}>充值流水</div>}
         />
         <div className={styles.infoBox}>
           <div className={styles.pure_top}></div>

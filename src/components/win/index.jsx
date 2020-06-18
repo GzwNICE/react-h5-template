@@ -17,6 +17,8 @@ class Win extends PureComponent {
   }
   render() {
     const { data } = this.props;
+    const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
+
     let orderStatus = '';
     let colorStatus = '';
     if (data.status === 'NO_CONFIRM') {
@@ -49,7 +51,7 @@ class Win extends PureComponent {
       colorStatus = '#333333';
     } else if (data.status === 'COIN_RECYCLE') {
       //已经兑换Go币
-      orderStatus = intl.get('order.coin_recycle');
+      orderStatus = intl.get('order.coin_recycle', { moneyVirtualCn: moneyVirtualCn });
       colorStatus = '#666666';
     } else if (data.status === 'WAIT_CASH') {
       //待兑现

@@ -43,7 +43,6 @@ class Personal extends PureComponent {
     });
   };
   render() {
-    console.log("ss",this.state)
     const { title, type, value } = this.state;
     return (
       <div className={styles.contentBox}>

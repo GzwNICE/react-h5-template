@@ -50,6 +50,8 @@ class User extends PureComponent {
     ];
     const { user } = this.props;
     const isLogin = localStorage.getItem('token') != null;
+    const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
+
     return (
       <div>
         <div className={styles.topBox}>
@@ -71,7 +73,8 @@ class User extends PureComponent {
               <div className={styles.authorCoin} onClick={this.onPayListClick.bind(this)}>
                 <img className={styles.coin} src={ic_gocoin_s}></img>
                 <span className={styles.label}>
-                  {intl.get('user.myGoCoin')} {user.userInfo.goMoney}
+                  {intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}
+                  {user.userInfo.goMoney}
                 </span>
                 <img className={styles.arrow} src={goin_arrow}></img>
               </div>

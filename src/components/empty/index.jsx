@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import emptyImg from '@/assets/images/bg_empty.png';
 import styles from './index.less';
 
-class NoWin extends PureComponent {
+class Empty extends PureComponent {
   render() {
     return (
       <div className={styles.box}>
@@ -14,4 +14,4 @@ class NoWin extends PureComponent {
   }
 }
 
-export default NoWin;
+export default Empty;

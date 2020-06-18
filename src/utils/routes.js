@@ -2,6 +2,7 @@ import homePage from '@/pages/home';
 
 import userPage from '@/pages/user';
 import PayList from '@/pages/user/paylist';
+import PayHistory from '@/pages/user/paylist/payhistory';
 import Feedback from '@/pages/user/feedback';
 import Personal from '@/pages/user/personal';
 import Editname from '@/pages/user/personal/editname';
@@ -73,5 +74,10 @@ export const routes = [
     path: '/paylist',
     exact: true,
     component: PayList,
+  },
+  {
+    path: '/payhistory',
+    exact: true,
+    component: PayHistory,
   },
 ];

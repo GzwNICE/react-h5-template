@@ -9,6 +9,10 @@ export const payment = createModel({
         data: [],
         total: 0,
       },
+      historyList: {
+        data: [],
+        total: 0,
+      },
     },
   },
   reducers: {
@@ -49,6 +53,44 @@ export const payment = createModel({
         },
       };
     },
+
+    refreshHistoryList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          historyList: {
+            data: payload.data.rows,
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    loadHistoryList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          historyList: {
+            data: state.data.historyList.data.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+
+    clearHistoryList(state) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          historyList: {
+            data: [],
+            total: 0,
+          },
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async getRefreshList(payload) {
@@ -57,11 +99,23 @@ export const payment = createModel({
     },
     async getLoadList(payload) {
       const response = await paymentService.getPaymentList(payload);
-      console.log("response", response)
       dispatch.payment.loadList(response);
     },
     async clearPaymentList(payload) {
       dispatch.payment.clearList(payload);
+    },
+
+    async getRefreshHistoryList(payload) {
+      const response = await paymentService.getHistoryList(payload);
+      console.log('response',response)
+      dispatch.payment.refreshHistoryList(response);
+    },
+    async getLoadHistoryList(payload) {
+      const response = await paymentService.getHistoryList(payload);
+      dispatch.payment.loadHistoryList(response);
+    },
+    async clearHistoryList(payload) {
+      dispatch.payment.clearHistoryList(payload);
     },
   }),
 });

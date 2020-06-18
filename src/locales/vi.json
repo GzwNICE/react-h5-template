@@ -5,7 +5,7 @@
   "user": {
     "title": "我的",
     "loginOrRegister":"登录/注册",
-    "myGoCoin":"我的GO币",
+    "myGoCoin":"我的{moneyVirtualCn}",
     "wait_open":"Chờ quay\nthưởng",
     "winning":"Đã trúng\nthưởng",
     "nowin":"Không trúng thưởng"
@@ -15,22 +15,22 @@
     "wait_provide": "奖品未发放",
     "provided": "奖品已发放",
     "refunded": "退回",
-    "coin_recycle": "已兑换Go币",
+    "coin_recycle": "已兑换{moneyVirtualCn}",
     "wait_cash": "已兑换现金 审核中",
     "cashed": "已兑换现金",
     "no_confirm": "流奖"
   },
 
   "payment": {
-    "recharge": "充值GO币",
-    "concume": "GO币消费",
+    "recharge": "充值{moneyVirtualCn}",
+    "concume": "{moneyVirtualCn}消费",
     "reward_back": "流奖退回",
-    "reward": "中奖GO币",
+    "reward": "中奖{moneyVirtualCn}",
     "sys_reward": "系统奖励",
     "new_register_given": "首次注册赠送",
-    "go_convert": "兑换GO币",
+    "go_convert": "兑换{moneyVirtualCn}",
     "go_reward_expire": "赠币过期",
-    "friend_recharge_given": "好友充值赠送GO币"
+    "friend_recharge_given": "好友充值赠送{moneyVirtualCn}"
 
   }
 }

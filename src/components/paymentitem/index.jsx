@@ -7,25 +7,26 @@ import styles from './index.less';
 class PaymentItem extends PureComponent {
   render() {
     const { data, type } = this.props;
+    const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
     let content = '';
     if (data.tradeFrom === 'RECHARGE') {
-      content = intl.get('payment.recharge');
+      content = intl.get('payment.recharge', { moneyVirtualCn: moneyVirtualCn });
     } else if (data.tradeFrom === 'CONSUME') {
-      content = intl.get('payment.concume');
+      content = intl.get('payment.concume', { moneyVirtualCn: moneyVirtualCn });
     } else if (data.tradeFrom === 'REWARD_BACK') {
       content = intl.get('payment.reward_back');
     } else if (data.tradeFrom === 'REWARD') {
-      content = intl.get('payment.reward');
+      content = intl.get('payment.reward', { moneyVirtualCn: moneyVirtualCn });
     } else if (data.tradeFrom === 'SYS_REWARD') {
       content = intl.get('payment.sys_reward');
     } else if (data.tradeFrom === 'NEW_REGISTER_GIVE') {
       content = intl.get('payment.new_register_given');
     } else if (data.tradeFrom === 'GO_CONVERT') {
-      content = intl.get('payment.go_convert');
+      content = intl.get('payment.go_convert', { moneyVirtualCn: moneyVirtualCn });
     } else if (data.tradeFrom === 'GO_REWARD_EXPIRE') {
       content = intl.get('payment.go_reward_expire');
     } else if (data.tradeFrom === 'FRIEND_RECHARGE_GIVEN') {
-      content = intl.get('payment.friend_recharge_given');
+      content = intl.get('payment.friend_recharge_given', { moneyVirtualCn: moneyVirtualCn });
     } else {
       content = data.tradeContent;
     }
