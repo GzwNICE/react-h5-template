@@ -79,7 +79,11 @@ export const payment = createModel({
       };
     },
 
+<<<<<<< HEAD
     removeHistoryList(state) {
+=======
+    cHList(state) {
+>>>>>>> f679f0661b11589aecf3867847d64514f9b7ae1c
       return {
         ...state,
         data: {

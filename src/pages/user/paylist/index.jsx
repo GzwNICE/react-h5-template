@@ -6,7 +6,6 @@ import { StickyContainer, Sticky } from 'react-sticky';
 import bg_label_vip from '@/assets/images/bg_label_vip.png';
 import ic_income_coin from '@/assets/images/ic_income_coin.png';
 import queryString from 'query-string';
-
 import DetailList from '@/pages/user/paylist/detaillist';
 import styles from './index.less';
 
@@ -27,6 +26,7 @@ class PayList extends PureComponent {
   constructor(props) {
     super(props);
   }
+<<<<<<< HEAD
   componentDidMount() {
     // this.props.history.push('/login');
     const { userInfo, goMoney } = this.props;
@@ -34,8 +34,25 @@ class PayList extends PureComponent {
     goMoney();
   }
   onHistoryClick() {
+=======
+
+  // handleTabClick = (tab, index) => {
+  // if (index === 3) {
+  //   this.setState({
+  //     sortImg: this.state.sortImg === sorting ? all : allSel,
+  //   });
+  // } else {
+  //   this.setState({
+  //     sortImg: sorting,
+  //   });
+  // }
+  // };
+  onHistoryClick = () => {
+    // eslint-disable-next-line react/destructuring-assignment
+    console.log(123123);
+>>>>>>> f679f0661b11589aecf3867847d64514f9b7ae1c
     this.props.history.push(`/payhistory?lang=${lang}`);
-  }
+  };
   render() {
     const tabs = [{ title: '支出明细' }, { title: '收入明细' }];
     const { user, money } = this.props;
@@ -49,7 +66,7 @@ class PayList extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           icon={<Icon type="left" />}
           onLeftClick={() => this.props.history.go(-1)}
-          rightContent={<div onClick={this.onHistoryClick.bind(this)}>充值流水</div>}
+          rightContent={<div onClick={this.onHistoryClick}>充值流水</div>}
         />
         <div className={styles.infoBox}>
           <div className={styles.pure_top}></div>
