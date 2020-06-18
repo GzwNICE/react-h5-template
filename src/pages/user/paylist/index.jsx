@@ -38,7 +38,6 @@ class PayList extends PureComponent {
   render() {
     const tabs = [{ title: '支出明细' }, { title: '收入明细' }];
     const { user, money } = this.props;
-    console.log("goMoney",money)
     const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
 
     return (
@@ -48,7 +47,7 @@ class PayList extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           icon={<Icon type="left" />}
           onLeftClick={() => this.props.history.go(-1)}
-          rightContent={<div onClick={this.onHistoryClick}>充值流水</div>}
+          rightContent={<div onClick={this.onHistoryClick.bind(this)}>充值流水</div>}
         />
         <div className={styles.infoBox}>
           <div className={styles.pure_top}></div>

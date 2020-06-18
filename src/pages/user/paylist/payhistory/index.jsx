@@ -93,6 +93,7 @@ class PayHistory extends PureComponent {
     const { result } = this.props;
     const { isLoading } = this.state;
     const Row = d => {
+      console.log('row', d)
       return (
         <div>
           <HistoryItem data={d} />
@@ -104,7 +105,8 @@ class PayHistory extends PureComponent {
         key={`${sectionID}-${rowID}`}
         style={{
           backgroundColor: '#F5F5F9',
-          height: 8,
+          height: 1,
+          marginLeft: '15px',
         }}
       />
     );
@@ -134,7 +136,7 @@ class PayHistory extends PureComponent {
             useBodyScroll
             style={{
               border: '1px solid #ddd',
-              margin: '5px 0',
+              margin: '1px 0',
             }}
             scrollRenderAheadDistance={100}
             onEndReachedThreshold={10}
