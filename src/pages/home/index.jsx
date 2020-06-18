@@ -56,7 +56,7 @@ class Home extends PureComponent {
 
   render() {
     const { home } = this.props;
-    const { IPhoneX, tabBarH, sortImg } = this.state;
+    const { IPhoneX } = this.state;
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
     const classData = home.classData;
@@ -143,7 +143,10 @@ class Home extends PureComponent {
             </Tabs>
           </StickyContainer>
         </div>
-        <div className={styles.tBar} ref={this.myRef}>
+        <div
+          className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}
+          ref={this.myRef}
+        >
           <TabBarBox selectedTab="homePage" search={this.props.history.location.search} />
         </div>
       </div>

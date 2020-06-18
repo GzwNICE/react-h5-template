@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 // import intl from 'react-intl-universal';
+import Cookies from 'js-cookie';
 import { NavBar, Carousel, Progress, NoticeBar, Button, Toast } from 'antd-mobile';
 import { Link } from 'react-router-dom';
 import navBack from '@/assets/images/navBack.png';
@@ -14,7 +15,7 @@ import avatar from '@/assets/images/avatar_notlogin.png';
 import winning from '@/assets/images/winning_crown.png';
 import RaffleCode from '@/components/luckyCode';
 import Participants from '@/components/participants';
-
+import BuyGroup from '@/components/buyGroup';
 import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
@@ -23,12 +24,14 @@ class ProductDetail extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      IPhoneX: Cookies.get('IPhoneX'),
       activityTurnId: this.props.match.params.activityTurnId,
       data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
       current: 1,
       allCur: 0,
       visibleRaffle: false,
       visiblePartic: false,
+      buyShow: false,
     };
   }
 
@@ -41,6 +44,14 @@ class ProductDetail extends PureComponent {
         });
       }
     });
+  }
+
+  componentDidUpdate() {
+    if (this.state.buyShow) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   }
 
   carBeforeChange = (form, to) => {
@@ -61,8 +72,15 @@ class ProductDetail extends PureComponent {
     });
   };
 
+  visibleBuy = () => {
+    console.log(123);
+    this.setState({
+      buyShow: !this.state.buyShow,
+    });
+  };
+
   render() {
-    const { current, allCur, visibleRaffle, visiblePartic, activityTurnId } = this.state;
+    const { IPhoneX, current, allCur, visibleRaffle, visiblePartic, activityTurnId, buyShow } = this.state;
     const { detail } = this.props;
     return (
       <div className={styles.productPage}>
@@ -174,7 +192,13 @@ class ProductDetail extends PureComponent {
               })
             : null}
         </div>
-        <div className={styles.snapped}>立即抢购</div>
+        <div
+          className={`${styles.snapped} ${IPhoneX === 'true' ? `${styles.snappedIPhone}` : null}`}
+          onClick={this.visibleBuy}
+        >
+          立即抢购
+        </div>
+        <BuyGroup open={buyShow} onOpenChange={this.visibleBuy} />
         <div className={styles.newActBox}>
           <span className={styles.nextAct}>
             新一轮活动倒计时

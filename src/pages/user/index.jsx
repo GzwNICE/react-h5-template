@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import { Grid } from 'antd-mobile';
 import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
+import Cookies from 'js-cookie';
 import TabBarBox from '@/components/tabBar';
 import authorImg from '@/assets/images/avatar_notlogin.png';
 import ic_gocoin_s from '@/assets/images/ic_gocoin_s.png';
@@ -19,6 +20,9 @@ const { lang } = queryString.parse(window.location.search);
 class User extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      IPhoneX: Cookies.get('IPhoneX'),
+    };
   }
 
   componentDidMount() {
@@ -51,7 +55,7 @@ class User extends PureComponent {
     const { user } = this.props;
     const isLogin = localStorage.getItem('token') != null;
     const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
-
+    const { IPhoneX } = this.state;
     return (
       <div>
         <div className={styles.topBox}>
@@ -110,7 +114,7 @@ class User extends PureComponent {
             </div>
           </div>
         </div>
-        <div className={styles.tBar}>
+        <div className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}>
           <TabBarBox selectedTab="userPage" search={this.props.history.location.search} />
         </div>
       </div>

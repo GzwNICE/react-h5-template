@@ -96,9 +96,9 @@ class TabBarBox extends PureComponent {
   // }
   render() {
     const { selectedTab, search } = this.props;
-    // const { IPhoneX } = this.state;
+    const IPhoneX = Cookies.get('IPhoneX');
     return (
-      <div className={styles.tabBox}>
+      <div className={`${styles.tabBox} ${IPhoneX ? `${styles.tabBoxIPhone}` : null}`}>
         <Flex>
           <Flex.Item className={styles.Item}>
             <Link
