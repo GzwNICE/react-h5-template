@@ -31,7 +31,6 @@ class PayHistory extends PureComponent {
   }
   componentDidMount() {
     this.getPageList();
-    window.addEventListener('scroll', this.bindHandleScroll);
   }
   //在componentWillUnmount，进行scroll事件的注销
   componentWillUnmount() {
@@ -115,7 +114,9 @@ class PayHistory extends PureComponent {
           mode="dark"
           icon={<Icon type="left" />}
           style={{ backgroundColor: '#FF5209' }}
-          onLeftClick={() => this.props.history.go(-1)}
+          onLeftClick={() => {
+            this.props.history.go(-1);
+          }}
         >
           充值流水
         </NavBar>
@@ -126,29 +127,23 @@ class PayHistory extends PureComponent {
             ref={el => {
               this.load = el;
             }}
-            key={this.state.useBodyScroll ? '0' : '1'}
+            // key={this.state.useBodyScroll ? '0' : '1'}
             dataSource={this.state.dataSource}
             renderRow={Row}
             renderSeparator={separator}
-            useBodyScroll={this.state.useBodyScroll}
-            style={
-              this.state.useBodyScroll
-                ? {}
-                : {
-                    height: this.state.height,
-                    border: '1px solid #ddd',
-                    margin: '5px 0',
-                  }}
+            useBodyScroll
+            style={{
+              border: '1px solid #ddd',
+              margin: '5px 0',
+            }}
             scrollRenderAheadDistance={100}
             onEndReachedThreshold={10}
             scrollEventThrottle={100}
             initialListSize={1000}
             pageSize={10}
             pullToRefresh={
-              <PullToRefresh
-                  refreshing={this.state.refreshing}
-                  onRefresh={this.onRefresh}
-            />}
+              <PullToRefresh refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
+            }
             onEndReached={this.loadPageList} // 上啦加载
             renderFooter={() => (
               <div style={{ padding: 10, textAlign: 'center' }}>
