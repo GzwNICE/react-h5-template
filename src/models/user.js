@@ -8,6 +8,10 @@ export const user = createModel({
       userInfo: {},
       imageIds: [],
       goMoney: {},
+      addressList: {
+        data: [],
+        total: 0,
+      },
     },
   },
   reducers: {
@@ -57,6 +61,38 @@ export const user = createModel({
         },
       };
     },
+    resultSaveAddress(state) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+        },
+      };
+    },
+    resultAddressList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          addressList: {
+            data: payload.data,
+            total: payload.data.length,
+          },
+        },
+      };
+    },
+    doClearAddressList(state) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          addressList: {
+            data: [],
+            total: 0,
+          },
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async getUserInfo(payload) {
@@ -84,6 +120,24 @@ export const user = createModel({
     async requestAddMessage(payload) {
       const response = await userService.doAddMessage(payload);
       return response;
+    },
+    async requestSaveAddress(payload) {
+      const response = await userService.doSaveAddress(payload);
+      console.log("saveAddress",response)
+      dispatch.user.resultSaveAddress(response);
+    },
+    /**
+     * 获取收货地址列表
+     */
+    async getAddressList() {
+      const response = await userService.requestAddressList();
+      dispatch.user.resultAddressList(response);
+    },
+    /**
+     * 清除收货地址列表
+     */
+    async clearAddressList() {
+      dispatch.user.doClearAddressList();
     },
   }),
 });

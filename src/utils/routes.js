@@ -6,6 +6,9 @@ import PayHistory from '@/pages/user/paylist/payhistory';
 import Feedback from '@/pages/user/feedback';
 import Personal from '@/pages/user/personal';
 import Editname from '@/pages/user/personal/editname';
+import AddressList from '@/pages/user/personal/addressList';
+import AddressAdd from '@/pages/user/personal/addressList/addressAdd';
+
 import Order from '@/pages/user/order';
 
 import loginPage from '@/pages/login';
@@ -64,6 +67,16 @@ export const routes = [
     path: '/editname',
     exact: true,
     component: Editname,
+  },
+  {
+    path: '/addressList',
+    exact: true,
+    component: AddressList,
+  },
+  {
+    path: '/addressAdd',
+    exact: true,
+    component: AddressAdd,
   },
   {
     path: '/feedback',

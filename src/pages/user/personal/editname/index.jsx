@@ -15,9 +15,9 @@ if (isIPhone) {
 class Personal extends PureComponent {
   constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       value: '',
-    }
+    };
   }
   componentDidMount() {
     const search = queryString.parse(window.location.search);

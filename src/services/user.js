@@ -19,3 +19,12 @@ export async function doUpdateImage(params) {
 export async function doAddMessage(params) {
   return request('/app/v1/user/feedback', { method: 'post', data: params });
 }
+export async function doSaveAddress(params) {
+  return request('/app/user/address/add', { method: 'post', data: params });
+}
+/**
+ * 收货地址列表接口
+ */
+export async function requestAddressList() {
+  return request('/app/user/address/list', { method: 'get' });
+}

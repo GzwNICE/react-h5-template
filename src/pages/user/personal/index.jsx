@@ -42,7 +42,7 @@ class Personal extends PureComponent {
     console.log('onSexClick');
   }
   onAddressClick() {
-    console.log('onAddressClick');
+    this.props.history.push(`/addressList?lang=${lang}`);
   }
 
   onAddCardClick() {

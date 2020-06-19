@@ -53,6 +53,8 @@
     "@rematch/core": "^1.2.0",
     "@rematch/loading": "^1.2.1",
     "antd-mobile": "^2.3.3",
+    "antd-mobile-demo-data": "^0.3.0",
+    "array-tree-filter": "^2.1.0",
     "connected-react-router": "^6.5.2",
     "copy-to-clipboard": "^3.3.1",
     "core-js": "^3.3.5",
