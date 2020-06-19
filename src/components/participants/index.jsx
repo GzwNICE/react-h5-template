@@ -1,4 +1,7 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 // import intl from 'react-intl-universal';
 import { Modal, Button, ListView } from 'antd-mobile';
 // import { Link } from 'react-router-dom';
@@ -9,39 +12,66 @@ import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
 
-const data = [
-  {
-    img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-    name: '张三',
-    ip: '越南河内，28.20.192.13',
-    time: '2019-10-01 13：00',
-    round: '74',
-    win: true,
-  },
-  {
-    img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-    name: 'Harry',
-    ip: '越南河内，28.20.192.13',
-    time: '2019-10-01 13：00',
-    round: '74',
-    win: false,
-  },
-];
+let dataSource = new ListView.DataSource({
+  rowHasChanged: (row1, row2) => row1 !== row2,
+});
 
 class Participants extends PureComponent {
   constructor(props) {
     super(props);
-    let dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    });
     this.state = {
       isLoading: false,
-      dataSource: data.length > 0 ? dataSource.cloneWithRows(data) : dataSource,
+      dataSource: dataSource,
+      page: 0,
+      hasMore: true,
     };
   }
 
+  componentDidMount() {
+    this.getList();
+  }
+
+  getList = () => {
+    const { getPersonnel, id } = this.props;
+    if (!this.state.hasMore) return false;
+    this.fetch = true;
+    this.setState(
+      {
+        page: this.state.page + 1,
+      },
+      () => {
+        const params = {
+          page: this.state.page,
+          size: 20,
+          activityTurnId: id,
+        };
+        getPersonnel(params).then(() => {
+          this.fetch = false;
+          this.setState({ isLoading: false });
+        });
+      }
+    );
+  };
+
+  componentWillReceiveProps(nextPros) {
+    if (nextPros.list.rows && nextPros.list.rows.length === nextPros.list.total) {
+      this.setState({
+        hasMore: false,
+        isLoading: false,
+        dataSource: dataSource.cloneWithRows(nextPros.list.rows),
+      });
+    }
+  }
+
+  onEndReached = () => {
+    if (this.state.isLoading && !this.state.hasMore) {
+      return;
+    }
+    this.setState({ isLoading: true });
+    this.getList();
+  };
+
   onClose = () => {
-    // eslint-disable-next-line react/destructuring-assignment
     this.props.closeRaffle();
   };
 
@@ -50,25 +80,25 @@ class Participants extends PureComponent {
       return (
         <div className={styles.listItem} key={i.index}>
           <div className={styles.picBox}>
-            <img src={i.img} alt="" className={styles.winPic} />
-            {i.win ? <img src={winning} alt="" className={styles.winning} /> : null}
+            <img src={i.photoUrl} alt="" className={styles.winPic} />
+            {i.status ? <img src={winning} alt="" className={styles.winning} /> : null}
           </div>
           <div className={styles.rightBox}>
             <div>
-              <span className={styles.winName}>{i.name}</span>
-              <span className={styles.ip}>{`（${i.ip}）`}</span>
+              <span className={styles.winName}>{i.userName}</span>
+              {i.ip ? <span className={styles.ip}>{`（${i.ip}）`}</span> : null}
             </div>
             <div className={styles.times}>
               <span>
-                参与了 <span className={styles.round}>{i.round}</span> 人次
+                参与了 <span className={styles.round}>{i.partakeCount}</span> 人次
               </span>
-              <span className={styles.time}>{i.time}</span>
+              <span className={styles.time}>{i.createTime}</span>
             </div>
           </div>
         </div>
       );
     };
-    const { visible } = this.props;
+    const { visible, list } = this.props;
     const { dataSource, isLoading } = this.state;
     return (
       <div>
@@ -85,7 +115,7 @@ class Participants extends PureComponent {
               <span className={styles.title}>本期参与人员</span>
             </div>
             <div className={styles.list}>
-              {data.length > 0 ? (
+              {list.rows.length > 0 ? (
                 <ListView
                   dataSource={dataSource}
                   renderFooter={() => (
@@ -100,7 +130,7 @@ class Participants extends PureComponent {
                   }}
                   pageSize={4}
                   scrollRenderAheadDistance={500}
-                  // onEndReached={this.onEndReached}
+                  onEndReached={this.onEndReached}
                   onEndReachedThreshold={10}
                 />
               ) : (
@@ -116,5 +146,12 @@ class Participants extends PureComponent {
     );
   }
 }
+const mapState = state => ({
+  list: state.product.data.personList,
+});
 
-export default Participants;
+const mapDispatch = dispatch => ({
+  getPersonnel: params => dispatch.product.getPersonnel(params),
+});
+
+export default connect(mapState, mapDispatch)(Participants);

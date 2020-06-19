@@ -28,8 +28,13 @@ class ActivityCard extends PureComponent {
               <Progress
                 percent={data.progressRate}
                 position="normal"
-                style={{ flex: '1', borderRadius: '2px', backgroundColor: '#FBCEBB' }}
-                barStyle={{ borderRadius: '2px', border: '2px solid #FF5209' }}
+                style={{
+                  flex: '1',
+                  borderRadius: '2px',
+                  backgroundColor: '#FBCEBB',
+                  overflow: 'hidden',
+                }}
+                barStyle={{ backgroundColor: 'rgb(255,82,9)', border: 'none' }}
               />
               <span className={styles.remaining}>{`剩余${data.remainingCount}人次`}</span>
             </div>

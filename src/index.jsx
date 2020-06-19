@@ -28,7 +28,9 @@ intl.init({
 Cookies.set('IPhoneX', isIPhoneX(), { expires: 30 });
 
 request('/app/system/conf/enable', { method: 'get' }).then(res => {
-  localStorage.setItem('configuration', JSON.stringify(res.data));
+  if (res.code === 200) {
+    localStorage.setItem('configuration', JSON.stringify(res.data));
+  }
 });
 
 const Root = () => (

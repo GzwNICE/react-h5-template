@@ -7,3 +7,7 @@ export async function fetchRules(params) {
 export async function fetchInfo(params) {
   return request('/app/activity/turn/info', { method: 'get', params: params });
 }
+
+export async function fetchParticipants(params) {
+  return request('/app/activity/order/participants', { method: 'get', params: params });
+}
