@@ -27,7 +27,6 @@ class ProductDetail extends PureComponent {
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
       activityTurnId: this.props.match.params.activityTurnId,
-      data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
       current: 1,
       allCur: 0,
       visibleRaffle: false,
@@ -238,7 +237,11 @@ class ProductDetail extends PureComponent {
           </span>
           <Button type="primary" className={styles.goNow}>立即前往</Button>
         </div>
-        <RaffleCode visible={visibleRaffle} closeRaffle={this.closeRaffle('visibleRaffle')} />
+        <RaffleCode
+          visible={visibleRaffle}
+          closeRaffle={this.closeRaffle('visibleRaffle')}
+          id={activityTurnId}
+        />
         <Participants
           visible={visiblePartic}
           closeRaffle={this.closeRaffle('visiblePartic')}

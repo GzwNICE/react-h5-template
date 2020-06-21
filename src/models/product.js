@@ -11,6 +11,10 @@ export const product = createModel({
         rows: [],
         total: 0,
       },
+      luckCodeList: {
+        rows: [],
+        total: 0,
+      },
     },
   },
   reducers: {
@@ -40,7 +44,22 @@ export const product = createModel({
           personList: {
             ...payload.data,
             rows: payload.data.rows ? state.data.personList.rows.concat(payload.data.rows) : [],
-            total: payload.data.total,
+            total: payload.data.total ? payload.data.total : 0,
+          },
+        },
+      };
+    },
+    saveLuck(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          luckCodeList: {
+            ...payload.data,
+            rows: payload.data.rows
+              ? state.data.luckCodeList.rows.concat(payload.data.rows)
+              : state.data.luckCodeList.rows,
+            total: payload.data.total ? payload.data.total : 0,
           },
         },
       };
@@ -59,6 +78,11 @@ export const product = createModel({
     async getPersonnel(payload) {
       const response = await productService.fetchParticipants(payload);
       dispatch.product.savePerson(response);
+      return response;
+    },
+    async getDrawCode(payload) {
+      const response = await productService.fetchDrawCode(payload);
+      dispatch.product.saveLuck(response);
       return response;
     },
   }),

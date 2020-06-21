@@ -59,9 +59,7 @@ const format = (data, type) => {
       add(h) + ' ' + ':' + ' ' + add(mm) + ' ' + ':' + ' ' + add(s) + ' ' + add(sm),
     ];
   } else {
-    return (
-      y + '-' + add(m) + '-' + add(d) + ' ' + add(h) + ':' + add(mm) + ':' + add(s) + ' ' + add(sm)
-    );
+    return y + '-' + add(m) + '-' + add(d) + ' ' + add(h) + ':' + add(mm);
   }
 };
 

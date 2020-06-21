@@ -11,3 +11,7 @@ export async function fetchInfo(params) {
 export async function fetchParticipants(params) {
   return request('/app/activity/order/participants', { method: 'get', params: params });
 }
+
+export async function fetchDrawCode(params) {
+  return request('/app/activity/turns/my-turn-prizes-codes', { method: 'get', params: params });
+}
