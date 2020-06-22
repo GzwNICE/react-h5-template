@@ -13,10 +13,13 @@ class AddressItem extends PureComponent {
     const { data, parent } = this.props;
     parent.props.history.push({ pathname: `/addressAdd`, state: { item: data } });
   }
+  onChangeClick() {
+    console.log('选中');
+  }
   render() {
     const { data } = this.props;
     return (
-      <div className={styles.box} onClick={this.onEditClick.bind(this)}>
+      <div className={styles.box} onClick={this.onChangeClick.bind(this)}>
         <div className={styles.userInfo}>
           <div className={styles.name}>{data.userName}</div>
           <div className={styles.mobile}>{data.mobile}</div>
@@ -24,7 +27,7 @@ class AddressItem extends PureComponent {
         </div>
         <div className={styles.addressInfo}>
           <div className={styles.address}>{data.detailAddress}</div>
-          <img className={styles.edit} src={ic_edit}></img>
+          <img className={styles.edit} src={ic_edit} onClick={this.onEditClick.bind(this)}></img>
         </div>
       </div>
     );

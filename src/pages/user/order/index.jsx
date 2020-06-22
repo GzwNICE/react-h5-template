@@ -14,7 +14,6 @@ import RaffleCodeDialog from '@/components/luckyCode';
 import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
 import styles from './index.less';
 
-
 class OrderList extends PureComponent {
   constructor(props) {
     super(props);
@@ -166,46 +165,45 @@ class OrderList extends PureComponent {
         {result.total == 0 ? (
           <Empty />
         ) : (
-            <ListView
-              ref={el => {
-                this.load = el;
-              }}
-              key={this.state.useBodyScroll ? '0' : '1'}
-              dataSource={this.state.dataSource}
-              renderRow={Row}
-              renderSeparator={separator}
-              useBodyScroll={this.state.useBodyScroll}
-              style={
-                this.state.useBodyScroll
-                  ? {}
-                  : {
+          <ListView
+            ref={el => {
+              this.load = el;
+            }}
+            key={this.state.useBodyScroll ? '0' : '1'}
+            dataSource={this.state.dataSource}
+            renderRow={Row}
+            renderSeparator={separator}
+            useBodyScroll={this.state.useBodyScroll}
+            style={
+              this.state.useBodyScroll
+                ? {}
+                : {
                     height: this.state.height,
                     border: '1px solid #ddd',
                     margin: '5px 0',
-                  }}
-              scrollRenderAheadDistance={100}
-              onEndReachedThreshold={10}
-              scrollEventThrottle={100}
-              initialListSize={1000}
-              pageSize={10}
-              pullToRefresh={
-                <PullToRefresh
-                  refreshing={this.state.refreshing}
-                  onRefresh={this.onRefresh}
-                />}
-              onEndReached={this.loadPageList} // 上啦加载
-              renderFooter={() => (
-                <div style={{ padding: 10, textAlign: 'center' }}>
-                  {isLoading ? 'Loading...' : '已经到底了！'}
-                </div>
-              )}
-            />
-          )}
+                  }
+            }
+            scrollRenderAheadDistance={100}
+            onEndReachedThreshold={10}
+            scrollEventThrottle={100}
+            initialListSize={1000}
+            pageSize={10}
+            pullToRefresh={
+              <PullToRefresh refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
+            }
+            onEndReached={this.loadPageList} // 上啦加载
+            renderFooter={() => (
+              <div style={{ padding: 10, textAlign: 'center' }}>
+                {isLoading ? 'Loading...' : '已经到底了！'}
+              </div>
+            )}
+          />
+        )}
         <RaffleCodeDialog
           visible={visibleRaffle}
           closeRaffle={this.closeRaffle('visibleRaffle')}
           id={activityTurnId}
- />
+        />
 
         {this.state.goCoinOrderId ? (
           <GoCoinDetailDialog
