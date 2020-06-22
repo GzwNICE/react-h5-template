@@ -18,7 +18,6 @@ class PayHistory extends PureComponent {
       size: 10,
       isLoading: true,
       useBodyScroll: false,
-      height: document.documentElement.clientHeight - 50,
       refreshing: true,
     };
   }
@@ -49,11 +48,13 @@ class PayHistory extends PureComponent {
           page: this.state.page,
           size: this.state.size,
         };
-        refreshList(params).then(() => {
-          this.setState({
-            refreshing: false,
-            dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
-          });
+        refreshList(params).then(res => {
+          if (res.total != 0) {
+            this.setState({
+              refreshing: false,
+              dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
+            });
+          }
         });
       }
     );
@@ -79,11 +80,11 @@ class PayHistory extends PureComponent {
     );
   };
   componentWillReceiveProps(nextPorps) {
-    if (nextPorps.result.data.length === nextPorps.result.total) {
-      this.setState({
-        isLoading: false,
-      });
-    }
+    // if (nextPorps.result.data.length === nextPorps.result.total) {
+    //   this.setState({
+    //     isLoading: false,
+    //   });
+    // }
   }
   onRefresh = () => {
     this.setState({ refreshing: true, isLoading: true });

@@ -108,6 +108,7 @@ export const payment = createModel({
     async getRefreshHistoryList(payload) {
       const response = await paymentService.getHistoryList(payload);
       dispatch.payment.refreshHistoryList(response);
+      return response;
     },
     async getLoadHistoryList(payload) {
       const response = await paymentService.getHistoryList(payload);
