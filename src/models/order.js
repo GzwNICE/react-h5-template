@@ -78,7 +78,6 @@ export const order = createModel({
      */
     async getExchangeDetail(payload) {
       const response = await orderService.exchangeDetail(payload);
-      console.log("detail", response)
       dispatch.order.resultDetail(response);
       return response;
 

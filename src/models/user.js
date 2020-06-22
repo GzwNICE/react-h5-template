@@ -123,7 +123,6 @@ export const user = createModel({
     },
     async requestSaveAddress(payload) {
       const response = await userService.doSaveAddress(payload);
-      console.log("saveAddress",response)
       dispatch.user.resultSaveAddress(response);
     },
     /**

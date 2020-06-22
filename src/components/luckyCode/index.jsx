@@ -35,22 +35,24 @@ class LuckyCode extends PureComponent {
     const { getDrawCode, id } = this.props;
     if (!this.state.hasMore) return false;
     this.fetch = true;
-    this.setState(
-      {
-        page: this.state.page + 1,
-      },
-      () => {
-        const params = {
-          page: this.state.page,
-          size: 20,
-          activityTurnId: id,
-        };
-        getDrawCode(params).then(() => {
-          this.fetch = false;
-          this.setState({ isLoading: false });
-        });
-      }
-    );
+    if (id) {
+      this.setState(
+        {
+          page: this.state.page + 1,
+        },
+        () => {
+          const params = {
+            page: this.state.page,
+            size: 20,
+            activityTurnId: id,
+          };
+          getDrawCode(params).then(() => {
+            this.fetch = false;
+            this.setState({ isLoading: false });
+          });
+        }
+      );
+    }
   };
 
   componentWillReceiveProps(nextPros) {
