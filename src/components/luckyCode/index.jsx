@@ -35,6 +35,7 @@ class LuckyCode extends PureComponent {
     const { getDrawCode, id } = this.props;
     if (!this.state.hasMore) return false;
     this.fetch = true;
+    if(id){
     this.setState(
       {
         page: this.state.page + 1,
@@ -51,6 +52,7 @@ class LuckyCode extends PureComponent {
         });
       }
     );
+  }
   };
 
   componentWillReceiveProps(nextPros) {

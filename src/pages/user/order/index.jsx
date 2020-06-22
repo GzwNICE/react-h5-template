@@ -123,6 +123,7 @@ class OrderList extends PureComponent {
   showCodeDialog = turnId => {
     this.setState({
       visibleRaffle: true,
+      activityTurnId: turnId,
     });
   };
   closeRaffle = key => () => {
@@ -132,7 +133,7 @@ class OrderList extends PureComponent {
   };
   render() {
     const { result } = this.props;
-    const { isLoading, goCoinDialog, cashDialog, type, visibleRaffle } = this.state;
+    const { isLoading, goCoinDialog, cashDialog, type, visibleRaffle, activityTurnId } = this.state;
     const label = queryString.parse(window.location.search).label;
     const Row = d => {
       return (
@@ -200,7 +201,11 @@ class OrderList extends PureComponent {
               )}
             />
           )}
-        <RaffleCodeDialog visible={visibleRaffle} closeRaffle={this.closeRaffle('visibleRaffle')} />
+        <RaffleCodeDialog
+          visible={visibleRaffle}
+          closeRaffle={this.closeRaffle('visibleRaffle')}
+          id={activityTurnId}
+ />
 
         {this.state.goCoinOrderId ? (
           <GoCoinDetailDialog
