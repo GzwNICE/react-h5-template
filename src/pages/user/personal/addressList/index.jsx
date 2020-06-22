@@ -40,17 +40,15 @@ class PayHistory extends PureComponent {
     });
   };
   addAddressClick() {
-    console.log('addAddressClick')
     this.props.history.push(`/addressAdd?lang=${lang}`);
   }
   render() {
     const { result } = this.props;
     // const { isLoading } = this.state;
     const Row = d => {
-      console.log('row', d)
       return (
         <div>
-          <AddressItem data={d} />
+          <AddressItem parent={this} data={d} />
         </div>
       );
     };

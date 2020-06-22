@@ -20,7 +20,13 @@ export async function doAddMessage(params) {
   return request('/app/v1/user/feedback', { method: 'post', data: params });
 }
 export async function doSaveAddress(params) {
-  return request('/app/user/address/add', { method: 'post', data: params });
+  let path = '';
+  if (params.id) {
+    path = '/app/user/address/update';
+  } else {
+    path = '/app/user/address/add';
+  }
+  return request(path, { method: 'post', data: params });
 }
 /**
  * 收货地址列表接口
