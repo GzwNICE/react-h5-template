@@ -31,11 +31,19 @@ class ProductDetail extends PureComponent {
       allCur: 0,
       visibleRaffle: false,
       visiblePartic: false,
-      buyShow: false,
+      buyShow: false, //购买弹窗
+      buyShowNext: false, //确认支付
       status: null, //活动状态
       luckyCode: false, //查看抽奖码
       buyLuckyCode: false, //已购买，查看抽奖码
       countdown: false, //倒计时
+      personData: [],
+      proportionData: [
+        { value: 0, label: '10%' },
+        { value: 1, label: '20%' },
+        { value: 2, label: '30%' },
+        { value: 3, label: '50%' },
+      ],
     };
   }
 
@@ -46,6 +54,18 @@ class ProductDetail extends PureComponent {
         this.setState({
           allCur: res.data.imgUrlList.length,
           status: res.data.status,
+          personData: [
+            { value: 20, label: 20 },
+            { value: 50, label: 50 },
+            { value: 80, label: 80 },
+            { value: res.data.remainingCount, label: '包尾' },
+          ],
+          proportionData: [
+            { value: Math.floor(res.data.participateNum * 0.1), label: '10%' },
+            { value: Math.floor(res.data.participateNum * 0.2), label: '20%' },
+            { value: Math.floor(res.data.participateNum * 0.3), label: '30%' },
+            { value: Math.floor(res.data.participateNum * 0.5), label: '50%' },
+          ],
         });
       }
     });
@@ -92,10 +112,13 @@ class ProductDetail extends PureComponent {
       visiblePartic,
       activityTurnId,
       buyShow,
+      buyShowNext,
       status,
       luckyCode,
       buyLuckyCode,
       countdown,
+      personData,
+      proportionData,
     } = this.state;
     const { detail } = this.props;
     return (
@@ -140,7 +163,7 @@ class ProductDetail extends PureComponent {
         <div className={styles.priceBox} style={{ backgroundImage: `url(${priceBg})` }}>
           <span className={styles.price}>
             <span className={styles.pPrice}>{detail.participatePrice}</span>
-            <span>{config.moneyVirtualCn ? config.moneyVirtualCn : ''}</span> / <span>人次</span>
+            <span>{config.moneyVirtualCn && config.moneyVirtualCn}</span> / <span>人次</span>
           </span>
           <div className={styles.remainBox}>
             <span>{`剩余${detail.remainingCount}人次`}</span>
@@ -228,7 +251,13 @@ class ProductDetail extends PureComponent {
         >
           立即抢购
         </div>
-        <BuyGroup open={buyShow} onOpenChange={this.visibleBuy} />
+        <BuyGroup
+          open={buyShow}
+          onOpenChange={this.visibleBuy}
+          data={detail}
+          personData={personData}
+          proportionData={proportionData}
+        />
         <div className={styles.newActBox}>
           <span className={styles.nextAct}>
             新一轮活动倒计时

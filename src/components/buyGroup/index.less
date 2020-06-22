@@ -158,6 +158,78 @@
       }
     }
   }
+  .buyNextContent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 8px 8px 0px 0px;
+    margin-top: 50px;
+    .topB {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 12px;
+      border-bottom: 1px solid #ededed;
+      .guide {
+        font-size: 14px;
+        font-family: PingFangSC, PingFangSC-Regular;
+        color: #333333;
+        line-height: 14px;
+      }
+      .close {
+        width: 28px;
+        height: 28px;
+        color: #999999;
+      }
+    }
+    .buyNum {
+      padding: 18px 12px;
+      box-sizing: border-box;
+      width: 100%;
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        font-family: PingFangSC, PingFangSC-Medium;
+        color: #333333;
+        margin-bottom: 20px;
+        .left {
+          color: #666666;
+        }
+      }
+      p {
+        width: 100%;
+        font-size: 14px;
+        font-family: PingFangSC, PingFangSC-Regular;
+        text-align: right;
+        color: #333333;
+        span {
+          color: #ff5100;
+        }
+      }
+    }
+    .bottom {
+      padding: 10px 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .pay {
+        width: 100%;
+        height: 40px;
+        background: #ff5209;
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: PingFangSC, PingFangSC-Medium;
+        text-align: center;
+        color: #ffffff;
+      }
+    }
+  }
   :global(.am-drawer-open.am-drawer.am-drawer-bottom .am-drawer-sidebar) {
     box-shadow: none;
   }
@@ -180,4 +252,8 @@
 }
 .buyNone {
   display: none;
+}
+:global(.am-stepper-handler-down-disabled),
+:global(.am-stepper-handler-up-disabled) {
+  opacity: 1 !important;
 }

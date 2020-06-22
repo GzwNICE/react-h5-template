@@ -33,7 +33,7 @@ class Participants extends PureComponent {
 
   getList = () => {
     const { getPersonnel, id } = this.props;
-    if (!this.state.hasMore || !this.fetch) return false;
+    if (!this.state.hasMore) return false;
     this.fetch = true;
     this.setState(
       {

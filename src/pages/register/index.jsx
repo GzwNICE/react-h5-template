@@ -174,6 +174,7 @@ class Register extends PureComponent {
               placeholder="请输入短信验证码"
               className={styles.code}
               maxLength={6}
+              type="number"
               ref={el => (this.codeInput = el)}
               onClick={() => {
                 this.codeInput.focus();

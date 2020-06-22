@@ -174,6 +174,7 @@ class Password extends PureComponent {
               clear
               placeholder="请输入短信验证码"
               className={styles.code}
+              type="number"
               ref={el => (this.smsInput = el)}
               onClick={() => {
                 this.smsInput.focus();
