@@ -15,3 +15,15 @@ export async function fetchParticipants(params) {
 export async function fetchDrawCode(params) {
   return request('/app/activity/turns/my-turn-prizes-codes', { method: 'get', params: params });
 }
+
+export async function fetchBuy(params) {
+  return request('/app/order/pay/info/lock', { method: 'post', data: params });
+}
+
+export async function fetchBuyConfirm(params) {
+  return request('/app/order/pay/confirm', { method: 'post', data: params });
+}
+
+export async function fetchBuyCancel(params) {
+  return request('/app/order/pay/cancel', { method: 'post', data: params });
+}

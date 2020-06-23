@@ -85,5 +85,17 @@ export const product = createModel({
       dispatch.product.saveLuck(response);
       return response;
     },
+    async buy(payload) {
+      const response = await productService.fetchBuy(payload);
+      return response;
+    },
+    async buyConfirm(payload) {
+      const response = await productService.fetchBuyConfirm(payload);
+      return response;
+    },
+    async buyCancel(payload) {
+      const response = await productService.fetchBuyCancel(payload);
+      return response;
+    },
   }),
 });

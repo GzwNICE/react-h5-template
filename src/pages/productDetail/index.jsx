@@ -15,6 +15,7 @@ import avatar from '@/assets/images/avatar_notlogin.png';
 import winning from '@/assets/images/winning_crown.png';
 import RaffleCode from '@/components/luckyCode';
 import Participants from '@/components/participants';
+import ReceiveAward from '@/components/receive';
 import BuyGroup from '@/components/buyGroup';
 import styles from './index.less';
 
@@ -31,23 +32,23 @@ class ProductDetail extends PureComponent {
       allCur: 0,
       visibleRaffle: false,
       visiblePartic: false,
+      visibleReceive: false,
       buyShow: false, //购买弹窗
-      buyShowNext: false, //确认支付
       status: null, //活动状态
       luckyCode: false, //查看抽奖码
       buyLuckyCode: false, //已购买，查看抽奖码
       countdown: false, //倒计时
       personData: [],
-      proportionData: [
-        { value: 0, label: '10%' },
-        { value: 1, label: '20%' },
-        { value: 2, label: '30%' },
-        { value: 3, label: '50%' },
-      ],
+      proportionData: [],
+      nextCountDown: null,
+      nextH: '00',
+      nextM: '00',
+      nextS: '00',
     };
   }
 
   componentDidMount() {
+    console.log(11111);
     const { getDetail } = this.props;
     getDetail({ activityTurnId: this.state.activityTurnId }).then(res => {
       if (res.code === 200) {
@@ -66,10 +67,37 @@ class ProductDetail extends PureComponent {
             { value: Math.floor(res.data.participateNum * 0.3), label: '30%' },
             { value: Math.floor(res.data.participateNum * 0.5), label: '50%' },
           ],
+          nextCountDown: res.data.waitStartTime,
         });
+        this.countFun();
       }
     });
   }
+  countFun = () => {
+    const { nextCountDown, status } = this.state;
+    if (nextCountDown === '0' && (status !== 7 || status !== 10)) return false;
+    var remaining = this.state.nextCountDown;
+    this.timer = setInterval(() => {
+      //防止出现负数
+      if (remaining > 1000) {
+        remaining -= 1000;
+        let hour = Math.floor((remaining / 1000 / 3600) % 24);
+        let minute = Math.floor((remaining / 1000 / 60) % 60);
+        let second = Math.floor((remaining / 1000) % 60);
+
+        this.setState({
+          nextH: hour < 10 ? '0' + hour : hour,
+          nextM: minute < 10 ? '0' + minute : minute,
+          nextS: second < 10 ? '0' + second : second,
+        });
+      } else {
+        clearInterval(this.timer);
+        this.setState({
+          nextCountDown: null,
+        });
+      }
+    }, 1000);
+  };
 
   componentDidUpdate() {
     if (this.state.buyShow) {
@@ -77,6 +105,10 @@ class ProductDetail extends PureComponent {
     } else {
       document.body.style.overflow = 'auto';
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   carBeforeChange = (form, to) => {
@@ -103,6 +135,10 @@ class ProductDetail extends PureComponent {
     });
   };
 
+  newActivity = id => {
+    this.props.history.push(`/product/${id}?lang=${lang}`);
+  };
+
   render() {
     const {
       IPhoneX,
@@ -112,13 +148,16 @@ class ProductDetail extends PureComponent {
       visiblePartic,
       activityTurnId,
       buyShow,
-      buyShowNext,
+      visibleReceive,
       status,
       luckyCode,
       buyLuckyCode,
       countdown,
       personData,
       proportionData,
+      nextH,
+      nextM,
+      nextS,
     } = this.state;
     const { detail } = this.props;
     return (
@@ -245,12 +284,14 @@ class ProductDetail extends PureComponent {
               })
             : null}
         </div>
-        <div
-          className={`${styles.snapped} ${IPhoneX === 'true' ? `${styles.snappedIPhone}` : null}`}
-          onClick={this.visibleBuy}
-        >
-          立即抢购
-        </div>
+        {status && status !== 1 && status !== 8 && status !== 9 && status !== 10 ? (
+          <div
+            className={`${styles.snapped} ${IPhoneX === 'true' ? `${styles.snappedIPhone}` : null}`}
+            onClick={this.visibleBuy}
+          >
+            立即抢购
+          </div>
+        ) : null}
         <BuyGroup
           open={buyShow}
           onOpenChange={this.visibleBuy}
@@ -258,14 +299,28 @@ class ProductDetail extends PureComponent {
           personData={personData}
           proportionData={proportionData}
         />
-        <div className={styles.newActBox}>
-          <span className={styles.nextAct}>
-            新一轮活动倒计时
-            <span className={styles.time}>04</span>:<span className={styles.time}>59</span>:
-            <span className={styles.time}>59</span>
-          </span>
-          <Button type="primary" className={styles.goNow}>立即前往</Button>
-        </div>
+        {status && (status === 1 || status === 10 || status === 9) ? (
+          <div className={styles.newActBox}>
+            {status === 9 ? (
+              <span className={styles.nextAct}>新一轮夺宝火热开启中…</span>
+            ) : (
+              <span className={styles.nextAct}>
+                新一轮活动倒计时
+                <span className={styles.time}>{nextH}</span>:
+                <span className={styles.time}>{nextM}</span>:
+                <span className={styles.time}>{nextS}</span>
+              </span>
+            )}
+            <Button
+              type="primary"
+              className={styles.goNow}
+              disabled={status === 1}
+              onClick={() => this.newActivity(detail.nextActivityTurnId)}
+            >
+              {status === 1 ? `即将开始` : `立即前往`}
+            </Button>
+          </div>
+        ) : null}
         <RaffleCode
           visible={visibleRaffle}
           closeRaffle={this.closeRaffle('visibleRaffle')}
@@ -276,6 +331,7 @@ class ProductDetail extends PureComponent {
           closeRaffle={this.closeRaffle('visiblePartic')}
           id={activityTurnId}
         />
+        <ReceiveAward visible={visibleReceive} close={this.closeRaffle('visibleReceive')} />
       </div>
     );
   }

@@ -2,6 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 // import intl from 'react-intl-universal';
+import { connect } from 'react-redux';
 import { Icon, Stepper, Radio, Button, Toast } from 'antd-mobile';
 // import { Link } from 'react-router-dom';
 import queryString from 'query-string';
@@ -16,6 +17,12 @@ class BuyGroup extends PureComponent {
       stepVal: 5,
       personValue: null,
       proportionValue: null,
+      balanceStatus: 0, //余额状态
+      partakeCount: 0, //购买次数 应和stepVal一致
+      goAmount: 0, //需支付金额
+      balance: 0, //账户余额
+      orderActivityId: null, //订单id
+      payCountdown: 30, //支付倒计时
     };
   }
 
@@ -26,6 +33,9 @@ class BuyGroup extends PureComponent {
       personValue: null,
       proportionValue: null,
       stepVal: 5,
+      next: false,
+      payCountdown: 30,
+      orderActivityId: null,
     });
   };
 
@@ -50,16 +60,71 @@ class BuyGroup extends PureComponent {
   };
 
   pay = () => {
-    const { personValue, proportionValue } = this.state;
+    const { personValue, proportionValue, stepVal } = this.state;
+    const { buyFetch, data } = this.props;
     if (!personValue && !proportionValue) {
       Toast.info('请选择购买人次或比例', 2);
     } else {
-      Toast.loading('loading...', 0);
-      console.log(123);
-      this.setState({
-        next: true,
+      buyFetch({
+        activityTurnId: data.activityTurnId,
+        partakeCount: stepVal,
+      }).then(res => {
+        if (res.code === 200) {
+          this.setState(
+            {
+              next: true,
+              balanceStatus: res.data.status,
+              partakeCount: res.data.partakeCount,
+              goAmount: res.data.goAmount,
+              balance: res.data.balance,
+              orderActivityId: res.data.orderActivityId,
+            },
+            () => {
+              this.countdown();
+            }
+          );
+        }
       });
     }
+  };
+
+  countdown = () => {
+    if (this.state.balanceStatus) return false;
+    this.timer = setInterval(() => {
+      if (this.state.payCountdown <= 0) {
+        Toast.info('订单超时，请重新购买', 2);
+        return this.Clear();
+      }
+      this.setState({
+        payCountdown: this.state.payCountdown - 1,
+      });
+    }, 999);
+  };
+
+  Clear = () => {
+    this.onOpenChange();
+    clearInterval(this.timer);
+  };
+
+  confirmPay = () => {
+    if (this.state.balanceStatus) return false;
+    const { buyConfirm } = this.props;
+    buyConfirm([this.state.orderActivityId]).then(res => {
+      if (res.code === 200) {
+        this.Clear();
+        Toast.success('参与成功', 2);
+      }
+    });
+  };
+
+  cancelPay = () => {
+    const { buyCancel } = this.props;
+    buyCancel([this.state.orderActivityId]).then(res => {
+      if (res.code === 200) {
+        this.Clear();
+        Toast.info('取消订单', 2);
+      }
+    });
   };
 
   componentWillReceiveProps(nextProps) {
@@ -77,7 +142,17 @@ class BuyGroup extends PureComponent {
 
   render() {
     const { open, data, personData, proportionData } = this.props;
-    const { stepVal, proportionValue, personValue, next } = this.state;
+    const {
+      stepVal,
+      proportionValue,
+      personValue,
+      next,
+      balanceStatus,
+      partakeCount,
+      goAmount,
+      balance,
+      payCountdown,
+    } = this.state;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
     return (
       <div>
@@ -157,28 +232,28 @@ class BuyGroup extends PureComponent {
             <div className={`${open ? `${styles.buyNextContent}` : null}`}>
               <div className={styles.topB}>
                 <span className={styles.guide}>确认结算</span>
-                <Icon type="cross" size="md" className={styles.close} onClick={this.onOpenChange} />
+                <Icon type="cross" size="md" className={styles.close} onClick={this.cancelPay} />
               </div>
               <div className={styles.buyNum}>
                 <li>
                   <span className={styles.left}>购买人次</span>
-                  <span>100人次</span>
+                  <span>{`${partakeCount}人次`}</span>
                 </li>
                 <li>
                   <span className={styles.left}>支付GO币</span>
-                  <span>100</span>
+                  <span>{goAmount}</span>
                 </li>
                 <li>
                   <span className={styles.left}>我的余额</span>
-                  <span>100</span>
+                  {`${!balanceStatus}` ? <span>{`${balance}`}</span> : <span>0</span>}
                 </li>
                 <p>
-                  <span>30s</span> 未支付订单自动取消
+                  <span>{`${payCountdown}s`}</span> 未支付订单自动取消
                 </p>
               </div>
               <div className={styles.bottom}>
-                <Button type="primary" className={styles.pay}>
-                  确认支付
+                <Button type="primary" className={styles.pay} onClick={this.confirmPay}>
+                  {`${!balanceStatus}` ? `确认支付` : `GO币不足，请先充值`}
                 </Button>
               </div>
             </div>
@@ -189,4 +264,12 @@ class BuyGroup extends PureComponent {
   }
 }
 
-export default BuyGroup;
+const mapState = state => ({});
+
+const mapDispatch = dispatch => ({
+  buyFetch: params => dispatch.product.buy(params),
+  buyConfirm: params => dispatch.product.buyConfirm(params),
+  buyCancel: params => dispatch.product.buyCancel(params),
+});
+
+export default connect(mapState, mapDispatch)(BuyGroup);
