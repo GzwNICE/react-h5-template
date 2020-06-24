@@ -47,7 +47,10 @@ class Participants extends PureComponent {
         };
         getPersonnel(params).then(() => {
           this.fetch = false;
-          this.setState({ isLoading: false });
+          this.setState({
+            isLoading: false,
+            dataSource: dataSource.cloneWithRows(this.props.list.rows),
+          });
         });
       }
     );
@@ -58,7 +61,11 @@ class Participants extends PureComponent {
       this.setState({
         hasMore: false,
         isLoading: false,
-        dataSource: dataSource.cloneWithRows(nextPros.list.rows),
+      });
+    } else {
+      this.setState({
+        hasMore: true,
+        isLoading: true,
       });
     }
   }

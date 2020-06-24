@@ -26,9 +26,9 @@ class BuyGroup extends PureComponent {
     };
   }
 
-  onOpenChange = () => {
+  onOpenChange = type => {
     // this.setState({ open: !this.state.open });
-    this.props.onOpenChange();
+    this.props.onOpenChange(type);
     this.setState({
       personValue: null,
       proportionValue: null,
@@ -101,8 +101,8 @@ class BuyGroup extends PureComponent {
     }, 999);
   };
 
-  Clear = () => {
-    this.onOpenChange();
+  Clear = type => {
+    this.onOpenChange(type);
     clearInterval(this.timer);
   };
 
@@ -111,7 +111,7 @@ class BuyGroup extends PureComponent {
     const { buyConfirm } = this.props;
     buyConfirm([this.state.orderActivityId]).then(res => {
       if (res.code === 200) {
-        this.Clear();
+        this.Clear('success');
         Toast.success('参与成功', 2);
       }
     });
@@ -245,15 +245,17 @@ class BuyGroup extends PureComponent {
                 </li>
                 <li>
                   <span className={styles.left}>我的余额</span>
-                  {`${!balanceStatus}` ? <span>{`${balance}`}</span> : <span>0</span>}
+                  <span>{`${balance}`}</span>
                 </li>
-                <p>
-                  <span>{`${payCountdown}s`}</span> 未支付订单自动取消
-                </p>
+                {!balanceStatus ? (
+                  <p>
+                    <span>{`${payCountdown}s`}</span> 未支付订单自动取消
+                  </p>
+                ) : null}
               </div>
               <div className={styles.bottom}>
                 <Button type="primary" className={styles.pay} onClick={this.confirmPay}>
-                  {`${!balanceStatus}` ? `确认支付` : `GO币不足，请先充值`}
+                  {!balanceStatus ? `确认支付` : `GO币不足，请先充值`}
                 </Button>
               </div>
             </div>

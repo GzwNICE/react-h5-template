@@ -23,7 +23,7 @@ class ReceiveAward extends PureComponent {
   };
 
   render() {
-    const { visible } = this.props;
+    const { visible, data } = this.props;
     return (
       <div>
         <Modal
@@ -36,14 +36,12 @@ class ReceiveAward extends PureComponent {
           <div className={styles.content}>
             <img src={winDollar} alt="" className={styles.winDollar} />
             <div className={styles.prodInfo}>
-              <img
-                src="https://teramont.svw-volkswagen.com/_nuxt/img/ae8cd4f.jpg"
-                alt=""
-                className={styles.prodImg}
-              />
-              <p className={styles.p1}>成为 APP STORE充值卡 中奖用户</p>
-              <p className={styles.p1}>你的中奖号码为：10000313</p>
-              <p className={styles.p2}>请前往领奖确认页进行信息确认，若超过24小时没有认领，将视为自动放弃领奖。</p>
+              <img src={data.img} alt="" className={styles.prodImg} />
+              <p className={styles.p1}>{`成为 ${data.name} 中奖用户`}</p>
+              <p className={styles.p1}>{`你的中奖号码为：${data.code}`}</p>
+              <p className={styles.p2}>
+                请前往领奖确认页进行信息确认，若超过24小时没有认领，将视为自动放弃领奖。
+              </p>
               <Button type="primary" className={styles.b1}>
                 前往确认
               </Button>

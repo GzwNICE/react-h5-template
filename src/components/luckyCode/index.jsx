@@ -48,7 +48,10 @@ class LuckyCode extends PureComponent {
           };
           getDrawCode(params).then(() => {
             this.fetch = false;
-            this.setState({ isLoading: false });
+            this.setState({
+              isLoading: false,
+              dataSource: dataSource.cloneWithRows(this.props.codeList.rows),
+            });
           });
         }
       );
@@ -60,7 +63,11 @@ class LuckyCode extends PureComponent {
       this.setState({
         hasMore: false,
         isLoading: false,
-        dataSource: dataSource.cloneWithRows(nextPros.codeList.rows),
+      });
+    } else {
+      this.setState({
+        hasMore: true,
+        isLoading: true,
       });
     }
   }

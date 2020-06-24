@@ -16,6 +16,7 @@ import regPage from '@/pages/register';
 import Password from '@/pages/password';
 import ProductDetail from '@/pages/productDetail';
 import RulePage from '@/pages/rules';
+import { Route } from 'react-router-dom';
 
 export const routes = [
   {
@@ -23,6 +24,14 @@ export const routes = [
     exact: true,
     component: homePage,
   },
+  {
+    path: '/product/:activityTurnId',
+    exact: true,
+    component: ProductDetail,
+  },
+  // <Route path='/product/:activityTurnId' render={(props) => (
+  //   <ProductDetail {...props} key={xxxxx}/>
+  // )} />
   {
     path: '/user',
     exact: true,
@@ -47,11 +56,6 @@ export const routes = [
     path: '/order',
     exact: true,
     component: Order,
-  },
-  {
-    path: '/product/:activityTurnId',
-    exact: true,
-    component: ProductDetail,
   },
   {
     path: '/personal',

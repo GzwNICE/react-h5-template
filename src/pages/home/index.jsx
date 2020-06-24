@@ -30,16 +30,15 @@ class Home extends PureComponent {
     super(props);
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
-      tabBarH: '50',
-      sortImg: sorting,
     };
   }
 
   componentDidMount() {
-    const { getWin, getBanner, getClass } = this.props;
+    const { getWin, getBanner, getClass, homeSys } = this.props;
     getWin();
     getBanner();
     getClass();
+    homeSys();
   }
 
   // handleTabClick = (tab, index) => {
@@ -162,6 +161,7 @@ const mapDispatch = dispatch => ({
   getWin: params => dispatch.home.fetchGetWin(params),
   getBanner: params => dispatch.home.fetchGetBanner(params),
   getClass: params => dispatch.home.fetchGetClass(params),
+  homeSys: params => dispatch.home.fetchConf(params),
 });
 
 export default connect(mapState, mapDispatch)(Home);

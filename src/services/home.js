@@ -28,3 +28,7 @@ export async function homeEndLit(params) {
 export async function homeSortLit(params) {
   return request('/app/home/sort/value', { method: 'get', params: params });
 }
+
+export async function homeConf() {
+  return request('/app/system/conf/index', { method: 'get' });
+}

@@ -149,5 +149,8 @@ export const home = createModel({
         dispatch.home.getSortList(response);
       }
     },
+    async fetchConf() {
+      await homeService.homeConf();
+    },
   }),
 });
