@@ -37,7 +37,7 @@ class User extends PureComponent {
     this.props.history.push(`/login?lang=${lang}`);
   }
   onPersonClick() {
-    this.props.history.push(`/personal?lang=${lang}`);
+    // this.props.history.push(`/personal?lang=${lang}`);
   }
   onPayListClick() {
     this.props.history.push(`/paylist?lang=${lang}`);
