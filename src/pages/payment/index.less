@@ -1,0 +1,115 @@
+.contentBox{
+    background-color: #f7f7f7;
+    .topGo{
+      font-size: 14px;
+      color: #333;
+      padding-top: 12px;
+      margin: 12px 0px 0px 12px;
+    }
+    .radioRows {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        margin-top: 12px;
+        padding: 0px 12px 0px 12px ;
+        justify-content: space-between;
+        .radioItem {
+          line-height: 40px;
+          width: 109px;
+          height: 40px;
+          background: #ffffff;
+          border-radius: 4px;
+          font-size: 14px;
+          color: #333;
+          text-align: center;
+          border: 1px solid #cbcbcb;
+          box-sizing: border-box;
+          :global(.am-radio) {
+            display: none !important;
+          }
+        }
+        .radioItemS {
+          border: 1px solid #ff5209;
+          color: #ff5209;
+          border-radius: 4px;
+          background: #ffffff;
+          box-sizing: border-box;
+        }
+      }
+      .itemP{
+        display: flex;
+        margin: 24px 12px 5px 12px;
+        justify-content: space-between;
+        flex-direction: row;
+        .title{
+          font-size: 14px;
+          color: #333;
+        }
+        .amount{
+          font-size: 14px;
+          color: #FF5209;
+        }
+      }
+      .serverAmount{
+        font-size: 12px;
+        padding: 0px 12px 12px 0px;
+        width: auto;
+        text-align: right;
+        background-color: #fff;
+        color: #999;
+      }
+      .payTypeTitle{
+        margin: 12px 0px 12px 12px;
+        font-size: 14px;
+        color: #333;
+      }
+      .payType{
+        padding: 0px 12px 0px 12px;
+        width: auto;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        background-color: #fff;
+        .pay-radio{
+          padding: 2.5px;
+          border: 1px solid #000000;
+     
+        }
+        input{
+          right: 0;
+          margin-right: 12px;
+          position: absolute;
+        }
+        .funpayImg{
+          height: 12px;
+          width: 25px;
+        }
+     
+        .momoImg{
+          height: 15px;
+          width: 15px;
+        }
+        .name{
+          margin-left: 10px;
+          font-size: 14px;
+          color: #2C2C2E;
+        }
+      }
+      .content{
+        font-size: 12px;
+        background-color: #fff;
+        color: #666;
+        padding: 12px;
+      }
+   .submit{
+    width: auto;
+    height: 40px;
+    line-height: 40px;
+    margin:20px 30px 30px 30px;
+    background-color: #ff5209;
+    font-size: 15px;
+    text-align: center;
+    color: #ffffff;
+}
+}

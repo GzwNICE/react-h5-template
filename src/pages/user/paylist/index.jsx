@@ -35,6 +35,10 @@ class PayList extends PureComponent {
   onHistoryClick() {
     this.props.history.push(`/payhistory?lang=${lang}`);
   };
+  onPayClick(){
+    this.props.history.push(`/payment?lang=${lang}`);
+
+  }
   render() {
     const tabs = [{ title: '支出明细' }, { title: '收入明细' }];
     const { user, money } = this.props;
@@ -59,7 +63,7 @@ class PayList extends PureComponent {
             <div className={styles.useCoinTitle}>当前可用{moneyVirtualCn}</div>
             <div className={styles.useCoin}>{user.goMoney}</div>
             <img className={styles.bgStar} src={ic_income_coin}></img>
-            <div className={styles.goPrepaid}>去充值</div>
+            <div className={styles.goPrepaid} onClick={this.onPayClick.bind(this)}>去充值</div>
             <div className={styles.coinStatus}>
               {money.inviterRewardGoMoney != 0 ? (
                 <div className={styles.totalCoin}>赠币总量：{money.inviterRewardGoMoney}</div>
