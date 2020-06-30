@@ -1,6 +1,8 @@
 import homePage from '@/pages/home';
 
 import userPage from '@/pages/user';
+import Payment from '@/pages/payment';
+
 import PayList from '@/pages/user/paylist';
 import PayHistory from '@/pages/user/paylist/payhistory';
 import Feedback from '@/pages/user/feedback';
@@ -97,5 +99,10 @@ export const routes = [
     path: '/prize/:activityTurnId',
     exact: true,
     component: GetPrize,
+  },
+  {
+    path: '/payment',
+    exact: true,
+    component: Payment,
   },
 ];
