@@ -27,3 +27,7 @@ export async function fetchBuyConfirm(params) {
 export async function fetchBuyCancel(params) {
   return request('/app/order/pay/cancel', { method: 'post', data: params });
 }
+
+export async function fetchExistRules(params) {
+  return request('/app/prizes/exist/rules', { method: 'post', data: params });
+}

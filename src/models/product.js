@@ -97,5 +97,9 @@ export const product = createModel({
       const response = await productService.fetchBuyCancel(payload);
       return response;
     },
+    async existRules(payload) {
+      const response = await productService.fetchExistRules(payload);
+      return response;
+    },
   }),
 });

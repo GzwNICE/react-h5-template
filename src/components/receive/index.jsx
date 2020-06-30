@@ -22,6 +22,10 @@ class ReceiveAward extends PureComponent {
     this.props.close();
   };
 
+  handleConfirm = () => {
+    this.props.confirm();
+  };
+
   render() {
     const { visible, data } = this.props;
     return (
@@ -42,7 +46,7 @@ class ReceiveAward extends PureComponent {
               <p className={styles.p2}>
                 请前往领奖确认页进行信息确认，若超过24小时没有认领，将视为自动放弃领奖。
               </p>
-              <Button type="primary" className={styles.b1}>
+              <Button type="primary" className={styles.b1} onClick={this.handleConfirm}>
                 前往确认
               </Button>
               <p className={styles.b2} onClick={this.onClose}>

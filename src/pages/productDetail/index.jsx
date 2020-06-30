@@ -156,6 +156,22 @@ class ProductDetail extends PureComponent {
     window.location.reload();
   };
 
+  handleConfirm = () => {
+    const { getRules } = this.props;
+    const id = this.state.activityTurnId;
+    getRules({
+      activityTurnId: id,
+    }).then(res => {
+      if (res.code === 200) {
+        if (res.data.status === 0) {
+          this.props.history.push(`/prize/${id}?lang=${lang}`);
+        } else {
+          console.log(11111);
+        }
+      }
+    });
+  };
+
   render() {
     const {
       IPhoneX,
@@ -257,8 +273,7 @@ class ProductDetail extends PureComponent {
                 >
                   {detail.orderStatus === 0
                     ? '兑换现金申请审核中,可在 我的 - 已中奖 中查看进度'
-                    : null}
-                  {detail.orderStatus === 6 ? '好运当头，恭喜您中奖啦！' : null}
+                    : '好运当头，恭喜您中奖啦！'}
                 </NoticeBar>
               ) : (
                 <NoticeBar icon={<img src={remind} alt="" width="14" />}>
@@ -267,9 +282,11 @@ class ProductDetail extends PureComponent {
               )}
             </div>
           ) : (
-            <NoticeBar icon={<img src={remind} alt="" width="14" />}>
-              如何用6000VND拿走这件商品。
-            </NoticeBar>
+            <div className={styles.msgBox}>
+              <NoticeBar icon={<img src={remind} alt="" width="14" />}>
+                如何用6000VND拿走这件商品。
+              </NoticeBar>
+            </div>
           )}
           {detail.ifWin === 'yes' && detail.orderStatus === 6 ? (
             <div className={styles.viewLottery} onClick={this.viewLottery('visibleRaffle')}>
@@ -400,6 +417,7 @@ class ProductDetail extends PureComponent {
           visible={visibleReceive}
           close={this.closeRaffle('visibleReceive')}
           data={winData}
+          confirm={this.handleConfirm}
         />
       </div>
     );
@@ -412,6 +430,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   getDetail: params => dispatch.product.getDetail(params),
+  getRules: params => dispatch.product.existRules(params),
 });
 
 export default connect(mapState, mapDispatch)(ProductDetail);

@@ -5,6 +5,7 @@ import * as userService from '@/services/user';
 import * as orderService from '@/services/order';
 import * as paymentService from '@/services/payment';
 import * as productService from '@/services/product';
+import * as prizeService from '@/services/prize';
 
 export {
   loginService,
@@ -14,4 +15,5 @@ export {
   regService,
   paymentService,
   productService,
+  prizeService,
 };
