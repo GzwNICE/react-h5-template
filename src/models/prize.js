@@ -19,7 +19,16 @@ export const prize = createModel({
         ...state,
         data: {
           ...state.data,
-          address: payload.data,
+          address: payload,
+        },
+      };
+    },
+    clearAdd(state) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          address: {},
         },
       };
     },
@@ -36,6 +45,9 @@ export const prize = createModel({
   effects: dispatch => ({
     async saveAddress(payload) {
       dispatch.prize.saveAdd(payload);
+    },
+    async clearAddress(payload) {
+      dispatch.prize.clearAdd(payload);
     },
     async prizeInfo(payload) {
       const response = await prizeService.getPrizeInfo(payload);

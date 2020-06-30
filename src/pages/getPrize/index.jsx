@@ -15,7 +15,7 @@ class GetPrize extends PureComponent {
     super(props);
     this.state = {
       activityTurnId: this.props.match.params.activityTurnId,
-      address: false,
+      // address: false,
     };
   }
 
@@ -36,8 +36,7 @@ class GetPrize extends PureComponent {
   render() {
     const { getFieldProps } = this.props.form;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    const { address } = this.state;
-    const { info } = this.props;
+    const { info, address } = this.props;
     const district = [
       {
         label: '2013',
@@ -81,20 +80,19 @@ class GetPrize extends PureComponent {
           <span className={styles.quantity}>x1</span>
         </div>
         <div className={styles.goodTitle}>收货地址</div>
-        {address ? (
+        {address.id ? (
           <div>
             <div className={styles.linBox}>
               <img src={addressLine} alt="" className={styles.addressLine} />
             </div>
             <div className={styles.address}>
               <div className={styles.top}>
-                <span className={styles.name}>张飞</span>
-                <span className={styles.phone}>188xxxx8825</span>
-                <span className={styles.change}>更换</span>
+                <span className={styles.name}>{address.userName}</span>
+                <span className={styles.phone}>{address.mobile}</span>
+                <span className={styles.change} onClick={this.selectAdd}>更换</span>
               </div>
               <div className={`${styles.bot} ${styles.line2}`}>
-                河内市 西湖郡 安富路 安阳街70号西湖郡 安富路 安阳街70号西湖郡 安富路 安阳街 安富路
-                安阳安阳街安阳安阳街安阳安阳街安阳安阳街安阳安阳街
+                {`${address.city}${address.district}${address.ward}${address.detailAddress}`}
               </div>
             </div>
             <div className={styles.linBox}>

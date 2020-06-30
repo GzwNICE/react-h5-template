@@ -131,6 +131,7 @@ export const user = createModel({
     async getAddressList() {
       const response = await userService.requestAddressList();
       dispatch.user.resultAddressList(response);
+      return response;
     },
     /**
      * 清除收货地址列表

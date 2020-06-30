@@ -8,7 +8,7 @@ import queryString from 'query-string';
 
 import styles from './index.less';
 
-const { lang } = queryString.parse(window.location.search);
+const { lang, activityTurnId } = queryString.parse(window.location.search);
 
 class PayHistory extends PureComponent {
   constructor(props) {
@@ -31,11 +31,19 @@ class PayHistory extends PureComponent {
   }
 
   getPageList = () => {
-    const { refreshList } = this.props;
-    refreshList().then(() => {
+    const { refreshList, address, saveAddress, clearAddress } = this.props;
+    refreshList().then(res => {
       this.setState({
         refreshing: false,
         dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
+      });
+      const selId = address.id || null;
+      res.data.map(i => {
+        if (i.isDefault === 'Y') {
+          if (!selId) saveAddress(i);
+        } else {
+          if (!selId) clearAddress();
+        }
       });
     });
   };
@@ -48,7 +56,7 @@ class PayHistory extends PureComponent {
     const Row = d => {
       return (
         <div>
-          <AddressItem parent={this} data={d} />
+          <AddressItem parent={this} data={d} lang={lang} id={activityTurnId} />
         </div>
       );
     };
@@ -108,11 +116,14 @@ class PayHistory extends PureComponent {
 
 const mapState = state => ({
   result: state.user.data.addressList,
+  address: state.prize.data.address,
 });
 
 const mapDispatch = dispatch => ({
   refreshList: () => dispatch.user.getAddressList(),
   clearList: () => dispatch.user.clearAddressList(),
+  saveAddress: params => dispatch.prize.saveAddress(params),
+  clearAddress: params => dispatch.prize.clearAddress(params),
 });
 
 export default connect(mapState, mapDispatch)(PayHistory);

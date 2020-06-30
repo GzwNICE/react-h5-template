@@ -9,12 +9,16 @@ class AddressItem extends PureComponent {
   constructor(props) {
     super(props);
   }
-  onEditClick() {
+  onEditClick(e) {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
     const { data, parent } = this.props;
     parent.props.history.push({ pathname: `/addressAdd`, state: { item: data } });
   }
   onChangeClick() {
-    console.log('选中');
+    const { data, parent, lang, id } = this.props;
+    parent.props.saveAddress(data);
+    parent.props.history.push(`/prize/${id}?lang=${lang}`);
   }
   render() {
     const { data } = this.props;
