@@ -12,8 +12,11 @@ class AddressItem extends PureComponent {
   onEditClick(e) {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-    const { data, parent } = this.props;
-    parent.props.history.push({ pathname: `/addressAdd`, state: { item: data } });
+    const { data, parent, lang, id } = this.props;
+    parent.props.history.push({
+      pathname: `/addressAdd`,
+      state: { item: data, lang: lang, activityTurnId: id },
+    });
   }
   onChangeClick() {
     const { data, parent, lang, id } = this.props;

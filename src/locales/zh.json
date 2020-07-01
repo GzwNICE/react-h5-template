@@ -39,6 +39,139 @@
     "topup_success": "充值成功",
     "topup_faile": "充值失败",
     "topup_cancel": "已取消"
-
+  },
+  "prize": {
+    "directContact": [
+      {
+        "label": "父亲",
+        "value": "父亲"
+      },
+      {
+        "label": "母亲",
+        "value": "母亲"
+      },
+      {
+        "label": "配偶",
+        "value": "配偶"
+      },
+      {
+        "label": "兄弟",
+        "value": "兄弟"
+      },
+      {
+        "label": "姐妹",
+        "value": "姐妹"
+      }
+    ],
+    "indirectContact": [
+      {
+        "label": "朋友",
+        "value": "朋友"
+      },
+      {
+        "label": "同事",
+        "value": "同事"
+      },
+      {
+        "label": "同学",
+        "value": "同学"
+      },
+      {
+        "label": "其他",
+        "value": "其他"
+      }
+    ],
+    "education": [
+      {
+        "label": "小学",
+        "value": "小学"
+      },
+      {
+        "label": "初中（中专）",
+        "value": "初中（中专）"
+      },
+      {
+        "label": "高中",
+        "value": "高中"
+      },
+      {
+        "label": "本科",
+        "value": "本科"
+      },
+      {
+        "label": "硕士",
+        "value": "硕士"
+      },
+      {
+        "label": "博士",
+        "value": "博士"
+      }
+    ],
+    "job": [
+      {
+        "label": "学生",
+        "value": "学生"
+      },
+      {
+        "label": "上班族",
+        "value": "上班族"
+      },
+      {
+        "label": "其他",
+        "value": "其他"
+      }
+    ],
+    "income": [
+      {
+        "label": "< 3 triệu",
+        "value": "< 3 triệu"
+      },
+      {
+        "label": "3 triệu~6 triệu",
+        "value": "3 triệu~6 triệu"
+      },
+      {
+        "label": "6 triệu~9 triệu",
+        "value": "6 triệu~9 triệu"
+      },
+      {
+        "label": "9 triệu~12 triệu",
+        "value": "其9 triệu~12 triệu他"
+      },
+      {
+        "label": "> 12 triệu",
+        "value": "> 12 triệu"
+      }
+    ],
+    "ageInterval": [
+      {
+        "label": "16~20",
+        "value": "16~20"
+      },
+      {
+        "label": "21~25",
+        "value": "21~25"
+      },
+      {
+        "label": "26~30",
+        "value": "26~30"
+      },
+      {
+        "label": "31~35",
+        "value": "31~35"
+      },
+      {
+        "label": "35~40",
+        "value": "35~40"
+      },
+      {
+        "label": "41~45",
+        "value": "41~45"
+      },
+      {
+        "label": "> 45",
+        "value": "> 45"
+      }
+    ]
   }
 }

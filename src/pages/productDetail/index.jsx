@@ -157,16 +157,26 @@ class ProductDetail extends PureComponent {
   };
 
   handleConfirm = () => {
-    const { getRules } = this.props;
+    const { getRules, getAwardInfo } = this.props;
     const id = this.state.activityTurnId;
     getRules({
       activityTurnId: id,
     }).then(res => {
       if (res.code === 200) {
         if (res.data.status === 0) {
+          this.setState({
+            visibleReceive: false,
+          });
           this.props.history.push(`/prize/${id}?lang=${lang}`);
         } else {
-          console.log(11111);
+          getAwardInfo({ activityTurnId: id }).then(res => {
+            if (res.code === 200) {
+              this.setState({
+                visibleReceive: false,
+              });
+              this.props.history.push(`/awardResult?lang=${lang}&type=${res.data.productType}`);
+            }
+          });
         }
       }
     });
@@ -357,7 +367,7 @@ class ProductDetail extends PureComponent {
           <p className={styles.text}>{detail.content}</p>
           {detail.contentImgList
             ? detail.contentImgList.map(i => {
-                return <img src={i} alt="img" key={i.index} />;
+                return <img src={i} alt="img" key={i} />;
               })
             : null}
         </div>
@@ -431,6 +441,7 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   getDetail: params => dispatch.product.getDetail(params),
   getRules: params => dispatch.product.existRules(params),
+  getAwardInfo: params => dispatch.prize.result(params),
 });
 
 export default connect(mapState, mapDispatch)(ProductDetail);

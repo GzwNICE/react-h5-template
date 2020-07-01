@@ -7,7 +7,7 @@ import PayList from '@/pages/user/paylist';
 import PayHistory from '@/pages/user/paylist/payhistory';
 import Feedback from '@/pages/user/feedback';
 import Personal from '@/pages/user/personal';
-import Editname from '@/pages/user/personal/editname';
+import EditName from '@/pages/user/personal/editname';
 import AddressList from '@/pages/user/personal/addressList';
 import AddressAdd from '@/pages/user/personal/addressList/addressAdd';
 import Order from '@/pages/user/order';
@@ -17,6 +17,7 @@ import Password from '@/pages/password';
 import ProductDetail from '@/pages/productDetail';
 import RulePage from '@/pages/rules';
 import GetPrize from '@/pages/getPrize';
+import AwardResults from '@/pages/awardResults';
 // import { Route } from 'react-router-dom';
 
 export const routes = [
@@ -68,7 +69,7 @@ export const routes = [
   {
     path: '/editname',
     exact: true,
-    component: Editname,
+    component: EditName,
   },
   {
     path: '/addressList',
@@ -99,6 +100,11 @@ export const routes = [
     path: '/prize/:activityTurnId',
     exact: true,
     component: GetPrize,
+  },
+  {
+    path: '/awardResult',
+    exact: true,
+    component: AwardResults,
   },
   {
     path: '/payment',

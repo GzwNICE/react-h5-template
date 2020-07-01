@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
-import { NavBar, Icon,Button, Radio } from 'antd-mobile';
+import { NavBar, Icon, Button, Radio } from 'antd-mobile';
 import momo from '@/assets/images/momo.png';
 import funpay from '@/assets/images/funpay.png';
 
@@ -16,7 +16,7 @@ class Payment extends PureComponent {
     super(props);
     this.state = {
       payValue: null,
-      payType:1,
+      payType: 1,
       payData: [{ value: 100 }, { value: 200 }, { value: 300 }],
       payData2: [{ value: 400 }, { value: 500 }, { value: 600 }],
       payData3: [{ value: 700 }, { value: 800 }, { value: 900 }],
@@ -27,11 +27,11 @@ class Payment extends PureComponent {
       payValue: value,
     });
   };
-  onChangePay= type=>{
+  onChangePay = type => {
     this.setState({
       payType: type,
     });
-  }
+  };
   render() {
     const { payData, payData2, payData3, payValue, payType } = this.state;
     return (
@@ -44,10 +44,10 @@ class Payment extends PureComponent {
         >
           充值
         </NavBar>
-        <div style={{backgroundColor:"#ffffff"}}>
-        <div className={styles.topGo}>请选择GO币充值数量</div>
-        <div className={styles.radioRows}>
-          {payData.map(i => (
+        <div style={{ backgroundColor: '#ffffff' }}>
+          <div className={styles.topGo}>请选择GO币充值数量</div>
+          <div className={styles.radioRows}>
+            {payData.map(i => (
               <Radio
                 className={`${styles.radioItem} ${
                   payValue === i.value ? `${styles.radioItemS}` : null
@@ -58,41 +58,41 @@ class Payment extends PureComponent {
               >
                 {i.value}
               </Radio>
-          ))}
-        </div>
-        <div className={styles.radioRows}>
-          {payData2.map(i => (
-            <Radio
-              className={`${styles.radioItem} ${
-                payValue === i.value ? `${styles.radioItemS}` : null
-              }`}
-              key={i.value}
-              checked={payValue === i.value}
-              onChange={() => this.onChangePer(i.value)}
-            >
-              {i.value}
-            </Radio>
-          ))}
-        </div>
-        <div className={styles.radioRows}>
-          {payData3.map(i => (
-            <Radio
-              className={`${styles.radioItem} ${
-                payValue === i.value ? `${styles.radioItemS}` : null
-              }`}
-              key={i.value}
-              checked={payValue === i.value}
-              onChange={() => this.onChangePer(i.value)}
-            >
-              {i.value}
-            </Radio>
-          ))}
-        </div>
-        <div className={styles.itemP}>
-          <div className={styles.title}>需支付</div>
-          <div className={styles.amount}>100,000₫</div>
-        </div>
-        <div className={styles.serverAmount}>含银行服务费：5,000₫</div>
+            ))}
+          </div>
+          <div className={styles.radioRows}>
+            {payData2.map(i => (
+              <Radio
+                className={`${styles.radioItem} ${
+                  payValue === i.value ? `${styles.radioItemS}` : null
+                }`}
+                key={i.value}
+                checked={payValue === i.value}
+                onChange={() => this.onChangePer(i.value)}
+              >
+                {i.value}
+              </Radio>
+            ))}
+          </div>
+          <div className={styles.radioRows}>
+            {payData3.map(i => (
+              <Radio
+                className={`${styles.radioItem} ${
+                  payValue === i.value ? `${styles.radioItemS}` : null
+                }`}
+                key={i.value}
+                checked={payValue === i.value}
+                onChange={() => this.onChangePer(i.value)}
+              >
+                {i.value}
+              </Radio>
+            ))}
+          </div>
+          <div className={styles.itemP}>
+            <div className={styles.title}>需支付</div>
+            <div className={styles.amount}>100,000₫</div>
+          </div>
+          <div className={styles.serverAmount}>含银行服务费：5,000₫</div>
         </div>
         <div className={styles.payTypeTitle}>支付方式</div>
         <div className={styles.payType}>
@@ -119,10 +119,8 @@ class Payment extends PureComponent {
   }
 }
 
-const mapState = state => ({
-});
+const mapState = state => ({});
 
-const mapDispatch = dispatch => ({
-});
+const mapDispatch = dispatch => ({});
 
 export default connect(mapState, mapDispatch)(Payment);

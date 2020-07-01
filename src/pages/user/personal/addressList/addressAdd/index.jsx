@@ -1,6 +1,7 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Picker, List, NavBar, Button, WhiteSpace, TextareaItem,Switch, Toast } from 'antd-mobile';
+import { Picker, List, NavBar, Button, WhiteSpace, TextareaItem, Switch, Toast } from 'antd-mobile';
 import cityJson from '@/assets/lang/vi-VN.min.json';
 import { createForm } from 'rc-form';
 
@@ -18,10 +19,11 @@ class AddressAdd extends PureComponent {
     };
   }
   componentDidMount() {
+    console.log(this.props.location.state);
     for (var data in this.state.cityData) {
       this.state.cityColumns.push({ label: data, value: data });
     }
-    if (this.props.location.state) {
+    if (this.props.location.state && this.props.location.state.item) {
       this.addressInfo = this.props.location.state.item;
       this.onChangeCity([this.addressInfo.city]);
       this.onChangeArea([this.addressInfo.district]);
@@ -32,7 +34,6 @@ class AddressAdd extends PureComponent {
         detailAddress: this.addressInfo.detailAddress,
         checked: this.addressInfo.isDefault == 'Y',
       });
-      console.log("addressInfdo",this.addressInfo)
     }
   }
   onSaveClick() {
@@ -60,10 +61,11 @@ class AddressAdd extends PureComponent {
           userName: value.userName,
           mobile: value.mobile,
           isDefault: this.state.checked ? 'Y' : 'N',
-          id: this.addressInfo.id,
+          id: this.addressInfo ? this.addressInfo.id : '',
           detailAddress: value.detailAddress,
         }).then(() => {
-          this.props.history.go(-1);
+          const { lang, activityTurnId } = this.props.location.state;
+          this.props.history.push(`/addressList?lang=${lang}&activityTurnId=${activityTurnId}`);
         });
       }
     });
@@ -122,53 +124,71 @@ class AddressAdd extends PureComponent {
         <WhiteSpace size="md" />
         <div className={styles.itemBox}>
           <div className={styles.title}>收货人</div>
-          <input className={styles.content} {...getFieldProps('userName', {
+          <input
+            className={styles.content}
+            {...getFieldProps('userName', {
               initialValue: `${userName ? userName : ''}`,
-            })} placeholder="请填写收货人名称"></input>
+            })}
+            placeholder="请填写收货人名称"
+          ></input>
         </div>
         <WhiteSpace size="md" />
 
         <div className={styles.itemBox}>
-          <div className={styles.title}>联系方式 <div className={styles.areaCode}>+85</div></div>
-          <input className={styles.content} {...getFieldProps('mobile', {
+          <div className={styles.title}>
+            联系方式 <div className={styles.areaCode}>+85</div>
+          </div>
+          <input
+            className={styles.content}
+            {...getFieldProps('mobile', {
               initialValue: `${mobile ? mobile : ''}`,
-            })} placeholder='请填写联系方式'/>
+            })}
+            placeholder="请填写联系方式"
+          />
         </div>
         <WhiteSpace size="md" />
-          <Picker
-            data={this.state.cityColumns}
-            value={cityValue}
-            cols={1}
-            extra={<div className={styles.change}>选择城市</div>}
-            onChange={this.onChangeCity}
-          >
-            <List.Item arrow="horizontal"><div className={styles.title}>城市</div></List.Item>
-          </Picker>
-          <WhiteSpace size="md" />
+        <Picker
+          data={this.state.cityColumns}
+          value={cityValue}
+          cols={1}
+          extra={<div className={styles.change}>选择城市</div>}
+          onChange={this.onChangeCity}
+        >
+          <List.Item arrow="horizontal">
+            <div className={styles.title}>城市</div>
+          </List.Item>
+        </Picker>
+        <WhiteSpace size="md" />
 
-          <Picker
-            data={this.state.areaColumns}
-            value={areaValue}
-            cols={1}
-            extra={<div className={styles.change}>选择行政区</div>}
-            onChange={this.onChangeArea}
-          >
-            <List.Item arrow="horizontal"><div className={styles.title}>行政区</div></List.Item>
-          </Picker>
-          <WhiteSpace size="md" />
+        <Picker
+          data={this.state.areaColumns}
+          value={areaValue}
+          cols={1}
+          extra={<div className={styles.change}>选择行政区</div>}
+          onChange={this.onChangeArea}
+        >
+          <List.Item arrow="horizontal">
+            <div className={styles.title}>行政区</div>
+          </List.Item>
+        </Picker>
+        <WhiteSpace size="md" />
 
-          <Picker
-            data={this.state.wardColumns}
-            value={wardValue}
-            cols={1}
-            extra={<div className={styles.change}>选择ward</div>}
-            onChange={this.onChangeWard}
-          >
-            <List.Item arrow="horizontal"><div className={styles.title}>ward</div></List.Item>
-          </Picker>
-          <WhiteSpace size="md" />
-          <div style={{backgroundColor:'#fff'}}>
-            <div style={{color:'#333', fontSize:'14px',marginLeft:'15px',paddingTop:'10px'}}>收货地址</div>
+        <Picker
+          data={this.state.wardColumns}
+          value={wardValue}
+          cols={1}
+          extra={<div className={styles.change}>选择ward</div>}
+          onChange={this.onChangeWard}
+        >
+          <List.Item arrow="horizontal">
+            <div className={styles.title}>ward</div>
+          </List.Item>
+        </Picker>
+        <WhiteSpace size="md" />
+        <div style={{ backgroundColor: '#fff' }}>
+          <div style={{ color: '#333', fontSize: '14px', marginLeft: '15px', paddingTop: '10px' }}>
+            收货地址
+          </div>
           <TextareaItem
             {...getFieldProps('detailAddress', {
               initialValue: `${detailAddress ? detailAddress : ''}`,
@@ -180,7 +200,8 @@ class AddressAdd extends PureComponent {
         <WhiteSpace size="md" />
 
         <List.Item
-          extra={<Switch
+          extra={
+            <Switch
               className={styles.switchInfo}
               checked={this.state.checked}
               onChange={() => {
@@ -194,15 +215,16 @@ class AddressAdd extends PureComponent {
           <div style={{ color: '#333', fontSize: '14px' }}>设为默认地址</div>
         </List.Item>
         <div className={styles.addAddress}>
-          <Button className={styles.submit} onClick={this.onSaveClick.bind(this)}>保存</Button>
+          <Button className={styles.submit} onClick={this.onSaveClick.bind(this)}>
+            保存
+          </Button>
         </div>
       </div>
     );
   }
 }
 
-const mapState = state => ({
-});
+const mapState = state => ({});
 
 const mapDispatch = dispatch => ({
   saveAddress: params => dispatch.user.requestSaveAddress(params),
