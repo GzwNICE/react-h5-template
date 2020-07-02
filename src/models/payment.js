@@ -13,9 +13,19 @@ export const payment = createModel({
         data: [],
         total: 0,
       },
+      topUpList: [],
     },
   },
   reducers: {
+    saveTopUp(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          topUpList: payload.data,
+        },
+      };
+    },
     refreshList(state, payload) {
       return {
         ...state,
@@ -93,6 +103,15 @@ export const payment = createModel({
     },
   },
   effects: dispatch => ({
+    async getTopUpList(payload) {
+      const response = await paymentService.getPayTopList(payload);
+      dispatch.payment.saveTopUp(response);
+      return response;
+    },
+    async pay(payload) {
+      const response = await paymentService.getPayExecute(payload);
+      return response;
+    },
     async getRefreshList(payload) {
       const response = await paymentService.getPaymentList(payload);
       dispatch.payment.refreshList(response);

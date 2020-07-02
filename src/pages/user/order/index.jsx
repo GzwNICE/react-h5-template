@@ -32,7 +32,6 @@ class OrderList extends PureComponent {
       cashDialog: false,
       goCoinOrderId: '',
       cashOrderId: '',
-
     };
   }
   componentDidUpdate() {

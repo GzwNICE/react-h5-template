@@ -52,6 +52,18 @@ class ProductDetail extends PureComponent {
     this.initDetail();
   }
 
+  componentDidUpdate() {
+    if (this.state.buyShow) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  componentWillUnmount() {
+    document.body.style.overflow = 'auto';
+  }
+
   initDetail = () => {
     Toast.loading('Loading...', 0);
     const { getDetail } = this.props;
@@ -149,6 +161,10 @@ class ProductDetail extends PureComponent {
     if (type === 'success') {
       window.location.reload();
     }
+  };
+
+  goPay = () => {
+    this.props.history.push(`/payment?lang=${this.state.lang}`);
   };
 
   newActivity = id => {
@@ -385,6 +401,7 @@ class ProductDetail extends PureComponent {
           data={detail}
           personData={personData}
           proportionData={proportionData}
+          goPay={this.goPay}
         />
         {status && (status === 1 || status === 10 || status === 9 || status === 7) ? (
           <div className={styles.newActBox}>

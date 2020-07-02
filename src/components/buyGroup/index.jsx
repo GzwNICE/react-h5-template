@@ -107,14 +107,17 @@ class BuyGroup extends PureComponent {
   };
 
   confirmPay = () => {
-    if (this.state.balanceStatus) return false;
-    const { buyConfirm } = this.props;
-    buyConfirm([this.state.orderActivityId]).then(res => {
-      if (res.code === 200) {
-        this.Clear('success');
-        Toast.success('参与成功', 2);
-      }
-    });
+    if (this.state.balanceStatus) {
+      this.props.goPay();
+    } else {
+      const { buyConfirm } = this.props;
+      buyConfirm([this.state.orderActivityId]).then(res => {
+        if (res.code === 200) {
+          this.Clear('success');
+          Toast.success('参与成功', 2);
+        }
+      });
+    }
   };
 
   cancelPay = () => {

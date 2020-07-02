@@ -12,19 +12,12 @@ import receiveSuccess from '@/assets/images/receiveSuccess.png';
 // import passwordOpen from '@/assets/images/passwordOpen.png';
 import styles from './index.less';
 
-const { lang, type } = queryString.parse(window.location.search);
-
 class AwardResults extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       type: queryString.parse(window.location.search).type, //SUBSTANCE->实体；VIRTUAL->虚拟；COIN->虚拟币
     };
-  }
-
-  componentDidMount() {
-    console.log(1, lang, queryString.parse(window.location.search).type);
-    console.log(2, this.props.prize);
   }
 
   handleCopy = value => {
@@ -35,20 +28,21 @@ class AwardResults extends PureComponent {
     }
   };
 
+  goBack = () => {
+    this.props.history.go(-1);
+  };
+
   render() {
     const { type } = this.state;
     const { prize } = this.props;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    console.log(type);
     return (
       <div className={styles.result}>
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
           style={{ backgroundColor: '#FF5209' }}
-          onLeftClick={() => {
-            this.props.history.push(`/home?lang=${lang}`);
-          }}
+          onLeftClick={this.goBack}
         >
           领取奖品
         </NavBar>
@@ -103,7 +97,7 @@ class AwardResults extends PureComponent {
               <p className={styles.virTips2}>感谢您的支持，祝您生活愉快！</p>
             </div>
           ) : null}
-          <Button type="primary" className={styles.backButton}>
+          <Button type="primary" className={styles.backButton} onClick={this.goBack}>
             返回
           </Button>
         </div>

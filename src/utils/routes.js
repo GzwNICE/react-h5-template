@@ -18,6 +18,7 @@ import ProductDetail from '@/pages/productDetail';
 import RulePage from '@/pages/rules';
 import GetPrize from '@/pages/getPrize';
 import AwardResults from '@/pages/awardResults';
+import PayResult from '@/pages/payResult';
 // import { Route } from 'react-router-dom';
 
 export const routes = [
@@ -110,5 +111,10 @@ export const routes = [
     path: '/payment',
     exact: true,
     component: Payment,
+  },
+  {
+    path: '/payResult',
+    exact: true,
+    component: PayResult,
   },
 ];
