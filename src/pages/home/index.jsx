@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 // import intl from 'react-intl-universal';
-import { Carousel, Grid, Tabs } from 'antd-mobile';
+import { Carousel, Grid, Tabs, Toast } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
 import Cookies from 'js-cookie';
 import HotList from '@/pages/hotList';
@@ -16,9 +16,9 @@ import styles from './index.less';
 
 function renderTabBar(props) {
   return (
-    <Sticky>
+    <Sticky topOffset={1}>
       {({ style }) => (
-        <div style={{ ...style, zIndex: 1 }}>
+        <div style={{ ...style, zIndex: 2 }}>
           <Tabs.DefaultTabBar {...props} />
         </div>
       )}
@@ -34,24 +34,17 @@ class Home extends PureComponent {
   }
 
   componentDidMount() {
+    Toast.loading('Loading...', 0);
     const { getWin, getBanner, getClass, homeSys } = this.props;
-    getWin();
-    getBanner();
-    getClass();
-    homeSys();
+    getBanner().then(() => {
+      getWin();
+      getClass();
+      homeSys();
+      setTimeout(() => {
+        Toast.hide();
+      }, 800);
+    });
   }
-
-  // handleTabClick = (tab, index) => {
-  // if (index === 3) {
-  //   this.setState({
-  //     sortImg: this.state.sortImg === sorting ? all : allSel,
-  //   });
-  // } else {
-  //   this.setState({
-  //     sortImg: sorting,
-  //   });
-  // }
-  // };
 
   render() {
     const { home } = this.props;
@@ -130,10 +123,6 @@ class Home extends PureComponent {
               }}
               tabBarActiveTextColor="#FF5209"
               tabBarInactiveTextColor="#333333"
-              // onChange={(tab, index) => {
-              //   console.log('onChange', index, tab);
-              // }}
-              // onTabClick={this.handleTabClick}
             >
               <HotList />
               <LatestList />

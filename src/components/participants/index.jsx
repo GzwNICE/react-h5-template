@@ -27,11 +27,11 @@ class Participants extends PureComponent {
     };
   }
 
-  componentDidMount() {
-    this.getList();
-  }
+  // componentDidMount() {
+  // }
 
   getList = () => {
+    console.log(111);
     const { getPersonnel, id } = this.props;
     if (!this.state.hasMore) return false;
     this.fetch = true;
@@ -51,29 +51,24 @@ class Participants extends PureComponent {
             isLoading: false,
             dataSource: dataSource.cloneWithRows(this.props.list.rows),
           });
+          if (this.props.list.rows.length === this.props.list.total) {
+            this.setState({
+              hasMore: false,
+            });
+          }
         });
       }
     );
   };
 
   componentWillReceiveProps(nextPros) {
-    if (nextPros.list.rows && nextPros.list.rows.length === nextPros.list.total) {
-      this.setState({
-        hasMore: false,
-        isLoading: false,
-      });
-    } else {
-      this.setState({
-        hasMore: true,
-        isLoading: true,
-      });
+    if (nextPros.visible !== this.props.visible && nextPros.visible) {
+      this.getList();
     }
   }
 
   onEndReached = () => {
-    if (this.state.isLoading && !this.state.hasMore) {
-      return;
-    }
+    if (this.state.isLoading && !this.state.hasMore) return false;
     this.setState({ isLoading: true });
     this.getList();
   };
