@@ -60,6 +60,15 @@ class ProductDetail extends PureComponent {
     }
   }
 
+  // 详情页互相跳转，id发生变化，无法重新渲染组件，暂时使用刷新页面解决跳转不渲染问题
+  componentWillReceiveProps(nextProps) {
+    const thisId = this.props.match.params.activityTurnId;
+    const nextId = nextProps.match.params.activityTurnId;
+    if (thisId !== nextId) {
+      window.location.reload();
+    }
+  }
+
   componentWillUnmount() {
     document.body.style.overflow = 'auto';
   }
@@ -100,7 +109,7 @@ class ProductDetail extends PureComponent {
           });
           this.countFun(Number(res.data.countdownTime), 'open');
         }
-        if (res.data.ifWin === 'yes' && res.data.orderStatus === 6) {
+        if (res.data.ifWin === 'yes' && res.data.orderStatus === 6 && res.data.status !== 9) {
           this.setState({ visibleReceive: true });
         }
       }
@@ -131,7 +140,10 @@ class ProductDetail extends PureComponent {
         }
       } else {
         clearInterval(this.timer);
-        window.location.reload();
+        this.setState({
+          countdown: false,
+        });
+        this.initDetail();
       }
     }, 1000);
   };
@@ -155,11 +167,20 @@ class ProductDetail extends PureComponent {
   };
 
   visibleBuy = type => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (!token) {
+      Toast.info('请先登录！', 2);
+      setTimeout(() => {
+        this.props.history.push(`/login?lang=${lang}`);
+      }, 2000);
+      return false;
+    }
     this.setState({
       buyShow: !this.state.buyShow,
     });
     if (type === 'success') {
-      window.location.reload();
+      this.initDetail();
     }
   };
 
@@ -169,7 +190,7 @@ class ProductDetail extends PureComponent {
 
   newActivity = id => {
     this.props.history.push(`/product/${id}?lang=${lang}`);
-    window.location.reload();
+    this.initDetail();
   };
 
   handleConfirm = () => {
@@ -315,7 +336,12 @@ class ProductDetail extends PureComponent {
             </div>
           )}
           {detail.ifWin === 'yes' && detail.orderStatus === 6 ? (
-            <div className={styles.viewLottery} onClick={this.viewLottery('visibleRaffle')}>
+            <div
+              className={styles.viewLottery}
+              onClick={() => {
+                this.props.history.push(`/prize/${activityTurnId}?lang=${lang}`);
+              }}
+            >
               立即领奖
             </div>
           ) : null}
