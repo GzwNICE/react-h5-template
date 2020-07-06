@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-import { Grid } from 'antd-mobile';
+import { Grid, Button } from 'antd-mobile';
 import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
@@ -22,6 +22,7 @@ class User extends PureComponent {
     super(props);
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
+      isLogin: localStorage.getItem('token') != null,
     };
   }
 
@@ -45,6 +46,14 @@ class User extends PureComponent {
   feedBackClick() {
     this.props.history.push(`/feedback`);
   }
+
+  handlerOutLogin = () => {
+    localStorage.removeItem('token');
+    this.setState({
+      isLogin: false,
+    });
+  };
+
   render() {
     // eslint-disable-next-line react/destructuring-assignment
     const tabs = [
@@ -53,9 +62,8 @@ class User extends PureComponent {
       { label: '未中奖', icon: nowin, type: 3 },
     ];
     const { user } = this.props;
-    const isLogin = localStorage.getItem('token') != null;
     const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
-    const { IPhoneX } = this.state;
+    const { IPhoneX, isLogin } = this.state;
     return (
       <div>
         <div className={styles.topBox}>
@@ -112,6 +120,11 @@ class User extends PureComponent {
             </div>
           </div>
         </div>
+        {isLogin ? (
+          <Button onClick={this.handlerOutLogin} className={styles.outLogin}>
+            退出登录
+          </Button>
+        ) : null}
         <div className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}>
           <TabBarBox selectedTab="userPage" search={this.props.history.location.search} />
         </div>
