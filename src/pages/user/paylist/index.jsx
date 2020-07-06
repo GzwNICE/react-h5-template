@@ -52,7 +52,7 @@ class PayList extends PureComponent {
           mode="dark"
           style={{ backgroundColor: '#FF5209' }}
           icon={<Icon type="left" />}
-          onLeftClick={() => this.props.history.go(-1)}
+          onLeftClick={() => this.props.history.push('/user')}
           rightContent={<div onClick={this.onHistoryClick.bind(this)}>充值流水</div>}
         />
         <div className={styles.infoBox}>

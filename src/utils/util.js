@@ -34,7 +34,7 @@ const debounce = (func, wait, immediate) => {
       }, wait);
       if (callNow) func.apply(context, args);
     } else {
-      timeout = setTimeout(function () {
+      timeout = setTimeout(function() {
         func.apply(context, args);
       }, wait);
     }
@@ -63,4 +63,12 @@ const format = (data, type) => {
   }
 };
 
-export { isIPhoneX, debounce, getBaseUrl, format };
+const numFormat = value => {
+  if (value || value === 0) {
+    return String(value).replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+  } else {
+    return '';
+  }
+};
+
+export { isIPhoneX, debounce, getBaseUrl, format, numFormat };

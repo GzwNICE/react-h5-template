@@ -47,6 +47,10 @@ class Payment extends PureComponent {
       payId: this.state.payValue.id,
       payType: this.state.payType,
       returnUrl: `${window.location.origin}/payResult`,
+    }).then(res => {
+      if (res.code === 200) {
+        window.location.href = res.data;
+      }
     });
   };
 
