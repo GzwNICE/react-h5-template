@@ -1,6 +1,8 @@
 {
   "home": {
-    "title": "Sao chép"
+    "title": "Sao chép",
+    "home": "home",
+    "user": "user"
   },
   "user": {
     "title": "我的",

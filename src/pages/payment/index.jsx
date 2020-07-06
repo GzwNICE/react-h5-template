@@ -46,7 +46,7 @@ class Payment extends PureComponent {
     pay({
       payId: this.state.payValue.id,
       payType: this.state.payType,
-      returnUrl: `${window.location.origin}/payResult?lang=${this.state.lang}`,
+      returnUrl: `${window.location.origin}/payResult`,
     });
   };
 

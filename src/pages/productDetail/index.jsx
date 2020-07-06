@@ -172,7 +172,7 @@ class ProductDetail extends PureComponent {
     if (!token) {
       Toast.info('请先登录！', 2);
       setTimeout(() => {
-        this.props.history.push(`/login?lang=${lang}`);
+        this.props.history.push(`/login`);
       }, 2000);
       return false;
     }
@@ -185,11 +185,11 @@ class ProductDetail extends PureComponent {
   };
 
   goPay = () => {
-    this.props.history.push(`/payment?lang=${this.state.lang}`);
+    this.props.history.push(`/payment`);
   };
 
   newActivity = id => {
-    this.props.history.push(`/product/${id}?lang=${lang}`);
+    this.props.history.push(`/product/${id}`);
     this.initDetail();
   };
 
@@ -204,14 +204,14 @@ class ProductDetail extends PureComponent {
           this.setState({
             visibleReceive: false,
           });
-          this.props.history.push(`/prize/${id}?lang=${lang}`);
+          this.props.history.push(`/prize/${id}`);
         } else {
           getAwardInfo({ activityTurnId: id }).then(res => {
             if (res.code === 200) {
               this.setState({
                 visibleReceive: false,
               });
-              this.props.history.push(`/awardResult?lang=${lang}&type=${res.data.productType}`);
+              this.props.history.push(`/awardResult?type=${res.data.productType}`);
             }
           });
         }
@@ -339,7 +339,7 @@ class ProductDetail extends PureComponent {
             <div
               className={styles.viewLottery}
               onClick={() => {
-                this.props.history.push(`/prize/${activityTurnId}?lang=${lang}`);
+                this.props.history.push(`/prize/${activityTurnId}`);
               }}
             >
               立即领奖
@@ -390,7 +390,6 @@ class ProductDetail extends PureComponent {
                 <Link
                   to={{
                     pathname: `/rules/${activityTurnId}`,
-                    search: `?lang=${lang}`,
                   }}
                   className={styles.rule}
                 >

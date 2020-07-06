@@ -25,7 +25,7 @@ class Login extends PureComponent {
     const token = localStorage.getItem('token');
     if (token) {
       // eslint-disable-next-line react/destructuring-assignment
-      this.props.history.push(`/home?lang=${lang}`);
+      this.props.history.push(`/home`);
       return;
     }
     const { mobile } = queryString.parse(window.location.search);
@@ -60,7 +60,7 @@ class Login extends PureComponent {
               });
             } else {
               // eslint-disable-next-line react/destructuring-assignment
-              this.props.history.push(`/register?lang=${lang}&mobile=${value.mobile}`);
+              this.props.history.push(`/register?mobile=${value.mobile}`);
             }
           }
         });

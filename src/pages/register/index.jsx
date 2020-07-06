@@ -30,7 +30,7 @@ class Register extends PureComponent {
   componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
-      this.props.history.push(`/home?lang=${lang}`);
+      this.props.history.push(`/home`);
       return;
     }
     const { mobile } = queryString.parse(window.location.search);
@@ -118,7 +118,7 @@ class Register extends PureComponent {
               localStorage.setItem('token', `Bearer ${res.data.token}`);
               localStorage.setItem('refreshToken', res.data.refreshToken);
               setTimeout(() => {
-                this.props.history.push(`/home?lang=${lang}`);
+                this.props.history.push(`/home`);
               }, 2000);
             }
           });

@@ -15,7 +15,6 @@ class ActivityCard extends PureComponent {
         <Link
           to={{
             pathname: `/product/${data.activityTurnId}`,
-            search: `?lang=${lang}`,
           }}
         >
           <div className={styles.topBox}>

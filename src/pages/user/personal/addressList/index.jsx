@@ -17,7 +17,6 @@ class PayHistory extends PureComponent {
     this.state = {
       dataSource,
       refreshing: true,
-      lang: queryString.parse(window.location.search).lang,
       activityTurnId: queryString.parse(window.location.search).activityTurnId,
     };
   }
@@ -50,19 +49,19 @@ class PayHistory extends PureComponent {
     });
   };
   addAddressClick() {
-    const { lang, activityTurnId } = this.state;
+    const { activityTurnId } = this.state;
     this.props.history.push({
       pathname: `/addressAdd`,
-      state: { lang, activityTurnId },
+      state: { activityTurnId },
     });
   }
   render() {
     const { result } = this.props;
-    const { lang, activityTurnId } = this.state;
+    const { activityTurnId } = this.state;
     const Row = d => {
       return (
         <div>
-          <AddressItem parent={this} data={d} lang={lang} id={activityTurnId} />
+          <AddressItem parent={this} data={d} id={activityTurnId} />
         </div>
       );
     };

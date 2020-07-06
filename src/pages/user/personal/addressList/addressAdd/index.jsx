@@ -64,8 +64,8 @@ class AddressAdd extends PureComponent {
           id: this.addressInfo ? this.addressInfo.id : '',
           detailAddress: value.detailAddress,
         }).then(() => {
-          const { lang, activityTurnId } = this.props.location.state;
-          this.props.history.push(`/addressList?lang=${lang}&activityTurnId=${activityTurnId}`);
+          const { activityTurnId } = this.props.location.state;
+          this.props.history.push(`/addressList?activityTurnId=${activityTurnId}`);
         });
       }
     });

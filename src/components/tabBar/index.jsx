@@ -112,7 +112,9 @@ class TabBarBox extends PureComponent {
               ) : (
                 <img src={homePng} alt="" />
               )}
-              <span style={{ color: selectedTab === 'homePage' ? '#FE5108' : '#AEAEAE' }}>首页</span>
+              <span style={{ color: selectedTab === 'homePage' ? '#FE5108' : '#AEAEAE' }}>
+                {intl.get('home.home')}
+              </span>
             </Link>
           </Flex.Item>
           <Flex.Item className={styles.Item}>
@@ -127,7 +129,9 @@ class TabBarBox extends PureComponent {
               ) : (
                 <img src={personal} alt="" />
               )}
-              <span style={{ color: selectedTab === 'userPage' ? '#FE5108' : '#AEAEAE' }}>我的</span>
+              <span style={{ color: selectedTab === 'userPage' ? '#FE5108' : '#AEAEAE' }}>
+                {intl.get('home.user')}
+              </span>
             </Link>
           </Flex.Item>
         </Flex>

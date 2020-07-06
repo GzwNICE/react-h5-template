@@ -31,7 +31,7 @@ class Password extends PureComponent {
   componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
-      this.props.history.push(`/home?lang=${lang}`);
+      this.props.history.push(`/home`);
       return;
     }
     const { mobile } = queryString.parse(window.location.search);
@@ -116,7 +116,7 @@ class Password extends PureComponent {
             if (res.code === 200) {
               Toast.success('密码修改成功，请重新登录', 2);
               setTimeout(() => {
-                that.props.history.push(`/login?lang=${lang}&mobile=${this.state.mobile}`);
+                that.props.history.push(`/login?mobile=${this.state.mobile}`);
               }, 2000);
             } else {
               return Toast.info(res.msg, 2);

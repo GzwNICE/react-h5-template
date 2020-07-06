@@ -34,16 +34,16 @@ class User extends PureComponent {
     }
   }
   loginCLick() {
-    this.props.history.push(`/login?lang=${lang}`);
+    this.props.history.push(`/login`);
   }
   onPersonClick() {
-    // this.props.history.push(`/personal?lang=${lang}`);
+    // this.props.history.push(`/personal`);
   }
   onPayListClick() {
-    this.props.history.push(`/paylist?lang=${lang}`);
+    this.props.history.push(`/paylist`);
   }
   feedBackClick() {
-    this.props.history.push(`/feedback?lang=${lang}`);
+    this.props.history.push(`/feedback`);
   }
   render() {
     // eslint-disable-next-line react/destructuring-assignment
@@ -94,11 +94,9 @@ class User extends PureComponent {
               hasLine={false}
               onClick={_el => {
                 if (isLogin) {
-                  this.props.history.push(
-                    `/order?label=${_el.label}&type=${_el.type}&lang=${lang}`
-                  );
+                  this.props.history.push(`/order?label=${_el.label}&type=${_el.type}`);
                 } else {
-                  this.props.history.push(`/login?lang=${lang}`);
+                  this.props.history.push(`/login`);
                 }
               }}
               renderItem={item => (

@@ -79,7 +79,6 @@ class Win extends PureComponent {
                 <Link
                   to={{
                     pathname: `/product/${data.activityTurnId}`,
-                    search: `?lang=${lang}`,
                   }}
                 >
                   <div className={styles.btn} onClick={this.onDetailClick.bind(this)}>去确认</div>
@@ -137,7 +136,7 @@ class Win extends PureComponent {
   }
   onDetailClick(data) {
     console.log('跳转到详情页', data);
-    this.props.history.push(`/product/${data.activityTurnId}?lang=${lang}`);
+    this.props.history.push(`/product/${data.activityTurnId}`);
   }
 
   onCopyClick(copyContent) {

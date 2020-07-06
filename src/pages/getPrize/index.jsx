@@ -23,10 +23,7 @@ class GetPrize extends PureComponent {
   }
 
   selectAdd = () => {
-    console.log(123123);
-    this.props.history.push(
-      `/addressList?lang=${lang}&activityTurnId=${this.state.activityTurnId}`
-    );
+    this.props.history.push(`/addressList?activityTurnId=${this.state.activityTurnId}`);
   };
 
   handleSubmit = () => {
@@ -58,7 +55,7 @@ class GetPrize extends PureComponent {
       submitInfo(params).then(res => {
         console.log(res);
         if (res.code === 200) {
-          this.props.history.push(`/awardResult?lang=${lang}&type=${info.productType}`);
+          this.props.history.push(`/awardResult?type=${info.productType}`);
         }
       });
     });

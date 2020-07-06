@@ -34,11 +34,11 @@ class PayList extends PureComponent {
   };
 
   onHistoryClick() {
-    this.props.history.push(`/payhistory?lang=${lang}`);
+    this.props.history.push(`/payhistory`);
   }
 
   onPayClick() {
-    this.props.history.push(`/payment?lang=${lang}`);
+    this.props.history.push(`/payment`);
   }
 
   render() {
