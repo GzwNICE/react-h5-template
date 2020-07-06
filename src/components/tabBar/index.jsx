@@ -104,7 +104,6 @@ class TabBarBox extends PureComponent {
             <Link
               to={{
                 pathname: '/home',
-                search: `${search}`,
               }}
             >
               {selectedTab === 'homePage' ? (
@@ -121,7 +120,6 @@ class TabBarBox extends PureComponent {
             <Link
               to={{
                 pathname: '/user',
-                search: `${search}`,
               }}
             >
               {selectedTab === 'userPage' ? (
