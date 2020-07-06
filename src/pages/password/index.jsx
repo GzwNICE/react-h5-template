@@ -109,7 +109,7 @@ class Password extends PureComponent {
         that.props
           .resetPassword({
             smsCode: value.smsCode,
-            countryCode: '84',
+            countryCode: this.state.lang === 'zh' ? '86' : '84',
             mobile: this.state.mobile,
             pwd: md5(value.pwd),
           })
