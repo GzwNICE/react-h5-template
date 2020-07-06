@@ -19,6 +19,7 @@ import RulePage from '@/pages/rules';
 import GetPrize from '@/pages/getPrize';
 import AwardResults from '@/pages/awardResults';
 import PayResult from '@/pages/payResult';
+import Agreement from '@/pages/agreement';
 // import { Route } from 'react-router-dom';
 
 export const routes = [
@@ -116,5 +117,10 @@ export const routes = [
     path: '/payResult',
     exact: true,
     component: PayResult,
+  },
+  {
+    path: '/agreement/:type',
+    exact: true,
+    component: Agreement,
   },
 ];

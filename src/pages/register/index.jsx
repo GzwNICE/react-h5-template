@@ -150,7 +150,7 @@ class Register extends PureComponent {
   };
 
   handleAgreement = () => {
-    console.log(123123);
+    this.props.history.push('/agreement/0');
   };
 
   render() {
@@ -268,6 +268,7 @@ const mapState = state => ({});
 const mapDispatch = dispatch => ({
   sendCode: params => dispatch.register.sendCode(params),
   fetchRegister: params => dispatch.register.userRegister(params),
+  fetchAgr: params => dispatch.register.getAgr(params),
 });
 
 export default connect(mapState, mapDispatch)(createForm()(Register));
