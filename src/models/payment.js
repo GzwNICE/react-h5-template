@@ -5,7 +5,11 @@ import { paymentService } from '@/services';
 export const payment = createModel({
   state: {
     data: {
-      paymentList: {
+      inList: {
+        data: [],
+        total: 0,
+      },
+      outList: {
         data: [],
         total: 0,
       },
@@ -38,13 +42,26 @@ export const payment = createModel({
         },
       };
     },
-    loadList(state, payload) {
+    inList(state, payload) {
       return {
         ...state,
         data: {
           ...state.data,
-          paymentList: {
-            data: state.data.paymentList.data.concat(payload.data.rows),
+          inList: {
+            data: state.data.inList.data.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+
+    outList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          outList: {
+            data: state.data.outList.data.concat(payload.data.rows),
             total: payload.data.total,
           },
         },
@@ -56,7 +73,11 @@ export const payment = createModel({
         ...state,
         data: {
           ...state.data,
-          paymentList: {
+          inList: {
+            data: [],
+            total: 0,
+          },
+          outList: {
             data: [],
             total: 0,
           },
@@ -118,7 +139,11 @@ export const payment = createModel({
     },
     async getLoadList(payload) {
       const response = await paymentService.getPaymentList(payload);
-      dispatch.payment.loadList(response);
+      if (payload.tradeType === 'IN') {
+        dispatch.payment.inList(response);
+      } else {
+        dispatch.payment.outList(response);
+      }
     },
     async clearPaymentList(payload) {
       dispatch.payment.clearList(payload);

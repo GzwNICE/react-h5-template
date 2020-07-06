@@ -1,51 +1,53 @@
+/* eslint-disable react/destructuring-assignment */
 // 首页
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Tabs, NavBar, Icon } from 'antd-mobile';
-import { StickyContainer, Sticky } from 'react-sticky';
+// import { StickyContainer, Sticky } from 'react-sticky';
 import bg_label_vip from '@/assets/images/bg_label_vip.png';
 import ic_income_coin from '@/assets/images/ic_income_coin.png';
 import queryString from 'query-string';
-import DetailList from '@/pages/user/paylist/detaillist';
+import OutList from '@/pages/user/paylist/outList';
+import InList from '@/pages/user/paylist/inList';
 import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
 
-function renderTabBar(props) {
-  return (
-    <Sticky>
-      {({ style }) => (
-        <div style={{ ...style, zIndex: 1 }}>
-          <Tabs.DefaultTabBar {...props} />
-        </div>
-      )}
-    </Sticky>
-  );
-}
 class PayList extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      tabIndex: 0,
+    };
   }
   componentDidMount() {
-    // this.props.history.push('/login');
     const { userInfo, goMoney } = this.props;
     userInfo();
     goMoney();
   }
+
+  handlerTabClick = (tab, index) => {
+    console.log(tab, index);
+    this.setState({
+      tabIndex: index,
+    });
+  };
+
   onHistoryClick() {
     this.props.history.push(`/payhistory?lang=${lang}`);
-  };
-  onPayClick(){
-    this.props.history.push(`/payment?lang=${lang}`);
-
   }
+
+  onPayClick() {
+    this.props.history.push(`/payment?lang=${lang}`);
+  }
+
   render() {
     const tabs = [{ title: '支出明细' }, { title: '收入明细' }];
     const { user, money } = this.props;
     const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
-
+    const { tabIndex } = this.state;
     return (
-      <div className={styles.home}>
+      <div className={styles.payListPage}>
         <NavBar
           mode="dark"
           style={{ backgroundColor: '#FF5209' }}
@@ -63,7 +65,9 @@ class PayList extends PureComponent {
             <div className={styles.useCoinTitle}>当前可用{moneyVirtualCn}</div>
             <div className={styles.useCoin}>{user.goMoney}</div>
             <img className={styles.bgStar} src={ic_income_coin}></img>
-            <div className={styles.goPrepaid} onClick={this.onPayClick.bind(this)}>去充值</div>
+            <div className={styles.goPrepaid} onClick={this.onPayClick.bind(this)}>
+              去充值
+            </div>
             <div className={styles.coinStatus}>
               {money.inviterRewardGoMoney != 0 ? (
                 <div className={styles.totalCoin}>赠币总量：{money.inviterRewardGoMoney}</div>
@@ -74,26 +78,23 @@ class PayList extends PureComponent {
             </div>
           </div>
           <div style={{ marginTop: '40px' }} className={styles.tabsBox}>
-            <StickyContainer>
-              <Tabs //活动列表
-                tabs={tabs}
-                initialPage={0}
-                swipeable={false}
-                renderTabBar={renderTabBar}
-                tabBarBackgroundColor="#fff"
-                tabBarUnderlineStyle={{
-                  border: '2px solid #FF5209',
-                  width: '34%',
-                  marginLeft: '8%',
-                  borderRadius: '2px',
-                }}
-                tabBarActiveTextColor="#FF5209"
-                tabBarInactiveTextColor="#333333"
-              >
-                <DetailList type="OUT" />
-                <DetailList type="IN" />
-              </Tabs>
-            </StickyContainer>
+            <Tabs //活动列表
+              tabs={tabs}
+              swipeable={false}
+              tabBarBackgroundColor="#fff"
+              tabBarUnderlineStyle={{
+                border: '2px solid #FF5209',
+                width: '34%',
+                marginLeft: '8%',
+                borderRadius: '2px',
+              }}
+              tabBarActiveTextColor="#FF5209"
+              tabBarInactiveTextColor="#333333"
+              onTabClick={this.handlerTabClick}
+            >
+              <OutList type="OUT" />
+              <InList type="IN" />
+            </Tabs>
           </div>
         </div>
       </div>

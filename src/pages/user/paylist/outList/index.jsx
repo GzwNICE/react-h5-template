@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 // 我的订单列表
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
@@ -17,26 +19,19 @@ class DetailList extends PureComponent {
       page: 0,
       size: 10,
       isLoading: true,
-      useBodyScroll: false,
+      // useBodyScroll: false,
       height: document.documentElement.clientHeight - 220,
-      refreshing: true,
     };
   }
-  componentDidUpdate() {
-    if (this.state.useBodyScroll) {
-      document.body.style.overflow = 'auto';
-    } else {
-      document.body.style.overflow = 'hidden';
-    }
-  }
+
   componentDidMount() {
     const { type } = this.props;
     this.setState({
       type: type,
     });
-    this.getPageList();
-    window.addEventListener('scroll', this.bindHandleScroll);
+    this.loadPageList();
   }
+
   //在componentWillUnmount，进行scroll事件的注销
   componentWillUnmount() {
     const { clearList } = this.props;
@@ -57,7 +52,6 @@ class DetailList extends PureComponent {
         };
         refreshList(params).then(() => {
           this.setState({
-            refreshing: false,
             dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
           });
         });
@@ -68,7 +62,8 @@ class DetailList extends PureComponent {
     const { loadList } = this.props;
     this.setState(
       {
-        page: this.state.page+1,
+        page: this.state.page + 1,
+        isLoading: true,
       },
       () => {
         const params = {
@@ -78,7 +73,7 @@ class DetailList extends PureComponent {
         };
         loadList(params).then(() => {
           this.setState({
-            refreshing: false,
+            isLoading: false,
             dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
           });
         });
@@ -92,13 +87,10 @@ class DetailList extends PureComponent {
       });
     }
   }
-  onRefresh = () => {
-    this.setState({ refreshing: true, isLoading: true });
-    this.getPageList();
-  };
+
   render() {
     const { result } = this.props;
-    const { isLoading, type } = this.state;
+    const { isLoading, type, dataSource, height } = this.state;
     const Row = d => {
       return (
         <div>
@@ -125,29 +117,20 @@ class DetailList extends PureComponent {
             ref={el => {
               this.load = el;
             }}
-            key={this.state.useBodyScroll ? '0' : '1'}
-            dataSource={this.state.dataSource}
+            key={1}
+            dataSource={dataSource}
             renderRow={Row}
             renderSeparator={separator}
-            useBodyScroll={this.state.useBodyScroll}
-            style={
-              this.state.useBodyScroll
-                ? {}
-                : {
-                    height: this.state.height,
-                    border: '1px solid #ddd',
-                    margin: '1px 0',
-                  }}
+            style={{
+              height: height,
+              border: '1px solid #ddd',
+              margin: '1px 0',
+            }}
             scrollRenderAheadDistance={100}
             onEndReachedThreshold={10}
             scrollEventThrottle={100}
             initialListSize={1000}
             pageSize={10}
-            pullToRefresh={
-              <PullToRefresh
-                  refreshing={this.state.refreshing}
-                  onRefresh={this.onRefresh}
-            />}
             onEndReached={this.loadPageList} // 上啦加载
             renderFooter={() => (
               <div style={{ padding: 10, textAlign: 'center' }}>
@@ -162,7 +145,7 @@ class DetailList extends PureComponent {
 }
 
 const mapState = state => ({
-  result: state.payment.data.paymentList,
+  result: state.payment.data.outList,
 });
 
 const mapDispatch = dispatch => ({
