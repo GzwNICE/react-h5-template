@@ -168,7 +168,6 @@ class ProductDetail extends PureComponent {
 
   visibleBuy = type => {
     const token = localStorage.getItem('token');
-    console.log(token);
     if (!token) {
       Toast.info('请先登录！', 2);
       setTimeout(() => {
