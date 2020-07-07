@@ -78,7 +78,13 @@ class Home extends PureComponent {
           </div>
         ) : null}
         {bannerList.length > 0 ? ( //banner
-          <Carousel autoplay infinite className={styles.banner}>
+          <Carousel
+            autoplay
+            infinite
+            className={styles.banner}
+            autoplayInterval={15000}
+            dotActiveStyle={{ background: '#FF5209' }}
+          >
             {bannerList.map(val => (
               <a
                 key={val.id}

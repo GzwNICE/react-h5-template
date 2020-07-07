@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-import { Grid, Button } from 'antd-mobile';
+import { Grid, Button, NavBar } from 'antd-mobile';
 import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
@@ -67,7 +67,7 @@ class User extends PureComponent {
     return (
       <div>
         <div className={styles.topBox}>
-          <div className={styles.title}>{intl.get('user.title')}</div>
+          <NavBar className={styles.navBar}>{intl.get('user.title')}</NavBar>
           <div className={styles.authorInfo}>
             <img
               className={styles.authorImg}

@@ -29,7 +29,7 @@ class ActivityCard extends PureComponent {
                 position="normal"
                 style={{
                   flex: '1',
-                  borderRadius: '2px',
+                  borderRadius: '4px',
                   backgroundColor: '#FBCEBB',
                   overflow: 'hidden',
                 }}

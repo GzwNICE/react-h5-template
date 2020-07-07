@@ -50,6 +50,7 @@ class ProductDetail extends PureComponent {
 
   componentDidMount() {
     this.initDetail();
+    window.scrollTo(0, 0);
   }
 
   componentDidUpdate() {
@@ -241,7 +242,7 @@ class ProductDetail extends PureComponent {
       openS,
     } = this.state;
     const { detail } = this.props;
-    const config = JSON.parse(localStorage.getItem('configuration')) || {};
+    const { moneyVirtualCn, moneySymbol } = JSON.parse(localStorage.getItem('configuration'));
     const winData = {
       img: detail.thumbnailUrl,
       name: detail.productName,
@@ -261,12 +262,9 @@ class ProductDetail extends PureComponent {
           <Carousel autoplay={false} infinite dots={false} beforeChange={this.carBeforeChange}>
             {detail.imgUrlList &&
               detail.imgUrlList.map(val => (
-                <img
-                  key={val}
-                  src={val}
-                  alt=""
-                  style={{ width: '100%', verticalAlign: 'top', height: '3.75rem' }}
-                />
+                <div key={val} className={styles.carouselItem}>
+                  <img src={val} alt="img" className={styles.carouselImg} />
+                </div>
               ))}
           </Carousel>
           <div className={styles.dotsBox}>{`${current}/${allCur}`}</div>
@@ -289,7 +287,7 @@ class ProductDetail extends PureComponent {
         <div className={styles.priceBox} style={{ backgroundImage: `url(${priceBg})` }}>
           <span className={styles.price}>
             <span className={styles.pPrice}>{detail.participatePrice}</span>
-            <span>{config.moneyVirtualCn && config.moneyVirtualCn}</span> / <span>人次</span>
+            <span>{moneyVirtualCn}</span> / <span>人次</span>
           </span>
           <div className={styles.remainBox}>
             <span>{`剩余${detail.remainingCount}人次`}</span>
@@ -331,7 +329,7 @@ class ProductDetail extends PureComponent {
           {detail.partakeStatus === 'no' ? (
             <div className={styles.msgBox}>
               <NoticeBar icon={<img src={remind} alt="" width="14" />}>
-                如何用6000VND拿走这件商品。
+                {`如何用6000${moneySymbol}拿走这件商品。`}
               </NoticeBar>
             </div>
           ) : null}
