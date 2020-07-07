@@ -51,7 +51,6 @@ class LuckyCode extends PureComponent {
             if (this.props.codeList.rows.length === this.props.codeList.total) {
               this.setState({
                 hasMore: false,
-                isLoading: false,
               });
             }
           });
@@ -67,7 +66,7 @@ class LuckyCode extends PureComponent {
   }
 
   onEndReached = () => {
-    if (this.state.isLoading && !this.state.hasMore) return false;
+    if (!this.state.hasMore) return false;
     this.setState({ isLoading: true });
     this.getList();
   };

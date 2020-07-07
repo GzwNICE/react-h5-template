@@ -63,9 +63,9 @@ class BuyGroup extends PureComponent {
   };
 
   pay = () => {
-    const { personValue, proportionValue, stepVal } = this.state;
+    const { stepVal } = this.state;
     const { buyFetch, data } = this.props;
-    if (!personValue && !proportionValue) {
+    if (!stepVal) {
       Toast.info('请选择购买人次或比例', 2);
     } else {
       buyFetch({

@@ -311,7 +311,7 @@ class ProductDetail extends PureComponent {
             {detail.activityName}
           </div>
           <div className={styles.moreBuy}>{`多买10张奖券可提升 ${detail.addWinRate}% 中奖率`}</div>
-          {status !== 7 && detail.partakeStatus === 'yes' ? (
+          {(status === 8 || status === 9 || status === 10) && detail.partakeStatus === 'yes' ? (
             <div className={styles.msgBox}>
               {detail.ifWin === 'yes' ? (
                 <NoticeBar
@@ -327,13 +327,14 @@ class ProductDetail extends PureComponent {
                 </NoticeBar>
               )}
             </div>
-          ) : (
+          ) : null}
+          {detail.partakeStatus === 'no' ? (
             <div className={styles.msgBox}>
               <NoticeBar icon={<img src={remind} alt="" width="14" />}>
                 如何用6000VND拿走这件商品。
               </NoticeBar>
             </div>
-          )}
+          ) : null}
           {detail.ifWin === 'yes' && detail.orderStatus === 6 ? (
             <div
               className={styles.viewLottery}
@@ -349,7 +350,7 @@ class ProductDetail extends PureComponent {
               查看我的抽奖码
             </div>
           ) : null}
-          {status === 7 ? (
+          {status === 7 || detail.partakeStatus === 'yes' ? (
             <div className={styles.buyLottery}>
               <span className={styles.buyTimes}>{`已购买：${detail.buyCount}次`}</span>
               <span className={styles.lottery} onClick={this.viewLottery('visibleRaffle')}>
