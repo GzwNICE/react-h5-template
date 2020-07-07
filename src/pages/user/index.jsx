@@ -71,7 +71,7 @@ class User extends PureComponent {
           <div className={styles.authorInfo}>
             <img
               className={styles.authorImg}
-              src={user.userInfo.photoUrl ? user.userInfo.photoUrl : authorImg}
+              src={isLogin ? user.userInfo.photoUrl : authorImg}
               onClick={this.onPersonClick.bind(this)}
             ></img>
             <div className={styles.authorLoginType}>
@@ -85,8 +85,11 @@ class User extends PureComponent {
               <div className={styles.authorCoin} onClick={this.onPayListClick.bind(this)}>
                 <img className={styles.coin} src={ic_gocoin_s}></img>
                 <span className={styles.label}>
-                  {intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}
-                  {user.userInfo.goMoney}
+                  {isLogin
+                    ? `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })} ${
+                        user.userInfo.goMoney
+                      }`
+                    : `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}`}
                 </span>
                 <img className={styles.arrow} src={goin_arrow}></img>
               </div>

@@ -46,6 +46,15 @@ class Home extends PureComponent {
     });
   }
 
+  componentWillUnmount() {
+    const { clearData } = this.props;
+    clearData();
+  }
+
+  handlerGrid = url => {
+    window.location.href = url;
+  };
+
   render() {
     const { home } = this.props;
     const { IPhoneX } = this.state;
@@ -107,7 +116,7 @@ class Home extends PureComponent {
               columnNum={5}
               hasLine={false}
               renderItem={item => (
-                <div>
+                <div onClick={() => this.handlerGrid(item.jumpUrl)}>
                   <img src={item.imgURL} className={styles.classImg} alt="" />
                   <div className={styles.tips}>{item.title}</div>
                 </div>
@@ -159,6 +168,7 @@ const mapDispatch = dispatch => ({
   getBanner: params => dispatch.home.fetchGetBanner(params),
   getClass: params => dispatch.home.fetchGetClass(params),
   homeSys: params => dispatch.home.fetchConf(params),
+  clearData: params => dispatch.home.clearList(params),
 });
 
 export default connect(mapState, mapDispatch)(Home);
