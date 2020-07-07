@@ -78,19 +78,21 @@ class Home extends PureComponent {
           </div>
         ) : null}
         {bannerList.length > 0 ? ( //banner
-          <div className={styles.banner}>
-            <Carousel autoplay infinite>
-              {bannerList.map(val => (
-                <a
-                  key={val.id}
-                  href={val.jumpUrl}
-                  style={{ display: 'inline-block', width: '100%', height: '130px' }}
-                >
-                  <img src={val.imgURL} alt="" style={{ width: '100%', verticalAlign: 'center' }} />
-                </a>
-              ))}
-            </Carousel>
-          </div>
+          <Carousel autoplay infinite className={styles.banner}>
+            {bannerList.map(val => (
+              <a
+                key={val.id}
+                href={val.jumpUrl}
+                style={{ display: 'inline-block', width: '100%', height: '100%' }}
+              >
+                <img
+                  src={val.imgURL}
+                  alt=""
+                  style={{ width: '100%', height: '130px', verticalAlign: 'center' }}
+                />
+              </a>
+            ))}
+          </Carousel>
         ) : null}
         {classData.length > 0 ? ( // 分类导航
           <div className={styles.classification}>
