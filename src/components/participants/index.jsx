@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 // import intl from 'react-intl-universal';
 import { Modal, Button, ListView } from 'antd-mobile';
+import { format } from '@/utils/util';
 // import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 import winning from '@/assets/images/winning_crown.png';
@@ -88,13 +89,13 @@ class Participants extends PureComponent {
           <div className={styles.rightBox}>
             <div>
               <span className={styles.winName}>{i.userName}</span>
-              {i.ip ? <span className={styles.ip}>{`（${i.ip}）`}</span> : null}
+              {i.ip ? <span className={styles.ip}>{`（${i.address} ${i.ip}）`}</span> : null}
             </div>
             <div className={styles.times}>
               <span>
                 参与了 <span className={styles.round}>{i.partakeCount}</span> 人次
               </span>
-              <span className={styles.time}>{i.createTime}</span>
+              <span className={styles.time}>{format(i.createTime, 'str')}</span>
             </div>
           </div>
         </div>

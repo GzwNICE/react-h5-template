@@ -41,7 +41,9 @@ class ReceiveAward extends PureComponent {
             <img src={winDollar} alt="" className={styles.winDollar} />
             <div className={styles.prodInfo}>
               <img src={data.img} alt="" className={styles.prodImg} />
-              <p className={styles.p1}>{`成为 ${data.name} 中奖用户`}</p>
+              <p className={styles.p1}>
+                成为 <span>{data.name}</span> 中奖用户
+              </p>
               <p className={styles.p1}>{`你的中奖号码为：${data.code}`}</p>
               <p className={styles.p2}>
                 请前往领奖确认页进行信息确认，若超过24小时没有认领，将视为自动放弃领奖。

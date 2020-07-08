@@ -7,6 +7,7 @@ import queryString from 'query-string';
 import Cookies from 'js-cookie';
 import { NavBar, Carousel, Progress, NoticeBar, Button, Toast } from 'antd-mobile';
 import { Link } from 'react-router-dom';
+import { format } from '@/utils/util';
 import navBack from '@/assets/images/navBack.png';
 import priceBg from '@/assets/images/activity_bg_price.png';
 import priceOpen from '@/assets/images/activity_pic_countdown.png';
@@ -49,6 +50,7 @@ class ProductDetail extends PureComponent {
   }
 
   componentDidMount() {
+    console.log('componentDidMount');
     this.initDetail();
     window.scrollTo(0, 0);
   }
@@ -66,6 +68,7 @@ class ProductDetail extends PureComponent {
     const thisId = this.props.match.params.activityTurnId;
     const nextId = nextProps.match.params.activityTurnId;
     if (thisId !== nextId) {
+      console.log(3);
       window.location.reload();
     }
   }
@@ -110,7 +113,7 @@ class ProductDetail extends PureComponent {
           });
           this.countFun(Number(res.data.countdownTime), 'open');
         }
-        if (res.data.ifWin === 'yes' && res.data.orderStatus === 6 && res.data.status !== 9) {
+        if (res.data.ifWin === 'yes' && res.data.orderStatus === 6) {
           this.setState({ visibleReceive: true });
         }
       }
@@ -119,7 +122,7 @@ class ProductDetail extends PureComponent {
 
   countFun = (time, type) => {
     var remaining = time;
-    this.timer = setInterval(() => {
+    let timer = setInterval(() => {
       //防止出现负数
       if (remaining > 1000) {
         remaining -= 1000;
@@ -140,7 +143,7 @@ class ProductDetail extends PureComponent {
           });
         }
       } else {
-        clearInterval(this.timer);
+        clearInterval(timer);
         this.setState({
           countdown: false,
         });
@@ -180,6 +183,7 @@ class ProductDetail extends PureComponent {
       buyShow: !this.state.buyShow,
     });
     if (type === 'success') {
+      console.log('tangchuang');
       this.initDetail();
     }
   };
@@ -190,6 +194,7 @@ class ProductDetail extends PureComponent {
 
   newActivity = id => {
     this.props.history.push(`/product/${id}`);
+    console.log('xinid');
     this.initDetail();
   };
 
@@ -380,7 +385,7 @@ class ProductDetail extends PureComponent {
                   <li>{`获奖者：${detail.winnerUserName}`}</li>
                   <li>{`轮次：第${detail.currentTurn}轮`}</li>
                   <li>{`本轮参与：${detail.winnerBuyCount}人次`}</li>
-                  <li>{`开奖时间：${detail.openTime}`}</li>
+                  <li>{`开奖时间：${format(detail.openTime, 'str')}`}</li>
                 </ul>
               </div>
               <div className={styles.winNum}>

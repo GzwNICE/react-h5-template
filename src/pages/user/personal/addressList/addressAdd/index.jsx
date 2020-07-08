@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import Cookies from 'js-cookie';
 import { Picker, List, NavBar, Button, WhiteSpace, TextareaItem, Switch, Toast } from 'antd-mobile';
 import cityJson from '@/assets/lang/vi-VN.min.json';
 import { createForm } from 'rc-form';
@@ -16,6 +17,7 @@ class AddressAdd extends PureComponent {
       areaColumns: [],
       wardColumns: [],
       checked: false,
+      lang: Cookies.get('lang'),
     };
   }
   componentDidMount() {
@@ -108,7 +110,7 @@ class AddressAdd extends PureComponent {
   };
   render() {
     const { getFieldProps } = this.props.form;
-    const { userName, mobile, cityValue, areaValue, wardValue, detailAddress } = this.state;
+    const { userName, mobile, cityValue, areaValue, wardValue, detailAddress, lang } = this.state;
     return (
       <div className={styles.box}>
         <NavBar
@@ -136,7 +138,7 @@ class AddressAdd extends PureComponent {
 
         <div className={styles.itemBox}>
           <div className={styles.title}>
-            联系方式 <div className={styles.areaCode}>+85</div>
+            联系方式 <div className={styles.areaCode}>{`+${lang === 'zh' ? '86' : '84'}`}</div>
           </div>
           <input
             className={styles.content}
