@@ -135,18 +135,20 @@ class GetPrize extends PureComponent {
               <span className={styles.inputTitle}>
                 <i>*</i>身份证信息
               </span>
-              <InputItem
-                {...getFieldProps('verifyId', {
-                  rules: [{ required: true }],
-                })}
-                clear
-                placeholder="请输入身份证信息"
-                className={styles.inputItem}
-                ref={el => (this.verInput = el)}
-                onClick={() => {
-                  this.verInput.focus();
-                }}
-              />
+              <div className={styles.content}>
+                <InputItem
+                  {...getFieldProps('verifyId', {
+                    rules: [{ required: true }],
+                  })}
+                  clear
+                  placeholder="请输入身份证信息"
+                  className={styles.inputItem}
+                  ref={el => (this.verInput = el)}
+                  onClick={() => {
+                    this.verInput.focus();
+                  }}
+                />
+              </div>
             </li>
           ) : null}
           {info.appRewardRulesVO.directContact === 'Y' ? (
@@ -219,12 +221,14 @@ class GetPrize extends PureComponent {
               </div>
             </li>
           ) : null}
-          {info.appRewardRulesVO.ageInterval === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}>
-                <i>*</i>年龄
-              </span>
+
+          <li className={styles.rows}>
+            <span className={styles.inputTitle}>
+              <i>*</i>基本信息
+            </span>
+            {info.appRewardRulesVO.ageInterval === 'Y' ? (
               <div className={styles.content}>
+                <span className={styles.key}>年龄</span>
                 <Picker
                   data={intl.get('prize.ageInterval', {
                     rules: [{ required: true }],
@@ -235,14 +239,10 @@ class GetPrize extends PureComponent {
                   <List.Item arrow="horizontal" className={styles.select} />
                 </Picker>
               </div>
-            </li>
-          ) : null}
-          {info.appRewardRulesVO.education === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}>
-                <i>*</i>学历
-              </span>
+            ) : null}
+            {info.appRewardRulesVO.education === 'Y' ? (
               <div className={styles.content}>
+                <span className={styles.key}>学历</span>
                 <Picker
                   data={intl.get('prize.education')}
                   cols={1}
@@ -253,14 +253,10 @@ class GetPrize extends PureComponent {
                   <List.Item arrow="horizontal" className={styles.select} />
                 </Picker>
               </div>
-            </li>
-          ) : null}
-          {info.appRewardRulesVO.job === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}>
-                <i>*</i>职业
-              </span>
+            ) : null}
+            {info.appRewardRulesVO.job === 'Y' ? (
               <div className={styles.content}>
+                <span className={styles.key}>职业</span>
                 <Picker
                   data={intl.get('prize.job')}
                   cols={1}
@@ -271,14 +267,10 @@ class GetPrize extends PureComponent {
                   <List.Item arrow="horizontal" className={styles.select} />
                 </Picker>
               </div>
-            </li>
-          ) : null}
-          {info.appRewardRulesVO.income === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}>
-                <i>*</i>月收入
-              </span>
+            ) : null}
+            {info.appRewardRulesVO.income === 'Y' ? (
               <div className={styles.content}>
+                <span className={styles.key}>月收入</span>
                 <Picker
                   data={intl.get('prize.income')}
                   cols={1}
@@ -289,27 +281,25 @@ class GetPrize extends PureComponent {
                   <List.Item arrow="horizontal" className={styles.select} />
                 </Picker>
               </div>
-            </li>
-          ) : null}
-          {info.appRewardRulesVO.companyName === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}>
-                <i>*</i>公司名称
-              </span>
-              <InputItem
-                {...getFieldProps('companyName', {
-                  rules: [{ required: true }],
-                })}
-                clear
-                placeholder="请填写公司名称"
-                className={styles.inputItem}
-                ref={el => (this.companyInput = el)}
-                onClick={() => {
-                  this.companyInput.focus();
-                }}
-              />
-            </li>
-          ) : null}
+            ) : null}
+            {info.appRewardRulesVO.companyName === 'Y' ? (
+              <div className={styles.content}>
+                <span className={styles.key}>月收入</span>
+                <InputItem
+                  {...getFieldProps('companyName', {
+                    rules: [{ required: true }],
+                  })}
+                  clear
+                  placeholder="请填写公司名称"
+                  className={styles.inputItem}
+                  ref={el => (this.companyInput = el)}
+                  onClick={() => {
+                    this.companyInput.focus();
+                  }}
+                />
+              </div>
+            ) : null}
+          </li>
           {info.appRewardRulesVO.companyAddress === 'Y' ? (
             <li className={styles.rows}>
               <span className={styles.inputTitle}>
