@@ -1,9 +1,11 @@
 const getBaseUrl = () => {
-  let env = process.env.NODE_ENV;
+  let env = process.env.ENV_CONFIG;
   let baseUrl = '';
   if (env === 'development') {
     baseUrl = 'gagago-app-api-test.51moneygo.com';
   } else if (env === 'test') {
+    baseUrl = 'gagago-app-api-test.51moneygo.com';
+  } else if (env === 'release') {
     baseUrl = 'gagago-app-api-vn.9191money.com';
   } else if (env === 'production') {
     baseUrl = 'app-api.winmybonus.com';
@@ -26,17 +28,47 @@ const debounce = (func, wait, immediate) => {
 
     if (timeout) clearTimeout(timeout);
     if (immediate) {
-      var callNow = !timeout;
+      let callNow = !timeout;
       timeout = setTimeout(() => {
         timeout = null;
       }, wait);
       if (callNow) func.apply(context, args);
     } else {
-      timeout = setTimeout(function () {
+      timeout = setTimeout(function() {
         func.apply(context, args);
       }, wait);
     }
   };
 };
 
-export { isIPhoneX, debounce, getBaseUrl };
+const format = (data, type) => {
+  function add(m) {
+    return m < 10 ? '0' + m : m;
+  }
+  let time = new Date(Number(data));
+  let y = time.getFullYear();
+  let m = time.getMonth() + 1;
+  let d = time.getDate();
+  let h = time.getHours();
+  let mm = time.getMinutes();
+  let s = time.getSeconds();
+  let sm = time.getMilliseconds();
+  if (type === 'arr') {
+    return [
+      y + '-' + add(m) + '-' + add(d),
+      add(h) + ' ' + ':' + ' ' + add(mm) + ' ' + ':' + ' ' + add(s) + ' ' + add(sm),
+    ];
+  } else {
+    return y + '-' + add(m) + '-' + add(d) + ' ' + add(h) + ':' + add(mm);
+  }
+};
+
+const numFormat = value => {
+  if (value || value === 0) {
+    return String(value).replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+  } else {
+    return '';
+  }
+};
+
+export { isIPhoneX, debounce, getBaseUrl, format, numFormat };

@@ -1,0 +1,74 @@
+.result {
+  width: 100%;
+  height: 100vh;
+  background: #ffffff;
+
+  .resultContent {
+    width: 100%;
+
+    .successPic {
+      width: 50px;
+      height: 50px;
+    }
+
+    .monH2 {
+      font-size: 14px;
+      font-family: PingFangSC, PingFangSC-Regular;
+      color: #333333;
+      line-height: 30px;
+    }
+    .successBox {
+      width: 100%;
+      padding: 10px 42px 0;
+      box-sizing: border-box;
+      .monTips {
+        font-size: 12px;
+        font-family: PingFangSC, PingFangSC-Regular;
+        font-weight: 400;
+        text-align: center;
+        color: #999999;
+        line-height: 20px;
+      }
+      .tipBox {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        .tipImg {
+          width: 12px;
+          height: 12px;
+          margin-top: 2px;
+        }
+        .tipText {
+          margin-left: 6px;
+          font-size: 12px;
+          font-family: PingFangSC, PingFangSC-Regular;
+          color: #999999;
+          line-height: 17px;
+        }
+      }
+
+    }
+
+    .virTips2 {
+      font-size: 12px;
+      font-family: PingFangSC, PingFangSC-Regular;
+      text-align: center;
+      color: #999999;
+      line-height: 17px;
+      margin-top: 20px;
+    }
+    :global(.am-result) {
+      padding: 30px 42px 0;
+      box-sizing: border-box;
+    }
+    :global(.am-result:after) {
+      display: none;
+    }
+    .backButton {
+      width: 274px;
+      background: #ff5209;
+      border-radius: 8px;
+      margin: 40px auto 0;
+    }
+  }
+}

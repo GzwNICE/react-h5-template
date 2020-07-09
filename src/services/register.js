@@ -11,3 +11,7 @@ export async function register(params) {
 export async function forgetPaw(params) {
   return request('/app/v1/user/recover/password/commit', { method: 'post', data: params });
 }
+
+export async function agreement(params) {
+  return request('/home/agreement/info', { method: 'get', params: params });
+}

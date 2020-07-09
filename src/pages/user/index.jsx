@@ -1,8 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-import { Grid } from 'antd-mobile';
+import { Grid, Button, NavBar } from 'antd-mobile';
 import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
+import Cookies from 'js-cookie';
 import TabBarBox from '@/components/tabBar';
 import authorImg from '@/assets/images/avatar_notlogin.png';
 import ic_gocoin_s from '@/assets/images/ic_gocoin_s.png';
@@ -11,11 +12,18 @@ import arrow_right from '@/assets/images/ic_arrow_white.png';
 import wait from '@/assets/images/ic_waiting.png';
 import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
+import queryString from 'query-string';
 import styles from './index.less';
+
+const { lang } = queryString.parse(window.location.search);
 
 class User extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      IPhoneX: Cookies.get('IPhoneX'),
+      isLogin: localStorage.getItem('token') != null,
+    };
   }
 
   componentDidMount() {
@@ -27,12 +35,25 @@ class User extends PureComponent {
     }
   }
   loginCLick() {
-    this.props.history.push('/login');
+    this.props.history.push(`/login`);
+  }
+  onPersonClick() {
+    // this.props.history.push(`/personal`);
+  }
+  onPayListClick() {
+    this.props.history.push(`/paylist`);
   }
   feedBackClick() {
-    // eslint-disable-next-line react/destructuring-assignment
-    // const token = localStorage.get('token');
+    this.props.history.push(`/feedback`);
   }
+
+  handlerOutLogin = () => {
+    localStorage.removeItem('token');
+    this.setState({
+      isLogin: false,
+    });
+  };
+
   render() {
     // eslint-disable-next-line react/destructuring-assignment
     const tabs = [
@@ -41,14 +62,18 @@ class User extends PureComponent {
       { label: '未中奖', icon: nowin, type: 3 },
     ];
     const { user } = this.props;
-    console.log('user1', user);
-    const isLogin = user.userInfo.code != 10002;
+    const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
+    const { IPhoneX, isLogin } = this.state;
     return (
       <div>
         <div className={styles.topBox}>
-          <div className={styles.title}>{intl.get('user.title')}</div>
+          <NavBar className={styles.navBar}>{intl.get('user.title')}</NavBar>
           <div className={styles.authorInfo}>
-            <img className={styles.authorImg} src={authorImg}></img>
+            <img
+              className={styles.authorImg}
+              src={isLogin ? user.userInfo.photoUrl : authorImg}
+              onClick={this.onPersonClick.bind(this)}
+            ></img>
             <div className={styles.authorLoginType}>
               {!isLogin ? (
                 <div className={styles.authorLogin} onClick={this.loginCLick.bind(this)}>
@@ -57,9 +82,15 @@ class User extends PureComponent {
               ) : (
                 <div className={styles.authorName}>{user.userInfo.mobile}</div>
               )}
-              <div className={styles.authorCoin}>
+              <div className={styles.authorCoin} onClick={this.onPayListClick.bind(this)}>
                 <img className={styles.coin} src={ic_gocoin_s}></img>
-                <span className={styles.label}>{intl.get('user.myGoCoin')}</span>
+                <span className={styles.label}>
+                  {isLogin
+                    ? `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })} ${
+                        user.userInfo.goMoney
+                      }`
+                    : `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}`}
+                </span>
                 <img className={styles.arrow} src={goin_arrow}></img>
               </div>
             </div>
@@ -73,8 +104,10 @@ class User extends PureComponent {
               columnNum={3}
               hasLine={false}
               onClick={_el => {
-                if (_el.type == 1) {
-                  this.props.history.push({ pathname: '/order', query: { orderType: _el } });
+                if (isLogin) {
+                  this.props.history.push(`/order?label=${_el.label}&type=${_el.type}`);
+                } else {
+                  this.props.history.push(`/login`);
                 }
               }}
               renderItem={item => (
@@ -90,7 +123,12 @@ class User extends PureComponent {
             </div>
           </div>
         </div>
-        <div className={styles.tBar}>
+        {isLogin ? (
+          <Button onClick={this.handlerOutLogin} className={styles.outLogin}>
+            退出登录
+          </Button>
+        ) : null}
+        <div className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}>
           <TabBarBox selectedTab="userPage" search={this.props.history.location.search} />
         </div>
       </div>

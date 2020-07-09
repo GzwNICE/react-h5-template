@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 // 首页人气列表
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
@@ -62,7 +64,6 @@ class HotList extends PureComponent {
   };
 
   componentWillReceiveProps(nextPorps) {
-    console.log(nextPorps.hotList);
     if (nextPorps.hotList.data.length === nextPorps.hotList.total) {
       this.setState({
         hasMore: false,
@@ -77,9 +78,9 @@ class HotList extends PureComponent {
     return (
       <div className={styles.hotPage}>
         <Flex wrap="wrap" justify="between">
-          {hotList.data.map((i, index) => {
+          {hotList.data.map(i => {
             return (
-              <div key={i.activityId} className={styles.hotItem}>
+              <div key={i.activityTurnId} className={styles.hotItem}>
                 <ActivityCard data={i} hot />
               </div>
             );

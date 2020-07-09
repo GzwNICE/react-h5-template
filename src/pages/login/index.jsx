@@ -1,5 +1,3 @@
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
@@ -8,12 +6,12 @@ import md5 from 'md5';
 import { NavBar, Icon, InputItem, Button, Toast } from 'antd-mobile';
 import { Link } from 'react-router-dom';
 import { createForm } from 'rc-form';
+import Cookies from 'js-cookie';
 import loginBg from '@/assets/images/loginBg.png';
 import passwordClose from '@/assets/images/passwordClose.png';
 import passwordOpen from '@/assets/images/passwordOpen.png';
 import styles from './index.less';
 
-const { lang } = queryString.parse(window.location.search);
 class Login extends PureComponent {
   constructor(props) {
     super(props);
@@ -21,12 +19,14 @@ class Login extends PureComponent {
       login: false,
       mobile: '',
       pwVisible: false,
+      lang: Cookies.get('lang'),
     };
   }
   componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
-      this.props.history.push(`/home?lang=${lang}`);
+      // eslint-disable-next-line react/destructuring-assignment
+      this.props.history.push(`/home`);
       return;
     }
     const { mobile } = queryString.parse(window.location.search);
@@ -39,17 +39,20 @@ class Login extends PureComponent {
   handleNextClick = e => {
     e.preventDefault();
     const { judgeUser } = this.props;
+    const Reg = /^[0-9]*$/;
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.mobile) {
         return Toast.info('请输入手机号', 2);
+      } else if (!Reg.test(value.mobile)) {
+        return Toast.info('请输入正确的手机号', 2);
       } else {
         this.setState({
           mobile: value.mobile,
         });
         judgeUser({
           mobile: value.mobile,
-          countryCode: '84',
+          countryCode: this.state.lang === 'zh' ? '86' : '84',
         }).then(res => {
           if (res.code === 200) {
             if (res.data) {
@@ -57,7 +60,8 @@ class Login extends PureComponent {
                 login: true,
               });
             } else {
-              this.props.history.push(`/register?lang=${lang}&mobile=${value.mobile}`);
+              // eslint-disable-next-line react/destructuring-assignment
+              this.props.history.push(`/register?mobile=${value.mobile}`);
             }
           }
         });
@@ -77,14 +81,15 @@ class Login extends PureComponent {
           mobile: this.state.mobile,
           checkCode: md5(value.password),
           type: 'password',
-          countryCode: '84',
+          countryCode: this.state.lang === 'zh' ? '86' : '84',
         }).then(res => {
           if (res.code === 200) {
             Toast.success('登录成功', 2);
             localStorage.setItem('token', `Bearer ${res.data.token}`);
             localStorage.setItem('refreshToken', res.data.refreshToken);
             setTimeout(() => {
-              this.props.history.push(`/home?lang=${lang}`);
+              // eslint-disable-next-line react/destructuring-assignment
+              this.props.history.go(-1);
             }, 2000);
           }
         });
@@ -104,7 +109,7 @@ class Login extends PureComponent {
 
   render() {
     const { getFieldProps } = this.props.form;
-    const { login, mobile, pwVisible } = this.state;
+    const { login, mobile, pwVisible, lang } = this.state;
     return (
       <div className={styles.loginPage}>
         <NavBar
@@ -120,7 +125,7 @@ class Login extends PureComponent {
           <div className={styles.loginBox}>
             <span className={styles.title}>注册/登录</span>
             <div className={styles.mobileBox}>
-              <span className={styles.area}>+84</span>
+              <span className={styles.area}>{`+${lang === 'zh' ? '86' : '84'}`}</span>
               <InputItem
                 {...getFieldProps('mobile')}
                 clear
@@ -140,7 +145,7 @@ class Login extends PureComponent {
         ) : (
           <div className={styles.loginBox}>
             <span className={styles.title}>欢迎回来</span>
-            <div className={styles.loginMobile}>+84 {mobile}</div>
+            <div className={styles.loginMobile}>{`+${lang === 'zh' ? '86' : '84'} ${mobile}`}</div>
             <div className={`${styles.mobileBox} ${styles.passBox}`}>
               <InputItem
                 {...getFieldProps('password')}

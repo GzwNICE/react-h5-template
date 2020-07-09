@@ -1,0 +1,105 @@
+.payListPage {
+    width: 100%;
+    height: calc(100vh);
+    background-color: #ffffff;
+    overflow: hidden;
+    .navBar {
+        background-color: rgba(1,1,1,0);
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+      }
+      .tabsBox {
+          min-height: calc(100vh - 45px - 130px);
+      }
+      .pure_top {
+        width: 100%;
+         height: 100px;
+         position: relative;
+         z-index: 0;
+         overflow: hidden;
+       }
+
+       .pure_top::after {
+         content: '';
+         width: 120%;
+         height: 100px;
+         position: absolute;
+         left: -10%;     //椭圆左边隐藏10%，右边隐藏10%
+         top: 0;
+         border-radius: 0 0 50% 50%;  //左上角，右上角，右下角，左下角
+         background: #FF5209;
+       }
+       .coinInfo{
+        width: 345px;
+        height: auto;
+        height: 1.3rem;
+        color: #FCD87F;
+        position: absolute;
+        z-index: 1;
+        top: 50px;
+        background: #433e3b;
+        border-radius: 4pt;
+        left: 50%;
+        transform: translateX(-50%);
+        .mycoin{
+            margin-top: 10px;
+            position: relative;
+            .bg{
+                width: 70px;
+                height: 20px;
+            }
+            .font{
+                margin-left: 5px;
+                font-size: 11px;
+                position: absolute;
+                color: #6B4400;
+                top: 1px;
+            }
+        }
+        .useCoinTitle{
+            font-size: 10px;
+            margin:12px 0px 0px 12px;
+        }
+        .useCoin{
+            font-size: 20px;
+            margin:3px 0px 0px 12px;
+
+        }
+        .goPrepaid{
+            padding: 3px 15px 3px 15px;
+            background: linear-gradient(#feeeb6, #fcd87f);
+            border-radius: 15px;
+            font-size: 14px;
+            position: absolute;
+            right: 0;
+            color: #513D33;
+            bottom: 45%;
+            margin-right: 20px;
+            transform: transformY(-50%);
+
+        }
+        .bgStar{
+            width: 120px;
+            height: 130px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .coinStatus{
+            display: flex;
+            flex-direction: row;
+            margin-top: 15px;
+            padding: 0px 12px 0px 12px;
+            .totalCoin{
+                font-size: 12px;
+            }
+            .overdueCoin{
+                font-size: 12px;
+                margin-left: 60px;
+            }
+        }
+       }
+}

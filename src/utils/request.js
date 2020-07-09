@@ -4,11 +4,14 @@
  */
 import { extend } from 'umi-request';
 import { Toast } from 'antd-mobile';
-import { push } from 'connected-react-router';
+// import { push } from 'connected-react-router';
+import Cookies from 'js-cookie';
+import { createBrowserHistory } from 'history';
 import { getBaseUrl } from '@/utils/util';
-import queryString from 'query-string';
 
 const domain = `${window.location.protocol}//${getBaseUrl()}`;
+const history = createBrowserHistory();
+const lang = Cookies.get('lang');
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -31,29 +34,11 @@ const codeMessage = {
 /**
  * 异常处理程序
  */
-// const errorHandler = error => {
-//   const { response } = error;
-//   const errorless = codeMessage[response.status] || response.statusText;
-//   const { status, url } = response;
-//   throw `请求错误 ${status}: ${url}; ${errorless}`;
-// };
 const errorHandler = error => {
-  console.log(12312313);
-  const { response = {} } = error;
-  let errorless = codeMessage[response.status] || response.statusText;
-  const { status } = response;
-  // console.log(`response${JSON.stringify(response)}`)
-  if (status === 400 && !window.sessionStorage.getItem('token')) {
-    errorless = '账户名或密码错误';
-  }
-  if (status === 401) {
-    Toast.info(`登录已过期，请重新登录`, 2);
-    window.sessionStorage.clear();
-    push('/login');
-    return;
-  }
-  Toast.info(`请求错误 ${status}`, 2);
-  return error;
+  const { response } = error;
+  const errorless = codeMessage[response.status] || response.statusText;
+  const { status, url } = response;
+  throw `请求错误 ${status}: ${url}; ${errorless}`;
 };
 
 /**
@@ -74,28 +59,22 @@ request.interceptors.request.use(async (url, options) => {
       ...{ _t: new Date().getTime() },
     };
   }
+  let headers = {
+    // 'Content-Type': options.headers.ContentType || 'application/json',
+    language: lang,
+    userFrom: 'H5',
+  };
   let token = localStorage.getItem('token');
-  const { lang } = queryString.parse(window.location.search);
   if (token) {
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': token,
-      'language': lang,
-    };
-    return {
-      url: uri,
-      options: { ...options, headers: headers },
-    };
-  } else {
-    const headers = {
-      'Content-Type': 'application/json',
-      'language': lang,
-    };
-    return {
-      url: uri,
-      options: { ...options, headers: headers },
+    headers = {
+      ...headers,
+      Authorization: token,
     };
   }
+  return {
+    url: uri,
+    options: { ...options, headers: headers },
+  };
 });
 
 // response拦截器, 处理response
@@ -103,7 +82,17 @@ request.interceptors.response.use(async response => {
   const data = await response.clone().json();
   if (data.code === 200) {
     return response;
-  } else {
+  }
+  if (data.code === 10001 || data.code === 10002 || data.code === 10003) {
+    Toast.info(data.msg || 'Token错误，请重新登录', 2);
+    setTimeout(() => {
+      localStorage.clear();
+      history.push(`/login`);
+      window.location.reload();
+    }, 2000);
+    return;
+  }
+  if (data.code !== 200) {
     Toast.info(data.msg || '网络异常', 2);
     return response;
   }

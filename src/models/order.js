@@ -5,35 +5,82 @@ import { orderService } from '@/services';
 export const order = createModel({
   state: {
     data: {
-      orderList: [],
+      orderList: {
+        data: [],
+        total: 0,
+      },
+      goCoinDetail: {},
     },
   },
   reducers: {
-    saveOrderList(state, payload) {
+    refreshList(state, payload) {
       return {
         ...state,
         data: {
           ...state.data,
-          orderList: payload.data
-            ? payload.data
-            : [
-                {
-                  imgUrl:
-                    'http://f.winmybonus.com/businessRecord/JBLPulse4/pic1.png?x-oss-process=image/resize,w_600,h_600',
-                  remainingCount: 4,
-                  progress: 70,
-                  activityId: 111,
-                },
-              ],
+          orderList: {
+            data: payload.data.rows,
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    loadList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          orderList: {
+            data: state.data.orderList.data.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+
+    clearList(state) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          orderList: {
+            data: [],
+            total: 0,
+          },
+        },
+      };
+    },
+    resultDetail(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          goCoinDetail: payload.msg,
         },
       };
     },
   },
   effects: dispatch => ({
-    async getOrderList(payload) {
+    async getRefreshList(payload) {
       const response = await orderService.getOrderList(payload);
-      console.log("result",response)
-      dispatch.order.saveOrderList(response);
+      dispatch.order.refreshList(response);
+    },
+    async getLoadList(payload) {
+      const response = await orderService.getOrderList(payload);
+      dispatch.order.loadList(response);
+    },
+    async clearOrderList(payload) {
+      dispatch.order.clearList(payload);
+    },
+     /**
+     * 虚拟物品详情
+     * @param {} payload
+     */
+    async getExchangeDetail(payload) {
+      const response = await orderService.exchangeDetail(payload);
+      dispatch.order.resultDetail(response);
+      return response;
+
     },
   }),
 });

@@ -3,7 +3,9 @@
   width: 100%;
   background-color: #ff5209;
   color: #ffffff;
-
+  .navBar {
+    background-color: #ff5209;
+  }
   .title{
     text-align:center;
     margin: 0 auto;
@@ -24,50 +26,46 @@
       border-radius:50%;
       -webkit-border-radius:50%;
       -moz-border-radius:50%;
-    
+
     }
     .authorLoginType{
       display: flex;
       flex-direction: column;
       justify-content: left;
-      align-items: center;
       margin-left: 15px ;
-      margin-top: 5px;
       .authorLogin{
-        font-size:14px;
-        height: 30px;
+        width: fit-content;
+        padding: 0 20px;
+        font-size: 14px;
         line-height: 30px;
-        padding-left: 15px;
-        padding-right: 15px;
-        width: auto;
+        text-align: center;
+        align-content: center;
         color: #ff5209;
         background: #ffffff;
         border-radius: 15px;
         position: relative;
         font-family:PingFangSC-Regular,PingFang SC;
-      
+
       }
       .authorName{
-        font-size:14px;
+        font-size: 16px;
         height: 30px;
         line-height: 30px;
-        padding-left: 15px;
-        padding-right: 15px;
         width: auto;
+        padding-left: 5px;
         color: #ffffff;
         position: relative;
         font-family:PingFangSC-Regular,PingFang SC;
-      
+
       }
       .authorCoin{
-        width: 100%;
+        width: fit-content;
         height: 18px;
         display: flex;
-        justify-content: left;
+        margin-top: 8px;
         align-items: center;
         background:rgba(0,0,0,0.2);
         border-radius:10px;
-        margin-top: 10px;
         padding-right: 3px;
         .coin{
           height: 18px;
@@ -77,12 +75,10 @@
           -moz-border-radius:50%;
         }
         .label{
-          font-size:10px;
+          font-size: 10px;
           font-family:PingFangSC-Regular,PingFang SC;
           color:rgba(255,255,255,1);
-          margin-right: 6px;
-          margin-left: 4px;
-          transform: scale(0.8);
+          margin: 0 4px;
         }
         .arrow{
           height: 8px;
@@ -90,9 +86,9 @@
         }
       }
     }
-    
+
   }
- 
+
 }
 .order{
   max-height: 120px;
@@ -145,4 +141,15 @@
   left: 0;
   height: 50px;
   width: 100%;
+}
+.tBarIPhone {
+  height: 64px;
+}
+.outLogin {
+  width: 80%;
+  border: 1px solid #ddd !important;
+  color: #333333;
+  margin-top: 200px;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }

@@ -103,6 +103,30 @@ export const home = createModel({
         },
       };
     },
+    clear(state) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          hotList: {
+            data: [],
+            total: 0,
+          },
+          latestList: {
+            data: [],
+            total: 0,
+          },
+          endList: {
+            data: [],
+            total: 0,
+          },
+          sortList: {
+            data: [],
+            total: 0,
+          },
+        },
+      };
+    },
     getValueList(state, payload) {
       return {
         ...state,
@@ -148,6 +172,12 @@ export const home = createModel({
       } else {
         dispatch.home.getSortList(response);
       }
+    },
+    async fetchConf() {
+      await homeService.homeConf();
+    },
+    async clearList() {
+      dispatch.home.clear();
     },
   }),
 });
