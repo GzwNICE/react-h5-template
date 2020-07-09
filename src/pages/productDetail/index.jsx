@@ -353,7 +353,7 @@ class ProductDetail extends PureComponent {
               查看我的抽奖码
             </div>
           ) : null}
-          {status === 7 || detail.partakeStatus === 'yes' ? (
+          {status === 7 && status !== 9 && detail.partakeStatus === 'yes' ? (
             <div className={styles.buyLottery}>
               <span className={styles.buyTimes}>{`已购买：${detail.buyCount}次`}</span>
               <span className={styles.lottery} onClick={this.viewLottery('visibleRaffle')}>

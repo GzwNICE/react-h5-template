@@ -32,6 +32,8 @@ class OrderList extends PureComponent {
       cashDialog: false,
       goCoinOrderId: '',
       cashOrderId: '',
+      visibleRaffle: false,
+      activityTurnId: null,
     };
   }
   componentDidUpdate() {
@@ -49,6 +51,7 @@ class OrderList extends PureComponent {
   componentWillUnmount() {
     const { clearList } = this.props;
     clearList();
+    document.body.style.overflow = 'auto';
   }
 
   getPageList = () => {
@@ -119,15 +122,24 @@ class OrderList extends PureComponent {
     });
   };
   showCodeDialog = turnId => {
-    this.setState({
-      visibleRaffle: true,
-      activityTurnId: turnId,
-    });
+    this.setState(
+      {
+        activityTurnId: turnId,
+      },
+      () => {
+        this.setState({
+          visibleRaffle: true,
+        });
+      }
+    );
   };
   closeRaffle = key => () => {
     this.setState({
       [key]: false,
     });
+  };
+  handlerPush = url => {
+    this.props.history.push(url);
   };
   render() {
     const { result } = this.props;
@@ -137,7 +149,7 @@ class OrderList extends PureComponent {
       return (
         <div>
           {type === '1' ? <WaitOpen parent={this} data={d} /> : null}
-          {type === '2' ? <Win parent={this} data={d} /> : null}
+          {type === '2' ? <Win parent={this} data={d} push={this.handlerPush} /> : null}
           {type === '3' ? <NoWin data={d} /> : null}
         </div>
       );

@@ -1,15 +1,16 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 // import intl from 'react-intl-universal';
+import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
 import copy from 'copy-to-clipboard';
 import { Toast } from 'antd-mobile';
-import queryString from 'query-string';
-
+// import queryString from 'query-string';
 import moment from 'moment';
 import styles from './index.less';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
-const { lang } = queryString.parse(window.location.search);
+// const { lang } = queryString.parse(window.location.search);
 
 class Win extends PureComponent {
   constructor(props) {
@@ -65,7 +66,9 @@ class Win extends PureComponent {
     return (
       <div className={styles.box}>
         <div className={styles.orderBox}>
-          <img className={styles.orderImg} src={data.pic}></img>
+          <div className={styles.orderImg}>
+            <img src={data.pic}></img>
+          </div>
           <div className={styles.orderInfo}>
             <div className={styles.orderTitle}>
               第{data.currentTurn}轮 {data.activityName}
@@ -76,13 +79,9 @@ class Win extends PureComponent {
               </div>
               {data.status === 'WAIT_CASH' ? <div className={styles.apply}>审核中</div> : null}
               {data.status === 'WIN' ? (
-                <Link
-                  to={{
-                    pathname: `/product/${data.activityTurnId}`,
-                  }}
-                >
-                  <div className={styles.btn} onClick={this.onDetailClick.bind(this)}>去确认</div>
-                </Link>
+                <div className={styles.btn} onClick={() => this.onDetailClick(data.activityTurnId)}>
+                  去确认
+                </div>
               ) : null}
             </div>
           </div>
@@ -124,7 +123,10 @@ class Win extends PureComponent {
             {data.status === 'COIN_RECYCLE' ||
             data.status === 'WAIT_CASH' ||
             data.status === 'CASHED' ? (
-              <div className={styles.detail} onClick={this.onDetailDialogClick.bind(this, data.status,data.orderId)}>
+              <div
+                className={styles.detail}
+                onClick={this.onDetailDialogClick.bind(this, data.status, data.orderId)}
+              >
                 兑换详情
               </div>
             ) : null}
@@ -134,9 +136,23 @@ class Win extends PureComponent {
       </div>
     );
   }
-  onDetailClick(data) {
-    console.log('跳转到详情页', data);
-    this.props.history.push(`/product/${data.activityTurnId}`);
+  onDetailClick = id => {
+    const { getRules, getAwardInfo } = this.props;
+    getRules({
+      activityTurnId: id,
+    }).then(res => {
+      if (res.code === 200) {
+        if (res.data.status === 0) {
+          this.props.push(`/prize/${id}`);
+        } else {
+          getAwardInfo({ activityTurnId: id }).then(res => {
+            if (res.code === 200) {
+              this.props.push(`/awardResult?type=${res.data.productType}`);
+            }
+          });
+        }
+      }
+    });
   }
 
   onCopyClick(copyContent) {
@@ -155,4 +171,13 @@ class Win extends PureComponent {
   }
 }
 
-export default Win;
+const mapState = state => ({
+  detail: state.product.data.detail,
+});
+
+const mapDispatch = dispatch => ({
+  getRules: params => dispatch.product.existRules(params),
+  getAwardInfo: params => dispatch.prize.result(params),
+});
+
+export default connect(mapState, mapDispatch)(Win);

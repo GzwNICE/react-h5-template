@@ -47,18 +47,15 @@ class WaitOpen extends PureComponent {
 
         <div className={styles.buyInfo}>
           <div className={styles.buyCount}>已购买：{data.luckCodeCount}人次</div>
-          <div
-            className={styles.buyCode}
-            onClick={this.onCodeClick.bind(this, data.activityTurnId)}
-          >
+          <div className={styles.buyCode} onClick={this.onCodeClick}>
             查看我的抽奖号码
           </div>
         </div>
       </div>
     );
   }
-  onCodeClick(activityTurnId) {
-    this.props.parent.showCodeDialog(true, activityTurnId);
+  onCodeClick = () => {
+    this.props.parent.showCodeDialog(this.props.data.activityTurnId);
   }
 }
 
