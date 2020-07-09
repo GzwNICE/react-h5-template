@@ -22,11 +22,11 @@ class PayHistory extends PureComponent {
     };
   }
   componentDidUpdate() {
-    if (this.state.useBodyScroll) {
-      document.body.style.overflow = 'auto';
-    } else {
-      document.body.style.overflow = 'hidden';
-    }
+    // if (this.state.useBodyScroll) {
+    //   document.body.style.overflow = 'auto';
+    // } else {
+    //   document.body.style.overflow = 'hidden';
+    // }
   }
   componentDidMount() {
     this.getPageList();
@@ -71,6 +71,10 @@ class PayHistory extends PureComponent {
           size: this.state.size,
         };
         loadList(params).then(() => {
+          // console.log(this.props.result);
+          this.setState({
+            isLoading: this.state.page * this.state.size <= this.props.result.total
+          });
           this.setState({
             refreshing: false,
             dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
@@ -94,7 +98,7 @@ class PayHistory extends PureComponent {
     const { result } = this.props;
     const { isLoading } = this.state;
     const Row = d => {
-      console.log('row', d)
+      // console.log('row', d)
       return (
         <div>
           <HistoryItem data={d} />
@@ -131,10 +135,10 @@ class PayHistory extends PureComponent {
               this.load = el;
             }}
             // key={this.state.useBodyScroll ? '0' : '1'}
+            className={styles.container}
             dataSource={this.state.dataSource}
             renderRow={Row}
             renderSeparator={separator}
-            useBodyScroll
             style={{
               border: '1px solid #ddd',
               margin: '1px 0',
