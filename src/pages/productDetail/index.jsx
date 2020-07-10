@@ -107,7 +107,13 @@ class ProductDetail extends PureComponent {
         ) {
           this.countFun(Number(res.data.waitStartTime), 'wait');
         }
-        if (Number(res.data.countdownTime) > 1000 && res.data.status === 7) {
+        if (
+          Number(res.data.countdownTime) > 1000 &&
+          (res.data.status === 7 ||
+            res.data.status === 4 ||
+            res.data.status === 5 ||
+            res.data.status === 6)
+        ) {
           this.setState({
             countdown: true,
           });
@@ -285,7 +291,8 @@ class ProductDetail extends PureComponent {
             style={{ backgroundImage: `url(${priceOpen})`, justifyContent: 'center' }}
           >
             开奖倒计时
-            <span className={styles.time}>{openH}</span>:<span className={styles.time}>{openM}</span>:
+            <span className={styles.time}>{openH}</span>:
+            <span className={styles.time}>{openM}</span>:
             <span className={styles.time}>{openS}</span>
           </div>
         ) : null}
@@ -353,7 +360,9 @@ class ProductDetail extends PureComponent {
               查看我的抽奖码
             </div>
           ) : null}
-          {status === 7 && status !== 9 && detail.partakeStatus === 'yes' ? (
+          {(status === 7 || status === 2 || status === 3) &&
+          status !== 9 &&
+          detail.partakeStatus === 'yes' ? (
             <div className={styles.buyLottery}>
               <span className={styles.buyTimes}>{`已购买：${detail.buyCount}次`}</span>
               <span className={styles.lottery} onClick={this.viewLottery('visibleRaffle')}>
@@ -453,7 +462,7 @@ class ProductDetail extends PureComponent {
             </Button>
           </div>
         ) : null}
-        {status && status === 8 ? (
+        {status === 5 || status === 8 ? (
           <div className={styles.newActBox}>
             <p>本商品活动已结束，期待下次再见吧</p>
           </div>

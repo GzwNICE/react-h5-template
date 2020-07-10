@@ -142,7 +142,7 @@ class GetPrize extends PureComponent {
                   })}
                   clear
                   placeholder="请输入身份证信息"
-                  className={styles.inputItem}
+                  className={`${styles.inputItem} ${styles.verifyId}`}
                   ref={el => (this.verInput = el)}
                   onClick={() => {
                     this.verInput.focus();

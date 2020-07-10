@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 // 我的订单列表
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
@@ -15,8 +17,9 @@ class PayHistory extends PureComponent {
     this.state = {
       dataSource,
       page: 0,
-      size: 10,
+      size: 20,
       isLoading: true,
+      hadMore: true,
       useBodyScroll: false,
       refreshing: true,
     };
@@ -60,10 +63,11 @@ class PayHistory extends PureComponent {
     );
   };
   loadPageList = () => {
+    if (!this.state.hadMore) return;
     const { loadList } = this.props;
     this.setState(
       {
-        page: this.state.page+1,
+        page: this.state.page + 1,
       },
       () => {
         const params = {
@@ -84,11 +88,12 @@ class PayHistory extends PureComponent {
     );
   };
   componentWillReceiveProps(nextPorps) {
-    // if (nextPorps.result.data.length === nextPorps.result.total) {
-    //   this.setState({
-    //     isLoading: false,
-    //   });
-    // }
+    if (nextPorps.result.data.length === nextPorps.result.total) {
+      this.setState({
+        isLoading: false,
+        hadMore: false,
+      });
+    }
   }
   onRefresh = () => {
     this.setState({ refreshing: true, isLoading: true });

@@ -35,7 +35,7 @@ class Win extends PureComponent {
       orderStatus = intl.get('order.wait_provide');
       colorStatus = '#FF5209';
     } else if (data.status === 'PROVIDED') {
-      colorStatus = '#ff34c759';
+      colorStatus = '#666666';
       if (data.productType === 'SUBSTANCE') {
         //奖品已发放 实体
         orderStatus = intl.get('order.provided');
