@@ -11,13 +11,12 @@
     "BuyMore": "多买10次可提升",
     "oddsWinning": "中奖率"
   },
-  
+
   "user": {
     "title": "我的",
     "loginOrRegister":"登录/注册",
     "myGoCoin":"我的{moneyVirtualCn}",
     "myCanUseCoin":"当前可用{moneyVirtualCn}",
-
     "myorder":"我的订单",
     "wait_open":"待开奖",
     "winning":"已中奖",
@@ -305,7 +304,7 @@
       },
       {
         "label": "9 triệu~12 triệu",
-        "value": "其9 triệu~12 triệu他"
+        "value": "9 triệu~12 triệu"
       },
       {
         "label": "> 12 triệu",
@@ -388,7 +387,7 @@
     "area":"行政区",
     "ward":"ward",
     "changeWard":"选择ward",
-    "chanegArea":"选择行政区",
+    "changeArea":"选择行政区",
     "changeCity":"选择城市",
     "detailAddress":"请填写详细的地址…",
     "normalAddress":"设为默认地址",
