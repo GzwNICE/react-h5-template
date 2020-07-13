@@ -16,7 +16,7 @@ class Payment extends PureComponent {
     super(props);
     this.state = {
       payValue: null,
-      payType:1,
+      payType: 1,
       payData: [{ value: 100 }, { value: 200 }, { value: 300 }],
       payData2: [{ value: 400 }, { value: 500 }, { value: 600 }],
       payData3: [{ value: 700 }, { value: 800 }, { value: 900 }],
@@ -27,11 +27,11 @@ class Payment extends PureComponent {
       payValue: value,
     });
   };
-  onChangePay= type=>{
+  onChangePay = type => {
     this.setState({
       payType: type,
     });
-  }
+  };
   render() {
     const { payData, payData2, payData3, payValue, payType } = this.state;
     return (
@@ -44,10 +44,10 @@ class Payment extends PureComponent {
         >
           充值
         </NavBar>
-        <div style={{backgroundColor:"#ffffff"}}>
-        <div className={styles.topGo}>请选择GO币充值数量</div>
-        <div className={styles.radioRows}>
-          {payData.map(i => (
+        <div style={{ backgroundColor: '#ffffff' }}>
+          <div className={styles.topGo}>请选择GO币充值数量</div>
+          <div className={styles.radioRows}>
+            {payData.map(i => (
               <Radio
                 className={`${styles.radioItem} ${
                   payValue === i.value ? `${styles.radioItemS}` : null

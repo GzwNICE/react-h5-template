@@ -16,9 +16,26 @@
     "provided": "奖品已发放",
     "refunded": "退回",
     "coin_recycle": "已兑换{moneyVirtualCn}",
-    "wait_cash": "已兑换现金 审核中",
+    "wait_cash": "已兑换现金",
     "cashed": "已兑换现金",
-    "no_confirm": "流奖"
+    "no_confirm": "流奖",
+    "str_current_turn":"Round",
+    "str_show_applying":"审核中",
+    "str_go_confirm":"去确认",
+    "str_need_24later":"需要确认信息之后才会发奖哦，超过24小时未确认将自动流奖",
+    "str_getproduct_address":"收货地址：",
+    "str_send_reamrk":"发货备注：",
+    "str_card_number":"卡号：",
+    "str_card_secret_key":"卡密：",
+    "str_copy":"复制",
+    "str_winning_orderid":"订单ID：",
+    "str_copy_success":"复制成功",
+    "str_has_buy":"已购买奖券：{num}张",
+    "laveCount":"剩余:{num}",
+    "str_open_progress":"开奖进度:",
+    "str_order_time":"下单时间:",
+    "str_nowin_buytimes":"购买奖券：{num}张"
+
   },
   "payment": {
     "recharge": "充值{moneyVirtualCn}",

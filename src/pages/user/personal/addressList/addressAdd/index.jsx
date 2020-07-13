@@ -135,8 +135,8 @@ class AddressAdd extends PureComponent {
             })} placeholder='请填写联系方式'/>
         </div>
         <WhiteSpace size="md" />
-          <Picker
-            data={this.state.cityColumns}
+        <Picker
+          data={this.state.cityColumns}
             value={cityValue}
             cols={1}
             extra={<div className={styles.change}>选择城市</div>}

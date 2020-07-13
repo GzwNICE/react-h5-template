@@ -6,8 +6,8 @@ import { Toast } from 'antd-mobile';
 import queryString from 'query-string';
 
 import moment from 'moment';
-import styles from './index.less';
 import { Link } from 'react-router-dom';
+import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
 
@@ -68,13 +68,15 @@ class Win extends PureComponent {
           <img className={styles.orderImg} src={data.pic}></img>
           <div className={styles.orderInfo}>
             <div className={styles.orderTitle}>
-              第{data.currentTurn}轮 {data.activityName}
+              {intl.get('order.str_current_turn')} {data.currentTurn} {data.activityName}
             </div>
             <div className={styles.status}>
               <div className={styles.state} style={{ color: colorStatus }}>
                 {orderStatus}
               </div>
-              {data.status === 'WAIT_CASH' ? <div className={styles.apply}>审核中</div> : null}
+              {data.status === 'WAIT_CASH' ? (
+                <div className={styles.apply}>{intl.get('order.str_show_applying')}</div>
+              ) : null}
               {data.status === 'WIN' ? (
                 <Link
                   to={{
@@ -82,7 +84,9 @@ class Win extends PureComponent {
                     search: `?lang=${lang}`,
                   }}
                 >
-                  <div className={styles.btn} onClick={this.onDetailClick.bind(this)}>去确认</div>
+                  <div className={styles.btn} onClick={this.onDetailClick.bind(this)}>
+                    {intl.get('order.str_go_confirm')}
+                  </div>
                 </Link>
               ) : null}
             </div>
@@ -91,60 +95,76 @@ class Win extends PureComponent {
         <div className={styles.line}></div>
         <div className={styles.winInfo}>
           {data.status === 'NO_CONFIRM' ? (
-            <div className={styles.confirmInfo}>
-              需要确认信息之后才会发奖哦，超过24小时未确认将自动流奖
-            </div>
+            <div className={styles.confirmInfo}>{intl.get('order.str_need_24later')}</div>
           ) : null}
           {data.shoppingAddress ? (
-            <div className={styles.address}>收货地址：{data.shoppingAddress}</div>
+            <div className={styles.address}>
+              {intl.get('order.str_getproduct_address')}
+              {data.shoppingAddress}
+            </div>
           ) : null}
-          {data.remark ? <div className={styles.sendRemark}>发货备注：{data.remark}</div> : null}
+          {data.remark ? (
+            <div className={styles.sendRemark}>
+              {intl.get('order.str_send_reamrk')}
+              {data.remark}
+            </div>
+          ) : null}
           {data.cardNumber ? (
             <div className={styles.virtual}>
-              <div className={styles.card}>卡号{data.cardNumber}</div>
+              <div className={styles.card}>
+                {intl.get('order.str_card_number')}
+                {data.cardNumber}
+              </div>
               <div className={styles.copy} onClick={this.onCopyClick.bind(this, data.cardNumber)}>
-                复制
+                {intl.get('order.str_copy')}
               </div>
             </div>
           ) : null}
           {data.cardSecretKey ? (
             <div className={styles.virtual}>
-              <div className={styles.card}>卡密{data.cardSecretKey}</div>
+              <div className={styles.card}>
+                {intl.get('order.str_card_secret_key')}
+                {data.cardSecretKey}
+              </div>
               <div
                 className={styles.copy}
                 onClick={this.onCopyClick.bind(this, data.cardSecretKey)}
               >
-                复制
+                {intl.get('order.str_copy')}
               </div>
             </div>
           ) : null}
           <div className={styles.detailBox}>
             <div className={styles.winTime}>
-              中奖时间： {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
+              {intl.get('order.str_winning_time')}
+              {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
             </div>
             {data.status === 'COIN_RECYCLE' ||
             data.status === 'WAIT_CASH' ||
             data.status === 'CASHED' ? (
-              <div className={styles.detail} onClick={this.onDetailDialogClick.bind(this, data.status,data.orderId)}>
-                兑换详情
+              <div
+                className={styles.detail}
+                onClick={this.onDetailDialogClick.bind(this, data.status, data.orderId)}
+              >
+                {intl.get('order.str_winget_detail')}
               </div>
             ) : null}
           </div>
-          <div className={styles.orderId}>订单ID：{data.orderNumber}</div>
+          <div className={styles.orderId}>
+            {intl.get('order.str_winning_orderid')}
+            {data.orderNumber}
+          </div>
         </div>
       </div>
     );
   }
   onDetailClick(data) {
-    console.log('跳转到详情页', data);
     this.props.history.push(`/product/${data.activityTurnId}?lang=${lang}`);
   }
 
   onCopyClick(copyContent) {
     if (copy(copyContent)) {
-      Toast.info('复制成功', 2);
-    } else {
-      Toast.info('复制失败', 2);
+      Toast.info(intl.get('order.str_copy_success'), 2);
     }
   }
   onDetailDialogClick(status, orderId) {
