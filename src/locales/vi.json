@@ -13,14 +13,31 @@
     "nowin":"Không trúng thưởng"
   },
   "order": {
-    "win": "奖品待确认",
-    "wait_provide": "奖品未发放",
-    "provided": "奖品已发放",
-    "refunded": "退回",
-    "coin_recycle": "已兑换{moneyVirtualCn}",
-    "wait_cash": "已兑换现金 审核中",
-    "cashed": "已兑换现金",
-    "no_confirm": "流奖"
+    "win": "Đợi xác nhận",
+    "wait_provide": "Đợi phát thưởng",
+    "provided": "Đã giao hàng",
+    "refunded": "Hoàn tiền",
+    "coin_recycle": "Hối đoái{moneyVirtualCn}",
+    "wait_cash": "Đã quy đổi tiền mặt",
+    "cashed": "Đã quy đổi tiền mặt",
+    "no_confirm": "Hủy thưởng",
+    "str_current_turn":"Round",
+    "str_show_applying":"Đang phê duyệt",
+    "str_go_confirm":"Đi xác nhận",
+    "str_need_24later":"Cần xác nhận thông tin xong mới phát thưởng, trong 24h nếu không xác nhận thông tin sẽ tự động hủy thưởng.",
+    "str_getproduct_address":"Địa chỉ nhận hàng:",
+    "str_send_reamrk":"Chú thích giao hàng:",
+    "str_card_number":"Số thẻ:",
+    "str_card_secret_key":"Mật khẩu:",
+    "str_copy":"Copy",
+    "str_winning_orderid":"ID đôn hàng:",
+    "str_copy_success":"Copy thành công",
+    "str_has_buy":"Đã mua:{num}quay",
+    "laveCount":"Còn:{num}",
+    "str_open_progress":"Tiến độ quay thưởng:",
+    "str_order_time":"Thời gian đặt hàng:",
+    "str_nowin_buytimes":"Đã mua: {num} quay"
+
   },
 
   "payment": {

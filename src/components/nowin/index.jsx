@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 // import intl from 'react-intl-universal';
 import moment from 'moment';
+import intl from 'react-intl-universal';
+
 import styles from './index.less';
 
 class NoWin extends PureComponent {
@@ -12,19 +14,25 @@ class NoWin extends PureComponent {
           <img className={styles.orderImg} src={data.pic}></img>
           <div>
             <div className={styles.orderTitle}>
-              第{data.currentTurn}轮 {data.activityName}
+              {intl.get('order.str_current_turn')} {data.currentTurn} {data.activityName}
             </div>
             <div className={styles.status}>
-              <div className={styles.state}>购买人次：{data.luckCodeCount}</div>
+              <div className={styles.state}>
+                {intl.get('order.str_nowin_buytimes', { num: data.luckCodeCount })}
+              </div>
             </div>
           </div>
         </div>
         <div className={styles.line}></div>
         <div className={styles.winInfo}>
           <div className={styles.winTime}>
-            中奖时间： {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
+            {intl.get('order.str_order_time')}
+            {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
           </div>
-          <div className={styles.orderId}>订单ID：{data.orderNumber}</div>
+          <div className={styles.orderId}>
+            {intl.get('order.str_winning_orderid')}
+            {data.orderNumber}
+          </div>
         </div>
       </div>
     );

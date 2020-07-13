@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 // import intl from 'react-intl-universal';
 import { Progress } from 'antd-mobile';
 import moment from 'moment';
+import intl from 'react-intl-universal';
 
 import styles from './index.less';
 
@@ -11,16 +12,16 @@ class WaitOpen extends PureComponent {
     return (
       <div className={styles.box}>
         <div className={styles.orderTime}>
-          下单时间：{moment(data.createTime).format('DD/MM/YYYY HH:mm')}
+          {intl.get('order.str_order_time')} {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
         </div>
         <div className={styles.orderBox}>
           <img className={styles.orderImg} src={data.pic}></img>
           <div className={styles.orderInfo}>
             <div className={styles.orderTitle}>
-              第{data.currentTurn}轮 {data.activityName}
+              {intl.get('order.str_current_turn')} {data.currentTurn} {data.activityName}
             </div>
             <div className={styles.schedule}>
-              <div className={styles.progressTitle}>开奖进度：</div>
+              <div className={styles.progressTitle}>{intl.get('order.str_open_progress')} </div>
               <div className={styles.progress}>
                 <Progress
                   percent={data.luckProgress}
@@ -39,16 +40,29 @@ class WaitOpen extends PureComponent {
                 />
                 <div className={styles.progressNum}>{`${data.luckProgress}%`}</div>
               </div>
-              <div className={styles.remaining}>{`剩余${data.laveCount}人次`}</div>
+              <div className={styles.remaining}>
+                {intl.get('order.laveCount', { num: data.laveCount })}
+              </div>
             </div>
           </div>
         </div>
         <div className={styles.line}></div>
 
         <div className={styles.buyInfo}>
+<<<<<<< HEAD
+          <div className={styles.buyCount}>
+            {intl.get('order.str_has_buy', { num: data.luckCodeCount })}
+          </div>
+          <div
+            className={styles.buyCode}
+            onClick={this.onCodeClick.bind(this, data.activityTurnId)}
+          >
+            {intl.get('order.str_search_my_code')}
+=======
           <div className={styles.buyCount}>已购买：{data.luckCodeCount}人次</div>
           <div className={styles.buyCode} onClick={this.onCodeClick}>
             查看我的抽奖号码
+>>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
           </div>
         </div>
       </div>

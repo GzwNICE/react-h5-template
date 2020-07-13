@@ -151,6 +151,16 @@ class AddressAdd extends PureComponent {
         <WhiteSpace size="md" />
         <Picker
           data={this.state.cityColumns}
+<<<<<<< HEAD
+            value={cityValue}
+            cols={1}
+            extra={<div className={styles.change}>选择城市</div>}
+            onChange={this.onChangeCity}
+          >
+            <List.Item arrow="horizontal"><div className={styles.title}>城市</div></List.Item>
+          </Picker>
+          <WhiteSpace size="md" />
+=======
           value={cityValue}
           cols={1}
           extra={<div className={styles.change}>选择城市</div>}
@@ -161,6 +171,7 @@ class AddressAdd extends PureComponent {
           </List.Item>
         </Picker>
         <WhiteSpace size="md" />
+>>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
 
         <Picker
           data={this.state.areaColumns}
