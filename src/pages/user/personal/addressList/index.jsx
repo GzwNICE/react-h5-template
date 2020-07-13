@@ -5,6 +5,7 @@ import AddressItem from '@/components/addressItem';
 import Empty from '@/components/empty';
 import { NavBar, Icon, PullToRefresh, ListView, Button } from 'antd-mobile';
 import queryString from 'query-string';
+import intl from 'react-intl-universal';
 
 import styles from './index.less';
 
@@ -84,7 +85,7 @@ class PayHistory extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          收货地址管理
+          {intl.get('address.addressManager')}
         </NavBar>
         {result.total == 0 ? (
           <Empty />
@@ -112,7 +113,9 @@ class PayHistory extends PureComponent {
           />
         )}
         <div className={styles.addAddress}>
-          <Button className={styles.submit} onClick={this.addAddressClick.bind(this)}>+ 添加收货地址</Button>
+          <Button className={styles.submit} onClick={this.addAddressClick.bind(this)}>
+            + {intl.get('address.addAddress')}
+          </Button>
         </div>
       </div>
     );

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
 import { NavBar, Icon, TextareaItem, ImagePicker, Button, Toast } from 'antd-mobile';
+import intl from 'react-intl-universal';
 
 import styles from './index.less';
 
@@ -51,7 +52,7 @@ class FeedBack extends PureComponent {
       feedbackContent: this.state.content,
       imgIds: imageIds,
     }).then(() => {
-      Toast.info('感谢您的反馈', 2);
+      Toast.info(intl.get('user.str_thank_feedback'), 2);
       this.props.history.go(-1);
     });
   }
@@ -66,10 +67,10 @@ class FeedBack extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
-          意见反馈
+          {intl.get('user.feedback')}
         </NavBar>
         <TextareaItem
-          placeholder="对我们的服务有什么建议吗？请告诉我们"
+          placeholder={intl.get('user.str_welocme_feedback')}
           autoHeight
           autoFocus
           onChange={this.onAreaChange}
@@ -88,7 +89,7 @@ class FeedBack extends PureComponent {
           />
         </div>
         <Button disabled={isEmpty} className={styles.submit} onClick={this.submitMsg.bind(this)}>
-          提交
+          {intl.get('user.submit')}
         </Button>
       </div>
     );

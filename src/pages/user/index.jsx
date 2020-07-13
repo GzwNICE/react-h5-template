@@ -57,9 +57,9 @@ class User extends PureComponent {
   render() {
     // eslint-disable-next-line react/destructuring-assignment
     const tabs = [
-      { label: '待开奖', icon: wait, type: 1 },
-      { label: '已中奖', icon: win, type: 2 },
-      { label: '未中奖', icon: nowin, type: 3 },
+      { label: intl.get('user.wait_open'), icon: wait, type: 1 },
+      { label: intl.get('user.winning'), icon: win, type: 2 },
+      { label: intl.get('user.nowin'), icon: nowin, type: 3 },
     ];
     const { user } = this.props;
     const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
@@ -98,7 +98,7 @@ class User extends PureComponent {
         </div>
         <div>
           <div className={styles.order}>
-            <div className={styles.myorder}>我的订单</div>
+            <div className={styles.myorder}>{intl.get('user.myorder')}</div>
             <Grid
               data={tabs}
               columnNum={3}
@@ -113,19 +113,19 @@ class User extends PureComponent {
               renderItem={item => (
                 <div>
                   <img src={item.icon} className={styles.icon} alt="" />
-                  <div className={styles.label}>{item.label}</div>
+                  <div className={styles.label} style={{marginTop:"5px"}}>{item.label}</div>
                 </div>
               )}
             />
             <div className={styles.feedBack} onClick={this.feedBackClick.bind(this)}>
-              <span className={styles.title}>意见反馈</span>
+              <span className={styles.title}> {intl.get('user.feedback')}</span>
               <img className={styles.arrow} src={arrow_right} />
             </div>
           </div>
         </div>
         {isLogin ? (
           <Button onClick={this.handlerOutLogin} className={styles.outLogin}>
-            退出登录
+            {intl.get('user.logout')}
           </Button>
         ) : null}
         <div className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}>

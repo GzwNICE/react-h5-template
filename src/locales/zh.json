@@ -3,14 +3,24 @@
     "home": "首页",
     "user": "我的",
     "title": "这是一个标题"
+
   },
+  
   "user": {
     "title": "我的",
     "loginOrRegister":"登录/注册",
     "myGoCoin":"我的{moneyVirtualCn}",
+    "myCanUseCoin":"当前可用{moneyVirtualCn}",
+
+    "myorder":"我的订单",
     "wait_open":"待开奖",
     "winning":"已中奖",
-    "nowin":"未中奖"
+    "nowin":"未中奖",
+    "feedback":"意见反馈",
+    "str_thank_feedback":"感谢您的反馈",
+    "submit":"提交",
+    "str_welocme_feedback":"对我们的服务有什么建议吗？请告诉我们",
+    "logout":"退出登录"
   },
   "order": {
     "win": "奖品待确认",
@@ -34,8 +44,10 @@
     "str_copy_success":"复制成功",
     "str_has_buy":"已购买奖券：{num}张",
     "laveCount":"剩余:{num}",
+    "str_search_my_code":"查看我的抽奖号码",
     "str_open_progress":"开奖进度:",
     "str_order_time":"下单时间:",
+    "str_winning_time":"中奖时间:",
     "str_nowin_buytimes":"购买奖券：{num}张"
 
   },
@@ -48,8 +60,18 @@
     "new_register_given": "首次注册赠送",
     "go_convert": "兑换{moneyVirtualCn}",
     "go_reward_expire": "赠币过期",
-    "friend_recharge_given": "好友充值赠送{moneyVirtualCn}"
-
+    "friend_recharge_given": "好友充值赠送{moneyVirtualCn}",
+    "str_gocoin_spending_detail":"支出明细",
+    "str_gocoin_income_detail":"收入明细",
+    "gocoin_pay_history":"充值流水",
+    "str_inpay":"去充值",
+    "str_buy_total":"赠币总量:{num}",
+    "str_one_day_overdue":"1天后过期:{num}",
+    "str_change_gocoin":"兑换",
+    "str_coin_rechargeMoney":"支付:",
+    "str_server_money":"含服务费:",
+    "str_coin_giveAwayMoney":"含赠送",
+    "str_coin_rest":"余额："
   },
 
   "payhistory": {
@@ -192,5 +214,33 @@
         "value": "> 45"
       }
     ]
+  },
+  "list":{
+    "isEnd":"已经到底了"
+  },
+  "address":{
+    "pleaseInputName":"请输入名称",
+    "pleaseInputMobile":"请填写联系方式",
+    "pleaseInputCity":"请选择城市",
+    "pleaseInputArea":"请选择行政区",
+    "pleaseInputWard":"请选择ward",
+    "pleaseDetailAddress":"请输入详细地址",
+    "address":"收货地址",
+    "addressName":"收货人",
+    "pleaseInputAddressName":"请填写收货人名称",
+    "inputMobile":"联系方式",
+    "city":"城市",
+    "area":"行政区",
+    "ward":"ward",
+    "changeWard":"选择ward",
+    "chanegArea":"选择行政区",
+    "changeCity":"选择城市",
+    "detailAddress":"请填写详细的地址…",
+    "normalAddress":"设为默认地址",
+    "save":"保存",
+    "cancel":"取消",
+    "addressManager":"收货地址管理",
+    "addAddress":"添加收货地址"
+
   }
 }

@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import HistoryItem from '@/components/payHistoryItem';
 import Empty from '@/components/empty';
 import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
+import intl from 'react-intl-universal';
+
 import styles from './index.less';
 
 class PayHistory extends PureComponent {
@@ -159,7 +161,7 @@ class PayHistory extends PureComponent {
             onEndReached={this.loadPageList} // 上啦加载
             renderFooter={() => (
               <div style={{ padding: 10, textAlign: 'center' }}>
-                {isLoading ? 'Loading...' : '已经到底了！'}
+                {isLoading ? 'Loading...' : intl.get('list.isEnd')}
               </div>
             )}
           />

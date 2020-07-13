@@ -5,6 +5,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PaymentItem from '@/components/paymentitem';
 import Empty from '@/components/empty';
+import intl from 'react-intl-universal';
+
 import { PullToRefresh, ListView } from 'antd-mobile';
 import styles from './index.less';
 
@@ -143,7 +145,7 @@ class DetailList extends PureComponent {
             onEndReached={this.loadPageList} // 上啦加载
             renderFooter={() => (
               <div style={{ padding: 10, textAlign: 'center' }}>
-                {isLoading ? 'Loading...' : '已经到底了！'}
+                {isLoading ? 'Loading...' : intl.get('list.isEnd')}
               </div>
             )}
           />

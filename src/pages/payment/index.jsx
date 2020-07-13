@@ -14,14 +14,7 @@ class Payment extends PureComponent {
     this.state = {
       lang: queryString.parse(window.location.search).lang,
       payValue: null,
-<<<<<<< HEAD
-      payType: 1,
-      payData: [{ value: 100 }, { value: 200 }, { value: 300 }],
-      payData2: [{ value: 400 }, { value: 500 }, { value: 600 }],
-      payData3: [{ value: 700 }, { value: 800 }, { value: 900 }],
-=======
       payType: '0',
->>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
     };
   }
 
@@ -41,17 +34,11 @@ class Payment extends PureComponent {
       payValue: value,
     });
   };
-<<<<<<< HEAD
-=======
-
->>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
   onChangePay = type => {
     this.setState({
       payType: type,
     });
   };
-<<<<<<< HEAD
-=======
 
   handlePay = () => {
     const { pay } = this.props;
@@ -77,7 +64,6 @@ class Payment extends PureComponent {
       },
     ]);
   };
->>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
   render() {
     const { payValue, payType } = this.state;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
@@ -95,13 +81,8 @@ class Payment extends PureComponent {
         <div style={{ backgroundColor: '#ffffff' }}>
           <div className={styles.topGo}>请选择GO币充值数量</div>
           <div className={styles.radioRows}>
-<<<<<<< HEAD
-            {payData.map(i => (
-              <Radio
-=======
             {topUpList.map(i => (
               <div
->>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
                 className={`${styles.radioItem} ${
                   payValue && payValue.id === i.id ? `${styles.radioItemS}` : null
                 }`}

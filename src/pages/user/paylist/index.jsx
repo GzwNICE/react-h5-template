@@ -9,6 +9,8 @@ import ic_income_coin from '@/assets/images/ic_income_coin.png';
 import queryString from 'query-string';
 import OutList from '@/pages/user/paylist/outList';
 import InList from '@/pages/user/paylist/inList';
+import intl from 'react-intl-universal';
+
 import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
@@ -42,10 +44,12 @@ class PayList extends PureComponent {
   }
 
   render() {
-    const tabs = [{ title: '支出明细' }, { title: '收入明细' }];
+    const tabs = [
+      { title: intl.get('payment.str_gocoin_spending_detail') },
+      { title: intl.get('payment.str_gocoin_income_detail') },
+    ];
     const { user, money } = this.props;
     const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
-    const { tabIndex } = this.state;
     return (
       <div className={styles.payListPage}>
         <NavBar
@@ -53,27 +57,39 @@ class PayList extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           icon={<Icon type="left" />}
           onLeftClick={() => this.props.history.push('/user')}
-          rightContent={<div onClick={this.onHistoryClick.bind(this)}>充值流水</div>}
+          rightContent={
+            <div onClick={this.onHistoryClick.bind(this)}>
+              {intl.get('payment.gocoin_pay_history')}
+            </div>
+          }
         />
         <div className={styles.infoBox}>
           <div className={styles.pure_top}></div>
           <div className={styles.coinInfo}>
             <div className={styles.mycoin}>
               <img className={styles.bg} src={bg_label_vip}></img>
-              <div className={styles.font}>我的{moneyVirtualCn}</div>
+              <div className={styles.font}>
+                {intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}
+              </div>
             </div>
-            <div className={styles.useCoinTitle}>当前可用{moneyVirtualCn}</div>
+            <div className={styles.useCoinTitle}>
+              {intl.get('user.myCanUseCoin', { moneyVirtualCn: moneyVirtualCn })}
+            </div>
             <div className={styles.useCoin}>{user.goMoney}</div>
             <img className={styles.bgStar} src={ic_income_coin}></img>
             <div className={styles.goPrepaid} onClick={this.onPayClick.bind(this)}>
-              去充值
+              {intl.get('payment.str_inpay')}
             </div>
             <div className={styles.coinStatus}>
               {money.inviterRewardGoMoney != 0 ? (
-                <div className={styles.totalCoin}>赠币总量：{money.inviterRewardGoMoney}</div>
+                <div className={styles.totalCoin}>
+                  {intl.get('payment.str_buy_total', { num: money.inviterRewardGoMoney })}
+                </div>
               ) : null}
               {money.expiringSoonGoMoney != 0 ? (
-                <div className={styles.overdueCoin}>1天后过期：{money.expiringSoonGoMoney}</div>
+                <div className={styles.overdueCoin}>
+                  {intl.get('payment.str_one_day_overdue', { num: money.expiringSoonGoMoney })}
+                </div>
               ) : null}
             </div>
           </div>

@@ -7,13 +7,12 @@ import copy from 'copy-to-clipboard';
 import { Toast } from 'antd-mobile';
 // import queryString from 'query-string';
 import moment from 'moment';
-<<<<<<< HEAD
+import queryString from 'query-string';
+
 import { Link } from 'react-router-dom';
 import styles from './index.less';
-=======
-import styles from './index.less';
-// import { Link } from 'react-router-dom';
->>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
+
+const { lang } = queryString.parse(window.location.search);
 
 // const { lang } = queryString.parse(window.location.search);
 
@@ -86,7 +85,6 @@ class Win extends PureComponent {
                 <div className={styles.apply}>{intl.get('order.str_show_applying')}</div>
               ) : null}
               {data.status === 'WIN' ? (
-<<<<<<< HEAD
                 <Link
                   to={{
                     pathname: `/product/${data.activityTurnId}`,
@@ -97,11 +95,6 @@ class Win extends PureComponent {
                     {intl.get('order.str_go_confirm')}
                   </div>
                 </Link>
-=======
-                <div className={styles.btn} onClick={() => this.onDetailClick(data.activityTurnId)}>
-                  去确认
-                </div>
->>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
               ) : null}
             </div>
           </div>
@@ -160,11 +153,7 @@ class Win extends PureComponent {
                 className={styles.detail}
                 onClick={this.onDetailDialogClick.bind(this, data.status, data.orderId)}
               >
-<<<<<<< HEAD
                 {intl.get('order.str_winget_detail')}
-=======
-                兑换详情
->>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
               </div>
             ) : null}
           </div>
@@ -176,10 +165,6 @@ class Win extends PureComponent {
       </div>
     );
   }
-<<<<<<< HEAD
-  onDetailClick(data) {
-    this.props.history.push(`/product/${data.activityTurnId}?lang=${lang}`);
-=======
   onDetailClick = id => {
     const { getRules, getAwardInfo } = this.props;
     getRules({
@@ -197,7 +182,6 @@ class Win extends PureComponent {
         }
       }
     });
->>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
   }
 
   onCopyClick(copyContent) {

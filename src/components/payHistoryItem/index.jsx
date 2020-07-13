@@ -25,14 +25,16 @@ class HistoryItem extends PureComponent {
     return (
       <div className={styles.box}>
         <div className={styles.orderIdBox}>
-          <div className={styles.orderId}>订单ID：{data.orderNumber}</div>
+          <div className={styles.orderId}>
+            {intl.get('order.str_winning_orderid')} {data.orderNumber}
+          </div>
           <div className={styles.createTime}>
             {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
           </div>
         </div>
         <div className={styles.orderBox}>
           <div className={styles.orderType}>
-            兑换 {data.goMoneyTotal} {moneyVirtualCn}
+            {intl.get('payment.str_change_gocoin')} {data.goMoneyTotal} {moneyVirtualCn}
           </div>
           <div style={data.status == 1 ? { color: '#ff5209' } : { color: '#333333' }}>
             {content}
@@ -40,12 +42,13 @@ class HistoryItem extends PureComponent {
         </div>
         {data.payMoneyTotal ? (
           <div className={styles.payAmount}>
-            支付：{data.payMoneyTotal} {moneySymbol}
+            {intl.get('payment.str_coin_rechargeMoney')} {data.payMoneyTotal} {moneySymbol}
           </div>
         ) : null}
         {data.serviceFee ? (
           <div className={styles.givenAmount}>
-            含服务费：{data.serviceFee} {moneySymbol}
+            {intl.get('payment.str_server_money')}
+            {data.serviceFee} {moneySymbol}
           </div>
         ) : null}
       </div>

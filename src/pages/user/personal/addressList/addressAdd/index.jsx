@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { Picker, List, NavBar, Button, WhiteSpace, TextareaItem, Switch, Toast } from 'antd-mobile';
 import cityJson from '@/assets/lang/vi-VN.min.json';
 import { createForm } from 'rc-form';
+import intl from 'react-intl-universal';
 
 import styles from './index.less';
 
@@ -44,17 +45,17 @@ class AddressAdd extends PureComponent {
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.userName) {
-        return Toast.info('请输入名称', 2);
+        return Toast.info(intl.get('address.inputName'), 2);
       } else if (!value.mobile) {
-        return Toast.info('请输入手机号', 2);
+        return Toast.info(intl.get('address.pleaseInputMobile'), 2);
       } else if (!this.state.cityValue) {
-        return Toast.info('请选择城市', 2);
+        return Toast.info(intl.get('address.pleaseInputCity'), 2);
       } else if (!this.state.areaValue) {
-        return Toast.info('请选择行政区', 2);
+        return Toast.info(intl.get('address.pleaseInputArea'), 2);
       } else if (!this.state.wardValue) {
-        return Toast.info('请选择ward', 2);
+        return Toast.info(intl.get('address.pleaseInputWard'), 2);
       } else if (!value.detailAddress) {
-        return Toast.info('请输入详细地址', 2);
+        return Toast.info(intl.get('address.pleaseDetailAddress'), 2);
       } else {
         saveAddress({
           city: this.state.cityValue[0],
@@ -115,73 +116,63 @@ class AddressAdd extends PureComponent {
       <div className={styles.box}>
         <NavBar
           mode="dark"
-          leftContent="取消"
+          leftContent={intl.get('address.cancel')}
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => {
             this.props.history.go(-1);
           }}
         >
-          收货地址
+          {intl.get('address.address')}
         </NavBar>
         <WhiteSpace size="md" />
         <div className={styles.itemBox}>
-          <div className={styles.title}>收货人</div>
+          <div className={styles.title}>{intl.get('address.addressName')}</div>
           <input
             className={styles.content}
             {...getFieldProps('userName', {
               initialValue: `${userName ? userName : ''}`,
             })}
-            placeholder="请填写收货人名称"
+            placeholder={intl.get('address.pleaseInputAddressName')}
           ></input>
         </div>
         <WhiteSpace size="md" />
 
         <div className={styles.itemBox}>
           <div className={styles.title}>
-            联系方式 <div className={styles.areaCode}>{`+${lang === 'zh' ? '86' : '84'}`}</div>
+            {intl.get('address.inputMobile')}
+            <div className={styles.areaCode}>{`+${lang === 'zh' ? '86' : '84'}`}</div>
           </div>
           <input
             className={styles.content}
             {...getFieldProps('mobile', {
               initialValue: `${mobile ? mobile : ''}`,
             })}
-            placeholder="请填写联系方式"
+            placeholder={intl.get('address.pleaseInputMobile')}
           />
         </div>
         <WhiteSpace size="md" />
         <Picker
           data={this.state.cityColumns}
-<<<<<<< HEAD
-            value={cityValue}
-            cols={1}
-            extra={<div className={styles.change}>选择城市</div>}
-            onChange={this.onChangeCity}
-          >
-            <List.Item arrow="horizontal"><div className={styles.title}>城市</div></List.Item>
-          </Picker>
-          <WhiteSpace size="md" />
-=======
           value={cityValue}
           cols={1}
-          extra={<div className={styles.change}>选择城市</div>}
+          extra={<div className={styles.change}>{intl.get('address.changeCity')}</div>}
           onChange={this.onChangeCity}
         >
           <List.Item arrow="horizontal">
-            <div className={styles.title}>城市</div>
+            <div className={styles.title}>{intl.get('address.city')}</div>
           </List.Item>
         </Picker>
         <WhiteSpace size="md" />
->>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
 
         <Picker
           data={this.state.areaColumns}
           value={areaValue}
           cols={1}
-          extra={<div className={styles.change}>选择行政区</div>}
+          extra={<div className={styles.change}>{intl.get('address.changeArea')}</div>}
           onChange={this.onChangeArea}
         >
           <List.Item arrow="horizontal">
-            <div className={styles.title}>行政区</div>
+            <div className={styles.title}>{intl.get('address.area')}</div>
           </List.Item>
         </Picker>
         <WhiteSpace size="md" />
@@ -190,23 +181,23 @@ class AddressAdd extends PureComponent {
           data={this.state.wardColumns}
           value={wardValue}
           cols={1}
-          extra={<div className={styles.change}>选择ward</div>}
+          extra={<div className={styles.change}>{intl.get('address.changeWard')}</div>}
           onChange={this.onChangeWard}
         >
           <List.Item arrow="horizontal">
-            <div className={styles.title}>ward</div>
+            <div className={styles.title}>{intl.get('address.ward')}</div>
           </List.Item>
         </Picker>
         <WhiteSpace size="md" />
         <div style={{ backgroundColor: '#fff' }}>
           <div style={{ color: '#333', fontSize: '14px', marginLeft: '15px', paddingTop: '10px' }}>
-            收货地址
+            {intl.get('address.address')}
           </div>
           <TextareaItem
             {...getFieldProps('detailAddress', {
               initialValue: `${detailAddress ? detailAddress : ''}`,
             })}
-            placeholder="请填写详细的地址…"
+            placeholder={intl.get('address.detailAddress')}
             rows={4}
           />
         </div>
@@ -225,11 +216,11 @@ class AddressAdd extends PureComponent {
             />
           }
         >
-          <div style={{ color: '#333', fontSize: '14px' }}>设为默认地址</div>
+          <div style={{ color: '#333', fontSize: '14px' }}>{intl.get('address.normalAddress')}</div>
         </List.Item>
         <div className={styles.addAddress}>
           <Button className={styles.submit} onClick={this.onSaveClick.bind(this)}>
-            保存
+            {intl.get('address.save')}
           </Button>
         </div>
       </div>

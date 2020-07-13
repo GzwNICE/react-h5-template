@@ -49,7 +49,6 @@ class WaitOpen extends PureComponent {
         <div className={styles.line}></div>
 
         <div className={styles.buyInfo}>
-<<<<<<< HEAD
           <div className={styles.buyCount}>
             {intl.get('order.str_has_buy', { num: data.luckCodeCount })}
           </div>
@@ -58,11 +57,6 @@ class WaitOpen extends PureComponent {
             onClick={this.onCodeClick.bind(this, data.activityTurnId)}
           >
             {intl.get('order.str_search_my_code')}
-=======
-          <div className={styles.buyCount}>已购买：{data.luckCodeCount}人次</div>
-          <div className={styles.buyCode} onClick={this.onCodeClick}>
-            查看我的抽奖号码
->>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
           </div>
         </div>
       </div>

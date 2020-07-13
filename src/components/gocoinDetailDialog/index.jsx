@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import intl from 'react-intl-universal';
 
 // import intl from 'react-intl-universal';
 import { Button, Modal } from 'antd-mobile';

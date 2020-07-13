@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { InputItem } from 'antd-mobile';
+import intl from 'react-intl-universal';
+
 import styles from './index.less';
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
@@ -48,12 +50,12 @@ class Personal extends PureComponent {
       <div className={styles.contentBox}>
         <div className={styles.titleBox}>
           <div className={styles.cancel} onClick={() => this.props.history.go(-1)}>
-            取消
+            {intl.get('address.cancel')}
           </div>
           <div className={styles.title}>{title}</div>
 
           <div className={styles.save} onClick={this.onSaveClick.bind(this)}>
-            保存
+            {intl.get('address.save')}
           </div>
         </div>
         <InputItem

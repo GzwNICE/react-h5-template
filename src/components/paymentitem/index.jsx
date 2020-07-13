@@ -32,7 +32,12 @@ class PaymentItem extends PureComponent {
     }
     return (
       <div className={styles.box}>
-        {data.tradeNumber ? <div className={styles.orderId}>订单ID：{data.tradeNumber}</div> : null}
+        {data.tradeNumber ? (
+          <div className={styles.orderId}>
+            {intl.get('order.str_winning_orderid')}
+            {data.tradeNumber}
+          </div>
+        ) : null}
         <div className={styles.orderBox}>
           <div className={styles.orderType}>{content}</div>
           <div className={styles.orderAmount}>
@@ -41,17 +46,28 @@ class PaymentItem extends PureComponent {
         </div>
         <div className={styles.payBox}>
           {data.rechargeMoney ? (
-            <div className={styles.payAmount}>支付：{data.rechargeMoney} đ</div>
+            <div className={styles.payAmount}>
+              {' '}
+              {intl.get('payment.str_coin_rechargeMoney')}
+              {data.rechargeMoney} đ
+            </div>
           ) : null}
           {data.giveAwayMoney ? (
-            <div className={styles.givenAmount}>(含赠送{data.giveAwayMoney}GO币)</div>
+            <div className={styles.givenAmount}>
+              ({intl.get('payment.str_coin_giveAwayMoney')}
+              {data.giveAwayMoney}
+              {moneyVirtualCn})
+            </div>
           ) : null}
         </div>
         <div className={styles.timeBox}>
           <div className={styles.createTime}>
             {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
           </div>
-          <div className={styles.balance}>余额：{data.goMoney}</div>
+          <div className={styles.balance}>
+            ({intl.get('payment.str_coin_rest')}
+            {data.goMoney}
+          </div>
         </div>
       </div>
     );

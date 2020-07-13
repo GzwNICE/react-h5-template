@@ -6,6 +6,7 @@ import Win from '@/components/win';
 import NoWin from '@/components/nowin';
 import Empty from '@/components/empty';
 import queryString from 'query-string';
+import intl from 'react-intl-universal';
 
 import GoCoinDetailDialog from '@/components/gocoinDetailDialog';
 import CashDetailDialog from '@/components/productDetailDialog';
@@ -205,7 +206,7 @@ class OrderList extends PureComponent {
             onEndReached={this.loadPageList} // 上啦加载
             renderFooter={() => (
               <div style={{ padding: 10, textAlign: 'center' }}>
-                {isLoading ? 'Loading...' : '已经到底了！'}
+                {isLoading ? 'Loading...' : intl.get('list.isEnd')}
               </div>
             )}
           />
