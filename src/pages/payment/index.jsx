@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-import queryString from 'query-string';
+// import queryString from 'query-string';
+import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
 import { NavBar, Icon, Button, Radio, Badge, Modal, Toast } from 'antd-mobile';
 import momo from '@/assets/images/momo.png';
@@ -12,7 +13,7 @@ class Payment extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      lang: queryString.parse(window.location.search).lang,
+      // lang: queryString.parse(window.location.search).lang,
       payValue: null,
       payType: '0',
     };
@@ -54,10 +55,10 @@ class Payment extends PureComponent {
   };
 
   onLeftClick = () => {
-    alert(' ', '充值即将成功，你确定放弃赚钱的机会吗？', [
-      { text: '取消' },
+    alert(' ', `${intl.get('payment.areYouSure')}`, [
+      { text: `${intl.get('password.cancel')}` },
       {
-        text: '继续',
+        text: `${intl.get('payment.carryOon')}`,
         onPress: () => {
           this.props.history.go(-1);
         },
@@ -76,10 +77,10 @@ class Payment extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={this.onLeftClick}
         >
-          充值
+          {intl.get('payment.topUp')}
         </NavBar>
         <div style={{ backgroundColor: '#ffffff' }}>
-          <div className={styles.topGo}>请选择GO币充值数量</div>
+          <div className={styles.topGo}>{intl.get('payment.selectAmount')}</div>
           <div className={styles.radioRows}>
             {topUpList.map(i => (
               <div
@@ -96,22 +97,26 @@ class Payment extends PureComponent {
                   {i.goMoney}
                 </Radio>
                 {i.goMoneyGive ? (
-                  <Badge text={`送${i.goMoneyGive}`} hot className={styles.badge} />
+                  <Badge
+                    text={`${intl.get('payment.give')}${i.goMoneyGive}`}
+                    hot
+                    className={styles.badge}
+                  />
                 ) : null}
               </div>
             ))}
           </div>
           <div className={styles.itemP}>
-            <div className={styles.title}>需支付</div>
+            <div className={styles.title}>{intl.get('payment.needToPay')}</div>
             <div className={styles.amount}>{`${payValue && payValue.fbPayTotal} ${
               config.moneySymbol
             }`}</div>
           </div>
-          <div className={styles.serverAmount}>{`含银行服务费：${payValue && payValue.serviceFee} ${
-            config.moneySymbol
-          }`}</div>
+          <div className={styles.serverAmount}>{`${intl.get(
+            'payment.includingService'
+          )}：${payValue && payValue.serviceFee} ${config.moneySymbol}`}</div>
         </div>
-        <div className={styles.payTypeTitle}>支付方式</div>
+        <div className={styles.payTypeTitle}>{intl.get('payment.paymentMethod')}</div>
         <div className={styles.payType} onClick={() => this.onChangePay('0')}>
           <img src={funpay} className={styles.funpayImg}></img>
           <div className={styles.name}>FunPay</div>
@@ -126,16 +131,16 @@ class Payment extends PureComponent {
             className={`${styles.radio} ${payType === '1' ? `${styles.radioSleet}` : null}`}
           ></span>
         </div>
-        <div className={styles.payTypeTitle}>用户须知</div>
+        <div className={styles.payTypeTitle}>{intl.get('payment.userNotice')}</div>
         <div style={{ backgroundColor: '#fff' }}>
           <div className={styles.content}>
-            1. GO币与法币为固定兑换比例，GO币仅能用于参与商品活动；
-            <br /> 2. 购买的GO币不可挂失、不可转让、不可售卖，请妥善保管好您的账号；
-            <br /> 3. 用户进行充值时需要支付一定的银行服务费。
+            {intl.get('payment.not1')}
+            <br /> {intl.get('payment.not2')}
+            <br /> {intl.get('payment.not3')}
           </div>
         </div>
         <Button className={styles.submit} onClick={this.handlePay}>
-          立即充值
+          {intl.get('payment.topUpNow')}
         </Button>
       </div>
     );

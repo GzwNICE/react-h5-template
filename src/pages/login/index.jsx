@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import md5 from 'md5';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import { NavBar, Icon, InputItem, Button, Toast } from 'antd-mobile';
 import { Link } from 'react-router-dom';
 import { createForm } from 'rc-form';
@@ -43,9 +43,9 @@ class Login extends PureComponent {
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.mobile) {
-        return Toast.info('请输入手机号', 2);
+        return Toast.info(`${intl.get('login.ph1')}`, 2);
       } else if (!Reg.test(value.mobile)) {
-        return Toast.info('请输入正确的手机号', 2);
+        return Toast.info(`${intl.get('login.ph3')}`, 2);
       } else {
         this.setState({
           mobile: value.mobile,
@@ -75,7 +75,7 @@ class Login extends PureComponent {
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.password) {
-        return Toast.info('请输入登录密码', 2);
+        return Toast.info(`${intl.get('login.ph2')}`, 2);
       } else {
         login({
           mobile: this.state.mobile,
@@ -84,7 +84,7 @@ class Login extends PureComponent {
           countryCode: this.state.lang === 'zh' ? '86' : '84',
         }).then(res => {
           if (res.code === 200) {
-            Toast.success('登录成功', 2);
+            Toast.success(`${intl.get('login.success')}`, 2);
             localStorage.setItem('token', `Bearer ${res.data.token}`);
             localStorage.setItem('refreshToken', res.data.refreshToken);
             setTimeout(() => {
@@ -123,13 +123,13 @@ class Login extends PureComponent {
         <img src={loginBg} alt="" className={styles.banner} />
         {!login ? (
           <div className={styles.loginBox}>
-            <span className={styles.title}>注册/登录</span>
+            <span className={styles.title}>{intl.get('login.loginReg')}</span>
             <div className={styles.mobileBox}>
               <span className={styles.area}>{`+${lang === 'zh' ? '86' : '84'}`}</span>
               <InputItem
                 {...getFieldProps('mobile')}
                 clear
-                placeholder="请输入手机号"
+                placeholder={intl.get('login.ph1')}
                 className={styles.mobile}
                 ref={el => (this.mobileInput = el)}
                 onClick={() => {
@@ -137,20 +137,20 @@ class Login extends PureComponent {
                 }}
               ></InputItem>
             </div>
-            <span className={styles.tips}>* 未注册的手机号验证后将自动创建账号</span>
+            <span className={styles.tips}>{intl.get('login.tips')}</span>
             <Button type="primary" onClick={this.handleNextClick} className={styles.nextBut}>
-              下一步
+              {intl.get('login.next')}
             </Button>
           </div>
         ) : (
           <div className={styles.loginBox}>
-            <span className={styles.title}>欢迎回来</span>
+            <span className={styles.title}>{intl.get('login.welcomeBack')}</span>
             <div className={styles.loginMobile}>{`+${lang === 'zh' ? '86' : '84'} ${mobile}`}</div>
             <div className={`${styles.mobileBox} ${styles.passBox}`}>
               <InputItem
                 {...getFieldProps('password')}
                 clear
-                placeholder="请输入登录密码"
+                placeholder={intl.get('login.ph2')}
                 type={pwVisible ? 'text' : 'password'}
                 className={styles.password}
                 ref={el => (this.pawInput = el)}
@@ -166,7 +166,7 @@ class Login extends PureComponent {
               />
             </div>
             <Button type="primary" className={styles.nextBut} onClick={this.handleLoginClick}>
-              登录
+              {intl.get('login.login')}
             </Button>
             <Link
               to={{
@@ -176,7 +176,7 @@ class Login extends PureComponent {
               }}
               className={styles.forgetPassword}
             >
-              忘记密码？
+              {intl.get('login.fegPaw')}
             </Link>
           </div>
         )}

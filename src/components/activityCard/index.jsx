@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import { Progress } from 'antd-mobile';
 import { Link } from 'react-router-dom';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 import hotImg from '@/assets/images/label_hot.png';
 import styles from './index.less';
 
-const { lang } = queryString.parse(window.location.search);
+// const { lang } = queryString.parse(window.location.search);
 class ActivityCard extends PureComponent {
   render() {
     const { data } = this.props;
@@ -35,9 +35,13 @@ class ActivityCard extends PureComponent {
                 }}
                 barStyle={{ backgroundColor: 'rgb(255,82,9)', border: 'none' }}
               />
-              <span className={styles.remaining}>{`剩余${data.remainingCount}人次`}</span>
+              <span className={styles.remaining}>{`${intl.get('home.remaining')}${
+                data.remainingCount
+              }${intl.get('home.personTime')}`}</span>
             </div>
-            <div className={styles.oddsOfWinning}>{`多买10次可提升${data.addWinRate}%中奖率`}</div>
+            <div className={styles.oddsOfWinning}>{`${intl.get('home.BuyMore')}${
+              data.addWinRate
+            }%${intl.get('home.oddsWinning')}`}</div>
           </div>
         </Link>
       </div>
