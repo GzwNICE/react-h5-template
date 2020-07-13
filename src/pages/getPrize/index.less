@@ -207,6 +207,14 @@
           line-height: 20px;
           margin-left: 8px;
         }
+        .selKey {
+          margin-left: 0px;
+        }
+        .selValue {
+          font-size: .14rem;
+          color: #333;
+          padding-left: 15px;
+        }
         div {
           flex: 1;
           box-sizing: border-box;
@@ -214,10 +222,13 @@
         .select {
           background: #ffffff;
           color: #fff;
+          padding-left: 8px;
+          width: 100%;
           :global(.am-list-extra) {
             text-align: left;
             font-size: 14px;
             color: #333333;
+            flex: 1;
           }
         }
       }
@@ -241,12 +252,16 @@
       }
       :global(.am-list-line) {
         padding-right: 0;
+        flex: 1;
       }
       :global(.am-textarea-clear) {
         margin-top: 0;
         width: 18px;
         height: 18px;
         background-size: 18px auto;
+      }
+      :global(.am-list-content) {
+        flex: initial !important;
       }
     }
     .submit {

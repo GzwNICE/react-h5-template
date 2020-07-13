@@ -2,7 +2,7 @@
 // 首页
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import { Carousel, Grid, Tabs, Toast } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
 import Cookies from 'js-cookie';
@@ -11,7 +11,7 @@ import LatestList from '@/pages/latestList';
 import OpenList from '@/pages/willEndList';
 import ValueList from '@/pages/sortValueList';
 import TabBarBox from '@/components/tabBar';
-import sorting from '@/assets/images/sorting.png';
+// import sorting from '@/assets/images/sorting.png';
 import styles from './index.less';
 
 function renderTabBar(props) {
@@ -61,7 +61,12 @@ class Home extends PureComponent {
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
     const classData = home.classData;
-    const tabs = [{ title: '人气' }, { title: '最新' }, { title: '将止' }, { title: '价值' }];
+    const tabs = [
+      { title: `${intl.get('home.popularity')}` },
+      { title: `${intl.get('home.upToDate')}` },
+      { title: `${intl.get('home.willEnd')}` },
+      { title: `${intl.get('home.worth')}` },
+    ];
     return (
       <div className={styles.home}>
         {winnerList.length > 0 ? ( //中奖信息

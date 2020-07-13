@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import { NavBar, Icon, Result, Button } from 'antd-mobile';
 // import { createForm } from 'rc-form';
 import { numFormat } from '@/utils/util';
@@ -54,7 +54,9 @@ class PayResult extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={this.goBack}
         >
-          {type === '0' ? `支付成功` : `支付异常`}
+          {type === '0'
+            ? `${intl.get('payment.paymentSuccessful')}`
+            : `${intl.get('payment.abnormalPayment')}`}
         </NavBar>
         <div className={styles.resultContent}>
           <Result
@@ -65,39 +67,39 @@ class PayResult extends PureComponent {
                 alt=""
               />
             }
-            title={type === '0' ? `支付成功！` : `支付服务异常！`}
+            title={
+              type === '0'
+                ? `${intl.get('payment.paymentSuccessful')}`
+                : `${intl.get('payment.abnormalPayment')}`
+            }
             message={
               <div>
                 {type === '0' ? (
-                  <p
-                    className={styles.monH2}
-                  >{`已经成功兑换 ${data.goMoneyTotal} ${moneyVirtualCn}`}</p>
+                  <p className={styles.monH2}>{`${intl.get('payment.hasSuccessfully')} ${
+                    data.goMoneyTotal
+                  } ${moneyVirtualCn}`}</p>
                 ) : (
-                  <p className={styles.monH2}>
-                    若您的银行卡已扣款，可在 我的-我的GO币 页面查询GO币是否充值成功
-                  </p>
+                  <p className={styles.monH2}>{intl.get('payment.tips1')}</p>
                 )}
               </div>
             }
           />
           {type === '0' ? (
             <div className={styles.successBox}>
-              <p className={styles.monTips}>{`支付金额： ${numFormat(
+              <p className={styles.monTips}>{`${intl.get('payment.paymentAmount')}： ${numFormat(
                 data.amount
               )} ${moneySymbol}`}</p>
-              <p className={styles.monTips}>{`支付时间：${time}`}</p>
+              <p className={styles.monTips}>{`${intl.get('payment.paymentTime')}：${time}`}</p>
               <div className={styles.tipBox}>
                 <img src={resultTips} alt="" className={styles.tipImg} />
-                <span className={styles.tipText}>
-                  GO币会在5分钟之内到账，请耐心等待，如有疑问可咨询客服。
-                </span>
+                <span className={styles.tipText}>{intl.get('payment.tips2')}</span>
               </div>
             </div>
           ) : (
-            <p className={styles.virTips2}>{`时间：${time}`}</p>
+            <p className={styles.virTips2}>{`${intl.get('payment.time')}：${time}`}</p>
           )}
           <Button type="primary" className={styles.backButton} onClick={this.goBack}>
-            {type === '0' ? '返回' : '重新支付'}
+            {type === '0' ? `${intl.get('payment.back')}` : `${intl.get('payment.againPay')}`}
           </Button>
         </div>
       </div>

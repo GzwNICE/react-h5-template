@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
 import { NavBar, Carousel, Progress, NoticeBar, Button, Toast } from 'antd-mobile';
 import { Link } from 'react-router-dom';
@@ -36,7 +36,7 @@ class ProductDetail extends PureComponent {
       visibleReceive: false,
       buyShow: false, //购买弹窗
       status: null, //活动状态
-      luckyCode: true, //查看抽奖码
+      // luckyCode: true, //查看抽奖码
       countdown: false, //倒计时
       openH: '00',
       openM: '00',
@@ -92,7 +92,7 @@ class ProductDetail extends PureComponent {
             { value: 20, label: 20 },
             { value: 50, label: 50 },
             { value: 80, label: 80 },
-            { value: res.data.remainingCount, label: '包尾' },
+            { value: res.data.remainingCount, label: `${intl.get('product.baoWei')}` },
           ],
           proportionData: [
             { value: Math.floor(res.data.participateNum * 0.1), label: '10%' },
@@ -179,7 +179,7 @@ class ProductDetail extends PureComponent {
   visibleBuy = type => {
     const token = localStorage.getItem('token');
     if (!token) {
-      Toast.info('请先登录！', 2);
+      Toast.info(`${intl.get('product.pleaseLogin')}`, 2);
       setTimeout(() => {
         this.props.history.push(`/login`);
       }, 2000);
@@ -241,7 +241,7 @@ class ProductDetail extends PureComponent {
       buyShow,
       visibleReceive,
       status,
-      luckyCode,
+      // luckyCode,
       countdown,
       personData,
       proportionData,
@@ -282,7 +282,9 @@ class ProductDetail extends PureComponent {
         </div>
         {status === 3 ? (
           <div className={styles.openTips} style={{ backgroundImage: `url(${priceOpen})` }}>
-            {`参与人次比例达到${detail.panicBuyRatio}%后自动开启限时夺宝`}
+            {`${intl.get('product.participant')}${detail.panicBuyRatio}%${intl.get(
+              'product.automatically'
+            )}`}
           </div>
         ) : null}
         {countdown ? (
@@ -290,7 +292,7 @@ class ProductDetail extends PureComponent {
             className={styles.openTips}
             style={{ backgroundImage: `url(${priceOpen})`, justifyContent: 'center' }}
           >
-            开奖倒计时
+            {intl.get('product.countdown')}
             <span className={styles.time}>{openH}</span>:
             <span className={styles.time}>{openM}</span>:
             <span className={styles.time}>{openS}</span>
@@ -299,10 +301,12 @@ class ProductDetail extends PureComponent {
         <div className={styles.priceBox} style={{ backgroundImage: `url(${priceBg})` }}>
           <span className={styles.price}>
             <span className={styles.pPrice}>{detail.participatePrice}</span>
-            <span>{moneyVirtualCn}</span> / <span>人次</span>
+            <span>{moneyVirtualCn}</span> / <span>{intl.get('home.personTime')}</span>
           </span>
           <div className={styles.remainBox}>
-            <span>{`剩余${detail.remainingCount}人次`}</span>
+            <span>{`${intl.get('home.remaining')}${detail.remainingCount}${intl.get(
+              'home.personTime'
+            )}`}</span>
             <Progress
               percent={detail.progressRate}
               position="normal"
@@ -317,10 +321,14 @@ class ProductDetail extends PureComponent {
         </div>
         <div className={styles.infoBox}>
           <div className={styles.titleBox}>
-            <span className={styles.round}>{`第${detail.currentTurn}轮`}</span>
+            <span className={styles.round}>
+              {intl.get('product.round', { currentTurn: detail.currentTurn })}
+            </span>
             {detail.activityName}
           </div>
-          <div className={styles.moreBuy}>{`多买10张奖券可提升 ${detail.addWinRate}% 中奖率`}</div>
+          <div className={styles.moreBuy}>{`${intl.get('home.BuyMore')} ${
+            detail.addWinRate
+          }% ${intl.get('home.oddsWinning')}`}</div>
           {(status === 8 || status === 9 || status === 10) && detail.partakeStatus === 'yes' ? (
             <div className={styles.msgBox}>
               {detail.ifWin === 'yes' ? (
@@ -328,12 +336,12 @@ class ProductDetail extends PureComponent {
                   icon={detail.orderStatus === 0 ? null : <img src={gift} alt="" width="14" />}
                 >
                   {detail.orderStatus === 0
-                    ? '兑换现金申请审核中,可在 我的 - 已中奖 中查看进度'
-                    : '好运当头，恭喜您中奖啦！'}
+                    ? `${intl.get('product.during')}`
+                    : `${intl.get('product.winning')}`}
                 </NoticeBar>
               ) : (
                 <NoticeBar icon={<img src={remind} alt="" width="14" />}>
-                  很遗憾，您未中奖！
+                  {intl.get('product.notWin')}
                 </NoticeBar>
               )}
             </div>
@@ -341,7 +349,7 @@ class ProductDetail extends PureComponent {
           {detail.partakeStatus === 'no' ? (
             <div className={styles.msgBox}>
               <NoticeBar icon={<img src={remind} alt="" width="14" />}>
-                {`如何用6000${moneySymbol}拿走这件商品。`}
+                {intl.get('product.takeProduct', { moneySymbol: moneySymbol })}
               </NoticeBar>
             </div>
           ) : null}
@@ -352,30 +360,32 @@ class ProductDetail extends PureComponent {
                 this.props.history.push(`/prize/${activityTurnId}`);
               }}
             >
-              立即领奖
+              {intl.get('product.prizeNow')}
             </div>
           ) : null}
           {detail.partakeStatus === 'yes' && detail.ifWin === 'no' ? (
             <div className={styles.viewLottery} onClick={this.viewLottery('visibleRaffle')}>
-              查看我的抽奖码
+              {intl.get('product.lotteryCode')}
             </div>
           ) : null}
           {(status === 7 || status === 2 || status === 3) &&
           status !== 9 &&
           detail.partakeStatus === 'yes' ? (
             <div className={styles.buyLottery}>
-              <span className={styles.buyTimes}>{`已购买：${detail.buyCount}次`}</span>
+              <span className={styles.buyTimes}>
+                {intl.get('product.bought', { buyCount: detail.buyCount })}
+              </span>
               <span className={styles.lottery} onClick={this.viewLottery('visibleRaffle')}>
-                查看我的抽奖码
+                {intl.get('product.lotteryCode')}
               </span>
             </div>
           ) : null}
           {detail.ifWin === 'yes' && (detail.orderStatus === 2 || detail.orderStatus === 3) ? (
             <div className={styles.buyFailure}>
               {detail.orderStatus === 2 ? (
-                <span className={styles.failure}>你已领取过奖品</span>
+                <span className={styles.failure}>{intl.get('product.received')}</span>
               ) : (
-                <span className={styles.failure}>抱歉，未在规定时间内领奖，奖品已失效</span>
+                <span className={styles.failure}>{intl.get('product.prizeWasReceived')}</span>
               )}
             </div>
           ) : null}
@@ -391,32 +401,36 @@ class ProductDetail extends PureComponent {
                   <img src={winning} alt="win" className={styles.winning} />
                 </div>
                 <ul className={styles.right}>
-                  <li>{`获奖者：${detail.winnerUserName}`}</li>
-                  <li>{`轮次：第${detail.currentTurn}轮`}</li>
-                  <li>{`本轮参与：${detail.winnerBuyCount}人次`}</li>
-                  <li>{`开奖时间：${format(detail.openTime, 'str')}`}</li>
+                  <li>{`${intl.get('product.awardWinner')}：${detail.winnerUserName}`}</li>
+                  <li>{intl.get('product.rounds', { currentTurn: detail.currentTurn })}</li>
+                  <li>{`${intl.get('product.participateRound')}：${detail.winnerBuyCount}${intl.get(
+                    'home.personTime'
+                  )}`}</li>
+                  <li>{`${intl.get('product.drawTime')}：${format(detail.openTime, 'str')}`}</li>
                 </ul>
               </div>
               <div className={styles.winNum}>
-                <span className={styles.num}>{`中奖号码 ${detail.winningNum}`}</span>
+                <span className={styles.num}>{`${intl.get('product.prizeNumber')} ${
+                  detail.winningNum
+                }`}</span>
                 <Link
                   to={{
                     pathname: `/rules/${activityTurnId}`,
                   }}
                   className={styles.rule}
                 >
-                  计算规则
+                  {intl.get('product.calculationRules')}
                 </Link>
               </div>
             </div>
           ) : null}
 
           <div className={styles.sweepstakes} onClick={this.viewLottery('visiblePartic')}>
-            查看本期抽奖人员
+            {intl.get('product.drawStaff')}
           </div>
         </div>
         <div className={styles.shopDetail}>
-          <h3 className={styles.h3tle}>商品详情</h3>
+          <h3 className={styles.h3tle}>{intl.get('product.productDetails')}</h3>
           <p className={styles.text}>{detail.content}</p>
           {detail.contentImgList
             ? detail.contentImgList.map(i => {
@@ -429,7 +443,7 @@ class ProductDetail extends PureComponent {
             className={`${styles.snapped} ${IPhoneX === 'true' ? `${styles.snappedIPhone}` : null}`}
             onClick={this.visibleBuy}
           >
-            立即抢购
+            {intl.get('product.snapNow')}
           </div>
         ) : null}
         <BuyGroup
@@ -443,10 +457,10 @@ class ProductDetail extends PureComponent {
         {status && (status === 1 || status === 10 || status === 9 || status === 7) ? (
           <div className={styles.newActBox}>
             {status === 9 ? (
-              <span className={styles.nextAct}>新一轮夺宝火热开启中…</span>
+              <span className={styles.nextAct}>{intl.get('product.newRound')}</span>
             ) : (
               <span className={styles.nextAct}>
-                新一轮活动倒计时
+                {intl.get('product.eventCountdown')}
                 <span className={styles.time}>{nextH}</span>:
                 <span className={styles.time}>{nextM}</span>:
                 <span className={styles.time}>{nextS}</span>
@@ -458,13 +472,13 @@ class ProductDetail extends PureComponent {
               disabled={status === 1}
               onClick={() => this.newActivity(detail.nextActivityTurnId)}
             >
-              {status === 1 ? `即将开始` : `立即前往`}
+              {status === 1 ? `${intl.get('product.aboutStart')}` : `${intl.get('product.goNow')}`}
             </Button>
           </div>
         ) : null}
         {status === 5 || status === 8 ? (
           <div className={styles.newActBox}>
-            <p>本商品活动已结束，期待下次再见吧</p>
+            <p>{intl.get('product.productEnded')}</p>
           </div>
         ) : null}
         <RaffleCode

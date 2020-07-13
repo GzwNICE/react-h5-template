@@ -3,8 +3,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-// import intl from 'react-intl-universal';
-import { NavBar, Icon, Result, Button, Toast, Modal } from 'antd-mobile';
+import intl from 'react-intl-universal';
+import { NavBar, Icon, Result, Button, Toast } from 'antd-mobile';
 // import { createForm } from 'rc-form';
 // import { getBaseUrl } from '@/utils/util';
 import copy from 'copy-to-clipboard';
@@ -22,9 +22,9 @@ class AwardResults extends PureComponent {
 
   handleCopy = value => {
     if (copy(value)) {
-      Toast.info('复制成功', 2);
+      Toast.info(`${intl.get('result.copySuccess')}`, 2);
     } else {
-      Toast.info('复制失败', 2);
+      Toast.info(`${intl.get('result.copyError')}`, 2);
     }
   };
 
@@ -44,23 +44,23 @@ class AwardResults extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={this.goBack}
         >
-          领取奖品
+          {intl.get('result.prizeCollection')}
         </NavBar>
         <div className={styles.resultContent}>
           <Result
             img={<img src={receiveSuccess} className={styles.successPic} alt="" />}
-            title="领取成功！"
+            title={intl.get('result.copySuccess')}
             message={
               <div>
                 {type === 'SUBSTANCE' ? (
                   <p className={styles.textTips}>
-                    工作人员会在1-5个工作日内与你联系 <br />
-                    感谢您的支持，祝您生活愉快！
+                    {intl.get('result.tpi1')} <br />
+                    {intl.get('result.tpi2')}
                   </p>
                 ) : type === 'COIN' ? (
-                  <p
-                    className={styles.monH2}
-                  >{`奖品 ${config.moneyVirtualCn} X ${prize.coinCount}`}</p>
+                  <p className={styles.monH2}>{`${intl.get('result.prize')} ${
+                    config.moneyVirtualCn
+                  } X ${prize.coinCount}`}</p>
                 ) : (
                   <p>{prize.productName}</p>
                 )}
@@ -69,8 +69,8 @@ class AwardResults extends PureComponent {
           />
           {type === 'COIN' ? (
             <div>
-              <p className={styles.monTips}>金币已发放到您的账户，可前往【个人中心】 中进行查看</p>
-              <p className={styles.monTips}>感谢您的支持，祝您生活愉快！</p>
+              <p className={styles.monTips}>{intl.get('result.tpi3')}</p>
+              <p className={styles.monTips}>{intl.get('result.tpi2')}</p>
             </div>
           ) : null}
           {type === 'VIRTUAL' ? (
@@ -78,27 +78,27 @@ class AwardResults extends PureComponent {
               <div className={styles.virBox}>
                 {prize.cardNum ? (
                   <p className={styles.li}>
-                    卡号：<span className={styles.num}>{prize.cardNum}</span>
+                    {intl.get('result.cardNumber')}：
+                    <span className={styles.num}>{prize.cardNum}</span>
                     <span className={styles.copy} onClick={() => this.handleCopy(prize.cardNum)}>
-                      复制
+                      {intl.get('result.copy')}
                     </span>
                   </p>
                 ) : null}
                 <p className={styles.li}>
-                  卡密：<span className={styles.num}>{prize.cardSecret}</span>
+                  {intl.get('result.camille')}：
+                  <span className={styles.num}>{prize.cardSecret}</span>
                   <span className={styles.copy} onClick={() => this.handleCopy(prize.cardSecret)}>
-                    复制
+                    {intl.get('result.copy')}
                   </span>
                 </p>
               </div>
-              <p className={styles.virTips}>
-                *卡密只允许充值到自己的手机号，若充值给其他用户造成的任何损失，平台概不负责。
-              </p>
-              <p className={styles.virTips2}>感谢您的支持，祝您生活愉快！</p>
+              <p className={styles.virTips}>{intl.get('result.tpi4')}</p>
+              <p className={styles.virTips2}>{intl.get('result.tpi2')}</p>
             </div>
           ) : null}
           <Button type="primary" className={styles.backButton} onClick={this.goBack}>
-            返回
+            {intl.get('payment.back')}
           </Button>
         </div>
       </div>

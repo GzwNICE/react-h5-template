@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import Cookies from 'js-cookie';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import { NavBar, Icon, InputItem, Button, Toast, Modal } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { getBaseUrl } from '@/utils/util';
@@ -22,7 +22,7 @@ class Register extends PureComponent {
       codeUrl: `${window.location.protocol}//${getBaseUrl()}/app/sms/img/code?t=`,
       codeImgUrl: '',
       index: 5,
-      sendCodeText: '发送验证码',
+      sendCodeText: `${intl.get('password.sendCode')}`,
       disableCode: false,
       lang: Cookies.get('lang'),
     };
@@ -54,7 +54,7 @@ class Register extends PureComponent {
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.picCode) {
-        return Toast.info('请输入图形验证码', 2);
+        return Toast.info(`${intl.get('password.ph1')}`, 2);
       } else {
         this.props
           .sendCode({
@@ -87,7 +87,7 @@ class Register extends PureComponent {
     this.setState({
       disableCode: false,
       index: 5,
-      sendCodeText: '重新发送',
+      sendCodeText: `${intl.get('password.sendAgin')}`,
     });
     clearInterval(this.timer);
   };
@@ -99,11 +99,11 @@ class Register extends PureComponent {
     this.props.form.validateFields((err, value) => {
       if (err) return;
       if (!value.smsCode) {
-        return Toast.info('请输入短信验证码', 2);
+        return Toast.info(`${intl.get('password.ph2')}`, 2);
       } else if (!value.pwd) {
-        return Toast.info('请输入登录密码', 2);
+        return Toast.info(`${intl.get('password.ph7')}`, 2);
       } else if (!Reg.test(value.pwd)) {
-        return Toast.info('密码只能为6-16位由数字和字母组成', 2);
+        return Toast.info(`${intl.get('password.ph4')}`, 2);
       } else {
         this.props
           .fetchRegister({
@@ -114,7 +114,7 @@ class Register extends PureComponent {
           })
           .then(res => {
             if (res.code === 200) {
-              Toast.success('注册成功', 2);
+              Toast.success(`${intl.get('password.regSuccess')}`, 2);
               localStorage.setItem('token', `Bearer ${res.data.token}`);
               localStorage.setItem('refreshToken', res.data.refreshToken);
               setTimeout(() => {
@@ -174,16 +174,16 @@ class Register extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          注册
+          {intl.get('password.reg')}
         </NavBar>
         <div className={styles.regBox}>
-          <span className={styles.title}>注册GAGA GO</span>
+          <span className={styles.title}>{intl.get('password.reg')}GAGA GO</span>
           <div className={styles.loginMobile}>{`+${lang === 'zh' ? '86' : '84'} ${mobile}`}</div>
           <div className={styles.codeBox}>
             <InputItem
               {...getFieldProps('smsCode')}
               clear
-              placeholder="请输入短信验证码"
+              placeholder={intl.get('password.ph2')}
               className={styles.code}
               maxLength={6}
               type="number"
@@ -205,7 +205,7 @@ class Register extends PureComponent {
             <InputItem
               {...getFieldProps('pwd')}
               clear
-              placeholder="请设置6-16位登录密码"
+              placeholder={intl.get('password.ph6')}
               type={pwVisible ? 'text' : 'password'}
               className={styles.password}
               ref={el => (this.passInput = el)}
@@ -221,17 +221,18 @@ class Register extends PureComponent {
             />
           </div>
           <Button type="primary" className={styles.nextBut} onClick={this.handleRegClick}>
-            注册
+            {intl.get('password.reg')}
           </Button>
           <p className={styles.regAg}>
-            注册即代表您同意<span onClick={this.handleAgreement}>《用户服务协议》</span>
+            {intl.get('password.signing')}
+            <span onClick={this.handleAgreement}>《{intl.get('password.servicesAgreement')}》</span>
           </p>
         </div>
         <Modal
           visible={codeModal}
           transparent
           maskClosable={false}
-          title="请输入图形验证码"
+          title={intl.get('password.ph1')}
           className={styles.codeModal}
           afterClose={this.afterCloseModal}
         >
@@ -239,7 +240,7 @@ class Register extends PureComponent {
             <InputItem
               {...getFieldProps('picCode')}
               clear
-              placeholder="请输入图形验证码"
+              placeholder={intl.get('password.ph1')}
               className={styles.codeInput}
               ref={el => (this.picCodeInput = el)}
               onClick={() => {
@@ -248,13 +249,13 @@ class Register extends PureComponent {
             />
             <img src={codeImgUrl} alt="" onClick={this.changeCodeImg} className={styles.codePic} />
           </div>
-          <p className={styles.change}>看不清？换一张</p>
+          <p className={styles.change}>{intl.get('password.changeOne')}</p>
           <div className={styles.footer}>
             <Button className={styles.cancel} onClick={this.onClose('codeModal')}>
-              取消
+              {intl.get('password.cancel')}
             </Button>
             <Button type="primary" className={styles.determine} onClick={this.sendCode}>
-              确定
+              {intl.get('password.determine')}
             </Button>
           </div>
         </Modal>

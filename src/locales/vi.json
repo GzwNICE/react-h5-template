@@ -35,6 +35,38 @@
     "friend_recharge_given": "好友充值赠送{moneyVirtualCn}"
   },
 
+  "login": {
+    "success": "Đăng nhập thành công",
+    "loginReg": "Đăng nhập / Đăng ký",
+    "ph1": "Số điện thoại",
+    "next": "Tiếp theo",
+    "ph3": "Vui lòng nhập số điện thoại",
+    "tips": "*Số tài khoản sẽ được tạo tự động sau khi số điện thoại di động đăng ký được xác minh.",
+    "welcomeBack": "Hoan nghênh bạn trở lại",
+    "ph2": "Điền mật khẩu",
+    "login": "Đăng nhập",
+    "fegPaw": "Quên mật khẩu？"
+  },
+  "password": {
+    "sendCode": "Gửi",
+    "ph1": "Vui lòng nhập Hình mã xác nhận",
+    "sendAgin": "Gửi",
+    "ph2": "Mã xác minh SMS",
+    "ph3": "Vui lòng nhập mật khẩu mới",
+    "ph4": "6-16 ký tự bao gồm chữ số và chữ cái",
+    "ph5": "Thay đổi mật khẩu, vui lòng đăng nhập lại",
+    "ph7": "Điền mật khẩu",
+    "forgetPass": "Quên mật khẩu",
+    "phone": "Số di động",
+    "ph6": "Mật khẩu mới gồm 6-16 ký tự",
+    "determine": "Mục đích",
+    "cancel": "Hủy bỏ",
+    "changeOne": "Mã xác nhận mờ? đổi mã khác",
+    "regSuccess": "Đăng ký thành công",
+    "reg": "Đăng ký",
+    "signing": "Đồng ý",
+    "servicesAgreement": "Thỏa thuận dịch vụ người dùng"
+  },
   "prize": {
     "directContact": [
       {

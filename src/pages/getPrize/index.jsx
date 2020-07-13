@@ -30,11 +30,11 @@ class GetPrize extends PureComponent {
     const address = JSON.parse(localStorage.getItem('address')) || {};
     const { submitInfo, info } = this.props;
     if (!address.id && info.productType === 'SUBSTANCE') {
-      return Toast.info('请填写收货地址', 2);
+      return Toast.info(`${intl.get('prize.ph1')}`, 2);
     }
     this.props.form.validateFields((err, value) => {
       if (err) {
-        return Toast.info('必填项不能为空！', 2);
+        return Toast.info(`${intl.get('prize.ph2')}`, 2);
       }
       const params = {
         activityTurnId: this.state.activityTurnId,
@@ -76,9 +76,9 @@ class GetPrize extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          领取奖品
+          {intl.get('prize.prizeCollection')}
         </NavBar>
-        <div className={styles.goodTitle}>商品信息</div>
+        <div className={styles.goodTitle}>{intl.get('prize.productInformation')}</div>
         <div className={styles.goodInfo}>
           <img
             src={info.prizesProductVO && info.prizesProductVO.imgUrl}
@@ -88,17 +88,20 @@ class GetPrize extends PureComponent {
           <div className={styles.goodName}>
             <span className={`${styles.title} ${styles.line2}`}>
               {info.prizesProductVO
-                ? `第${info.prizesProductVO.currentTurn}轮 ${info.prizesProductVO.activityName}`
+                ? `${intl.get('product.round', {
+                    currentTurn: info.prizesProductVO.currentTurn,
+                  })} ${info.prizesProductVO.activityName}`
                 : null}
             </span>
             <span className={styles.price}>
-              零售价：<i>{`${info.prizesProductVO.marketPrice} ${config.moneySymbol}`}</i>
+              {intl.get('prize.retailPrice')}：
+              <i>{`${info.prizesProductVO.marketPrice} ${config.moneySymbol}`}</i>
               <span></span>
             </span>
           </div>
           <span className={styles.quantity}>x1</span>
         </div>
-        <div className={styles.goodTitle}>收货地址</div>
+        <div className={styles.goodTitle}>{intl.get('prize.shippingAddress')}</div>
         {address.id ? (
           <div>
             <div className={styles.linBox}>
@@ -109,7 +112,7 @@ class GetPrize extends PureComponent {
                 <span className={styles.name}>{address.userName}</span>
                 <span className={styles.phone}>{address.mobile}</span>
                 <span className={styles.change} onClick={this.selectAdd}>
-                  更换
+                  {intl.get('prize.replace')}
                 </span>
               </div>
               <div className={`${styles.bot} ${styles.line2}`}>
@@ -122,18 +125,20 @@ class GetPrize extends PureComponent {
           </div>
         ) : (
           <div className={styles.addBlank} onClick={this.selectAdd}>
-            <span>+</span>请填写收货地址
+            <span>+</span>
+            {intl.get('prize.ph1')}
           </div>
         )}
         <div className={styles.goodTitle}>
-          领奖信息
-          <span>（由于领取物品较为特殊，为了提供更好的发奖服务，需要您填写一些确认信息。）</span>
+          {intl.get('prize.awardInfo')}
+          <span>{intl.get('prize.becauseSpecial')}</span>
         </div>
         <div className={styles.Information}>
           {info.appRewardRulesVO.verifyId === 'Y' ? (
             <li className={styles.rows}>
               <span className={styles.inputTitle}>
-                <i>*</i>身份证信息
+                <i>*</i>
+                {intl.get('prize.IDCardInfo')}
               </span>
               <div className={styles.content}>
                 <InputItem
@@ -141,7 +146,7 @@ class GetPrize extends PureComponent {
                     rules: [{ required: true }],
                   })}
                   clear
-                  placeholder="请输入身份证信息"
+                  placeholder={intl.get('prize.ph3')}
                   className={`${styles.inputItem} ${styles.verifyId}`}
                   ref={el => (this.verInput = el)}
                   onClick={() => {
@@ -154,28 +159,33 @@ class GetPrize extends PureComponent {
           {info.appRewardRulesVO.directContact === 'Y' ? (
             <li className={styles.rows}>
               <span className={styles.inputTitle}>
-                <i>*</i>紧急联系人
+                <i>*</i>
+                {intl.get('prize.emergencyContact')}
               </span>
               <div className={styles.content}>
-                <span className={styles.key}>身份</span>
                 <Picker
                   data={intl.get('prize.directContact')}
                   cols={1}
                   {...getFieldProps('directContact', {
                     rules: [{ required: true }],
                   })}
+                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
-                  <List.Item arrow="horizontal" className={styles.select} />
+                  <List.Item arrow="horizontal" className={styles.select}>
+                    <div className={`${styles.key} ${styles.selKey}`}>
+                      {intl.get('prize.Identity')}
+                    </div>
+                  </List.Item>
                 </Picker>
               </div>
               <div className={styles.content}>
-                <span className={styles.key}>手机</span>
+                <span className={styles.key}>{intl.get('prize.phone')}</span>
                 <InputItem
                   {...getFieldProps('directMobile', {
                     rules: [{ required: true }],
                   })}
                   clear
-                  placeholder="请填写10位数手机号"
+                  placeholder={intl.get('prize.ph4')}
                   className={styles.inputItem}
                   type="number"
                   ref={el => (this.dirInput = el)}
@@ -189,28 +199,33 @@ class GetPrize extends PureComponent {
           {info.appRewardRulesVO.indirectContact === 'Y' ? (
             <li className={styles.rows}>
               <span className={styles.inputTitle}>
-                <i>*</i>间接联系人
+                <i>*</i>
+                {intl.get('prize.indirect')}
               </span>
               <div className={styles.content}>
-                <span className={styles.key}>身份</span>
                 <Picker
                   data={intl.get('prize.indirectContact', {
                     rules: [{ required: true }],
                   })}
                   cols={1}
                   {...getFieldProps('indirectContact')}
+                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
-                  <List.Item arrow="horizontal" className={styles.select} />
+                  <List.Item arrow="horizontal" className={styles.select}>
+                    <div className={`${styles.key} ${styles.selKey}`}>
+                      {intl.get('prize.Identity')}
+                    </div>
+                  </List.Item>
                 </Picker>
               </div>
               <div className={styles.content}>
-                <span className={styles.key}>手机</span>
+                <span className={styles.key}>{intl.get('prize.phone')}</span>
                 <InputItem
                   {...getFieldProps('indirectMobile', {
                     rules: [{ required: true }],
                   })}
                   clear
-                  placeholder="请填写10位数手机号"
+                  placeholder={intl.get('prize.ph4')}
                   className={styles.inputItem}
                   type="number"
                   ref={el => (this.indirectInput = el)}
@@ -224,73 +239,88 @@ class GetPrize extends PureComponent {
 
           <li className={styles.rows}>
             <span className={styles.inputTitle}>
-              <i>*</i>基本信息
+              <i>*</i>
+              {intl.get('prize.basicInfo')}
             </span>
             {info.appRewardRulesVO.ageInterval === 'Y' ? (
               <div className={styles.content}>
-                <span className={styles.key}>年龄</span>
                 <Picker
                   data={intl.get('prize.ageInterval', {
                     rules: [{ required: true }],
                   })}
                   cols={1}
                   {...getFieldProps('ageInterval')}
+                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
-                  <List.Item arrow="horizontal" className={styles.select} />
+                  <List.Item arrow="horizontal" className={styles.select}>
+                    <div className={`${styles.key} ${styles.selKey}`}>{intl.get('prize.age')}</div>
+                  </List.Item>
                 </Picker>
               </div>
             ) : null}
             {info.appRewardRulesVO.education === 'Y' ? (
               <div className={styles.content}>
-                <span className={styles.key}>学历</span>
                 <Picker
                   data={intl.get('prize.education')}
                   cols={1}
                   {...getFieldProps('education', {
                     rules: [{ required: true }],
                   })}
+                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
-                  <List.Item arrow="horizontal" className={styles.select} />
+                  <List.Item arrow="horizontal" className={styles.select}>
+                    <div className={`${styles.key} ${styles.selKey}`}>
+                      {intl.get('prize.Education')}
+                    </div>
+                  </List.Item>
                 </Picker>
               </div>
             ) : null}
             {info.appRewardRulesVO.job === 'Y' ? (
               <div className={styles.content}>
-                <span className={styles.key}>职业</span>
                 <Picker
                   data={intl.get('prize.job')}
                   cols={1}
                   {...getFieldProps('job', {
                     rules: [{ required: true }],
                   })}
+                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
-                  <List.Item arrow="horizontal" className={styles.select} />
+                  <List.Item arrow="horizontal" className={styles.select}>
+                    <div className={`${styles.key} ${styles.selKey}`}>
+                      {intl.get('prize.Occupation')}
+                    </div>
+                  </List.Item>
                 </Picker>
               </div>
             ) : null}
             {info.appRewardRulesVO.income === 'Y' ? (
               <div className={styles.content}>
-                <span className={styles.key}>月收入</span>
                 <Picker
                   data={intl.get('prize.income')}
                   cols={1}
                   {...getFieldProps('income', {
                     rules: [{ required: true }],
                   })}
+                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
-                  <List.Item arrow="horizontal" className={styles.select} />
+                  <List.Item arrow="horizontal" className={styles.select}>
+                    <div className={`${styles.key} ${styles.selKey}`}>
+                      {intl.get('prize.monthlyIncome')}
+                    </div>
+                  </List.Item>
                 </Picker>
               </div>
             ) : null}
             {info.appRewardRulesVO.companyName === 'Y' ? (
               <div className={styles.content}>
-                <span className={styles.key}>月收入</span>
+                <span className={styles.key}>{intl.get('prize.companyName')}</span>
                 <InputItem
                   {...getFieldProps('companyName', {
                     rules: [{ required: true }],
                   })}
                   clear
-                  placeholder="请填写公司名称"
+                  placeholder={intl.get('prize.ph5')}
                   className={styles.inputItem}
                   ref={el => (this.companyInput = el)}
                   onClick={() => {
@@ -303,7 +333,8 @@ class GetPrize extends PureComponent {
           {info.appRewardRulesVO.companyAddress === 'Y' ? (
             <li className={styles.rows}>
               <span className={styles.inputTitle}>
-                <i>*</i>公司地址
+                <i>*</i>
+                {intl.get('prize.companyAddress')}
               </span>
               <TextareaItem
                 {...getFieldProps('companyAddress', {
@@ -311,7 +342,7 @@ class GetPrize extends PureComponent {
                 })}
                 rows={3}
                 clear
-                placeholder="请填写公司地址"
+                placeholder={intl.get('prize.ph6')}
                 className={styles.textarea}
                 ref={el => (this.AddressInput = el)}
                 onClick={() => {
@@ -321,7 +352,7 @@ class GetPrize extends PureComponent {
             </li>
           ) : null}
           <Button type="primary" className={styles.submit} onClick={this.handleSubmit}>
-            提交
+            {intl.get('prize.submit')}
           </Button>
         </div>
       </div>

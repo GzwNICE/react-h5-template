@@ -1,7 +1,7 @@
 /* eslint-disable react/no-will-update-set-state */
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
 import { Icon, Stepper, Radio, Button, Toast } from 'antd-mobile';
 // import { Link } from 'react-router-dom';
@@ -66,7 +66,7 @@ class BuyGroup extends PureComponent {
     const { stepVal } = this.state;
     const { buyFetch, data } = this.props;
     if (!stepVal) {
-      Toast.info('请选择购买人次或比例', 2);
+      Toast.info(`${intl.get('product.morePurchases')}`, 2);
     } else {
       buyFetch({
         activityTurnId: data.activityTurnId,
@@ -95,7 +95,7 @@ class BuyGroup extends PureComponent {
     if (this.state.balanceStatus) return false;
     this.timer = setInterval(() => {
       if (this.state.payCountdown <= 0) {
-        Toast.info('订单超时，请重新购买', 2);
+        Toast.info(`${intl.get('product.orderTimeout')}`, 2);
         return this.Clear();
       }
       this.setState({
@@ -117,7 +117,7 @@ class BuyGroup extends PureComponent {
       buyConfirm([this.state.orderActivityId]).then(res => {
         if (res.code === 200) {
           this.Clear('success');
-          Toast.success('参与成功', 2);
+          Toast.success(`${intl.get('product.participate')}`, 2);
         }
       });
     }
@@ -128,7 +128,7 @@ class BuyGroup extends PureComponent {
     buyCancel([this.state.orderActivityId]).then(res => {
       if (res.code === 200) {
         this.Clear();
-        Toast.info('取消订单', 2);
+        Toast.info(`${intl.get('product.cancelOrder')}`, 2);
       }
     });
   };
@@ -168,11 +168,11 @@ class BuyGroup extends PureComponent {
             <div className={styles.buyContent}>
               <div className={styles.topB}>
                 <img src={data.thumbnailUrl} alt="" className={styles.prodPic} />
-                <span className={styles.guide}>购买人次越多，赢率越大</span>
+                <span className={styles.guide}>{intl.get('product.morePurchases')}</span>
                 <Icon type="cross" size="md" className={styles.close} onClick={this.onOpenChange} />
               </div>
               <div className={styles.buyNum}>
-                <span className={styles.left}>购买人次</span>
+                <span className={styles.left}>{intl.get('product.purchases')}</span>
                 <Stepper
                   className={styles.step}
                   min={1}
@@ -183,9 +183,9 @@ class BuyGroup extends PureComponent {
                 />
               </div>
               <div className={styles.selectBox}>
-                <span className={styles.selTle}>快捷选择</span>
+                <span className={styles.selTle}>{intl.get('product.quickSelection')}</span>
                 <div className={styles.personValue}>
-                  <span className={styles.text}>人次</span>
+                  <span className={styles.text}>{intl.get('home.personTime')}</span>
                   <div className={styles.radioRows}>
                     {personData.map((i, index) => (
                       <Radio
@@ -204,7 +204,7 @@ class BuyGroup extends PureComponent {
                   </div>
                 </div>
                 <div className={styles.personValue}>
-                  <span className={styles.text}>比例</span>
+                  <span className={styles.text}>{intl.get('product.proportion')}</span>
                   <div className={styles.radioRows}>
                     {proportionData.map(i => (
                       <Radio
@@ -225,44 +225,46 @@ class BuyGroup extends PureComponent {
               </div>
               <div className={styles.bottom}>
                 <div>
-                  <span className={styles.total}>合计：</span>
+                  <span className={styles.total}>{intl.get('product.total')}：</span>
                   <span className={styles.price}>{`${stepVal * data.participatePrice} ${
                     config.moneyVirtualCn
                   }`}</span>
                 </div>
                 <Button type="primary" className={styles.pay} onClick={this.pay}>
-                  确认支付
+                  {intl.get('product.confirmPayment')}
                 </Button>
               </div>
             </div>
           ) : (
             <div className={`${open ? `${styles.buyNextContent}` : null}`}>
               <div className={styles.topB}>
-                <span className={styles.guide}>确认结算</span>
+                <span className={styles.guide}>{intl.get('product.confirmSettlement')}</span>
                 <Icon type="cross" size="md" className={styles.close} onClick={this.cancelPay} />
               </div>
               <div className={styles.buyNum}>
                 <li>
-                  <span className={styles.left}>购买人次</span>
+                  <span className={styles.left}>{intl.get('product.purchases')}</span>
                   <span>{`${partakeCount}人次`}</span>
                 </li>
                 <li>
-                  <span className={styles.left}>支付GO币</span>
+                  <span className={styles.left}>{intl.get('product.payGOCoins')}</span>
                   <span>{goAmount}</span>
                 </li>
                 <li>
-                  <span className={styles.left}>我的余额</span>
+                  <span className={styles.left}>{intl.get('product.balance')}</span>
                   <span>{`${balance}`}</span>
                 </li>
                 {!balanceStatus ? (
                   <p>
-                    <span>{`${payCountdown}s`}</span> 未支付订单自动取消
+                    <span>{`${payCountdown}s`}</span> {intl.get('product.cancellationOrders')}
                   </p>
                 ) : null}
               </div>
               <div className={styles.bottom}>
                 <Button type="primary" className={styles.pay} onClick={this.confirmPay}>
-                  {!balanceStatus ? `确认支付` : `GO币不足，请先充值`}
+                  {!balanceStatus
+                    ? `${intl.get('product.confirmPayment')}`
+                    : `${intl.get('product.pleaseRecharge')}`}
                 </Button>
               </div>
             </div>
