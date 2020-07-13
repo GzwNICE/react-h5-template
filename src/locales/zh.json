@@ -54,7 +54,29 @@
     "str_open_progress":"开奖进度:",
     "str_order_time":"下单时间:",
     "str_winning_time":"中奖时间:",
-    "str_nowin_buytimes":"购买奖券：{num}张"
+    "str_nowin_buytimes":"购买奖券：{num}张",
+    "dialogDetail":"兑换详情",
+    "productGoMoney":"奖品价值",
+    "goGiveRate":"额外赠送比例",
+    "goGiveMoney":"额外赠送数量",
+    "convertGoMoney":"最终兑换金额",
+    "createTime":"兑换时间",
+    "applying":"审核中",
+    "finish":"已完成",
+    "status":"兑换状态",
+    "marketPrice":"奖品零售价",
+    "serviceFeeRate":"税费/服务费比例",
+    "serviceFee":"税费/服务费",
+    "convertPrice":"预估到账",
+    "applyTime":"申请时间",
+    "realName":"持卡人姓名",
+    "bankName":"银行名称",
+    "bankCardNum":"卡号",
+    "unitInfo":"GaGaGO已对接第三方礼品回收公司，并委托第三方公司进行奖品兑现工作。",
+    "know":"知道了"
+
+
+
 
   },
   "payment": {

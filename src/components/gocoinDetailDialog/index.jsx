@@ -36,36 +36,38 @@ class DetailDialog extends PureComponent {
           visible={codeModal}
           transparent
           maskClosable={false}
-          title="兑换详情"
+          title={intl.get('order.dialogDetail')}
           className={styles.codeModal}
         >
           <DialogItem
             data={{
-              title: '奖品价值',
+              title: intl.get('order.productGoMoney'),
               value: `${this.state.result.productGoMoney}${moneyVirtualCn}`,
             }}
           />
-          <DialogItem data={{ title: '额外赠送比例', value: `${this.state.result.goGiveRate}%` }} />
+          <DialogItem data={{ title: intl.get('order.goGiveRate'), value: `${this.state.result.goGiveRate}%` }} />
           <DialogItem
             data={{
-              title: '额外赠送数量',
+              title: intl.get('order.goGiveMoney'),
               value: `${this.state.result.goGiveMoney}${moneyVirtualCn}`,
             }}
           />
           <DialogItem
             data={{
-              title: '最终兑换金额',
+              title: intl.get('order.convertGoMoney'),
               value: `${this.state.result.convertGoMoney}${moneyVirtualCn}`,
             }}
           />
           <DialogItem
             data={{
-              title: '兑换时间',
+              title: intl.get('order.createTime'),
               value: moment(this.state.result.createTime).format('DD/MM/YYYY HH:mm'),
             }}
           />
           <div className={styles.footer}>
-            <Button className={styles.cancel} onClick={this.onClose.bind(this)}>知道了</Button>
+            <Button className={styles.cancel} onClick={this.onClose.bind(this)}>
+              {intl.get('order.know')}
+            </Button>
           </div>
         </Modal>
       </div>
