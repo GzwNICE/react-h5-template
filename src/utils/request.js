@@ -5,13 +5,13 @@
 import { extend } from 'umi-request';
 import { Toast } from 'antd-mobile';
 // import { push } from 'connected-react-router';
+import Cookies from 'js-cookie';
 import { createBrowserHistory } from 'history';
 import { getBaseUrl } from '@/utils/util';
-import queryString from 'query-string';
 
 const domain = `${window.location.protocol}//${getBaseUrl()}`;
 const history = createBrowserHistory();
-const { lang } = queryString.parse(window.location.search);
+const lang = Cookies.get('lang');
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -87,7 +87,7 @@ request.interceptors.response.use(async response => {
     Toast.info(data.msg || 'Token错误，请重新登录', 2);
     setTimeout(() => {
       localStorage.clear();
-      history.push(`/login?lang=${lang}`);
+      history.push(`/login`);
       window.location.reload();
     }, 2000);
     return;

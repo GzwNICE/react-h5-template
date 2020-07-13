@@ -3,12 +3,12 @@
 // 我的订单列表
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import HistoryItem from '@/components/payHistoryItem';
+import PaymentItem from '@/components/paymentitem';
 import Empty from '@/components/empty';
-import { NavBar, Icon, PullToRefresh, ListView } from 'antd-mobile';
+import { PullToRefresh, ListView } from 'antd-mobile';
 import styles from './index.less';
 
-class PayHistory extends PureComponent {
+class DetailList extends PureComponent {
   constructor(props) {
     super(props);
     const dataSource = new ListView.DataSource({
@@ -17,23 +17,22 @@ class PayHistory extends PureComponent {
     this.state = {
       dataSource,
       page: 0,
-      size: 20,
+      size: 10,
       isLoading: true,
-      hadMore: true,
-      useBodyScroll: false,
+      // useBodyScroll: false,
+      height: document.documentElement.clientHeight - 220,
       refreshing: true,
     };
   }
-  componentDidUpdate() {
-    // if (this.state.useBodyScroll) {
-    //   document.body.style.overflow = 'auto';
-    // } else {
-    //   document.body.style.overflow = 'hidden';
-    // }
-  }
+
   componentDidMount() {
-    this.getPageList();
+    const { type } = this.props;
+    this.setState({
+      type: type,
+    });
+    this.loadPageList();
   }
+
   //在componentWillUnmount，进行scroll事件的注销
   componentWillUnmount() {
     const { clearList } = this.props;
@@ -50,35 +49,9 @@ class PayHistory extends PureComponent {
         const params = {
           page: this.state.page,
           size: this.state.size,
+          tradeType: this.state.type,
         };
-        refreshList(params).then(res => {
-          if (res.total != 0) {
-            this.setState({
-              refreshing: false,
-              dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
-            });
-          }
-        });
-      }
-    );
-  };
-  loadPageList = () => {
-    if (!this.state.hadMore) return;
-    const { loadList } = this.props;
-    this.setState(
-      {
-        page: this.state.page + 1,
-      },
-      () => {
-        const params = {
-          page: this.state.page,
-          size: this.state.size,
-        };
-        loadList(params).then(() => {
-          // console.log(this.props.result);
-          this.setState({
-            isLoading: this.state.page * this.state.size <= this.props.result.total
-          });
+        refreshList(params).then(() => {
           this.setState({
             refreshing: false,
             dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
@@ -87,26 +60,49 @@ class PayHistory extends PureComponent {
       }
     );
   };
+  loadPageList = () => {
+    const { loadList } = this.props;
+    this.setState(
+      {
+        page: this.state.page + 1,
+        isLoading: true,
+      },
+      () => {
+        const params = {
+          page: this.state.page,
+          size: this.state.size,
+          tradeType: this.state.type,
+        };
+        loadList(params).then(() => {
+          this.setState({
+            refreshing: false,
+            isLoading: false,
+            dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
+          });
+        });
+      }
+    );
+  };
   componentWillReceiveProps(nextPorps) {
+    console.log(1, this.props);
+    console.log(2, nextPorps);
     if (nextPorps.result.data.length === nextPorps.result.total) {
       this.setState({
         isLoading: false,
-        hadMore: false,
       });
     }
   }
-  onRefresh = () => {
-    this.setState({ refreshing: true, isLoading: true });
-    this.getPageList();
-  };
+  // onRefresh = () => {
+  //   this.setState({ refreshing: true, isLoading: true });
+  //   this.getPageList();
+  // };
   render() {
     const { result } = this.props;
-    const { isLoading } = this.state;
+    const { isLoading, type, dataSource, height, refreshing } = this.state;
     const Row = d => {
-      // console.log('row', d)
       return (
         <div>
-          <HistoryItem data={d} />
+          <PaymentItem data={d} type={type} />
         </div>
       );
     };
@@ -122,16 +118,6 @@ class PayHistory extends PureComponent {
     );
     return (
       <div className={styles.order}>
-        <NavBar
-          mode="dark"
-          icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF5209' }}
-          onLeftClick={() => {
-            this.props.history.go(-1);
-          }}
-        >
-          充值流水
-        </NavBar>
         {result.total == 0 ? (
           <Empty />
         ) : (
@@ -139,12 +125,12 @@ class PayHistory extends PureComponent {
             ref={el => {
               this.load = el;
             }}
-            // key={this.state.useBodyScroll ? '0' : '1'}
-            className={styles.container}
-            dataSource={this.state.dataSource}
+            key={1}
+            dataSource={dataSource}
             renderRow={Row}
             renderSeparator={separator}
             style={{
+              height: height,
               border: '1px solid #ddd',
               margin: '1px 0',
             }}
@@ -153,9 +139,7 @@ class PayHistory extends PureComponent {
             scrollEventThrottle={100}
             initialListSize={1000}
             pageSize={10}
-            pullToRefresh={
-              <PullToRefresh refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
-            }
+            // pullToRefresh={<PullToRefresh refreshing={refreshing} onRefresh={this.onRefresh} />}
             onEndReached={this.loadPageList} // 上啦加载
             renderFooter={() => (
               <div style={{ padding: 10, textAlign: 'center' }}>
@@ -170,13 +154,13 @@ class PayHistory extends PureComponent {
 }
 
 const mapState = state => ({
-  result: state.payment.data.historyList,
+  result: state.payment.data.inList,
 });
 
 const mapDispatch = dispatch => ({
-  refreshList: params => dispatch.payment.getRefreshHistoryList(params),
-  loadList: params => dispatch.payment.getLoadHistoryList(params),
-  clearList: params => dispatch.payment.clearHistoryList(params),
+  refreshList: params => dispatch.payment.getRefreshList(params),
+  loadList: params => dispatch.payment.getLoadList(params),
+  clearList: params => dispatch.payment.clearPaymentList(params),
 });
 
-export default connect(mapState, mapDispatch)(PayHistory);
+export default connect(mapState, mapDispatch)(DetailList);

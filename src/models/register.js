@@ -20,5 +20,9 @@ export const register = createModel({
       const response = await regService.forgetPaw(payload);
       return response;
     },
+    async getAgr(payload) {
+      const response = await regService.agreement(payload);
+      return response;
+    },
   }),
 });

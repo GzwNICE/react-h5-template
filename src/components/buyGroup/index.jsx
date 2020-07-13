@@ -16,6 +16,7 @@ class BuyGroup extends PureComponent {
       next: false,
       stepVal: 5,
       personValue: null,
+      personValueIndex: null,
       proportionValue: null,
       balanceStatus: 0, //余额状态
       partakeCount: 0, //购买次数 应和stepVal一致
@@ -31,6 +32,7 @@ class BuyGroup extends PureComponent {
     this.props.onOpenChange(type);
     this.setState({
       personValue: null,
+      personValueIndex: null,
       proportionValue: null,
       stepVal: 5,
       next: false,
@@ -43,9 +45,10 @@ class BuyGroup extends PureComponent {
     this.setState({ stepVal: val });
   };
 
-  onChangePer = value => {
+  onChangePer = (value, index) => {
     this.setState({
       personValue: value,
+      personValueIndex: index,
       proportionValue: null,
       stepVal: value,
     });
@@ -60,9 +63,9 @@ class BuyGroup extends PureComponent {
   };
 
   pay = () => {
-    const { personValue, proportionValue, stepVal } = this.state;
+    const { stepVal } = this.state;
     const { buyFetch, data } = this.props;
-    if (!personValue && !proportionValue) {
+    if (!stepVal) {
       Toast.info('请选择购买人次或比例', 2);
     } else {
       buyFetch({
@@ -107,14 +110,17 @@ class BuyGroup extends PureComponent {
   };
 
   confirmPay = () => {
-    if (this.state.balanceStatus) return false;
-    const { buyConfirm } = this.props;
-    buyConfirm([this.state.orderActivityId]).then(res => {
-      if (res.code === 200) {
-        this.Clear('success');
-        Toast.success('参与成功', 2);
-      }
-    });
+    if (this.state.balanceStatus) {
+      this.props.goPay();
+    } else {
+      const { buyConfirm } = this.props;
+      buyConfirm([this.state.orderActivityId]).then(res => {
+        if (res.code === 200) {
+          this.Clear('success');
+          Toast.success('参与成功', 2);
+        }
+      });
+    }
   };
 
   cancelPay = () => {
@@ -152,6 +158,7 @@ class BuyGroup extends PureComponent {
       goAmount,
       balance,
       payCountdown,
+      personValueIndex,
     } = this.state;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
     return (
@@ -180,15 +187,15 @@ class BuyGroup extends PureComponent {
                 <div className={styles.personValue}>
                   <span className={styles.text}>人次</span>
                   <div className={styles.radioRows}>
-                    {personData.map(i => (
+                    {personData.map((i, index) => (
                       <Radio
                         className={`${styles.radioItem} ${
-                          personValue === i.value ? `${styles.radioItemS}` : null
+                          personValue === i.value && personValueIndex === index ? `${styles.radioItemS}` : null
                         }`}
                         style={data.remainingCount < i.label ? { color: '#cbcbcb' } : {}}
-                        key={i.value}
-                        checked={personValue === i.value}
-                        onChange={() => this.onChangePer(i.value)}
+                        key={i.value + index}
+                        checked={personValue === i.value && personValueIndex === index}
+                        onChange={() => this.onChangePer(i.value, index)}
                         disabled={data.remainingCount < i.value}
                       >
                         {i.label}

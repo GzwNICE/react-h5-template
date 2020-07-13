@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 // import intl from 'react-intl-universal';
-import { Carousel, Grid, Tabs } from 'antd-mobile';
+import { Carousel, Grid, Tabs, Toast } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
 import Cookies from 'js-cookie';
 import HotList from '@/pages/hotList';
@@ -16,9 +16,9 @@ import styles from './index.less';
 
 function renderTabBar(props) {
   return (
-    <Sticky>
+    <Sticky topOffset={1}>
       {({ style }) => (
-        <div style={{ ...style, zIndex: 1 }}>
+        <div style={{ ...style, zIndex: 2 }}>
           <Tabs.DefaultTabBar {...props} />
         </div>
       )}
@@ -34,24 +34,26 @@ class Home extends PureComponent {
   }
 
   componentDidMount() {
+    Toast.loading('Loading...', 0);
     const { getWin, getBanner, getClass, homeSys } = this.props;
-    getWin();
-    getBanner();
-    getClass();
-    homeSys();
+    getBanner().then(() => {
+      getWin();
+      getClass();
+      homeSys();
+      setTimeout(() => {
+        Toast.hide();
+      }, 800);
+    });
   }
 
-  // handleTabClick = (tab, index) => {
-  // if (index === 3) {
-  //   this.setState({
-  //     sortImg: this.state.sortImg === sorting ? all : allSel,
-  //   });
-  // } else {
-  //   this.setState({
-  //     sortImg: sorting,
-  //   });
-  // }
-  // };
+  componentWillUnmount() {
+    const { clearData } = this.props;
+    clearData();
+  }
+
+  handlerGrid = url => {
+    window.location.href = url;
+  };
 
   render() {
     const { home } = this.props;
@@ -85,19 +87,27 @@ class Home extends PureComponent {
           </div>
         ) : null}
         {bannerList.length > 0 ? ( //banner
-          <div className={styles.banner}>
-            <Carousel autoplay infinite>
-              {bannerList.map(val => (
-                <a
-                  key={val.id}
-                  href={val.jumpUrl}
-                  style={{ display: 'inline-block', width: '100%', height: '130px' }}
-                >
-                  <img src={val.imgURL} alt="" style={{ width: '100%', verticalAlign: 'center' }} />
-                </a>
-              ))}
-            </Carousel>
-          </div>
+          <Carousel
+            autoplay
+            infinite
+            className={styles.banner}
+            autoplayInterval={15000}
+            dotActiveStyle={{ background: '#FF5209' }}
+          >
+            {bannerList.map(val => (
+              <a
+                key={val.id}
+                href={val.jumpUrl}
+                style={{ display: 'inline-block', width: '100%', height: '100%' }}
+              >
+                <img
+                  src={val.imgURL}
+                  alt=""
+                  style={{ width: '100%', height: '130px', verticalAlign: 'center' }}
+                />
+              </a>
+            ))}
+          </Carousel>
         ) : null}
         {classData.length > 0 ? ( // 分类导航
           <div className={styles.classification}>
@@ -106,7 +116,7 @@ class Home extends PureComponent {
               columnNum={5}
               hasLine={false}
               renderItem={item => (
-                <div>
+                <div onClick={() => this.handlerGrid(item.jumpUrl)}>
                   <img src={item.imgURL} className={styles.classImg} alt="" />
                   <div className={styles.tips}>{item.title}</div>
                 </div>
@@ -130,10 +140,6 @@ class Home extends PureComponent {
               }}
               tabBarActiveTextColor="#FF5209"
               tabBarInactiveTextColor="#333333"
-              // onChange={(tab, index) => {
-              //   console.log('onChange', index, tab);
-              // }}
-              // onTabClick={this.handleTabClick}
             >
               <HotList />
               <LatestList />
@@ -162,6 +168,7 @@ const mapDispatch = dispatch => ({
   getBanner: params => dispatch.home.fetchGetBanner(params),
   getClass: params => dispatch.home.fetchGetClass(params),
   homeSys: params => dispatch.home.fetchConf(params),
+  clearData: params => dispatch.home.clearList(params),
 });
 
 export default connect(mapState, mapDispatch)(Home);

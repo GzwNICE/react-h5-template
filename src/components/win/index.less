@@ -1,123 +1,156 @@
-.box{
-    padding: 12px;
-    background-color: #ffffff;
-    width: auto;
-    height: auto;
+.box {
+  padding: 12px;
+  background-color: #ffffff;
+  width: auto;
+  height: auto;
 }
-.orderTime{
-    font-size:12px;
-    color:rgba(153,153,153,1);
-}
-.orderBox{
-    display: flex;
-    margin-top: 5px;
-    flex-direction: row;
-    justify-content: left;
-    align-items: flex-start;
 
-    .orderImg{
-        width: 60px;
-        margin-right: 12px;
-        height: 60px;
+.orderTime {
+  font-size: 12px;
+  color: rgba(153, 153, 153, 1);
+}
+
+.orderBox {
+  display: flex;
+  margin-top: 5px;
+  flex-direction: row;
+  justify-content: left;
+  align-items: flex-start;
+
+  .orderImg {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 375px;
+    }
+  }
+
+  .orderInfo {
+    margin-left: 12px;
+    flex: 1;
+    .orderTitle {
+      font-size: 14px;
+      color: #333333;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .status {
+      width: 100%;
+      overflow: hidden;
+      margin: 8px 0;
+
+      .state {
+        font-size: 12px;
+        float: left;
+        margin-top: 2px;
+      }
+
+      .apply {
+        color: #FF9F0A;
+        font-size: 10px;
+        padding-left: 6px;
+        padding-right: 6px;
+        height: 16px;
+        line-height: 16px;
+        margin-left: 5px;
+        background: rgba(255, 159, 10, 0.2);
         border-radius: 8px;
+        float: left;
+      }
+
+      .btn {
+        float: right;
+        background-color: #FF5209;
+        border-radius: 4px;
+        padding: 7px 12px 7px 12px;
+        color: #fff;
+        font-size: 12px;
+      }
     }
-    .orderInfo{
-        width: 100%;
-        .orderTitle{
-            font-size: 14px;
-            color: #333333;
-        }
-        .status {
-            width: 100%;
-            overflow: hidden;
-            margin: 8px 0;
-            .state{
-                color:rgba(102,102,102,1);
-                font-size: 12px;
-                float: left;
-                margin-top: 2px;
-            }
-            .apply{
-                color:#FF9F0A;
-                font-size: 10px;
-                padding-left: 6px;
-                padding-right: 6px;
-                height: 16px;
-                line-height: 16px;
-                margin-left: 5px;
-                background:rgba(255,159,10,0.2);
-                border-radius: 8px;
-                float: left;
-            }
-            .btn{
-                float:right;
-                background-color: #FF5209;  
-                border-radius: 4px;  
-                padding: 7px 12px 7px 12px;
-                color: #fff;
-                font-size: 12px;
-            }
-          }
-    }
-   
-}
-.line{
-    width: 100%;
-    height: 1px;
-    margin-top: 10px;
-    background-color: #eeeeee;
+  }
+
 }
 
-.winInfo{
+.line {
+  width: 100%;
+  height: 1px;
+  margin-top: 10px;
+  background-color: #eeeeee;
+}
+
+.winInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-top: 10px;
+
+  .address {
+    font-size: 12px;
+    color: #333333;
+  }
+
+  .sendRemark {
+    font-size: 12px;
+    color: #333333;
+  }
+
+  .confirmInfo {
+    font-size: 12px;
+    color: #333333;
+  }
+
+  .virtual {
     display: flex;
-    flex-direction: column;
-    justify-content: left;
-    margin-top: 10px;
-    .address{
-        font-size: 12px;
-        color: #333333;
+    flex-direction: row;
+    align-items: center;
+
+    .card {
+      font-size: 12px;
+      color: #333333;
+      line-height: 24px;
     }
-    .sendRemark{
-        font-size: 12px;
-        color: #333333;
+
+    .copy {
+      font-size: 12px;
+      color: #FF5209;
+      margin-left: 8px;
     }
-    .confirmInfo{
-        font-size: 12px;
-        color: #333333;
+  }
+
+  .detailBox {
+    display: flex;
+    margin-top: 4px;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .winTime {
+      color: rgba(153, 153, 153, 1);
+      font-size: 11px;
     }
-    .virtual{
-        display: flex;
-        flex-direction: row;
-        justify-content: left;
-        .card{
-            font-size: 12px;
-            color: #333333;
-        }
-        .copy{
-            font-size: 12px;
-            color: #FF5209;
-        }
+
+    .detail {
+      color: #FF5209;
+      font-size: 12px;
     }
-    .detailBox{
-        display: flex;
-        margin-top: 10px;
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-        .winTime{
-            color:rgba(153,153,153,1);
-            font-size: 11px;
-        }
-        .detail{
-            color:#FF5209;
-            font-size: 12px;
-        }
-      
-    }
-   
-    .orderId{
-        color:rgba(153,153,153,1);
-        margin-top: 6px;
-        font-size: 11px;
-    }
+
+  }
+
+  .orderId {
+    color: rgba(153, 153, 153, 1);
+    margin-top: 6px;
+    font-size: 11px;
+  }
 }

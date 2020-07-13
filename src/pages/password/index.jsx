@@ -7,12 +7,12 @@ import md5 from 'md5';
 // import intl from 'react-intl-universal';
 import { NavBar, Icon, InputItem, Button, Toast, Modal } from 'antd-mobile';
 import { createForm } from 'rc-form';
+import Cookies from 'js-cookie';
 import { getBaseUrl } from '@/utils/util';
 import passwordClose from '@/assets/images/passwordClose.png';
 import passwordOpen from '@/assets/images/passwordOpen.png';
 import styles from './index.less';
 
-const { lang } = queryString.parse(window.location.search);
 class Password extends PureComponent {
   constructor(props) {
     super(props);
@@ -25,13 +25,14 @@ class Password extends PureComponent {
       index: 5,
       sendCodeText: '发送验证码',
       disableCode: false,
+      lang: Cookies.get('lang'),
     };
   }
 
   componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
-      this.props.history.push(`/home?lang=${lang}`);
+      this.props.history.push(`/home`);
       return;
     }
     const { mobile } = queryString.parse(window.location.search);
@@ -57,7 +58,7 @@ class Password extends PureComponent {
         this.props
           .sendCode({
             phone: this.state.mobile,
-            countryCode: '84',
+            countryCode: this.state.lang === 'zh' ? '86' : '84',
             picCode: value.picCode,
           })
           .then(res => {
@@ -108,7 +109,7 @@ class Password extends PureComponent {
         that.props
           .resetPassword({
             smsCode: value.smsCode,
-            countryCode: '84',
+            countryCode: this.state.lang === 'zh' ? '86' : '84',
             mobile: this.state.mobile,
             pwd: md5(value.pwd),
           })
@@ -116,7 +117,7 @@ class Password extends PureComponent {
             if (res.code === 200) {
               Toast.success('密码修改成功，请重新登录', 2);
               setTimeout(() => {
-                that.props.history.push(`/login?lang=${lang}&mobile=${this.state.mobile}`);
+                that.props.history.push(`/login?mobile=${this.state.mobile}`);
               }, 2000);
             } else {
               return Toast.info(res.msg, 2);
@@ -152,7 +153,15 @@ class Password extends PureComponent {
 
   render() {
     const { getFieldProps } = this.props.form;
-    const { mobile, pwVisible, codeImgUrl, codeModal, sendCodeText, disableCode } = this.state;
+    const {
+      mobile,
+      pwVisible,
+      codeImgUrl,
+      codeModal,
+      sendCodeText,
+      disableCode,
+      lang,
+    } = this.state;
     return (
       <div className={styles.regPage}>
         <NavBar
@@ -167,7 +176,7 @@ class Password extends PureComponent {
         </NavBar>
         <div className={styles.regBox}>
           <span className={styles.title}>手机号</span>
-          <div className={styles.loginMobile}>+84 {mobile}</div>
+          <div className={styles.loginMobile}>{`+${lang === 'zh' ? '86' : '84'} ${mobile}`}</div>
           <div className={styles.codeBox}>
             <InputItem
               {...getFieldProps('smsCode')}

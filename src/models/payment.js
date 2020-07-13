@@ -5,7 +5,11 @@ import { paymentService } from '@/services';
 export const payment = createModel({
   state: {
     data: {
-      paymentList: {
+      inList: {
+        data: [],
+        total: 0,
+      },
+      outList: {
         data: [],
         total: 0,
       },
@@ -13,9 +17,19 @@ export const payment = createModel({
         data: [],
         total: 0,
       },
+      topUpList: [],
     },
   },
   reducers: {
+    saveTopUp(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          topUpList: payload.data,
+        },
+      };
+    },
     refreshList(state, payload) {
       return {
         ...state,
@@ -28,13 +42,26 @@ export const payment = createModel({
         },
       };
     },
-    loadList(state, payload) {
+    inList(state, payload) {
       return {
         ...state,
         data: {
           ...state.data,
-          paymentList: {
-            data: state.data.paymentList.data.concat(payload.data.rows),
+          inList: {
+            data: state.data.inList.data.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+
+    outList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          outList: {
+            data: state.data.outList.data.concat(payload.data.rows),
             total: payload.data.total,
           },
         },
@@ -46,7 +73,11 @@ export const payment = createModel({
         ...state,
         data: {
           ...state.data,
-          paymentList: {
+          inList: {
+            data: [],
+            total: 0,
+          },
+          outList: {
             data: [],
             total: 0,
           },
@@ -93,13 +124,26 @@ export const payment = createModel({
     },
   },
   effects: dispatch => ({
+    async getTopUpList(payload) {
+      const response = await paymentService.getPayTopList(payload);
+      dispatch.payment.saveTopUp(response);
+      return response;
+    },
+    async pay(payload) {
+      const response = await paymentService.getPayExecute(payload);
+      return response;
+    },
     async getRefreshList(payload) {
       const response = await paymentService.getPaymentList(payload);
       dispatch.payment.refreshList(response);
     },
     async getLoadList(payload) {
       const response = await paymentService.getPaymentList(payload);
-      dispatch.payment.loadList(response);
+      if (payload.tradeType === 'IN') {
+        dispatch.payment.inList(response);
+      } else {
+        dispatch.payment.outList(response);
+      }
     },
     async clearPaymentList(payload) {
       dispatch.payment.clearList(payload);

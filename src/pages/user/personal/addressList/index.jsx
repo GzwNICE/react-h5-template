@@ -8,8 +8,6 @@ import queryString from 'query-string';
 
 import styles from './index.less';
 
-const { lang, activityTurnId } = queryString.parse(window.location.search);
-
 class PayHistory extends PureComponent {
   constructor(props) {
     super(props);
@@ -19,6 +17,7 @@ class PayHistory extends PureComponent {
     this.state = {
       dataSource,
       refreshing: true,
+      activityTurnId: queryString.parse(window.location.search).activityTurnId,
     };
   }
   componentDidMount() {
@@ -37,7 +36,9 @@ class PayHistory extends PureComponent {
         refreshing: false,
         dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
       });
-      const selId = address.id || null;
+      const selId = JSON.parse(localStorage.getItem('address'))
+        ? JSON.parse(localStorage.getItem('address')).id
+        : null;
       res.data.map(i => {
         if (i.isDefault === 'Y') {
           if (!selId) saveAddress(i);
@@ -48,15 +49,19 @@ class PayHistory extends PureComponent {
     });
   };
   addAddressClick() {
-    this.props.history.push(`/addressAdd?lang=${lang}`);
+    const { activityTurnId } = this.state;
+    this.props.history.push({
+      pathname: `/addressAdd`,
+      state: { activityTurnId },
+    });
   }
   render() {
     const { result } = this.props;
-    // const { isLoading } = this.state;
+    const { activityTurnId } = this.state;
     const Row = d => {
       return (
         <div>
-          <AddressItem parent={this} data={d} lang={lang} id={activityTurnId} />
+          <AddressItem parent={this} data={d} id={activityTurnId} />
         </div>
       );
     };

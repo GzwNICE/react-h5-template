@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
 // import intl from 'react-intl-universal';
 import ic_edit from '@/assets/images/ic_edit.png';
-import queryString from 'query-string';
 import styles from './index.less';
 
-const { lang } = queryString.parse(window.location.search);
 class AddressItem extends PureComponent {
   constructor(props) {
     super(props);
@@ -12,13 +10,16 @@ class AddressItem extends PureComponent {
   onEditClick(e) {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-    const { data, parent } = this.props;
-    parent.props.history.push({ pathname: `/addressAdd`, state: { item: data } });
+    const { data, parent, lang, id } = this.props;
+    parent.props.history.push({
+      pathname: `/addressAdd`,
+      state: { item: data, lang: lang, activityTurnId: id },
+    });
   }
   onChangeClick() {
-    const { data, parent, lang, id } = this.props;
+    const { data, parent, id } = this.props;
     parent.props.saveAddress(data);
-    parent.props.history.push(`/prize/${id}?lang=${lang}`);
+    parent.props.history.push(`/prize/${id}`);
   }
   render() {
     const { data } = this.props;

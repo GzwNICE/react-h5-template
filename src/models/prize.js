@@ -10,19 +10,10 @@ export const prize = createModel({
         prizesProductVO: {},
         shoppingAddressVO: {},
       },
-      address: {},
+      prize: {},
     },
   },
   reducers: {
-    saveAdd(state, payload) {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          address: payload,
-        },
-      };
-    },
     clearAdd(state) {
       return {
         ...state,
@@ -41,17 +32,36 @@ export const prize = createModel({
         },
       };
     },
+    savePrize(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          prize: payload.data,
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async saveAddress(payload) {
-      dispatch.prize.saveAdd(payload);
+      localStorage.setItem('address', JSON.stringify(payload));
     },
-    async clearAddress(payload) {
-      dispatch.prize.clearAdd(payload);
+    async clearAddress() {
+      localStorage.removeItem('address');
     },
     async prizeInfo(payload) {
       const response = await prizeService.getPrizeInfo(payload);
       dispatch.prize.saveInfo(response);
+      return response;
+    },
+    async submit(payload) {
+      const response = await prizeService.submitPrize(payload);
+      dispatch.prize.savePrize(response);
+      return response;
+    },
+    async result(payload) {
+      const response = await prizeService.resultInfo(payload);
+      dispatch.prize.savePrize(response);
       return response;
     },
   }),

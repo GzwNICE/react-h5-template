@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 // import intl from 'react-intl-universal';
 import { Modal, Button, ListView } from 'antd-mobile';
+import { format } from '@/utils/util';
 // import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 import winning from '@/assets/images/winning_crown.png';
@@ -27,11 +28,11 @@ class Participants extends PureComponent {
     };
   }
 
-  componentDidMount() {
-    this.getList();
-  }
+  // componentDidMount() {
+  // }
 
   getList = () => {
+    console.log(111);
     const { getPersonnel, id } = this.props;
     if (!this.state.hasMore) return false;
     this.fetch = true;
@@ -51,29 +52,24 @@ class Participants extends PureComponent {
             isLoading: false,
             dataSource: dataSource.cloneWithRows(this.props.list.rows),
           });
+          if (this.props.list.rows.length === this.props.list.total) {
+            this.setState({
+              hasMore: false,
+            });
+          }
         });
       }
     );
   };
 
   componentWillReceiveProps(nextPros) {
-    if (nextPros.list.rows && nextPros.list.rows.length === nextPros.list.total) {
-      this.setState({
-        hasMore: false,
-        isLoading: false,
-      });
-    } else {
-      this.setState({
-        hasMore: true,
-        isLoading: true,
-      });
+    if (nextPros.visible !== this.props.visible && nextPros.visible) {
+      this.getList();
     }
   }
 
   onEndReached = () => {
-    if (this.state.isLoading && !this.state.hasMore) {
-      return;
-    }
+    if (this.state.isLoading && !this.state.hasMore) return false;
     this.setState({ isLoading: true });
     this.getList();
   };
@@ -93,13 +89,13 @@ class Participants extends PureComponent {
           <div className={styles.rightBox}>
             <div>
               <span className={styles.winName}>{i.userName}</span>
-              {i.ip ? <span className={styles.ip}>{`（${i.ip}）`}</span> : null}
+              {i.ip ? <span className={styles.ip}>{`（${i.address} ${i.ip}）`}</span> : null}
             </div>
             <div className={styles.times}>
               <span>
                 参与了 <span className={styles.round}>{i.partakeCount}</span> 人次
               </span>
-              <span className={styles.time}>{i.createTime}</span>
+              <span className={styles.time}>{format(i.createTime, 'str')}</span>
             </div>
           </div>
         </div>

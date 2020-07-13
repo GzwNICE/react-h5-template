@@ -2,10 +2,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-// import intl from 'react-intl-universal';
-import { NavBar, Icon, InputItem, Picker, List, TextareaItem, Button } from 'antd-mobile';
+import intl from 'react-intl-universal';
+import { NavBar, Icon, InputItem, Picker, List, TextareaItem, Button, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
-import loginBg from '@/assets/images/loginBg.png';
 import addressLine from '@/assets/images/address_line.png';
 import styles from './index.less';
 
@@ -15,38 +14,58 @@ class GetPrize extends PureComponent {
     super(props);
     this.state = {
       activityTurnId: this.props.match.params.activityTurnId,
-      // address: false,
     };
   }
 
   componentDidMount() {
     const { getInfo } = this.props;
-    getInfo({ activityTurnId: this.state.activityTurnId }).then(res => {
-      console.log(res);
-    });
+    getInfo({ activityTurnId: this.state.activityTurnId });
   }
 
   selectAdd = () => {
-    console.log(123123);
-    this.props.history.push(
-      `/addressList?lang=${lang}&activityTurnId=${this.state.activityTurnId}`
-    );
+    this.props.history.push(`/addressList?activityTurnId=${this.state.activityTurnId}`);
+  };
+
+  handleSubmit = () => {
+    const address = JSON.parse(localStorage.getItem('address')) || {};
+    const { submitInfo, info } = this.props;
+    if (!address.id && info.productType === 'SUBSTANCE') {
+      return Toast.info('请填写收货地址', 2);
+    }
+    this.props.form.validateFields((err, value) => {
+      if (err) {
+        return Toast.info('必填项不能为空！', 2);
+      }
+      const params = {
+        activityTurnId: this.state.activityTurnId,
+        receiveAddressId: info.productType === 'SUBSTANCE' ? address.id : null,
+        verifyId: value.verifyId,
+        ageInterval: value.ageInterval ? value.ageInterval[0] : '',
+        education: value.education ? value.education[0] : '',
+        job: value.job ? value.job[0] : '',
+        income: value.income ? value.income[0] : '',
+        companyName: value.companyName,
+        companyAddress: value.companyAddress,
+        directContact: value.directContact ? value.directContact[0] : '',
+        directMobile: value.directMobile,
+        indirectContact: value.indirectContact,
+        indirectMobile: value.indirectMobile,
+        rewardRulesId: info.appRewardRulesVO.rewardRulesId,
+      };
+      submitInfo(params).then(res => {
+        console.log(res);
+        if (res.code === 200) {
+          this.props.history.push(`/awardResult?type=${info.productType}`);
+        }
+      });
+    });
   };
 
   render() {
     const { getFieldProps } = this.props.form;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    const { info, address } = this.props;
-    const district = [
-      {
-        label: '2013',
-        value: '2013',
-      },
-      {
-        label: '2014',
-        value: '2014',
-      },
-    ];
+    const address = JSON.parse(localStorage.getItem('address')) || {};
+    const { info } = this.props;
     return (
       <div className={styles.prize}>
         <NavBar
@@ -89,7 +108,9 @@ class GetPrize extends PureComponent {
               <div className={styles.top}>
                 <span className={styles.name}>{address.userName}</span>
                 <span className={styles.phone}>{address.mobile}</span>
-                <span className={styles.change} onClick={this.selectAdd}>更换</span>
+                <span className={styles.change} onClick={this.selectAdd}>
+                  更换
+                </span>
               </div>
               <div className={`${styles.bot} ${styles.line2}`}>
                 {`${address.city}${address.district}${address.ward}${address.detailAddress}`}
@@ -111,39 +132,55 @@ class GetPrize extends PureComponent {
         <div className={styles.Information}>
           {info.appRewardRulesVO.verifyId === 'Y' ? (
             <li className={styles.rows}>
-              <span className={styles.inputTitle}><i>*</i>身份证信息</span>
-              <InputItem
-                {...getFieldProps('smsCode')}
-                clear
-                placeholder="请输入身份证信息"
-                className={styles.inputItem}
-                ref={el => (this.smsInput = el)}
-                onClick={() => {
-                  this.smsInput.focus();
-                }}
-              />
+              <span className={styles.inputTitle}>
+                <i>*</i>身份证信息
+              </span>
+              <div className={styles.content}>
+                <InputItem
+                  {...getFieldProps('verifyId', {
+                    rules: [{ required: true }],
+                  })}
+                  clear
+                  placeholder="请输入身份证信息"
+                  className={`${styles.inputItem} ${styles.verifyId}`}
+                  ref={el => (this.verInput = el)}
+                  onClick={() => {
+                    this.verInput.focus();
+                  }}
+                />
+              </div>
             </li>
           ) : null}
           {info.appRewardRulesVO.directContact === 'Y' ? (
             <li className={styles.rows}>
-              <span className={styles.inputTitle}><i>*</i>紧急联系人</span>
+              <span className={styles.inputTitle}>
+                <i>*</i>紧急联系人
+              </span>
               <div className={styles.content}>
                 <span className={styles.key}>身份</span>
-                <Picker data={district} cols={1} {...getFieldProps('district3')}>
+                <Picker
+                  data={intl.get('prize.directContact')}
+                  cols={1}
+                  {...getFieldProps('directContact', {
+                    rules: [{ required: true }],
+                  })}
+                >
                   <List.Item arrow="horizontal" className={styles.select} />
                 </Picker>
               </div>
               <div className={styles.content}>
                 <span className={styles.key}>手机</span>
                 <InputItem
-                  {...getFieldProps('phone')}
+                  {...getFieldProps('directMobile', {
+                    rules: [{ required: true }],
+                  })}
                   clear
                   placeholder="请填写10位数手机号"
                   className={styles.inputItem}
                   type="number"
-                  ref={el => (this.phoneInput = el)}
+                  ref={el => (this.dirInput = el)}
                   onClick={() => {
-                    this.phoneInput.focus();
+                    this.dirInput.focus();
                   }}
                 />
               </div>
@@ -151,87 +188,141 @@ class GetPrize extends PureComponent {
           ) : null}
           {info.appRewardRulesVO.indirectContact === 'Y' ? (
             <li className={styles.rows}>
-              <span className={styles.inputTitle}><i>*</i>间接联系人</span>
+              <span className={styles.inputTitle}>
+                <i>*</i>间接联系人
+              </span>
               <div className={styles.content}>
                 <span className={styles.key}>身份</span>
-                <Picker data={district} cols={1} {...getFieldProps('district3')}>
+                <Picker
+                  data={intl.get('prize.indirectContact', {
+                    rules: [{ required: true }],
+                  })}
+                  cols={1}
+                  {...getFieldProps('indirectContact')}
+                >
                   <List.Item arrow="horizontal" className={styles.select} />
                 </Picker>
               </div>
               <div className={styles.content}>
                 <span className={styles.key}>手机</span>
                 <InputItem
-                  {...getFieldProps('phone')}
+                  {...getFieldProps('indirectMobile', {
+                    rules: [{ required: true }],
+                  })}
                   clear
                   placeholder="请填写10位数手机号"
                   className={styles.inputItem}
                   type="number"
-                  ref={el => (this.phoneInput = el)}
+                  ref={el => (this.indirectInput = el)}
                   onClick={() => {
-                    this.phoneInput.focus();
+                    this.indirectInput.focus();
                   }}
                 />
               </div>
             </li>
           ) : null}
-          {info.appRewardRulesVO.education === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}><i>*</i>学历</span>
+
+          <li className={styles.rows}>
+            <span className={styles.inputTitle}>
+              <i>*</i>基本信息
+            </span>
+            {info.appRewardRulesVO.ageInterval === 'Y' ? (
               <div className={styles.content}>
-                <Picker data={district} cols={1} {...getFieldProps('district3')}>
+                <span className={styles.key}>年龄</span>
+                <Picker
+                  data={intl.get('prize.ageInterval', {
+                    rules: [{ required: true }],
+                  })}
+                  cols={1}
+                  {...getFieldProps('ageInterval')}
+                >
                   <List.Item arrow="horizontal" className={styles.select} />
                 </Picker>
               </div>
-            </li>
-          ) : null}
-          {info.appRewardRulesVO.job === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}><i>*</i>职业</span>
+            ) : null}
+            {info.appRewardRulesVO.education === 'Y' ? (
               <div className={styles.content}>
-                <Picker data={district} cols={1} {...getFieldProps('district3')}>
+                <span className={styles.key}>学历</span>
+                <Picker
+                  data={intl.get('prize.education')}
+                  cols={1}
+                  {...getFieldProps('education', {
+                    rules: [{ required: true }],
+                  })}
+                >
                   <List.Item arrow="horizontal" className={styles.select} />
                 </Picker>
               </div>
-            </li>
-          ) : null}
-          {info.appRewardRulesVO.income === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}><i>*</i>月收入</span>
+            ) : null}
+            {info.appRewardRulesVO.job === 'Y' ? (
               <div className={styles.content}>
-                <Picker data={district} cols={1} {...getFieldProps('district3')}>
+                <span className={styles.key}>职业</span>
+                <Picker
+                  data={intl.get('prize.job')}
+                  cols={1}
+                  {...getFieldProps('job', {
+                    rules: [{ required: true }],
+                  })}
+                >
                   <List.Item arrow="horizontal" className={styles.select} />
                 </Picker>
               </div>
-            </li>
-          ) : null}
-          {info.appRewardRulesVO.companyName === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}><i>*</i>公司名称</span>
-              <InputItem
-                {...getFieldProps('smsCode')}
-                clear
-                placeholder="请填写公司名称"
-                className={styles.inputItem}
-                ref={el => (this.smsInput = el)}
-                onClick={() => {
-                  this.smsInput.focus();
-                }}
-              />
-            </li>
-          ) : null}
+            ) : null}
+            {info.appRewardRulesVO.income === 'Y' ? (
+              <div className={styles.content}>
+                <span className={styles.key}>月收入</span>
+                <Picker
+                  data={intl.get('prize.income')}
+                  cols={1}
+                  {...getFieldProps('income', {
+                    rules: [{ required: true }],
+                  })}
+                >
+                  <List.Item arrow="horizontal" className={styles.select} />
+                </Picker>
+              </div>
+            ) : null}
+            {info.appRewardRulesVO.companyName === 'Y' ? (
+              <div className={styles.content}>
+                <span className={styles.key}>月收入</span>
+                <InputItem
+                  {...getFieldProps('companyName', {
+                    rules: [{ required: true }],
+                  })}
+                  clear
+                  placeholder="请填写公司名称"
+                  className={styles.inputItem}
+                  ref={el => (this.companyInput = el)}
+                  onClick={() => {
+                    this.companyInput.focus();
+                  }}
+                />
+              </div>
+            ) : null}
+          </li>
           {info.appRewardRulesVO.companyAddress === 'Y' ? (
             <li className={styles.rows}>
-              <span className={styles.inputTitle}><i>*</i>公司地址</span>
+              <span className={styles.inputTitle}>
+                <i>*</i>公司地址
+              </span>
               <TextareaItem
-                {...getFieldProps('control')}
+                {...getFieldProps('companyAddress', {
+                  rules: [{ required: true }],
+                })}
                 rows={3}
                 clear
                 placeholder="请填写公司地址"
                 className={styles.textarea}
+                ref={el => (this.AddressInput = el)}
+                onClick={() => {
+                  this.AddressInput.focus();
+                }}
               />
             </li>
           ) : null}
-          <Button type="primary" className={styles.submit}>提交</Button>
+          <Button type="primary" className={styles.submit} onClick={this.handleSubmit}>
+            提交
+          </Button>
         </div>
       </div>
     );
@@ -245,6 +336,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   getInfo: params => dispatch.prize.prizeInfo(params),
+  submitInfo: params => dispatch.prize.submit(params),
 });
 
 export default connect(mapState, mapDispatch)(createForm()(GetPrize));

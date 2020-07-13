@@ -1,15 +1,21 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 // import intl from 'react-intl-universal';
+import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
 import copy from 'copy-to-clipboard';
 import { Toast } from 'antd-mobile';
-import queryString from 'query-string';
-
+// import queryString from 'query-string';
 import moment from 'moment';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 import styles from './index.less';
+=======
+import styles from './index.less';
+// import { Link } from 'react-router-dom';
+>>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
 
-const { lang } = queryString.parse(window.location.search);
+// const { lang } = queryString.parse(window.location.search);
 
 class Win extends PureComponent {
   constructor(props) {
@@ -34,7 +40,7 @@ class Win extends PureComponent {
       orderStatus = intl.get('order.wait_provide');
       colorStatus = '#FF5209';
     } else if (data.status === 'PROVIDED') {
-      colorStatus = '#ff34c759';
+      colorStatus = '#666666';
       if (data.productType === 'SUBSTANCE') {
         //奖品已发放 实体
         orderStatus = intl.get('order.provided');
@@ -65,7 +71,9 @@ class Win extends PureComponent {
     return (
       <div className={styles.box}>
         <div className={styles.orderBox}>
-          <img className={styles.orderImg} src={data.pic}></img>
+          <div className={styles.orderImg}>
+            <img src={data.pic}></img>
+          </div>
           <div className={styles.orderInfo}>
             <div className={styles.orderTitle}>
               {intl.get('order.str_current_turn')} {data.currentTurn} {data.activityName}
@@ -78,6 +86,7 @@ class Win extends PureComponent {
                 <div className={styles.apply}>{intl.get('order.str_show_applying')}</div>
               ) : null}
               {data.status === 'WIN' ? (
+<<<<<<< HEAD
                 <Link
                   to={{
                     pathname: `/product/${data.activityTurnId}`,
@@ -88,6 +97,11 @@ class Win extends PureComponent {
                     {intl.get('order.str_go_confirm')}
                   </div>
                 </Link>
+=======
+                <div className={styles.btn} onClick={() => this.onDetailClick(data.activityTurnId)}>
+                  去确认
+                </div>
+>>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
               ) : null}
             </div>
           </div>
@@ -146,7 +160,11 @@ class Win extends PureComponent {
                 className={styles.detail}
                 onClick={this.onDetailDialogClick.bind(this, data.status, data.orderId)}
               >
+<<<<<<< HEAD
                 {intl.get('order.str_winget_detail')}
+=======
+                兑换详情
+>>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
               </div>
             ) : null}
           </div>
@@ -158,8 +176,28 @@ class Win extends PureComponent {
       </div>
     );
   }
+<<<<<<< HEAD
   onDetailClick(data) {
     this.props.history.push(`/product/${data.activityTurnId}?lang=${lang}`);
+=======
+  onDetailClick = id => {
+    const { getRules, getAwardInfo } = this.props;
+    getRules({
+      activityTurnId: id,
+    }).then(res => {
+      if (res.code === 200) {
+        if (res.data.status === 0) {
+          this.props.push(`/prize/${id}`);
+        } else {
+          getAwardInfo({ activityTurnId: id }).then(res => {
+            if (res.code === 200) {
+              this.props.push(`/awardResult?type=${res.data.productType}`);
+            }
+          });
+        }
+      }
+    });
+>>>>>>> 6686be4359e37df7d4cedf4e9aebbeac6a654fe4
   }
 
   onCopyClick(copyContent) {
@@ -176,4 +214,13 @@ class Win extends PureComponent {
   }
 }
 
-export default Win;
+const mapState = state => ({
+  detail: state.product.data.detail,
+});
+
+const mapDispatch = dispatch => ({
+  getRules: params => dispatch.product.existRules(params),
+  getAwardInfo: params => dispatch.prize.result(params),
+});
+
+export default connect(mapState, mapDispatch)(Win);

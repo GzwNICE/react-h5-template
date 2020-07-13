@@ -36,17 +36,17 @@ class Personal extends PureComponent {
     });
   }
   onRealNameClick(name) {
-    this.props.history.push(`/editname?title=编辑真实姓名&type=name&content=${name}&lang=${lang}`);
+    this.props.history.push(`/editname?title=编辑真实姓名&type=name&content=${name}`);
   }
   onSexClick() {
     console.log('onSexClick');
   }
   onAddressClick() {
-    this.props.history.push(`/addressList?lang=${lang}`);
+    this.props.history.push(`/addressList`);
   }
 
   onAddCardClick() {
-    this.props.history.push(`/editname?title=身份证号&type=idCard&lang=${lang}`);
+    this.props.history.push(`/editname?title=身份证号&type=idCard`);
   }
 
   onChangeSex = sex =>{

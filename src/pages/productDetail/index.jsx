@@ -7,6 +7,7 @@ import queryString from 'query-string';
 import Cookies from 'js-cookie';
 import { NavBar, Carousel, Progress, NoticeBar, Button, Toast } from 'antd-mobile';
 import { Link } from 'react-router-dom';
+import { format } from '@/utils/util';
 import navBack from '@/assets/images/navBack.png';
 import priceBg from '@/assets/images/activity_bg_price.png';
 import priceOpen from '@/assets/images/activity_pic_countdown.png';
@@ -49,7 +50,31 @@ class ProductDetail extends PureComponent {
   }
 
   componentDidMount() {
+    console.log('componentDidMount');
     this.initDetail();
+    window.scrollTo(0, 0);
+  }
+
+  componentDidUpdate() {
+    if (this.state.buyShow) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  // 详情页互相跳转，id发生变化，无法重新渲染组件，暂时使用刷新页面解决跳转不渲染问题
+  componentWillReceiveProps(nextProps) {
+    const thisId = this.props.match.params.activityTurnId;
+    const nextId = nextProps.match.params.activityTurnId;
+    if (thisId !== nextId) {
+      console.log(3);
+      window.location.reload();
+    }
+  }
+
+  componentWillUnmount() {
+    document.body.style.overflow = 'auto';
   }
 
   initDetail = () => {
@@ -82,7 +107,13 @@ class ProductDetail extends PureComponent {
         ) {
           this.countFun(Number(res.data.waitStartTime), 'wait');
         }
-        if (Number(res.data.countdownTime) > 1000 && res.data.status === 7) {
+        if (
+          Number(res.data.countdownTime) > 1000 &&
+          (res.data.status === 7 ||
+            res.data.status === 4 ||
+            res.data.status === 5 ||
+            res.data.status === 6)
+        ) {
           this.setState({
             countdown: true,
           });
@@ -97,7 +128,7 @@ class ProductDetail extends PureComponent {
 
   countFun = (time, type) => {
     var remaining = time;
-    this.timer = setInterval(() => {
+    let timer = setInterval(() => {
       //防止出现负数
       if (remaining > 1000) {
         remaining -= 1000;
@@ -118,8 +149,11 @@ class ProductDetail extends PureComponent {
           });
         }
       } else {
-        clearInterval(this.timer);
-        window.location.reload();
+        clearInterval(timer);
+        this.setState({
+          countdown: false,
+        });
+        this.initDetail();
       }
     }, 1000);
   };
@@ -143,30 +177,54 @@ class ProductDetail extends PureComponent {
   };
 
   visibleBuy = type => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Toast.info('请先登录！', 2);
+      setTimeout(() => {
+        this.props.history.push(`/login`);
+      }, 2000);
+      return false;
+    }
     this.setState({
       buyShow: !this.state.buyShow,
     });
     if (type === 'success') {
-      window.location.reload();
+      console.log('tangchuang');
+      this.initDetail();
     }
   };
 
+  goPay = () => {
+    this.props.history.push(`/payment`);
+  };
+
   newActivity = id => {
-    this.props.history.push(`/product/${id}?lang=${lang}`);
-    window.location.reload();
+    this.props.history.push(`/product/${id}`);
+    console.log('xinid');
+    this.initDetail();
   };
 
   handleConfirm = () => {
-    const { getRules } = this.props;
+    const { getRules, getAwardInfo } = this.props;
     const id = this.state.activityTurnId;
     getRules({
       activityTurnId: id,
     }).then(res => {
       if (res.code === 200) {
         if (res.data.status === 0) {
-          this.props.history.push(`/prize/${id}?lang=${lang}`);
+          this.setState({
+            visibleReceive: false,
+          });
+          this.props.history.push(`/prize/${id}`);
         } else {
-          console.log(11111);
+          getAwardInfo({ activityTurnId: id }).then(res => {
+            if (res.code === 200) {
+              this.setState({
+                visibleReceive: false,
+              });
+              this.props.history.push(`/awardResult?type=${res.data.productType}`);
+            }
+          });
         }
       }
     });
@@ -195,7 +253,7 @@ class ProductDetail extends PureComponent {
       openS,
     } = this.state;
     const { detail } = this.props;
-    const config = JSON.parse(localStorage.getItem('configuration')) || {};
+    const { moneyVirtualCn, moneySymbol } = JSON.parse(localStorage.getItem('configuration'));
     const winData = {
       img: detail.thumbnailUrl,
       name: detail.productName,
@@ -215,12 +273,9 @@ class ProductDetail extends PureComponent {
           <Carousel autoplay={false} infinite dots={false} beforeChange={this.carBeforeChange}>
             {detail.imgUrlList &&
               detail.imgUrlList.map(val => (
-                <img
-                  key={val}
-                  src={val}
-                  alt=""
-                  style={{ width: '100%', verticalAlign: 'top', height: '3.75rem' }}
-                />
+                <div key={val} className={styles.carouselItem}>
+                  <img src={val} alt="img" className={styles.carouselImg} />
+                </div>
               ))}
           </Carousel>
           <div className={styles.dotsBox}>{`${current}/${allCur}`}</div>
@@ -236,14 +291,15 @@ class ProductDetail extends PureComponent {
             style={{ backgroundImage: `url(${priceOpen})`, justifyContent: 'center' }}
           >
             开奖倒计时
-            <span className={styles.time}>{openH}</span>:<span className={styles.time}>{openM}</span>:
+            <span className={styles.time}>{openH}</span>:
+            <span className={styles.time}>{openM}</span>:
             <span className={styles.time}>{openS}</span>
           </div>
         ) : null}
         <div className={styles.priceBox} style={{ backgroundImage: `url(${priceBg})` }}>
           <span className={styles.price}>
             <span className={styles.pPrice}>{detail.participatePrice}</span>
-            <span>{config.moneyVirtualCn && config.moneyVirtualCn}</span> / <span>人次</span>
+            <span>{moneyVirtualCn}</span> / <span>人次</span>
           </span>
           <div className={styles.remainBox}>
             <span>{`剩余${detail.remainingCount}人次`}</span>
@@ -265,7 +321,7 @@ class ProductDetail extends PureComponent {
             {detail.activityName}
           </div>
           <div className={styles.moreBuy}>{`多买10张奖券可提升 ${detail.addWinRate}% 中奖率`}</div>
-          {status !== 7 && detail.partakeStatus === 'yes' ? (
+          {(status === 8 || status === 9 || status === 10) && detail.partakeStatus === 'yes' ? (
             <div className={styles.msgBox}>
               {detail.ifWin === 'yes' ? (
                 <NoticeBar
@@ -281,15 +337,21 @@ class ProductDetail extends PureComponent {
                 </NoticeBar>
               )}
             </div>
-          ) : (
+          ) : null}
+          {detail.partakeStatus === 'no' ? (
             <div className={styles.msgBox}>
               <NoticeBar icon={<img src={remind} alt="" width="14" />}>
-                如何用6000VND拿走这件商品。
+                {`如何用6000${moneySymbol}拿走这件商品。`}
               </NoticeBar>
             </div>
-          )}
+          ) : null}
           {detail.ifWin === 'yes' && detail.orderStatus === 6 ? (
-            <div className={styles.viewLottery} onClick={this.viewLottery('visibleRaffle')}>
+            <div
+              className={styles.viewLottery}
+              onClick={() => {
+                this.props.history.push(`/prize/${activityTurnId}`);
+              }}
+            >
               立即领奖
             </div>
           ) : null}
@@ -298,7 +360,9 @@ class ProductDetail extends PureComponent {
               查看我的抽奖码
             </div>
           ) : null}
-          {status === 7 ? (
+          {(status === 7 || status === 2 || status === 3) &&
+          status !== 9 &&
+          detail.partakeStatus === 'yes' ? (
             <div className={styles.buyLottery}>
               <span className={styles.buyTimes}>{`已购买：${detail.buyCount}次`}</span>
               <span className={styles.lottery} onClick={this.viewLottery('visibleRaffle')}>
@@ -330,7 +394,7 @@ class ProductDetail extends PureComponent {
                   <li>{`获奖者：${detail.winnerUserName}`}</li>
                   <li>{`轮次：第${detail.currentTurn}轮`}</li>
                   <li>{`本轮参与：${detail.winnerBuyCount}人次`}</li>
-                  <li>{`开奖时间：${detail.openTime}`}</li>
+                  <li>{`开奖时间：${format(detail.openTime, 'str')}`}</li>
                 </ul>
               </div>
               <div className={styles.winNum}>
@@ -338,7 +402,6 @@ class ProductDetail extends PureComponent {
                 <Link
                   to={{
                     pathname: `/rules/${activityTurnId}`,
-                    search: `?lang=${lang}`,
                   }}
                   className={styles.rule}
                 >
@@ -357,7 +420,7 @@ class ProductDetail extends PureComponent {
           <p className={styles.text}>{detail.content}</p>
           {detail.contentImgList
             ? detail.contentImgList.map(i => {
-                return <img src={i} alt="img" key={i.index} />;
+                return <img src={i} alt="img" key={i} />;
               })
             : null}
         </div>
@@ -375,6 +438,7 @@ class ProductDetail extends PureComponent {
           data={detail}
           personData={personData}
           proportionData={proportionData}
+          goPay={this.goPay}
         />
         {status && (status === 1 || status === 10 || status === 9 || status === 7) ? (
           <div className={styles.newActBox}>
@@ -398,7 +462,7 @@ class ProductDetail extends PureComponent {
             </Button>
           </div>
         ) : null}
-        {status && status === 8 ? (
+        {status === 5 || status === 8 ? (
           <div className={styles.newActBox}>
             <p>本商品活动已结束，期待下次再见吧</p>
           </div>
@@ -431,6 +495,7 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   getDetail: params => dispatch.product.getDetail(params),
   getRules: params => dispatch.product.existRules(params),
+  getAwardInfo: params => dispatch.prize.result(params),
 });
 
 export default connect(mapState, mapDispatch)(ProductDetail);

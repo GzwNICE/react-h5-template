@@ -162,19 +162,41 @@
       .inputItem {
         width: 100%;
         background: #ffffff;
-        border: 1px solid #cbcbcb;
-        border-radius: 4px;
+        // border: 1px solid #cbcbcb;
+        // border-radius: 4px;
         box-sizing: border-box;
         flex: 1;
         input {
           font-size: 14px;
           font-family: PingFangSC, PingFangSC-Regular;
+          color: #333333;
         }
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+          color: #cbcbcb;
+        }
+
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+          color: #cbcbcb;
+        }
+
+        input:-ms-input-placeholder,
+        textarea:-ms-input-placeholder {
+          color: #cbcbcb;
+        }
+
+        input::-webkit-input-placeholder,
+        textarea::-webkit-input-placeholder {
+          color: #cbcbcb;
+        }
+      }
+      .verifyId {
+        padding-left: 6px !important;
       }
       .content {
         display: flex;
         align-items: center;
         margin-bottom: 8px;
+        border-bottom: 1px solid #ededed;
         .key {
           width: 40px;
           font-size: 14px;
@@ -191,31 +213,34 @@
         }
         .select {
           background: #ffffff;
-          border: 1px solid #cbcbcb;
-          border-radius: 4px;
+          color: #fff;
           :global(.am-list-extra) {
             text-align: left;
             font-size: 14px;
-            color: #cbcbcb;
+            color: #333333;
           }
         }
       }
       .textarea {
         background: #ffffff;
-        border: 1px solid #cbcbcb;
-        border-radius: 4px;
+        // border: 1px solid #cbcbcb;
+        // border-radius: 4px;
         padding-right: 6px;
         box-sizing: border-box;
         textarea {
           font-size: 14px;
           font-family: PingFangSC, PingFangSC-Regular;
           line-height: 20px;
+          color: #333333;
         }
       }
 
       :global(.am-input-clear),
       :global(.am-list-arrow) {
         flex: none !important;
+      }
+      :global(.am-list-line) {
+        padding-right: 0;
       }
       :global(.am-textarea-clear) {
         margin-top: 0;

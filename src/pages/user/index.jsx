@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-import { Grid } from 'antd-mobile';
+import { Grid, Button, NavBar } from 'antd-mobile';
 import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
@@ -22,6 +22,7 @@ class User extends PureComponent {
     super(props);
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
+      isLogin: localStorage.getItem('token') != null,
     };
   }
 
@@ -34,17 +35,25 @@ class User extends PureComponent {
     }
   }
   loginCLick() {
-    this.props.history.push(`/login?lang=${lang}`);
+    this.props.history.push(`/login`);
   }
   onPersonClick() {
-    // this.props.history.push(`/personal?lang=${lang}`);
+    // this.props.history.push(`/personal`);
   }
   onPayListClick() {
-    this.props.history.push(`/paylist?lang=${lang}`);
+    this.props.history.push(`/paylist`);
   }
   feedBackClick() {
-    this.props.history.push(`/feedback?lang=${lang}`);
+    this.props.history.push(`/feedback`);
   }
+
+  handlerOutLogin = () => {
+    localStorage.removeItem('token');
+    this.setState({
+      isLogin: false,
+    });
+  };
+
   render() {
     // eslint-disable-next-line react/destructuring-assignment
     const tabs = [
@@ -53,17 +62,16 @@ class User extends PureComponent {
       { label: '未中奖', icon: nowin, type: 3 },
     ];
     const { user } = this.props;
-    const isLogin = localStorage.getItem('token') != null;
     const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
-    const { IPhoneX } = this.state;
+    const { IPhoneX, isLogin } = this.state;
     return (
       <div>
         <div className={styles.topBox}>
-          <div className={styles.title}>{intl.get('user.title')}</div>
+          <NavBar className={styles.navBar}>{intl.get('user.title')}</NavBar>
           <div className={styles.authorInfo}>
             <img
               className={styles.authorImg}
-              src={user.userInfo.photoUrl ? user.userInfo.photoUrl : authorImg}
+              src={isLogin ? user.userInfo.photoUrl : authorImg}
               onClick={this.onPersonClick.bind(this)}
             ></img>
             <div className={styles.authorLoginType}>
@@ -77,8 +85,11 @@ class User extends PureComponent {
               <div className={styles.authorCoin} onClick={this.onPayListClick.bind(this)}>
                 <img className={styles.coin} src={ic_gocoin_s}></img>
                 <span className={styles.label}>
-                  {intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}
-                  {user.userInfo.goMoney}
+                  {isLogin
+                    ? `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })} ${
+                        user.userInfo.goMoney
+                      }`
+                    : `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}`}
                 </span>
                 <img className={styles.arrow} src={goin_arrow}></img>
               </div>
@@ -94,11 +105,9 @@ class User extends PureComponent {
               hasLine={false}
               onClick={_el => {
                 if (isLogin) {
-                  this.props.history.push(
-                    `/order?label=${_el.label}&type=${_el.type}&lang=${lang}`
-                  );
+                  this.props.history.push(`/order?label=${_el.label}&type=${_el.type}`);
                 } else {
-                  this.props.history.push(`/login?lang=${lang}`);
+                  this.props.history.push(`/login`);
                 }
               }}
               renderItem={item => (
@@ -114,6 +123,11 @@ class User extends PureComponent {
             </div>
           </div>
         </div>
+        {isLogin ? (
+          <Button onClick={this.handlerOutLogin} className={styles.outLogin}>
+            退出登录
+          </Button>
+        ) : null}
         <div className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}>
           <TabBarBox selectedTab="userPage" search={this.props.history.location.search} />
         </div>

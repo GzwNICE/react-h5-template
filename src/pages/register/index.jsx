@@ -3,6 +3,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import Cookies from 'js-cookie';
 // import intl from 'react-intl-universal';
 import { NavBar, Icon, InputItem, Button, Toast, Modal } from 'antd-mobile';
 import { createForm } from 'rc-form';
@@ -11,7 +12,6 @@ import passwordClose from '@/assets/images/passwordClose.png';
 import passwordOpen from '@/assets/images/passwordOpen.png';
 import styles from './index.less';
 
-const { lang } = queryString.parse(window.location.search);
 class Register extends PureComponent {
   constructor(props) {
     super(props);
@@ -24,13 +24,14 @@ class Register extends PureComponent {
       index: 5,
       sendCodeText: '发送验证码',
       disableCode: false,
+      lang: Cookies.get('lang'),
     };
   }
 
   componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
-      this.props.history.push(`/home?lang=${lang}`);
+      this.props.history.push(`/home`);
       return;
     }
     const { mobile } = queryString.parse(window.location.search);
@@ -58,7 +59,7 @@ class Register extends PureComponent {
         this.props
           .sendCode({
             phone: this.state.mobile,
-            countryCode: '84',
+            countryCode: this.state.lang === 'zh' ? '86' : '84',
             picCode: value.picCode,
           })
           .then(res => {
@@ -104,10 +105,9 @@ class Register extends PureComponent {
       } else if (!Reg.test(value.pwd)) {
         return Toast.info('密码只能为6-16位由数字和字母组成', 2);
       } else {
-        console.log(value);
         this.props
           .fetchRegister({
-            countryCode: '84',
+            countryCode: this.state.lang === 'zh' ? '86' : '84',
             mobile: this.state.mobile,
             smsCode: value.smsCode,
             pwd: value.pwd,
@@ -118,7 +118,7 @@ class Register extends PureComponent {
               localStorage.setItem('token', `Bearer ${res.data.token}`);
               localStorage.setItem('refreshToken', res.data.refreshToken);
               setTimeout(() => {
-                this.props.history.push(`/home?lang=${lang}`);
+                this.props.history.push(`/home`);
               }, 2000);
             }
           });
@@ -149,9 +149,21 @@ class Register extends PureComponent {
     });
   };
 
+  handleAgreement = () => {
+    this.props.history.push('/agreement/0');
+  };
+
   render() {
     const { getFieldProps } = this.props.form;
-    const { mobile, pwVisible, codeImgUrl, codeModal, sendCodeText, disableCode } = this.state;
+    const {
+      mobile,
+      pwVisible,
+      codeImgUrl,
+      codeModal,
+      sendCodeText,
+      disableCode,
+      lang,
+    } = this.state;
     return (
       <div className={styles.regPage}>
         <NavBar
@@ -166,7 +178,7 @@ class Register extends PureComponent {
         </NavBar>
         <div className={styles.regBox}>
           <span className={styles.title}>注册GAGA GO</span>
-          <div className={styles.loginMobile}>+84 {mobile}</div>
+          <div className={styles.loginMobile}>{`+${lang === 'zh' ? '86' : '84'} ${mobile}`}</div>
           <div className={styles.codeBox}>
             <InputItem
               {...getFieldProps('smsCode')}
@@ -211,6 +223,9 @@ class Register extends PureComponent {
           <Button type="primary" className={styles.nextBut} onClick={this.handleRegClick}>
             注册
           </Button>
+          <p className={styles.regAg}>
+            注册即代表您同意<span onClick={this.handleAgreement}>《用户服务协议》</span>
+          </p>
         </div>
         <Modal
           visible={codeModal}
@@ -253,6 +268,7 @@ const mapState = state => ({});
 const mapDispatch = dispatch => ({
   sendCode: params => dispatch.register.sendCode(params),
   fetchRegister: params => dispatch.register.userRegister(params),
+  fetchAgr: params => dispatch.register.getAgr(params),
 });
 
 export default connect(mapState, mapDispatch)(createForm()(Register));
