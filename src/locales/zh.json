@@ -8,8 +8,7 @@
     "worth": "价值",
     "remaining": "剩余",
     "personTime": "人次",
-    "BuyMore": "多买10次可提升",
-    "oddsWinning": "中奖率"
+    "BuyMore": "多买10次可提升{addWinRate}%中奖率"
   },
 
   "user": {
@@ -73,10 +72,6 @@
     "bankCardNum":"卡号",
     "unitInfo":"GaGaGO已对接第三方礼品回收公司，并委托第三方公司进行奖品兑现工作。",
     "know":"知道了"
-
-
-
-
   },
   "payment": {
     "recharge": "充值{moneyVirtualCn}",
