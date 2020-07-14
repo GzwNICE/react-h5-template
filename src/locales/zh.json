@@ -187,7 +187,6 @@
     "aboutStart": "即将开始",
     "goNow": "立即前往",
     "productEnded": "本商品活动已结束，期待下次再见吧",
-    "choose": "请选择购买人次或比例",
     "orderTimeout": "订单超时，请重新购买",
     "participate": "参与成功",
     "cancelOrder": "取消订单",
@@ -198,10 +197,10 @@
     "total": "合计",
     "confirmPayment": "确认支付",
     "confirmSettlement": "确认结算",
-    "payGOCoins": "支付GO币",
+    "payGOCoins": "支付{moneySymbol}",
     "balance": "我的余额",
     "cancellationOrders": "未支付订单自动取消",
-    "pleaseRecharge": "GO币不足，请先充值"
+    "pleaseRecharge": "{moneySymbol}不足，请先充值"
   },
   "prize": {
     "directContact": [

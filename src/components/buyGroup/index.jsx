@@ -247,7 +247,9 @@ class BuyGroup extends PureComponent {
                   <span>{`${partakeCount}人次`}</span>
                 </li>
                 <li>
-                  <span className={styles.left}>{intl.get('product.payGOCoins')}</span>
+                  <span className={styles.left}>
+                    {intl.get('product.payGOCoins', { moneySymbol: config.moneyVirtualCn })}
+                  </span>
                   <span>{goAmount}</span>
                 </li>
                 <li>
@@ -264,7 +266,9 @@ class BuyGroup extends PureComponent {
                 <Button type="primary" className={styles.pay} onClick={this.confirmPay}>
                   {!balanceStatus
                     ? `${intl.get('product.confirmPayment')}`
-                    : `${intl.get('product.pleaseRecharge')}`}
+                    : `${intl.get('product.pleaseRecharge', {
+                        moneySymbol: config.moneyVirtualCn,
+                      })}`}
                 </Button>
               </div>
             </div>

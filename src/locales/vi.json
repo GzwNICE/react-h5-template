@@ -1,37 +1,41 @@
 {
   "home": {
-    "title": "Sao chép",
-    "home": "home",
-    "user": "user"
+    "home": "Trang chủ",
+    "user": "Tôi",
+    "popularity": "Vận may",
+    "upToDate": "Mới nhất",
+    "willEnd": "Dừng",
+    "worth": "Giá trị",
+    "remaining": "Còn",
+    "personTime": "quay",
+    "BuyMore": "Mua thêm 10 vé để tăng {addWinRate}% xác suất trúng thưởng"
   },
-  
+
   "user": {
     "title": "Tôi",
-    "loginOrRegister":"Đăng nhập / Đăng ký",
-    "myGoCoin":"Tôi{moneyVirtualCn}",
+    "loginOrRegister":"Đăng ký/Đăng nhập",
+    "myGoCoin":"{moneyVirtualCn} của tôi",
+    "myCanUseCoin":"Hiện tại {moneyVirtualCn} có thể dùng",
     "myorder":"Danh sách đặt hàng",
     "wait_open":"Chờ quay thưởng",
     "winning":"Đã trúng thưởng",
     "nowin":"Không trúng thưởng",
-    "feedback":"Phản hồi của tôi",
+    "feedback":"Phản hồi",
     "str_thank_feedback":"Cảm ơn phản hồi của bạn",
-    "str_welocme_feedback":"Hãy chia sẻ niềm vui chiến thắng với chúng tôi",
     "submit":"Gửi",
+    "str_welocme_feedback":"Ý kiến của bạn về chất lượng phục vụ? Hãy nói với chúng tôi",
     "logout":"Thoát ra"
-
   },
   "order": {
     "win": "Đợi xác nhận",
     "wait_provide": "Đợi phát thưởng",
     "provided": "Đã giao hàng",
     "refunded": "Hoàn tiền",
-    "coin_recycle": "Hối đoái{moneyVirtualCn}",
-    "myCanUseCoin":"Hiện tại {moneyVirtualCn} có thể dùng",
-
+    "coin_recycle": "Hối đoái {moneyVirtualCn}",
     "wait_cash": "Đã quy đổi tiền mặt",
     "cashed": "Đã quy đổi tiền mặt",
     "no_confirm": "Hủy thưởng",
-    "str_current_turn":"Round",
+    "str_current_turn":"Round ",
     "str_show_applying":"Đang phê duyệt",
     "str_go_confirm":"Đi xác nhận",
     "str_need_24later":"Cần xác nhận thông tin xong mới phát thưởng, trong 24h nếu không xác nhận thông tin sẽ tự động hủy thưởng.",
@@ -42,39 +46,86 @@
     "str_copy":"Copy",
     "str_winning_orderid":"ID đôn hàng:",
     "str_copy_success":"Copy thành công",
-    "str_has_buy":"Đã mua:{num}quay",
+    "str_has_buy":"Đã mua: {num} quay",
+    "laveCount":"Còn {num}",
     "str_search_my_code":"Xem mã quay thưởng",
-
-    "laveCount":"Còn:{num}",
     "str_open_progress":"Tiến độ quay thưởng:",
     "str_order_time":"Thời gian đặt hàng:",
-    "str_nowin_buytimes":"Đã mua: {num} quay",
-    "str_winning_time":"Thời gian chiến thắng:"
+    "str_winning_time":"Thời gian chiến thắng:",
+    "str_nowin_buytimes":"Đã mua:{num} quay",
+    "dialogDetail":"Chi tiết quy đổi",
+    "productGoMoney": "Giá trị giải thưởng",
+    "goGiveRate":"Tỉ lệ tặng thưởng ngoài",
+    "goGiveMoney":"Số lượng tặng thưởng ngoài",
+    "convertGoMoney":"str_last_change_amount",
+    "createTime":"Thời gian quy đổi",
+    "applying":"Đang phê duyệt",
+    "finish":"Đã hoàn thành",
+    "status":"str_exchange_status",
+    "marketPrice":"Giá trị phần thưởng",
+    "serviceFeeRate":"Thuế / Tỉ lệ phí dịch vụ",
+    "serviceFee":"Thuế / Phí dịch vụ",
+    "convertPrice":"Dự tính giao dịch thành công",
+    "applyTime":"Thời gian yêu cầu",
+    "realName":"Tên chủ tài khoản",
+    "bankName":"Tên ngân hàng",
+    "bankCardNum":"Số thẻ",
+    "unitInfo":"GaGaGO kết nối với bên thu mua thưởng thứ 3, uỷ quyền họ tiến hành việc quy đổi thưởng.",
+    "know":"Chúng tôi biết rồi"
   },
 
   "payment": {
-    "recharge": "充值{moneyVirtualCn}",
-    "concume": "{moneyVirtualCn}消费",
-    "reward_back": "流奖退回",
-    "reward": "中奖{moneyVirtualCn}",
-    "sys_reward": "系统奖励",
-    "new_register_given": "首次注册赠送",
-    "go_convert": "兑换{moneyVirtualCn}",
-    "go_reward_expire": "赠币过期",
-    "friend_recharge_given": "好友充值赠送{moneyVirtualCn}",
-    "str_gocoin_spending_detail":"支出明细",
-    "str_gocoin_income_detail":"收入明细",
-    "gocoin_pay_history":"充值流水",
-    "str_inpay":"去充值",
-    "str_buy_total":"赠币总量:{num}",
-    "str_one_day_overdue":"1天后过期:{num}",
-    "str_change_gocoin":"兑换",
-    "str_coin_rechargeMoney":"支付:",
-    "str_server_money":"含服务费:",
-    "str_coin_giveAwayMoney":"含赠送",
-    "str_coin_rest":"余额："
+    "recharge": "Nạp {moneyVirtualCn}",
+    "concume": "Chi phí {moneyVirtualCn}",
+    "reward_back": "Loại thưởng hoàn trả",
+    "reward": "Mã trúng thưởng{moneyVirtualCn}",
+    "sys_reward": "Hệ thống thưởng",
+    "new_register_given": "Phần thưởng đăng ký lần đầu",
+    "go_convert": "Quy đổi {moneyVirtualCn}",
+    "go_reward_expire": "Tặng xu quá hạn",
+    "friend_recharge_given": "Bạn bè nạp {moneyVirtualCn} sẽ tặng thưởng {moneyVirtualCn}",
+    "str_gocoin_spending_detail":"Chi tiết chi",
+    "str_gocoin_income_detail":"Chi tiết thu nhập",
+    "gocoin_pay_history":"Lịch sử nạp tiền",
+    "str_inpay":"Nạp tiền",
+    "str_buy_total":"Tổng Tặng {moneyVirtualCn}:{num}",
+    "str_one_day_overdue":"Sau 1 ngày hết hạn:{num}",
+    "str_change_gocoin":"Quy đổi",
+    "str_coin_rechargeMoney":"Số tiền thanh toán:",
+    "str_server_money":"Phí dịch vụ:",
+    "str_coin_giveAwayMoney":"Bao gồm quà tặng ",
+    "str_coin_rest":"Số dư:",
+    "areYouSure": "Nạp tiền sắp thành công, bạn chắc chắn muốn từ bỏ cơ hội kiếm tiền này?",
+    "carryOon": "Tiếp theo",
+    "topUp": "Nạp tiền",
+    "selectAmount": "Vui lòng chọn {moneyVirtualCn} số muốn nạp",
+    "give": "Gửi",
+    "needToPay": "Phải thanh toán",
+    "includingService": "Bao gồm phí dịch vụ ngân hàng",
+    "paymentMethod": "Phương thức thanh toán",
+    "userNotice": "Những điều người dùng cần biết",
+    "not1": "1.{moneyVirtualCn} và Tiền mặt có tỷ lệ chuyển đổi cố định và {moneyVirtualCn} chỉ có thể được sử dụng để tham gia vào các chương trình hoạt động hàng hóa;",
+    "not2": "2. {moneyVirtualCn} đã mua không thể báo mất, chuyển nhượng hoặc bán. Vui lòng bảo mật tài khoản của bạn;",
+    "not3": "3. Người dùng cần phải trả một khoản phí dịch vụ ngân hàng nhất định khi nạp tiền.",
+    "topUpNow": "Nạp Xu",
+    "paymentSuccessful": "Thanh toán thành công",
+    "abnormalPayment": "Thanh toán bất thường",
+    "hasSuccessfully": "Đổi Xu thành công",
+    "tips1": "Nếu bạn đã bị trừ tiền, có thể kiểm tra tại trang xu của tôi - tôi",
+    "paymentAmount": "Số tiền thanh toán",
+    "paymentTime": "Thời gian thanh toán",
+    "tips2": "{moneyVirtualCn} thông 5 phút sẽ đến tài khoản,vui lòng đợi,nếu có vấn đề thắc mắc xin vui lòng liên hệ phòng tư vấn khách hàng.",
+    "time": "Thời gian",
+    "back": "Quay lại",
+    "againPay": "Thanh toán lại"
   },
-
+  "payhistory": {
+    "unup": "Không nạp tiền",
+    "topuping": "Đang nạp tiề",
+    "topup_success": "Nạp tiền thanh toán",
+    "topup_faile": "Nạp tiền thất bại",
+    "topup_cancel": "Đã hủy"
+  },
   "login": {
     "success": "Đăng nhập thành công",
     "loginReg": "Đăng nhập / Đăng ký",
@@ -107,85 +158,128 @@
     "signing": "Đồng ý",
     "servicesAgreement": "Thỏa thuận dịch vụ người dùng"
   },
+  "product": {
+    "baoWei": "Còn lại",
+    "pleaseLogin": "Vui lòng đăng nhập trước",
+    "countdown": "Quay thưởng đếm ngược",
+    "round": "Round {currentTurn}",
+    "during": "Đang duyệt yêu cầu quy đổi tiền mặt, có thể kiểm tra tiến độ tại Tôi -Đã trúng thưởng",
+    "winning": "Supper lucky! Chúc mừng trúng thưởng!",
+    "notWin": "Rất đáng tiếc, chúc bạn may mắn lần sau !",
+    "takeProduct": "Bằng cách nào để 6000{moneySymbol} rinh sản phẩm về?",
+    "prizeNow": "Lập tức lĩnh thưởng",
+    "lotteryCode": "Xem mã quay thưởng",
+    "bought": "Đã mua: {buyCount} quay",
+    "received": "Đã lĩnh thường",
+    "prizeWasReceived": "Xin lỗi, Không lãnh thưởng trong thời gian quy định, giải thưởng đã huỷ.",
+    "awardWinner": "Người chiến thắng",
+    "rounds": "Round {currentTurn}",
+    "participateRound": "nKỳ này số vé tham gia",
+    "drawTime": "Thời gian quay thưởng",
+    "prizeNumber": "Mã trúng thưởng",
+    "calculationRules": "Quy tắc chơi",
+    "drawStaff": "Tra thành viên",
+    "productDetails": "Chi tiết sản phẩm",
+    "snapNow": "Quay thưởng ngay",
+    "newRound": "Vòng tìm báu vật mới bắt đầu...",
+    "eventCountdown": "Đếm ngược thời gian vòng quay mới",
+    "aboutStart": "Lập tức tiếp tục",
+    "goNow": "Lập tức tiếp tục",
+    "productEnded": "Chương trình quay thưởng kết thúc, hẹn gặp lại lần sau!",
+    "orderTimeout": "Đơn hàng hết hạn, vui lòng tạo đơn hàng mới",
+    "participate": "Mua sắm thành công",
+    "cancelOrder": "Hủy đơn hàng",
+    "morePurchases": "Càng nhiều vé quay thưởng xác xuất trúng càng cao",
+    "purchases": "Số vé quay thưởng",
+    "quickSelection": "Chọn lựa nhanh",
+    "proportion": "Tỉ lệ",
+    "total": "Tổng số tiền",
+    "confirmPayment": "Xác nhận thanh toán",
+    "confirmSettlement": "str_confirm_end",
+    "payGOCoins": "Thanh toán {moneyVirtualCn}",
+    "balance": "Số dư của tôi",
+    "cancellationOrders": "Tự động hủy đơn hàng chưa thanh toán",
+    "pleaseRecharge": "{moneyVirtualCn} không đủ, vui lòng nạp thêm"
+  },
   "prize": {
     "directContact": [
       {
-        "label": "父亲",
-        "value": "父亲"
+        "label": "Cha",
+        "value": "Cha"
       },
       {
-        "label": "母亲",
-        "value": "母亲"
+        "label": "Mẹ",
+        "value": "Mẹ"
       },
       {
-        "label": "配偶",
-        "value": "配偶"
+        "label": "Vợ chồng",
+        "value": "Vợ chồng"
       },
       {
-        "label": "兄弟",
-        "value": "兄弟"
+        "label": "Anh em",
+        "value": "Anh em"
       },
       {
-        "label": "姐妹",
-        "value": "姐妹"
+        "label": "Chị em gái",
+        "value": "Chị em gái"
       }
     ],
     "indirectContact": [
       {
-        "label": "朋友",
-        "value": "朋友"
+        "label": "Bạn",
+        "value": "Bạn"
       },
       {
-        "label": "同事",
-        "value": "同事"
+        "label": "Đồng nghiệp",
+        "value": "Đồng nghiệp"
       },
       {
-        "label": "同学",
-        "value": "同学"
+        "label": "Bạn cùng lớp",
+        "value": "Bạn cùng lớp"
       },
       {
-        "label": "其他",
-        "value": "其他"
+        "label": "Khác",
+        "value": "Khác"
       }
     ],
     "education": [
       {
-        "label": "小学",
-        "value": "小学"
+        "label": "Tiểu học",
+        "value": "Tiểu học"
       },
       {
-        "label": "初中（中专）",
-        "value": "初中（中专）"
+        "label": "Trung học cơ sở(THCS)(Trung học)",
+        "value": "Trung học cơ sở(THCS)(Trung học)"
       },
       {
-        "label": "高中",
-        "value": "高中"
+        "label": "Trung học phổ thông(THPT)",
+        "value": "Trung học phổ thông(THPT)"
       },
       {
-        "label": "本科",
-        "value": "本科"
+        "label": "Đại học",
+        "value": "Đại học"
       },
       {
-        "label": "硕士",
-        "value": "硕士"
+        "label": "Thạc sĩ",
+        "value": "Thạc sĩ"
       },
       {
-        "label": "博士",
-        "value": "博士"
+        "label": "Tiến sĩ",
+        "value": "Tiến sĩ"
       }
     ],
     "job": [
       {
-        "label": "学生",
-        "value": "学生"
+        "label": "Sinh viên",
+        "value": "Sinh viên"
       },
       {
-        "label": "上班族",
-        "value": "上班族"
+        "label": "Nhân viên văn phòng",
+        "value": "Nhân viên văn phòng"
       },
       {
-        "label": "其他",
-        "value": "其他"
+        "label": "Những người khác",
+        "value": "Những người khác"
       }
     ],
     "income": [
@@ -203,7 +297,7 @@
       },
       {
         "label": "9 triệu~12 triệu",
-        "value": "其9 triệu~12 triệu他"
+        "value": "9 triệu~12 triệu"
       },
       {
         "label": "> 12 triệu",
@@ -239,34 +333,72 @@
         "label": "> 45",
         "value": "> 45"
       }
-    ]
+    ],
+    "ph1": "Vui lòng điền địa chỉ giao hàng",
+    "ph2": "Phải điền không được để trống!",
+    "ph3": "Vui lòng nhập số CMND",
+    "ph4": "Vui lòng điền số điện thoại",
+    "ph5": "Vui lòng tên công ty",
+    "ph6": "Vui lòng điền địa chỉ công ty",
+    "prizeCollection": "Nhận thưởng",
+    "productInformation": "Thông tin sản phẩm",
+    "retailPrice": "Giá sản phẩm",
+    "shippingAddress": "Địa chỉ giao hàng",
+    "replace": "Thay thế",
+    "awardInfo": "Thông tin nhận thưởng",
+    "becauseSpecial": "（Do nhận thưởng có chút đặc thù, để cung cấp dịch vụ phát thưởng tốt nhất, yêu cầu bạn điền và xác nhận thông tin.）",
+    "IDCardInfo": "Số CMND",
+    "emergencyContact": "Liên lạc khẩn cấp",
+    "indirect": "Liên hệ gián tiếp",
+    "Identity": "Danh tính",
+    "phone": "Số điện thoại",
+    "basicInfo": "Thông tin cơ bản",
+    "age": "Tuổi",
+    "Education": "Học lực",
+    "Occupation": "Nghề nghiệp",
+    "monthlyIncome": "Thu nhập",
+    "companyName": "Tên công ty",
+    "companyAddress": "Địa chỉ công ty",
+    "submit": "Gửi",
+    "pleaseChoose": "Vui lòng chọn"
   },
   "list":{
-    "isEnd":"已经到底了"
+    "isEnd":"Không còn nội dung"
   },
   "address":{
-    "pleaseInputName":"请输入名称",
-    "pleaseInputMobile":"请填写联系方式",
-    "pleaseInputCity":"请选择城市",
-    "pleaseInputArea":"请选择行政区",
-    "pleaseInputWard":"请选择ward",
-    "pleaseDetailAddress":"请输入详细地址",
-    "address":"收货地址",
-    "addressName":"收货人",
-    "pleaseInputAddressName":"请填写收货人名称",
-    "inputMobile":"联系方式",
-    "city":"城市",
-    "area":"行政区",
-    "ward":"ward",
-    "changeWard":"选择ward",
-    "chanegArea":"选择行政区",
-    "changeCity":"选择城市",
-    "detailAddress":"请填写详细的地址…",
-    "normalAddress":"设为默认地址",
-    "save":"保存",
-    "cancel":"取消",
-    "addressManager":"收货地址管理",
-    "addAddress":"添加收货地址"
-
+    "pleaseInputMobile":"Vui lòng nhập số điện thoại",
+    "pleaseInputCity":"Chọn thành phố",
+    "pleaseInputArea":"Chọn quận huyện",
+    "pleaseInputWard":"Chọn phường",
+    "pleaseDetailAddress":"Vui lòng điền địa chỉ cụ thể",
+    "address":"Địa chỉ nhận hàng",
+    "addressName":"Người nhận hàng",
+    "pleaseInputAddressName":"Vui lòng nhập người nhận hàng",
+    "inputMobile":"Số điện thoại +84",
+    "city":"Thành phố",
+    "area":"Quận huyện",
+    "ward":"Phường",
+    "changeWard":"Chọn phường",
+    "changeArea":"Chọn quận huyện",
+    "changeCity":"Chọn thành phố",
+    "detailAddress":"Vui lòng điền địa chỉ cụ thể...",
+    "normalAddress":"Đặt làm địa chỉ mặc định",
+    "save":"Lưu",
+    "cancel":"Hủy",
+    "addressManager":"Quản lý địa chỉ nhận hàng",
+    "addAddress":"Thêm địa chỉ nhận hàng"
+  },
+  "result": {
+    "copySuccess": "Copy thành công",
+    "copyError": "Copy thất bại",
+    "prizeCollection": "Nhận thưởng",
+    "tpi1": "Nhân viên sẽ liên hệ bạn trong 1-5 ngày",
+    "tpi2": "Cảm ơn quý khách hàng! Chúc quý khách hàng an khang thịnh vượng!",
+    "prize": "Giải thưởng",
+    "tpi3": "Đã chuyển {moneyVirtualCn} vào tài khoản của bạn, có thể quay về trang [trung tâm cá nhân] để kiểm tra",
+    "cardNumber": "Số thẻ",
+    "copy": "Copy",
+    "camille": "Mật khẩu",
+    "tpi4": "*Mã thẻ chỉ cho phép nạp tiền vào số điện thoại của bạn, nếu nạp vào số điện thoại khác mà gây ra bất kỳ tổn thất nào, chúng tôi không chịu trách nhiệm."
   }
 }
