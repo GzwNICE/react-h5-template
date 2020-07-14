@@ -33,6 +33,7 @@
       flex-direction: column;
       justify-content: left;
       margin-left: 15px ;
+      flex: 1;
       .authorLogin{
         width: fit-content;
         padding: 0 20px;
@@ -56,13 +57,23 @@
         color: #ffffff;
         position: relative;
         font-family:PingFangSC-Regular,PingFang SC;
-
+        margin-bottom: 8px;
+      }
+      .autoBox {
+        display: flex;
+        align-items: center;
+        .goTopUp {
+          font-size: 12px;
+          margin-left: 8px;
+          border-radius:10px;
+          background:rgba(0,0,0,0.2);
+          padding: 0 8px;
+        }
       }
       .authorCoin{
         width: fit-content;
         height: 18px;
         display: flex;
-        margin-top: 8px;
         align-items: center;
         background:rgba(0,0,0,0.2);
         border-radius:10px;

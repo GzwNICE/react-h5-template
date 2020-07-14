@@ -82,16 +82,26 @@ class User extends PureComponent {
               ) : (
                 <div className={styles.authorName}>{user.userInfo.mobile}</div>
               )}
-              <div className={styles.authorCoin} onClick={this.onPayListClick.bind(this)}>
-                <img className={styles.coin} src={ic_gocoin_s}></img>
-                <span className={styles.label}>
-                  {isLogin
-                    ? `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })} ${
-                        user.userInfo.goMoney
-                      }`
-                    : `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}`}
+              <div className={styles.autoBox}>
+                <div className={styles.authorCoin} onClick={this.onPayListClick.bind(this)}>
+                  <img className={styles.coin} src={ic_gocoin_s}></img>
+                  <span className={styles.label}>
+                    {isLogin
+                      ? `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })} ${
+                          user.userInfo.goMoney
+                        }`
+                      : `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}`}
+                  </span>
+                  <img className={styles.arrow} src={goin_arrow}></img>
+                </div>
+                <span
+                  className={styles.goTopUp}
+                  onClick={() => {
+                    this.props.history.push('/payment');
+                  }}
+                >
+                  去充值
                 </span>
-                <img className={styles.arrow} src={goin_arrow}></img>
               </div>
             </div>
           </div>

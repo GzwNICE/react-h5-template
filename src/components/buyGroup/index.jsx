@@ -248,7 +248,7 @@ class BuyGroup extends PureComponent {
                 </li>
                 <li>
                   <span className={styles.left}>
-                    {intl.get('product.payGOCoins', { moneySymbol: config.moneyVirtualCn })}
+                    {intl.get('product.payGOCoins', { moneyVirtualCn: config.moneyVirtualCn })}
                   </span>
                   <span>{goAmount}</span>
                 </li>

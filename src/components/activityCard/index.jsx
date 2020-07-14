@@ -37,7 +37,7 @@ class ActivityCard extends PureComponent {
               />
               <span className={styles.remaining}>{`${intl.get('home.remaining')}${
                 data.remainingCount
-              }${intl.get('home.personTime')}`}</span>
+              }`}</span>
             </div>
             <div className={styles.oddsOfWinning}>
               {intl.get('home.BuyMore', { addWinRate: data.addWinRate })}

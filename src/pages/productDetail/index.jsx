@@ -282,9 +282,7 @@ class ProductDetail extends PureComponent {
         </div>
         {status === 3 ? (
           <div className={styles.openTips} style={{ backgroundImage: `url(${priceOpen})` }}>
-            {`${intl.get('product.participant')}${detail.panicBuyRatio}%${intl.get(
-              'product.automatically'
-            )}`}
+            {intl.get('product.participant', { panicBuyRatio: detail.panicBuyRatio })}
           </div>
         ) : null}
         {countdown ? (
@@ -304,9 +302,7 @@ class ProductDetail extends PureComponent {
             <span>{moneyVirtualCn}</span> / <span>{intl.get('home.personTime')}</span>
           </span>
           <div className={styles.remainBox}>
-            <span>{`${intl.get('home.remaining')}${detail.remainingCount}${intl.get(
-              'home.personTime'
-            )}`}</span>
+            <span>{`${intl.get('home.remaining')}${detail.remainingCount}`}</span>
             <Progress
               percent={detail.progressRate}
               position="normal"
