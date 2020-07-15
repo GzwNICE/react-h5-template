@@ -62,7 +62,7 @@ class User extends PureComponent {
       { label: intl.get('user.nowin'), icon: nowin, type: 3 },
     ];
     const { user } = this.props;
-    const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
+    const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const { IPhoneX, isLogin } = this.state;
     return (
       <div>
@@ -87,8 +87,8 @@ class User extends PureComponent {
                   <img className={styles.coin} src={ic_gocoin_s}></img>
                   <span className={styles.label}>
                     {isLogin
-                      ? `${intl.get('user.myGoCoin1', { moneyVirtualCn: moneyVirtualCn, goMoney: user.userInfo.goMoney })}`
-                      : `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}`}
+                      ? `${intl.get('user.myGoCoin1', { moneyVirtualCn: config.moneyVirtualCn, goMoney: user.userInfo.goMoney })}`
+                      : `${intl.get('user.myGoCoin', { moneyVirtualCn: config.moneyVirtualCn })}`}
                   </span>
                   <img className={styles.arrow} src={goin_arrow}></img>
                 </div>
