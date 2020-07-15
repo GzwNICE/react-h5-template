@@ -29,6 +29,7 @@ class Register extends PureComponent {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     const token = localStorage.getItem('token');
     if (token) {
       this.props.history.push(`/home`);

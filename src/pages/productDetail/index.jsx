@@ -322,9 +322,9 @@ class ProductDetail extends PureComponent {
             </span>
             {detail.activityName}
           </div>
-          <div className={styles.moreBuy}>{`${intl.get('home.BuyMore')} ${
-            detail.addWinRate
-          }% ${intl.get('home.oddsWinning')}`}</div>
+          <div className={styles.moreBuy}>
+            {intl.get('home.BuyMore', { addWinRate: detail.addWinRate })}
+          </div>
           {(status === 8 || status === 9 || status === 10) && detail.partakeStatus === 'yes' ? (
             <div className={styles.msgBox}>
               {detail.ifWin === 'yes' ? (

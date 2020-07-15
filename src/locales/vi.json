@@ -8,7 +8,7 @@
     "worth": "Giá trị",
     "remaining": "Còn",
     "personTime": "quay",
-    "BuyMore": "Mua thêm 10 vé để tăng {addWinRate}% xác suất trúng thưởng"
+    "BuyMore": "Mua thêm 10 vé để tăng {addWinRate} % xác suất trúng thưởng"
   },
 
   "user": {
@@ -24,7 +24,8 @@
     "str_thank_feedback":"Cảm ơn phản hồi của bạn",
     "submit":"Gửi",
     "str_welocme_feedback":"Ý kiến của bạn về chất lượng phục vụ? Hãy nói với chúng tôi",
-    "logout":"Thoát ra"
+    "logout":"Thoát ra",
+    "deCharge": "去充值"
   },
   "order": {
     "win": "Đợi xác nhận",
@@ -117,7 +118,8 @@
     "tips2": "{moneyVirtualCn} thông 5 phút sẽ đến tài khoản,vui lòng đợi,nếu có vấn đề thắc mắc xin vui lòng liên hệ phòng tư vấn khách hàng.",
     "time": "Thời gian",
     "back": "Quay lại",
-    "againPay": "Thanh toán lại"
+    "againPay": "Thanh toán lại",
+    "noContentYet": "暂时还没有内容哦"
   },
   "payhistory": {
     "unup": "Không nạp tiền",
@@ -196,11 +198,23 @@
     "proportion": "Tỉ lệ",
     "total": "Tổng số tiền",
     "confirmPayment": "Xác nhận thanh toán",
-    "confirmSettlement": "确认结算",
+    "confirmSettlement": "Xác nhận giải quyết",
     "payGOCoins": "Thanh toán {moneyVirtualCn}",
     "balance": "Số dư của tôi",
     "cancellationOrders": "Tự động hủy đơn hàng chưa thanh toán",
-    "pleaseRecharge": "{moneyVirtualCn} không đủ, vui lòng nạp thêm"
+    "pleaseRecharge": "{moneyVirtualCn} không đủ, vui lòng nạp thêm",
+    "myLotteryCode": "我的抽奖码",
+    "drawCodes": "抽奖码越多，中奖概率越高",
+    "noMore": "没有更多了！",
+    "noRecord": "暂时还没有参与记录",
+    "participatedIn": "参与了",
+    "participantsIssue": "本期参与人员",
+    "become": "成为",
+    "winningUsers": "中奖用户",
+    "winningNumber": "你的中奖号码为",
+    "informationConfirmed": "请前往领奖确认页进行信息确认，若超过24小时没有认领，将视为自动放弃领奖。",
+    "goToConfirm": "前往确认",
+    "confirmLater": "稍后确认"
   },
   "prize": {
     "directContact": [

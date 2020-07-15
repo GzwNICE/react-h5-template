@@ -80,7 +80,7 @@ class Payment extends PureComponent {
           {intl.get('payment.topUp')}
         </NavBar>
         <div style={{ backgroundColor: '#ffffff' }}>
-          <div className={styles.topGo}>{intl.get('payment.selectAmount')}</div>
+          <div className={styles.topGo}>{intl.get('payment.selectAmount',{ moneyVirtualCn: config.moneyVirtualCn })}</div>
           <div className={styles.radioRows}>
             {topUpList.map(i => (
               <div
@@ -134,9 +134,9 @@ class Payment extends PureComponent {
         <div className={styles.payTypeTitle}>{intl.get('payment.userNotice')}</div>
         <div style={{ backgroundColor: '#fff' }}>
           <div className={styles.content}>
-            {intl.get('payment.not1')}
-            <br /> {intl.get('payment.not2')}
-            <br /> {intl.get('payment.not3')}
+            {intl.get('payment.not1',{ moneyVirtualCn: config.moneyVirtualCn } )}
+            <br /> {intl.get('payment.not2',{ moneyVirtualCn: config.moneyVirtualCn })}
+            <br /> {intl.get('payment.not3',{ moneyVirtualCn: config.moneyVirtualCn })}
           </div>
         </div>
         <Button className={styles.submit} onClick={this.handlePay}>

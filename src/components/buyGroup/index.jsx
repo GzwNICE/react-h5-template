@@ -267,7 +267,7 @@ class BuyGroup extends PureComponent {
                   {!balanceStatus
                     ? `${intl.get('product.confirmPayment')}`
                     : `${intl.get('product.pleaseRecharge', {
-                        moneySymbol: config.moneyVirtualCn,
+                      moneyVirtualCn: config.moneyVirtualCn,
                       })}`}
                 </Button>
               </div>

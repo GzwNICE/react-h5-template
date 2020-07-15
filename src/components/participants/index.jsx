@@ -2,7 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import { Modal, Button, ListView } from 'antd-mobile';
 import { format } from '@/utils/util';
 // import { Link } from 'react-router-dom';
@@ -32,7 +32,6 @@ class Participants extends PureComponent {
   // }
 
   getList = () => {
-    console.log(111);
     const { getPersonnel, id } = this.props;
     if (!this.state.hasMore) return false;
     this.fetch = true;
@@ -52,6 +51,7 @@ class Participants extends PureComponent {
             isLoading: false,
             dataSource: dataSource.cloneWithRows(this.props.list.rows),
           });
+          console.log(this.props.list);
           if (this.props.list.rows.length === this.props.list.total) {
             this.setState({
               hasMore: false,
@@ -69,9 +69,10 @@ class Participants extends PureComponent {
   }
 
   onEndReached = () => {
-    if (this.state.isLoading && !this.state.hasMore) return false;
-    this.setState({ isLoading: true });
-    this.getList();
+    if (!this.state.isLoading && this.state.hasMore) {
+      this.setState({ isLoading: true });
+      this.getList();
+    }
   };
 
   onClose = () => {
@@ -93,7 +94,7 @@ class Participants extends PureComponent {
             </div>
             <div className={styles.times}>
               <span>
-                参与了 <span className={styles.round}>{i.partakeCount}</span> 人次
+              {intl.get('product.participatedIn')} <span className={styles.round}>{i.partakeCount}</span> {intl.get('home.personTime')}
               </span>
               <span className={styles.time}>{format(i.createTime, 'str')}</span>
             </div>
@@ -115,7 +116,7 @@ class Participants extends PureComponent {
         >
           <div className={styles.content}>
             <div className={styles.titleBox}>
-              <span className={styles.title}>本期参与人员</span>
+              <span className={styles.title}>{intl.get('product.participantsIssue')}</span>
             </div>
             <div className={styles.list}>
               {list.rows.length > 0 ? (
@@ -123,7 +124,7 @@ class Participants extends PureComponent {
                   dataSource={dataSource}
                   renderFooter={() => (
                     <div style={{ textAlign: 'center' }}>
-                      {isLoading ? 'Loading...' : '没有更多了！'}
+                      {isLoading ? 'Loading...' : `${intl.get('product.noMore')}`}
                     </div>
                   )}
                   renderRow={row}
@@ -139,7 +140,7 @@ class Participants extends PureComponent {
               ) : (
                 <div className={styles.blankBox}>
                   <img src={partMiss} alt="" />
-                  <p>暂时还没有参与记录</p>
+                  <p>{intl.get('product.noRecord')}</p>
                 </div>
               )}
             </div>

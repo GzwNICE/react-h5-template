@@ -92,7 +92,7 @@ class PayResult extends PureComponent {
               <p className={styles.monTips}>{`${intl.get('payment.paymentTime')}：${time}`}</p>
               <div className={styles.tipBox}>
                 <img src={resultTips} alt="" className={styles.tipImg} />
-                <span className={styles.tipText}>{intl.get('payment.tips2')}</span>
+                <span className={styles.tipText}>{intl.get('payment.tips2', {moneyVirtualCn: moneyVirtualCn})}</span>
               </div>
             </div>
           ) : (

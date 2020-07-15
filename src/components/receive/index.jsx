@@ -1,7 +1,7 @@
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 // import { connect } from 'react-redux';
 import { Modal, Button } from 'antd-mobile';
 // import { Link } from 'react-router-dom';
@@ -42,17 +42,17 @@ class ReceiveAward extends PureComponent {
             <div className={styles.prodInfo}>
               <img src={data.img} alt="" className={styles.prodImg} />
               <p className={styles.p1}>
-                成为 <span>{data.name}</span> 中奖用户
+                {intl.get('product.become')} <span>{data.name}</span> {intl.get('product.winningUsers')}
               </p>
-              <p className={styles.p1}>{`你的中奖号码为：${data.code}`}</p>
+              <p className={styles.p1}>{`${intl.get('product.winningNumber')}：${data.code}`}</p>
               <p className={styles.p2}>
-                请前往领奖确认页进行信息确认，若超过24小时没有认领，将视为自动放弃领奖。
+                {intl.get('product.informationConfirmed')}
               </p>
               <Button type="primary" className={styles.b1} onClick={this.handleConfirm}>
-                前往确认
+                {intl.get('product.goToConfirm')}
               </Button>
               <p className={styles.b2} onClick={this.onClose}>
-                稍后确认
+                {intl.get('product.confirmLater')}
               </p>
             </div>
           </div>

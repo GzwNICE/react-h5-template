@@ -23,6 +23,7 @@ class Login extends PureComponent {
     };
   }
   componentDidMount() {
+    window.scrollTo(0, 0);
     const token = localStorage.getItem('token');
     if (token) {
       // eslint-disable-next-line react/destructuring-assignment

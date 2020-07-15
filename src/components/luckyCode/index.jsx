@@ -1,7 +1,7 @@
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
 import { Modal, Button, ListView } from 'antd-mobile';
 // import { Link } from 'react-router-dom';
@@ -61,8 +61,8 @@ class LuckyCode extends PureComponent {
   };
 
   componentWillReceiveProps(nextPros) {
-    console.log(3, nextPros.visible);
-    console.log(4, this.props.visible);
+    // console.log(3, nextPros.visible);
+    // console.log(4, this.props.visible);
     if (nextPros.visible !== this.props.visible && nextPros.visible) {
       console.log(1111);
       this.getList();
@@ -84,7 +84,7 @@ class LuckyCode extends PureComponent {
       return (
         <div className={styles.listItem} key={i.index}>
           <div className={styles.numbering}>{i.prizesCode}</div>
-          <div className={styles.time}>{`下单时间：${format(i.distributeTime, 'str')}`}</div>
+          <div className={styles.time}>{`${intl.get('order.str_order_time')} ${format(i.distributeTime, 'str')}`}</div>
         </div>
       );
     };
@@ -102,8 +102,8 @@ class LuckyCode extends PureComponent {
         >
           <div className={styles.content}>
             <div className={styles.titleBox}>
-              <span className={styles.title}>{`我的抽奖码（${codeList.total}）`}</span>
-              <span className={styles.titleTips}>抽奖码越多，中奖概率越高</span>
+              <span className={styles.title}>{`${intl.get('product.myLotteryCode')}（${codeList.total}）`}</span>
+              <span className={styles.titleTips}>{intl.get('product.drawCodes')}</span>
             </div>
             <div className={styles.list}>
               {codeList.rows.length > 0 ? (
@@ -112,7 +112,7 @@ class LuckyCode extends PureComponent {
                   dataSource={dataSource}
                   renderFooter={() => (
                     <div style={{ textAlign: 'center' }}>
-                      {isLoading ? 'Loading...' : '没有更多了！'}
+                      {isLoading ? 'Loading...' : `${intl.get('product.noMore')}`}
                     </div>
                   )}
                   renderRow={row}
@@ -128,7 +128,7 @@ class LuckyCode extends PureComponent {
               ) : (
                 <div className={styles.blankBox}>
                   <img src={partMiss} alt="" />
-                  <p>暂时还没有参与记录</p>
+                  <p>{intl.get('product.noRecord')}</p>
                 </div>
               )}
             </div>

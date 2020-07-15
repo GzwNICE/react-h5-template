@@ -24,7 +24,8 @@
     "str_thank_feedback":"感谢您的反馈",
     "submit":"提交",
     "str_welocme_feedback":"对我们的服务有什么建议吗？请告诉我们",
-    "logout":"退出登录"
+    "logout":"退出登录",
+    "deCharge": "去充值"
   },
   "order": {
     "win": "奖品待确认",
@@ -97,7 +98,7 @@
     "areYouSure": "充值即将成功，你确定放弃赚钱的机会吗？",
     "carryOon": "继续",
     "topUp": "充值",
-    "selectAmount": "请选择GO币充值数量",
+    "selectAmount": "请选择{moneyVirtualCn}充值数量",
     "give": "送",
     "needToPay": "需支付",
     "includingService": "含银行服务费",
@@ -113,10 +114,11 @@
     "tips1": "若您的银行卡已扣款，可在 我的-我的GO币 页面查询GO币是否充值成功",
     "paymentAmount": "支付金额",
     "paymentTime": "支付时间",
-    "tips2": "GO币会在5分钟之内到账，请耐心等待，如有疑问可咨询客服。",
+    "tips2": "{moneyVirtualCn}会在5分钟之内到账，请耐心等待，如有疑问可咨询客服。",
     "time": "时间",
     "back": "返回",
-    "againPay": "重新支付"
+    "againPay": "重新支付",
+    "noContentYet": "暂时还没有内容哦"
   },
   "payhistory": {
     "unup": "未充值",
@@ -199,7 +201,19 @@
     "payGOCoins": "支付{moneySymbol}",
     "balance": "我的余额",
     "cancellationOrders": "未支付订单自动取消",
-    "pleaseRecharge": "{moneySymbol}不足，请先充值"
+    "pleaseRecharge": "{moneySymbol}不足，请先充值",
+    "myLotteryCode": "我的抽奖码",
+    "drawCodes": "抽奖码越多，中奖概率越高",
+    "noMore": "没有更多了！",
+    "noRecord": "暂时还没有参与记录",
+    "participatedIn": "参与了",
+    "participantsIssue": "本期参与人员",
+    "become": "成为",
+    "winningUsers": "中奖用户",
+    "winningNumber": "你的中奖号码为",
+    "informationConfirmed": "请前往领奖确认页进行信息确认，若超过24小时没有认领，将视为自动放弃领奖。",
+    "goToConfirm": "前往确认",
+    "confirmLater": "稍后确认"
   },
   "prize": {
     "directContact": [
