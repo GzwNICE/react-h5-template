@@ -13,7 +13,11 @@ import App from './App';
 
 let lang = navigator.language || navigator.userLanguage; //常规浏览器语言和IE浏览器
 lang = lang.substr(0, 2);
-if (lang === 'vi' || lang === 'zh') Cookies.set('lang', lang);
+if (lang === 'vi' || lang === 'zh') {
+  Cookies.set('lang', lang);
+} else {
+  Cookies.set('lang', 'vi');
+}
 
 const locales = {
   vi: require('./locales/vi.json'),
