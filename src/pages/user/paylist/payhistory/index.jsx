@@ -132,7 +132,7 @@ class PayHistory extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          {intl.get('user.rechargeList')}
+          {intl.get('payment.gocoin_pay_history')}
         </NavBar>
         {result.total == 0 ? (
           <Empty />

@@ -49,7 +49,7 @@ class AwardResults extends PureComponent {
         <div className={styles.resultContent}>
           <Result
             img={<img src={receiveSuccess} className={styles.successPic} alt="" />}
-            title={intl.get('result.copySuccess')}
+            title={intl.get('result.prizeCollection')}
             message={
               <div>
                 {type === 'SUBSTANCE' ? (
@@ -69,8 +69,8 @@ class AwardResults extends PureComponent {
           />
           {type === 'COIN' ? (
             <div>
-              <p className={styles.monTips}>{intl.get('result.tpi3')}</p>
-              <p className={styles.monTips}>{intl.get('result.tpi2')}</p>
+              <p className={styles.monTips}>{intl.get('result.tpi3', {moneyVirtualCn: config.moneyVirtualCn})}</p>
+              <p className={styles.monTips} style={{ marginTop: '10px' }}>{intl.get('result.tpi2')}</p>
             </div>
           ) : null}
           {type === 'VIRTUAL' ? (

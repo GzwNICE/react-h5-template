@@ -78,13 +78,9 @@ class ProductDetail extends PureComponent {
   }
 
   initDetail = () => {
-    Toast.loading('Loading...', 0);
     const { getDetail } = this.props;
     getDetail({ activityTurnId: this.state.activityTurnId }).then(res => {
       if (res.code === 200) {
-        setTimeout(() => {
-          Toast.hide();
-        }, 200);
         this.setState({
           allCur: res.data.imgUrlList.length,
           status: res.data.status,
@@ -189,7 +185,6 @@ class ProductDetail extends PureComponent {
       buyShow: !this.state.buyShow,
     });
     if (type === 'success') {
-      console.log('tangchuang');
       this.initDetail();
     }
   };

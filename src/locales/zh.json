@@ -27,7 +27,6 @@
     "str_welocme_feedback":"对我们的服务有什么建议吗？请告诉我们",
     "logout":"退出登录",
     "deCharge": "去充值",
-    "rechargeList": "充值流水",
     "loginError": "登录状态已过期，请重新登录"
   },
   "order": {
@@ -413,7 +412,7 @@
     "tpi1": "工作人员会在1-5个工作日内与你联系",
     "tpi2": "感谢您的支持，祝您生活愉快！",
     "prize": "奖品",
-    "tpi3": "金币已发放到您的账户，可前往【个人中心】 中进行查看",
+    "tpi3": "{moneyVirtualCn}已发放到您的账户，可前往【个人中心】 中进行查看",
     "cardNumber": "卡号",
     "copy": "复制",
     "camille": "卡密",
