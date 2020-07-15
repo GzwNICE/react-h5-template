@@ -185,7 +185,7 @@ class BuyGroup extends PureComponent {
               <div className={styles.selectBox}>
                 <span className={styles.selTle}>{intl.get('product.quickSelection')}</span>
                 <div className={styles.personValue}>
-                  <span className={styles.text}>{intl.get('home.personTime')}</span>
+                  <span className={styles.text}>{intl.get('home.personTimeBuy')}</span>
                   <div className={styles.radioRows}>
                     {personData.map((i, index) => (
                       <Radio
@@ -244,7 +244,7 @@ class BuyGroup extends PureComponent {
               <div className={styles.buyNum}>
                 <li>
                   <span className={styles.left}>{intl.get('product.purchases')}</span>
-                  <span>{`${partakeCount}人次`}</span>
+                  <span>{`${partakeCount} ${intl.get('home.personTime')}`}</span>
                 </li>
                 <li>
                   <span className={styles.left}>

@@ -21,7 +21,7 @@ class Win extends PureComponent {
     super(props);
   }
   render() {
-    const { data } = this.props;
+    const { data, push } = this.props;
     const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
 
     let orderStatus = '';
@@ -68,7 +68,7 @@ class Win extends PureComponent {
       colorStatus = '#666666';
     }
     return (
-      <div className={styles.box}>
+      <div className={styles.box} onClick={() => {push(`/product/${data.activityTurnId}`)}}>
         <div className={styles.orderBox}>
           <div className={styles.orderImg}>
             <img src={data.pic}></img>
@@ -85,16 +85,9 @@ class Win extends PureComponent {
                 <div className={styles.apply}>{intl.get('order.str_show_applying')}</div>
               ) : null}
               {data.status === 'WIN' ? (
-                <Link
-                  to={{
-                    pathname: `/product/${data.activityTurnId}`,
-                    search: `?lang=${lang}`,
-                  }}
-                >
-                  <div className={styles.btn} onClick={this.onDetailClick.bind(this)}>
-                    {intl.get('order.str_go_confirm')}
-                  </div>
-                </Link>
+                <div className={styles.btn} onClick={this.onDetailClick.bind(this, data.activityTurnId)}>
+                  {intl.get('order.str_go_confirm')}
+                </div>
               ) : null}
             </div>
           </div>
@@ -165,7 +158,8 @@ class Win extends PureComponent {
       </div>
     );
   }
-  onDetailClick = id => {
+  onDetailClick = (id, e) => {
+    e.stopPropagation();
     const { getRules, getAwardInfo } = this.props;
     getRules({
       activityTurnId: id,

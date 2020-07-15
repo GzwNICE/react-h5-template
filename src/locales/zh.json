@@ -8,9 +8,9 @@
     "worth": "价值",
     "remaining": "剩余",
     "personTime": "奖券",
+    "personTimeBuy": "奖券",
     "BuyMore": "多买10张奖券可提升{addWinRate}%中奖率"
   },
-
   "user": {
     "title": "我的",
     "loginOrRegister":"登录/注册",
@@ -26,7 +26,9 @@
     "submit":"提交",
     "str_welocme_feedback":"对我们的服务有什么建议吗？请告诉我们",
     "logout":"退出登录",
-    "deCharge": "去充值"
+    "deCharge": "去充值",
+    "rechargeList": "充值流水",
+    "loginError": "登录状态已过期，请重新登录"
   },
   "order": {
     "win": "奖品待确认",
@@ -416,5 +418,15 @@
     "copy": "复制",
     "camille": "卡密",
     "tpi4": "*卡密只允许充值到自己的手机号，若充值给其他用户造成的任何损失，平台概不负责。"
+  },
+  "rules": {
+    "userName": "用户名",
+    "lotteryNumbers": "抽奖号码",
+    "purchaseTime": "购买时间（时间因子）",
+    "calculationRules": "计算规则",
+    "displayRecords": "展示最后100条购买记录",
+    "tips1": "1. 求和，抽取最后100条购买记录，取时/分/秒/毫秒，相加之和为",
+    "tips2": "2. 取余，时间因子相加之和除以本轮活动需要参与的总人数",
+    "tips3": "3. 结果：余数+第一位抽奖号码"
   }
 }

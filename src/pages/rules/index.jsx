@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 // import queryString from 'query-string';
 // import md5 from 'md5';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import { NavBar, Icon, List, Button } from 'antd-mobile';
 // import { Link } from 'react-router-dom';
 // import { createForm } from 'rc-form';
@@ -33,9 +33,9 @@ class RulePage extends PureComponent {
     const head = () => {
       return (
         <div className={styles.header}>
-          <span className={styles.username}>用户名</span>
-          <span className={styles.code}>抽奖号码</span>
-          <span className={styles.time}>购买时间（时间因子）</span>
+          <span className={styles.username}>{intl.get('rules.userName')}</span>
+          <span className={styles.code}>{intl.get('rules.lotteryNumbers')}</span>
+          <span className={styles.time}>{intl.get('rules.purchaseTime')}</span>
         </div>
       );
     };
@@ -49,10 +49,10 @@ class RulePage extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          计算规则
+          {intl.get('rules.calculationRules')}
         </NavBar>
         <div className={styles.content}>
-          <div className={styles.title}>展示最后100条购买记录</div>
+          <div className={styles.title}>{intl.get('rules.displayRecords')}</div>
           <List renderHeader={head}>
             {list &&
               list.map(i => {
@@ -74,13 +74,13 @@ class RulePage extends PureComponent {
               })}
           </List>
           <div className={styles.footer}>
-            <h4>计算规则：</h4>
-            <p>{`1. 求和，抽取最后100条购买记录，取时/分/秒/毫秒，相加之和为 ${rules.totalMillis} `}</p>
-            <p>{`2. 取余，时间因子相加之和除以本轮活动需要参与的总人数： ${rules.totalMillis} / ${rules.partakeCount} = ${rules.remainder}`}</p>
-            <p>{`3. 结果：余数+第一位抽奖号码 = ${rules.remainder} + ${
+            <h4>{intl.get('rules.calculationRules')}：</h4>
+            <p>{`${intl.get('rules.tips1')} ${rules.totalMillis} `}</p>
+            <p>{`${intl.get('rules.tips1')}： ${rules.totalMillis} / ${rules.partakeCount} = ${rules.remainder}`}</p>
+            <p>{`${intl.get('rules.tips1')} = ${rules.remainder} + ${
               rules.firstPrizesCode
             } = ${rules.remainder + rules.firstPrizesCode}`}</p>
-            <Button className={styles.winCode}>{`中奖号码：${rules.prizesCode}`}</Button>
+            <Button className={styles.winCode}>{`${intl.get('product.prizeNumber')}：${rules.prizesCode}`}</Button>
           </div>
         </div>
       </div>

@@ -364,7 +364,7 @@ class ProductDetail extends PureComponent {
               {intl.get('product.lotteryCode')}
             </div>
           ) : null}
-          {(status === 7 || status === 2 || status === 3) &&
+          {(status === 7 || status === 2 || status === 3 || status === 4) &&
           status !== 9 &&
           detail.partakeStatus === 'yes' ? (
             <div className={styles.buyLottery}>

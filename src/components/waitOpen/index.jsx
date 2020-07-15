@@ -8,9 +8,9 @@ import styles from './index.less';
 
 class WaitOpen extends PureComponent {
   render() {
-    const { data } = this.props;
+    const { data, push } = this.props;
     return (
-      <div className={styles.box}>
+      <div className={styles.box} onClick={() => {push(`/product/${data.activityTurnId}`)}}>
         <div className={styles.orderTime}>
           {intl.get('order.str_order_time')} {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
         </div>

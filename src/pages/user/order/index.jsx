@@ -78,6 +78,7 @@ class OrderList extends PureComponent {
     );
   };
   loadPageList = () => {
+    if (this.props.result.data.length === this.props.result.total) return false;
     const { loadList } = this.props;
     this.setState(
       {
@@ -149,9 +150,9 @@ class OrderList extends PureComponent {
     const Row = d => {
       return (
         <div>
-          {type === '1' ? <WaitOpen parent={this} data={d} /> : null}
+          {type === '1' ? <WaitOpen parent={this} data={d} push={this.handlerPush} /> : null}
           {type === '2' ? <Win parent={this} data={d} push={this.handlerPush} /> : null}
-          {type === '3' ? <NoWin data={d} /> : null}
+          {type === '3' ? <NoWin data={d} push={this.handlerPush}/> : null}
         </div>
       );
     };
@@ -200,9 +201,9 @@ class OrderList extends PureComponent {
             scrollEventThrottle={100}
             initialListSize={1000}
             pageSize={10}
-            pullToRefresh={
-              <PullToRefresh refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
-            }
+            // pullToRefresh={
+            //   <PullToRefresh refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
+            // }
             onEndReached={this.loadPageList} // 上啦加载
             renderFooter={() => (
               <div style={{ padding: 10, textAlign: 'center' }}>

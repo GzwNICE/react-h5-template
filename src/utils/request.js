@@ -5,6 +5,7 @@
 import { extend } from 'umi-request';
 import { Toast } from 'antd-mobile';
 // import { push } from 'connected-react-router';
+import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
 import { createBrowserHistory } from 'history';
 import { getBaseUrl } from '@/utils/util';
@@ -84,7 +85,7 @@ request.interceptors.response.use(async response => {
     return response;
   }
   if (data.code === 10001 || data.code === 10002 || data.code === 10003) {
-    Toast.info(data.msg || 'Token错误，请重新登录', 2);
+    Toast.info(data.msg || `${intl.get('user.loginError')}`, 2);
     setTimeout(() => {
       localStorage.clear();
       history.push(`/login`);

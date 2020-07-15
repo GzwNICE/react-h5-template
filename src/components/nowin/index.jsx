@@ -7,9 +7,9 @@ import styles from './index.less';
 
 class NoWin extends PureComponent {
   render() {
-    const { data } = this.props;
+    const { data, push } = this.props;
     return (
-      <div className={styles.box}>
+      <div className={styles.box} onClick={() => {push(`/product/${data.activityTurnId}`)}}>
         <div className={styles.orderInfo}>
           <img className={styles.orderImg} src={data.pic}></img>
           <div>

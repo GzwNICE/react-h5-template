@@ -90,7 +90,7 @@ class PayHistory extends PureComponent {
     );
   };
   componentWillReceiveProps(nextPorps) {
-    if (nextPorps.result.data.length === nextPorps.result.total) {
+    if (nextPorps.result.data && nextPorps.result.data.length === nextPorps.result.total) {
       this.setState({
         isLoading: false,
         hadMore: false,
@@ -132,7 +132,7 @@ class PayHistory extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          充值流水
+          {intl.get('user.rechargeList')}
         </NavBar>
         {result.total == 0 ? (
           <Empty />

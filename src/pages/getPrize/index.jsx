@@ -169,6 +169,8 @@ class GetPrize extends PureComponent {
                   {...getFieldProps('directContact', {
                     rules: [{ required: true }],
                   })}
+                  okText={intl.get('password.determine')}
+                  dismissText={intl.get('password.cancel')}
                   extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
                   <List.Item arrow="horizontal" className={styles.select}>
@@ -208,6 +210,8 @@ class GetPrize extends PureComponent {
                     rules: [{ required: true }],
                   })}
                   cols={1}
+                  okText={intl.get('password.determine')}
+                  dismissText={intl.get('password.cancel')}
                   {...getFieldProps('indirectContact')}
                   extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
@@ -249,6 +253,8 @@ class GetPrize extends PureComponent {
                     rules: [{ required: true }],
                   })}
                   cols={1}
+                  okText={intl.get('password.determine')}
+                  dismissText={intl.get('password.cancel')}
                   {...getFieldProps('ageInterval')}
                   extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
@@ -266,6 +272,8 @@ class GetPrize extends PureComponent {
                   {...getFieldProps('education', {
                     rules: [{ required: true }],
                   })}
+                  okText={intl.get('password.determine')}
+                  dismissText={intl.get('password.cancel')}
                   extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
                   <List.Item arrow="horizontal" className={styles.select}>
@@ -284,6 +292,8 @@ class GetPrize extends PureComponent {
                   {...getFieldProps('job', {
                     rules: [{ required: true }],
                   })}
+                  okText={intl.get('password.determine')}
+                  dismissText={intl.get('password.cancel')}
                   extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
                   <List.Item arrow="horizontal" className={styles.select}>
@@ -302,6 +312,8 @@ class GetPrize extends PureComponent {
                   {...getFieldProps('income', {
                     rules: [{ required: true }],
                   })}
+                  okText={intl.get('password.determine')}
+                  dismissText={intl.get('password.cancel')}
                   extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
                 >
                   <List.Item arrow="horizontal" className={styles.select}>

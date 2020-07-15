@@ -56,12 +56,12 @@ class Payment extends PureComponent {
 
   onLeftClick = () => {
     alert(' ', `${intl.get('payment.areYouSure')}`, [
-      { text: `${intl.get('password.cancel')}` },
-      {
-        text: `${intl.get('payment.carryOon')}`,
+      { text: `${intl.get('payment.carryOon')}`,
         onPress: () => {
           this.props.history.go(-1);
-        },
+        }, },
+      {
+        text: `${intl.get('password.cancel')}`
       },
     ]);
   };
