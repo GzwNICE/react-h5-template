@@ -132,9 +132,13 @@ class Login extends PureComponent {
                 clear
                 placeholder={intl.get('login.ph1')}
                 className={styles.mobile}
+                type="number"
                 ref={el => (this.mobileInput = el)}
                 onClick={() => {
                   this.mobileInput.focus();
+                }}
+                onBlur={() => {
+                  window.scrollTo(0, 0);
                 }}
               ></InputItem>
             </div>
@@ -157,6 +161,9 @@ class Login extends PureComponent {
                 ref={el => (this.pawInput = el)}
                 onClick={() => {
                   this.pawInput.focus();
+                }}
+                onBlur={() => {
+                  window.scrollTo(0, 0);
                 }}
               ></InputItem>
               <img

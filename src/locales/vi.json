@@ -14,6 +14,7 @@
   "user": {
     "title": "Tôi",
     "loginOrRegister":"Đăng ký/Đăng nhập",
+    "myGoCoin1":"{moneyVirtualCn} {goMoney} của tôi",
     "myGoCoin":"{moneyVirtualCn} của tôi",
     "myCanUseCoin":"Hiện tại {moneyVirtualCn} có thể dùng",
     "myorder":"Danh sách đặt hàng",
@@ -25,7 +26,7 @@
     "submit":"Gửi",
     "str_welocme_feedback":"Ý kiến của bạn về chất lượng phục vụ? Hãy nói với chúng tôi",
     "logout":"Thoát ra",
-    "deCharge": "去充值"
+    "deCharge": "Nạp tiền"
   },
   "order": {
     "win": "Đợi xác nhận",
@@ -119,7 +120,7 @@
     "time": "Thời gian",
     "back": "Quay lại",
     "againPay": "Thanh toán lại",
-    "noContentYet": "暂时还没有内容哦"
+    "noContentYet": "Hiện tại không có nội dung"
   },
   "payhistory": {
     "unup": "Không nạp tiền",
@@ -203,18 +204,17 @@
     "balance": "Số dư của tôi",
     "cancellationOrders": "Tự động hủy đơn hàng chưa thanh toán",
     "pleaseRecharge": "{moneyVirtualCn} không đủ, vui lòng nạp thêm",
-    "myLotteryCode": "我的抽奖码",
-    "drawCodes": "抽奖码越多，中奖概率越高",
-    "noMore": "没有更多了！",
-    "noRecord": "暂时还没有参与记录",
-    "participatedIn": "参与了",
-    "participantsIssue": "本期参与人员",
-    "become": "成为",
-    "winningUsers": "中奖用户",
-    "winningNumber": "你的中奖号码为",
-    "informationConfirmed": "请前往领奖确认页进行信息确认，若超过24小时没有认领，将视为自动放弃领奖。",
-    "goToConfirm": "前往确认",
-    "confirmLater": "稍后确认"
+    "myLotteryCode": "Xem mà quay thưởng",
+    "drawCodes": "Mã quay thưởng càng nhiều, xác suất trúng thưởng càng cao",
+    "noMore": "Không còn nội dung!",
+    "noRecord": "Tạm thời chưa có lịch sử tham gia",
+    "participatedIn": "Tổng cộng",
+    "participantsIssue": "Tra thành viên",
+    "becomeWinningUsers": "Khách hàng trúng thưởng {name}",
+    "winningNumber": "Mã trúng thưởng của bạn là",
+    "informationConfirmed": "Vui lòng đến trang xác nhận lĩnh thưởng để xác nhận thông tin, nếu vượt quá 24h chưa xác nhận, hệ thống tự động hủy thưởng.",
+    "goToConfirm": "Đi xác nhận",
+    "confirmLater": "Xác nhận sau"
   },
   "prize": {
     "directContact": [

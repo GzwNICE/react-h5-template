@@ -14,6 +14,7 @@
   "user": {
     "title": "我的",
     "loginOrRegister":"登录/注册",
+    "myGoCoin1":"我的{moneyVirtualCn} {goMoney}",
     "myGoCoin":"我的{moneyVirtualCn}",
     "myCanUseCoin":"当前可用{moneyVirtualCn}",
     "myorder":"我的订单",

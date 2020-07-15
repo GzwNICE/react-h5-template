@@ -42,7 +42,7 @@ class ReceiveAward extends PureComponent {
             <div className={styles.prodInfo}>
               <img src={data.img} alt="" className={styles.prodImg} />
               <p className={styles.p1}>
-                {intl.get('product.become')} <span>{data.name}</span> {intl.get('product.winningUsers')}
+                {intl.get('product.become',{ name: data.name })}
               </p>
               <p className={styles.p1}>{`${intl.get('product.winningNumber')}：${data.code}`}</p>
               <p className={styles.p2}>

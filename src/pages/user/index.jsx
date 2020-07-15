@@ -87,9 +87,7 @@ class User extends PureComponent {
                   <img className={styles.coin} src={ic_gocoin_s}></img>
                   <span className={styles.label}>
                     {isLogin
-                      ? `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })} ${
-                          user.userInfo.goMoney
-                        }`
+                      ? `${intl.get('user.myGoCoin1', { moneyVirtualCn: moneyVirtualCn, goMoney: user.userInfo.goMoney })}`
                       : `${intl.get('user.myGoCoin', { moneyVirtualCn: moneyVirtualCn })}`}
                   </span>
                   <img className={styles.arrow} src={goin_arrow}></img>
