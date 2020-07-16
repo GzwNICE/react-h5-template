@@ -20,6 +20,7 @@ import GetPrize from '@/pages/getPrize';
 import AwardResults from '@/pages/awardResults';
 import PayResult from '@/pages/payResult';
 import Agreement from '@/pages/agreement';
+import PrizeSelection from '@/pages/prizeSelection';
 // import { Route } from 'react-router-dom';
 
 export const routes = [
@@ -122,5 +123,10 @@ export const routes = [
     path: '/agreement/:type',
     exact: true,
     component: Agreement,
+  },
+  {
+    path: '/prizeSelection/:activityTurnId',
+    exact: true,
+    component: PrizeSelection,
   },
 ];

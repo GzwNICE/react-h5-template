@@ -55,7 +55,7 @@ const format = (data, type) => {
   let sm = time.getMilliseconds();
   if (type === 'arr') {
     return [
-      add(d) + '/' + add(m) + '/' +  y ,
+      add(d) + '/' + add(m) + '/' + y,
       add(h) + ' ' + ':' + ' ' + add(mm) + ' ' + ':' + ' ' + add(s) + ' ' + add(sm),
     ];
   } else {
