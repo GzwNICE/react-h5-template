@@ -58,6 +58,7 @@ class User extends PureComponent {
         this.props.history.push(`/feedback`);
       } else if (_el.type == 4) {
         //设置
+        this.props.history.push(`/set`);
       }
     } else {
       //登录
@@ -79,10 +80,10 @@ class User extends PureComponent {
       { label: intl.get('user.nowin'), icon: nowin, type: 3 },
     ];
     const tabServer = [
-      { label: "加入社群", icon: join, type: 1 },
-      { label: "帮助中心", icon: help, type: 2 },
-      { label: intl.get('user.feedback'),icon: feedback, type: 3 },
-      { label: "设置",icon: setting, type: 4 },
+      { label: intl.get('user.join'), icon: join, type: 1 },
+      { label: intl.get('user.help'), icon: help, type: 2 },
+      { label: intl.get('user.feedback'), icon: feedback, type: 3 },
+      { label: intl.get('user.setting'), icon: setting, type: 4 },
 
     ];
     const { user } = this.props;
@@ -151,7 +152,7 @@ class User extends PureComponent {
             />
           </div>
           <div className={styles.order}>
-            <div className={styles.myorder}>我的服务</div>
+              <div className={styles.myorder}>{intl.get('user.myServer')}</div>
             <Grid
               data={tabServer}
               columnNum={4}
@@ -162,7 +163,9 @@ class User extends PureComponent {
               renderItem={item => (
                 <div>
                   <img src={item.icon} className={styles.icon} alt="" />
-                  <div className={styles.label} style={{marginTop:"5px"}}>{item.label}</div>
+                  <div className={styles.label} style={{ marginTop: '5px' }}>
+                    {item.label}
+                  </div>
                 </div>
               )}
             />

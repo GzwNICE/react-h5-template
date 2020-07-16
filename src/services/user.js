@@ -34,3 +34,7 @@ export async function doSaveAddress(params) {
 export async function requestAddressList() {
   return request('/app/user/address/list', { method: 'get' });
 }
+
+export async function doGetAboutUs() {
+  return request('/home/about/us/get/info', { method: 'get' });
+}

@@ -27,7 +27,21 @@
     "str_welocme_feedback":"对我们的服务有什么建议吗？请告诉我们",
     "logout":"退出登录",
     "deCharge": "去充值",
-    "loginError": "登录状态已过期，请重新登录"
+    "loginError": "登录状态已过期，请重新登录",
+    "join": "加入社群",
+    "help": "帮助中心",
+    "setting": "设置",
+    "aboutUs": "关于我们",
+    "usMobile":"联系方式 :",
+    "myServer":"我的服务",
+    "privacy_info":"隐私条款",
+    "server_info":"服务条款",
+    "cancel":"取消",
+    "confirm":"确定",
+    "logoutInfo":"你确定要退出登录吗？",
+    "joinFacebook":"加入Facebook群",
+    "joinTelegram":"加入Telegram群"
+
   },
   "order": {
     "win": "奖品待确认",
