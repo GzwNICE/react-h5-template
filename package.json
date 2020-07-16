@@ -71,6 +71,7 @@
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.15",
     "react-intl-universal": "^2.2.5",
+    "react-native": "^0.63.1",
     "react-redux": "^7.1.1",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",

@@ -8,6 +8,7 @@ export const user = createModel({
       userInfo: {},
       imageIds: [],
       goMoney: {},
+      aboutUs: {},
       addressList: {
         data: [],
         total: 0,
@@ -93,6 +94,15 @@ export const user = createModel({
         },
       };
     },
+    resultAboutUs(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          aboutUs: payload.data,
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async getUserInfo(payload) {
@@ -138,6 +148,11 @@ export const user = createModel({
      */
     async clearAddressList() {
       dispatch.user.doClearAddressList();
+    },
+    async getAboutUs() {
+      const response = await userService.doGetAboutUs();
+      console.log("aboutus",response)
+      dispatch.user.resultAboutUs(response);
     },
   }),
 });
