@@ -6,6 +6,8 @@ import Payment from '@/pages/payment';
 import PayList from '@/pages/user/paylist';
 import PayHistory from '@/pages/user/paylist/payhistory';
 import Feedback from '@/pages/user/feedback';
+import Join from '@/pages/user/join';
+
 import Personal from '@/pages/user/personal';
 import EditName from '@/pages/user/personal/editname';
 import AddressList from '@/pages/user/personal/addressList';
@@ -87,6 +89,11 @@ export const routes = [
     path: '/feedback',
     exact: true,
     component: Feedback,
+  },
+  {
+    path: '/join',
+    exact: true,
+    component: Join,
   },
   {
     path: '/paylist',

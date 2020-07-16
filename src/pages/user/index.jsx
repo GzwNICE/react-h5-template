@@ -8,10 +8,13 @@ import TabBarBox from '@/components/tabBar';
 import authorImg from '@/assets/images/avatar_notlogin.png';
 import ic_gocoin_s from '@/assets/images/ic_gocoin_s.png';
 import goin_arrow from '@/assets/images/personal_ic_arrow@2x.png';
-import arrow_right from '@/assets/images/ic_arrow_white.png';
 import wait from '@/assets/images/ic_waiting.png';
 import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
+import join from '@/assets/images/ic_join.png';
+import help from '@/assets/images/ic_service.png';
+import feedback from '@/assets/images/ic_feedback.png';
+import setting from '@/assets/images/ic_set.png';
 import queryString from 'query-string';
 import styles from './index.less';
 
@@ -43,10 +46,24 @@ class User extends PureComponent {
   onPayListClick() {
     this.props.history.push(`/paylist`);
   }
-  feedBackClick() {
-    this.props.history.push(`/feedback`);
+  onMyServerClick(_el) {
+    if (this.state.isLogin) {
+      if (_el.type == 1) {
+        //加入社群
+        this.props.history.push(`/join`);
+      } else if (_el.type == 2) {
+        //帮助中心
+      } else if (_el.type == 3) {
+        //意见反馈
+        this.props.history.push(`/feedback`);
+      } else if (_el.type == 4) {
+        //设置
+      }
+    } else {
+      //登录
+      this.props.history.push(`/login`);
+    }
   }
-
   handlerOutLogin = () => {
     localStorage.removeItem('token');
     this.setState({
@@ -60,6 +77,13 @@ class User extends PureComponent {
       { label: intl.get('user.wait_open'), icon: wait, type: 1 },
       { label: intl.get('user.winning'), icon: win, type: 2 },
       { label: intl.get('user.nowin'), icon: nowin, type: 3 },
+    ];
+    const tabServer = [
+      { label: "加入社群", icon: join, type: 1 },
+      { label: "帮助中心", icon: help, type: 2 },
+      { label: intl.get('user.feedback'),icon: feedback, type: 3 },
+      { label: "设置",icon: setting, type: 4 },
+
     ];
     const { user } = this.props;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
@@ -125,10 +149,23 @@ class User extends PureComponent {
                 </div>
               )}
             />
-            <div className={styles.feedBack} onClick={this.feedBackClick.bind(this)}>
-              <span className={styles.title}> {intl.get('user.feedback')}</span>
-              <img className={styles.arrow} src={arrow_right} />
-            </div>
+          </div>
+          <div className={styles.order}>
+            <div className={styles.myorder}>我的服务</div>
+            <Grid
+              data={tabServer}
+              columnNum={4}
+              hasLine={false}
+              onClick={_el => {
+                this.onMyServerClick(_el);
+              }}
+              renderItem={item => (
+                <div>
+                  <img src={item.icon} className={styles.icon} alt="" />
+                  <div className={styles.label} style={{marginTop:"5px"}}>{item.label}</div>
+                </div>
+              )}
+            />
           </div>
         </div>
         {isLogin ? (
