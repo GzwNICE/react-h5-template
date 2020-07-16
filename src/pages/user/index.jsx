@@ -116,14 +116,16 @@ class User extends PureComponent {
                   </span>
                   <img className={styles.arrow} src={goin_arrow}></img>
                 </div>
-                {isLogin ? (<div
-                  className={styles.goTopUp}
-                  onClick={() => {
-                    this.props.history.push('/payment');
-                  }}
+                {isLogin ? (
+                  <div
+                    className={styles.goTopUp}
+                    onClick={() => {
+                      this.props.history.push('/payment');
+                    }}
                 >
-                  {intl.get('user.deCharge')}
-                </div>) : null}
+                    {intl.get('user.deCharge')}
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
