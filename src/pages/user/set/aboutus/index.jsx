@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { NavBar, Icon } from 'antd-mobile';
 import intl from 'react-intl-universal';
-
 import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
@@ -15,8 +14,10 @@ class Setting extends PureComponent {
     const { requestAboutUs } = this.props;
     requestAboutUs();
   }
+
   render() {
     const { aboutUs } = this.props;
+
     return (
       <div className={styles.contentBox}>
         <NavBar
@@ -35,7 +36,9 @@ class Setting extends PureComponent {
           style={{ display: 'flex', flexDirection: 'row', marginLeft: '15px', marginTop: '20px' }}
         >
           <div style={{ color: '#333333', fontSize: '16px' }}>{intl.get('user.usMobile')}</div>
-          <div style={{ color: '#4A90E2', fontSize: '16px', marginTop: '2px' }}>0327345842</div>
+          <a style={{ color: '#4A90E2', fontSize: '16px', marginLeft: '5px' }} href="tel:0327345842">
+            0327345842
+          </a>
         </div>
       </div>
     );
