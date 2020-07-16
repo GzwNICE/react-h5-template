@@ -11,15 +11,28 @@ class Join extends PureComponent {
   constructor(props) {
     super(props);
   }
-
+  onFackbookCLick() {
+    window.open('https://m.facebook.com/groups/233869497842076/');
+  }
+  onTelegramCLick() {
+    window.open('https://t.me/gagago68');
+  }
   render() {
     return (
       <div className={styles.contentBox}>
         <img className={styles.bg_visual} src={pic_visual}></img>
-        <div className={styles.join} style={{ marginBottom: '120px' }}>
+        <div
+          className={styles.join}
+          style={{ marginBottom: '120px' }}
+          onClick={this.onFackbookCLick.bind(this)}
+        >
           {intl.get('user.joinFacebook')}
         </div>
-        <div className={styles.join} style={{ marginBottom: '60px' }}>
+        <div
+          className={styles.join}
+          style={{ marginBottom: '60px' }}
+          onClick={this.onTelegramCLick.bind(this)}
+        >
           {intl.get('user.joinTelegram')}
         </div>
       </div>

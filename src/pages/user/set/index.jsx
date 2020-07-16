@@ -88,7 +88,7 @@ class Setting extends PureComponent {
           {intl.get('user.logout')}
         </Button>
         <Modal visible={isShowDialog} transparent maskClosable={false}>
-          <div className={styles.loginOut}>你确定要退出登录吗？</div>
+          <div className={styles.loginOut}>{intl.get('user.logoutInfo')}</div>
           <div className={styles.footer}>
             <div className={styles.cancel} onClick={this.onClose.bind(this)}>
               {intl.get('user.cancel')}

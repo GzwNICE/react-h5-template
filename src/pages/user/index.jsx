@@ -84,7 +84,6 @@ class User extends PureComponent {
       { label: intl.get('user.help'), icon: help, type: 2 },
       { label: intl.get('user.feedback'), icon: feedback, type: 3 },
       { label: intl.get('user.setting'), icon: setting, type: 4 },
-
     ];
     const { user } = this.props;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
@@ -117,14 +116,14 @@ class User extends PureComponent {
                   </span>
                   <img className={styles.arrow} src={goin_arrow}></img>
                 </div>
-                {isLogin ? (<span
+                {isLogin ? (<div
                   className={styles.goTopUp}
                   onClick={() => {
                     this.props.history.push('/payment');
                   }}
                 >
                   {intl.get('user.deCharge')}
-                </span>) : null}
+                </div>) : null}
               </div>
             </div>
           </div>
