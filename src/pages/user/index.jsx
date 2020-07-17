@@ -122,7 +122,7 @@ class User extends PureComponent {
                     onClick={() => {
                       this.props.history.push('/payment');
                     }}
-                >
+                  >
                     {intl.get('user.deCharge')}
                   </div>
                 ) : null}
