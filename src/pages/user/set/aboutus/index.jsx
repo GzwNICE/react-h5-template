@@ -36,7 +36,10 @@ class Setting extends PureComponent {
           style={{ display: 'flex', flexDirection: 'row', marginLeft: '15px', marginTop: '20px' }}
         >
           <div style={{ color: '#333333', fontSize: '16px' }}>{intl.get('user.usMobile')}</div>
-          <a style={{ color: '#4A90E2', fontSize: '16px', marginLeft: '5px' }} href="tel:0327345842">
+          <a
+            style={{ color: '#4A90E2', fontSize: '16px', marginLeft: '5px' }}
+            href="tel:0327345842"
+          >
             0327345842
           </a>
         </div>
