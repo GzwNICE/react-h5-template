@@ -25,6 +25,7 @@ import AwardResults from '@/pages/awardResults';
 import PayResult from '@/pages/payResult';
 import Agreement from '@/pages/agreement';
 import PrizeSelection from '@/pages/prizeSelection';
+import Exchange from '@/pages/exchange';
 // import { Route } from 'react-router-dom';
 
 export const routes = [
@@ -108,7 +109,7 @@ export const routes = [
     exact: true,
     component: Join,
   },
-  
+
   {
     path: '/paylist',
     exact: true,
@@ -148,5 +149,10 @@ export const routes = [
     path: '/prizeSelection/:activityTurnId',
     exact: true,
     component: PrizeSelection,
+  },
+  {
+    path: '/exchange/:activityTurnId',
+    exact: true,
+    component: Exchange,
   },
 ];
