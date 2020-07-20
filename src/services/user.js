@@ -34,3 +34,15 @@ export async function doSaveAddress(params) {
 export async function requestAddressList() {
   return request('/app/user/address/list', { method: 'get' });
 }
+
+export async function getHelpCenter(params) {
+  return request('/app/help/center/page', { method: 'get', params: params });
+}
+export async function getHelpCenterItem(params) {
+  return request('/app/help/center/page/text', { method: 'get', params: params });
+}
+export async function getHelpDetail(params) {
+  return request('/app/help/center/text', { method: 'get', params: params });
+}
+
+

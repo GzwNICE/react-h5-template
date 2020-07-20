@@ -204,7 +204,7 @@ class OrderList extends PureComponent {
             // pullToRefresh={
             //   <PullToRefresh refreshing={this.state.refreshing} onRefresh={this.onRefresh} />
             // }
-            onEndReached={this.loadPageList} // 上啦加载
+            onEndReached={this.loadPageList.bind(this)} // 上啦加载
             renderFooter={() => (
               <div style={{ padding: 10, textAlign: 'center' }}>
                 {isLoading ? 'Loading...' : intl.get('list.isEnd')}
