@@ -11,7 +11,9 @@ import LatestList from '@/pages/latestList';
 import OpenList from '@/pages/willEndList';
 import ValueList from '@/pages/sortValueList';
 import TabBarBox from '@/components/tabBar';
-// import sorting from '@/assets/images/sorting.png';
+import sorting from '@/assets/images/sorting.png';
+import sortingUp from '@/assets/images/sorting_up@2x.png';
+import sortingDown from '@/assets/images/sorting_down@2x.png';
 import styles from './index.less';
 
 function renderTabBar(props) {
@@ -20,6 +22,7 @@ function renderTabBar(props) {
       {({ style }) => (
         <div style={{ ...style, zIndex: 2 }}>
           <Tabs.DefaultTabBar {...props} />
+          <img src={props.tabs[3].sort} alt="sort" className={styles.sortImg} />
         </div>
       )}
     </Sticky>
@@ -30,6 +33,7 @@ class Home extends PureComponent {
     super(props);
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
+      sortPic: 1,
     };
   }
 
@@ -55,9 +59,33 @@ class Home extends PureComponent {
     window.location.href = url;
   };
 
+  handlerTabClick = (tab, index) => {
+    if (index === 3) {
+      if (this.state.sortPic === 1) {
+        this.setState({
+          sortPic: 2,
+        });
+      }
+      if (this.state.sortPic === 2) {
+        this.setState({
+          sortPic: 3,
+        });
+      }
+      if (this.state.sortPic === 3) {
+        this.setState({
+          sortPic: 2,
+        });
+      }
+    } else {
+      this.setState({
+        sortPic: 1,
+      });
+    }
+  };
+
   render() {
     const { home } = this.props;
-    const { IPhoneX } = this.state;
+    const { IPhoneX, sortPic } = this.state;
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
     const classData = home.classData;
@@ -65,7 +93,10 @@ class Home extends PureComponent {
       { title: `${intl.get('home.popularity')}` },
       { title: `${intl.get('home.upToDate')}` },
       { title: `${intl.get('home.willEnd')}` },
-      { title: `${intl.get('home.worth')}` },
+      {
+        title: `${intl.get('home.worth')}`,
+        sort: sortPic === 1 ? sorting : sortPic === 2 ? sortingDown : sortingUp,
+      },
     ];
     return (
       <div className={styles.home}>
@@ -145,6 +176,7 @@ class Home extends PureComponent {
               }}
               tabBarActiveTextColor="#FF5209"
               tabBarInactiveTextColor="#333333"
+              onTabClick={this.handlerTabClick}
             >
               <HotList />
               <LatestList />

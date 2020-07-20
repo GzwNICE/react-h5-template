@@ -9,9 +9,9 @@ import styles from './index.less';
 // const { lang } = queryString.parse(window.location.search);
 class ActivityCard extends PureComponent {
   render() {
-    const { data } = this.props;
+    const { data, recommend } = this.props;
     return (
-      <div className={styles.card}>
+      <div className={recommend ? `${styles.card} ${styles.recommend}` : `${styles.card}`}>
         <Link
           to={{
             pathname: `/product/${data.activityTurnId}`,
@@ -24,6 +24,7 @@ class ActivityCard extends PureComponent {
           <div className={styles.bottomBox}>
             <div className={styles.shopTitle}>{data.activityName}</div>
             <div className={styles.schedule}>
+              {recommend ? <span className={styles.shedText}>进度：</span> : null}
               <Progress
                 percent={data.progressRate}
                 position="normal"
@@ -35,13 +36,17 @@ class ActivityCard extends PureComponent {
                 }}
                 barStyle={{ backgroundColor: 'rgb(255,82,9)', border: 'none' }}
               />
-              <span className={styles.remaining}>{`${intl.get('home.remaining')}${
-                data.remainingCount
-              }`}</span>
+              {recommend ? null : (
+                <span className={styles.remaining}>{`${intl.get('home.remaining')}${
+                  data.remainingCount
+                }`}</span>
+              )}
             </div>
-            <div className={styles.oddsOfWinning}>
-              {intl.get('home.BuyMore', { addWinRate: data.addWinRate })}
-            </div>
+            {recommend ? null : (
+              <div className={styles.oddsOfWinning}>
+                {intl.get('home.BuyMore', { addWinRate: data.addWinRate })}
+              </div>
+            )}
           </div>
         </Link>
       </div>

@@ -94,7 +94,7 @@ request.interceptors.response.use(async response => {
     return;
   }
   if (data.code !== 200) {
-    Toast.info(data.msg || '网络异常', 2);
+    Toast.info(data.msg || 'Dị thường mạng', 2);
     return response;
   }
 });

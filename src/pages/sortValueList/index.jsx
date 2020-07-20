@@ -49,6 +49,7 @@ class SortValueList extends PureComponent {
     this.setState(
       {
         page: this.state.page + 1,
+        order: 'desc',
       },
       () => {
         const { page, size, order } = this.state;
@@ -76,6 +77,7 @@ class SortValueList extends PureComponent {
   render() {
     const { sortList } = this.props;
     const { isLoading } = this.state;
+    console.log(123, sortList);
     return (
       <div className={styles.hotPage}>
         <Flex wrap="wrap" justify="between">

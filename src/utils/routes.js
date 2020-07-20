@@ -26,6 +26,7 @@ import PayResult from '@/pages/payResult';
 import Agreement from '@/pages/agreement';
 import PrizeSelection from '@/pages/prizeSelection';
 import Exchange from '@/pages/exchange';
+import ChangeResult from '@/pages/changeResult';
 // import { Route } from 'react-router-dom';
 
 export const routes = [
@@ -154,5 +155,10 @@ export const routes = [
     path: '/exchange/:activityTurnId',
     exact: true,
     component: Exchange,
+  },
+  {
+    path: '/changeResult',
+    exact: true,
+    component: ChangeResult,
   },
 ];
