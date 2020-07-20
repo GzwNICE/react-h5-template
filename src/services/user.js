@@ -46,3 +46,6 @@ export async function getHelpDetail(params) {
 }
 
 
+export async function doGetAboutUs() {
+  return request('/home/about/us/get/info', { method: 'get' });
+}

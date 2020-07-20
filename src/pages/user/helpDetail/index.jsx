@@ -50,7 +50,7 @@ class HelpDetail extends PureComponent {
         <div className={styles.container}>
           <div className={styles.bread}>
             <span className={styles['b-c1']} onClick={()=>{this.goCenter()}}>帮助中心{">"}</span>
-            <span className={styles['b-c2']}>bread</span>
+            <span className={styles['b-c2']}>问题详情</span>
           </div>
           <div className={styles.title}>{this.state.resObj.title}</div>
           <div className={styles.date}>{format(this.state.resObj.updateTime)}</div>

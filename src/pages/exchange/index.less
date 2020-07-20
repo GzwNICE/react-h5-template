@@ -1,0 +1,90 @@
+.exchange {
+  width: 100%;
+  padding-top: 40px;
+
+  .navBar {
+    background-color: #FF5209;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .content {
+    width: 100%;
+    overflow: hidden;
+    .title {
+      font-size: 14px;
+      font-family: PingFangSC, PingFangSC-Medium;
+      font-weight: 500;
+      color: #333333;
+      line-height: 38px;
+      padding-left: 12px;
+      box-sizing: border-box;
+    }
+    .prodInfoBox {
+      width: 100%;
+      height: 114px;
+      background-color: #fff;
+      padding: 12px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      .left {
+        width: 90px;
+        height: 90px;
+      }
+      .textBox {
+        flex: 1;
+        margin-left: 20px;
+
+        // display: flex;
+        .prodName {
+          width: 100%;
+          font-size: 14px;
+          font-family: PingFangSC, PingFangSC-Regular;
+          color: #333333;
+          line-height: 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+
+        .num {
+          font-size: 12px;
+          font-family: PingFangSC, PingFangSC-Regular;
+          color: #666666;
+          margin: 6px 0;
+        }
+
+        .price {
+          font-size: 12px;
+          font-family: PingFangSC, PingFangSC-Regular;
+          color: #666666;
+
+          span {
+            color: #FF5209;
+          }
+        }
+      }
+    }
+    .exchangeInfo {
+      width: 100%;
+      :global(.am-list-item) {
+        min-height: 30px;
+      }
+      :global(.am-list-content) {
+        font-size: 14px;
+        font-family: PingFangSC, PingFangSC-Regular;
+        color: #333333;
+      }
+      :global(.am-list-extra) {
+        font-size: 14px;
+        font-family: PingFangSC, PingFangSC-Regular;
+        color: #666666;
+      }
+    }
+  }
+}

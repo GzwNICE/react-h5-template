@@ -248,7 +248,7 @@ class ProductDetail extends PureComponent {
       openS,
     } = this.state;
     const { detail } = this.props;
-    const { moneyVirtualCn, moneySymbol } = JSON.parse(localStorage.getItem('configuration'));
+    const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const winData = {
       img: detail.thumbnailUrl,
       name: detail.productName,
@@ -294,7 +294,7 @@ class ProductDetail extends PureComponent {
         <div className={styles.priceBox} style={{ backgroundImage: `url(${priceBg})` }}>
           <span className={styles.price}>
             <span className={styles.pPrice}>{detail.participatePrice}</span>
-            <span>{moneyVirtualCn}</span> / <span>{intl.get('home.personTime')}</span>
+            <span>{config.moneyVirtualCn}</span> / <span>{intl.get('home.personTime')}</span>
           </span>
           <div className={styles.remainBox}>
             <span>{`${intl.get('home.remaining')}${detail.remainingCount}`}</span>
@@ -340,7 +340,7 @@ class ProductDetail extends PureComponent {
           {detail.partakeStatus === 'no' ? (
             <div className={styles.msgBox}>
               <NoticeBar icon={<img src={remind} alt="" width="14" />}>
-                {intl.get('product.takeProduct', { moneySymbol: moneySymbol })}
+                {intl.get('product.takeProduct', { moneySymbol: config.moneySymbol })}
               </NoticeBar>
             </div>
           ) : null}
