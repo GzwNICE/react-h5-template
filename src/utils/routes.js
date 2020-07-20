@@ -24,6 +24,11 @@ import GetPrize from '@/pages/getPrize';
 import AwardResults from '@/pages/awardResults';
 import PayResult from '@/pages/payResult';
 import Agreement from '@/pages/agreement';
+
+import Help from '@/pages/user/help';
+import HelpItem from '@/pages/user/helpItem';
+import HelpDetail from '@/pages/user/helpDetail';
+
 import PrizeSelection from '@/pages/prizeSelection';
 import Exchange from '@/pages/exchange';
 import ChangeResult from '@/pages/changeResult';
@@ -145,6 +150,21 @@ export const routes = [
     path: '/agreement/:type',
     exact: true,
     component: Agreement,
+  },
+  {
+    path: '/help',
+    exact: true,
+    component: Help,
+  },
+  {
+    path: '/helpItem/:id',
+    exact: true,
+    component: HelpItem,
+  },
+  {
+    path: '/helpDetail/:id',
+    exact: true,
+    component: HelpDetail,
   },
   {
     path: '/prizeSelection/:activityTurnId',

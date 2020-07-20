@@ -149,6 +149,20 @@ export const user = createModel({
     async clearAddressList() {
       dispatch.user.doClearAddressList();
     },
+
+    async requestHelpCenter(payload) {
+      const response = await userService.getHelpCenter(payload);
+      return response;
+    },
+    async requestHelpCenterItem(payload) {
+      const response = await userService.getHelpCenterItem(payload);
+      return response;
+    },
+    async requestHelpDetail(payload) {
+      const response = await userService.getHelpDetail(payload);
+      return response;
+    },
+
     async getAboutUs() {
       const response = await userService.doGetAboutUs();
       console.log("aboutus",response)
