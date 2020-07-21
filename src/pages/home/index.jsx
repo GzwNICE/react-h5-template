@@ -65,22 +65,45 @@ class Home extends PureComponent {
         this.setState({
           sortPic: 2,
         });
+        this.descSort();
       }
       if (this.state.sortPic === 2) {
         this.setState({
           sortPic: 3,
         });
+        this.ascSort();
       }
       if (this.state.sortPic === 3) {
         this.setState({
           sortPic: 2,
         });
+        this.descSort();
       }
     } else {
       this.setState({
         sortPic: 1,
       });
     }
+  };
+
+  descSort = () => {
+    const { getSortList } = this.props;
+    const params = {
+      page: 1,
+      size: 20,
+      order: 'desc',
+    };
+    getSortList(params);
+  };
+
+  ascSort = () => {
+    const { getSortList } = this.props;
+    const params = {
+      page: 1,
+      size: 20,
+      order: 'asc',
+    };
+    getSortList(params);
   };
 
   render() {
@@ -206,6 +229,7 @@ const mapDispatch = dispatch => ({
   getClass: params => dispatch.home.fetchGetClass(params),
   homeSys: params => dispatch.home.fetchConf(params),
   clearData: params => dispatch.home.clearList(params),
+  getSortList: params => dispatch.home.fetchGetSortList(params),
 });
 
 export default connect(mapState, mapDispatch)(Home);
