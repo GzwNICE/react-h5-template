@@ -22,14 +22,44 @@ class PrizeSelection extends PureComponent {
     this.state = {
       id: this.props.match.params.activityTurnId,
       select: false,
-      classN: 'styles.close',
+      info: null,
+      openH: 0,
+      openM: 0,
+      openS: 0,
     };
   }
 
   componentDidMount() {
-    const { getLists } = this.props;
-    getLists({ activityTurnId: this.state.id });
+    const { getInfo } = this.props;
+    getInfo({ activityTurnId: this.state.id }).then(res => {
+      if (res.code === 200) {
+        this.setState({
+          info: res.data,
+        });
+        this.countFun(res.data.countdownTime);
+      }
+    });
   }
+
+  countFun = time => {
+    var remaining = time;
+    let timer = setInterval(() => {
+      //防止出现负数
+      if (remaining > 1000) {
+        remaining -= 1000;
+        let hour = Math.floor((remaining / 1000 / 3600) % 24);
+        let minute = Math.floor((remaining / 1000 / 60) % 60);
+        let second = Math.floor((remaining / 1000) % 60);
+        this.setState({
+          openH: hour < 10 ? '0' + hour : hour,
+          openM: minute < 10 ? '0' + minute : minute,
+          openS: second < 10 ? '0' + second : second,
+        });
+      } else {
+        clearInterval(timer);
+      }
+    }, 999);
+  };
 
   handlerFooterClick = () => {
     this.setState({
@@ -37,9 +67,22 @@ class PrizeSelection extends PureComponent {
     });
   };
 
+  goExchange = type => {
+    console.log(type);
+    const id = this.state.id;
+    this.props.history.push(`/exchange/${id}?type=${type}`);
+  };
+
+  goPrize = () => {
+    const id = this.state.id;
+    this.props.history.push(`/prize/${id}`);
+  };
+
   render() {
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    const { select, classN } = this.state;
+    const { select, openH, openM, openS, info } = this.state;
+    const prodInfo = (info && info.prizesProductVO) || {};
+    const recycleInfo = (info && info.recycleInfoVO) || {};
     return (
       <div className={styles.selection}>
         <NavBar
@@ -56,45 +99,51 @@ class PrizeSelection extends PureComponent {
           <img src={congratulation} alt="" className={styles.receiveBg} />
           <div className={styles.tips}>请在规定时间内领奖，超过规定时间没有领奖将视为自动放弃</div>
           <div className={styles.productInfo}>
-            <img src={congratulation} alt="" className={styles.prodImg} />
+            <img src={prodInfo.imgUrl} alt="" className={styles.prodImg} />
             <ul className={styles.textBox}>
-              <li className={styles.prodName}>
-                商品名称 最多显示两行内容和两行信息 超出2行末尾点点点缩略显点点点缩略显点点点缩略显
-              </li>
+              <li className={styles.prodName}>{prodInfo.productName}</li>
               <li className={styles.num}>数量：1</li>
               <li className={styles.price}>
-                零售价：<span>{`${numFormat(1000000000)} ${config.moneySymbol}`}</span>
+                零售价：<span>{`${numFormat(prodInfo.marketPrice)} ${config.moneySymbol}`}</span>
               </li>
             </ul>
           </div>
           <div className={styles.countDown}>
             兑换倒计时
-            <span className={styles.time}>23</span>:<span className={styles.time}>59</span>:
-            <span className={styles.time}>59</span>
+            <span className={styles.time}>{openH}</span>:<span className={styles.time}>{openM}</span>:
+            <span className={styles.time}>{openS}</span>
           </div>
           <div className={styles.selectBox}>
             <Card>
               <Card.Header title="选择兑换方式" className={styles.cardHeader} />
               <Card.Body className={styles.cardBody}>
-                <div className={styles.selectItem}>
-                  <li className={styles.way}>兑换GO币</li>
+                <div className={styles.selectItem} onClick={() => this.goExchange('coins')}>
+                  <li className={styles.way}>兑换{config.moneyVirtualCn}</li>
                   <li className={styles.content}>
-                    您将获得 <span className={styles.num}>8183 {config.moneyVirtualCn}</span>{' '}
-                    <span className={styles.give}>赠送5%</span>
+                    您将获得{' '}
+                    <span className={styles.num}>
+                      {recycleInfo.convertGoMoney} {config.moneyVirtualCn}
+                    </span>{' '}
+                    <span className={styles.give}>{`赠送${recycleInfo.goGiveRate}%`}</span>
                   </li>
                   <li className={styles.tipText}>奖品兑换为GO币，可继续参与更多活动。</li>
                 </div>
                 {select ? (
                   <div>
-                    <div className={styles.selectItem}>
+                    <div className={styles.selectItem} onClick={this.goPrize}>
                       <li className={styles.way}>领取奖品</li>
                       <li className={styles.tipText}>填写领奖信息，平台寄出奖品</li>
                     </div>
-                    <div className={styles.selectItem}>
+                    <div className={styles.selectItem} onClick={() => this.goExchange('cash')}>
                       <li className={styles.way}>
                         兑换
-                        <span> {`${numFormat(1000000)}${config.moneySymbol}`}</span>
-                        <span className={styles.title}> (已扣除 5%税费/服务费)</span>
+                        <span>
+                          {' '}
+                          {`${numFormat(recycleInfo.convertPrice)}${config.moneySymbol}`}
+                        </span>
+                        <span
+                          className={styles.title}
+                        >{` (已扣除 ${recycleInfo.serviceFeeRate}% 税费/服务费)`}</span>
                       </li>
                       <li className={styles.tipText}>兑换成现金，直接提现到银行卡</li>
                     </div>
@@ -120,7 +169,7 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  getLists: params => dispatch.product.getRules(params),
+  getInfo: params => dispatch.prize.getSelInfo(params),
 });
 
 export default connect(mapState, mapDispatch)(PrizeSelection);

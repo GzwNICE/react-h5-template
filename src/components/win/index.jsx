@@ -160,23 +160,32 @@ class Win extends PureComponent {
   }
   onDetailClick = (id, e) => {
     e.stopPropagation();
-    const { getRules, getAwardInfo } = this.props;
-    getRules({
+    const { getAwardRules, getAwardInfo } = this.props;
+    getAwardRules({
       activityTurnId: id,
     }).then(res => {
       if (res.code === 200) {
         if (res.data.status === 0) {
           this.props.push(`/prize/${id}`);
-        } else {
+          return;
+        }
+        if (res.data.status === 1) {
+          // 无领奖规则，直接领取奖品，跳转领奖结果页
           getAwardInfo({ activityTurnId: id }).then(res => {
             if (res.code === 200) {
               this.props.push(`/awardResult?type=${res.data.productType}`);
             }
           });
+          return;
+        }
+        if (res.data.status === 2) {
+          // 有回收规则，跳转领奖方式选择页
+          this.props.push(`/prizeSelection/${id}`);
+          return;
         }
       }
     });
-  }
+  };
 
   onCopyClick(copyContent) {
     if (copy(copyContent)) {
@@ -198,6 +207,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   getRules: params => dispatch.product.existRules(params),
+  getAwardRules: params => dispatch.product.awardRule(params),
   getAwardInfo: params => dispatch.prize.result(params),
 });
 

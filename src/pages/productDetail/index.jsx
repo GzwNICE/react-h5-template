@@ -200,18 +200,22 @@ class ProductDetail extends PureComponent {
   };
 
   handleConfirm = () => {
-    const { getRules, getAwardInfo } = this.props;
+    const { getRules, getAwardInfo, getAwardRules } = this.props;
     const id = this.state.activityTurnId;
-    getRules({
+    getAwardRules({
       activityTurnId: id,
     }).then(res => {
       if (res.code === 200) {
         if (res.data.status === 0) {
+          //有领奖规则，跳转领奖页填写信息
           this.setState({
             visibleReceive: false,
           });
           this.props.history.push(`/prize/${id}`);
-        } else {
+          return;
+        }
+        if (res.data.status === 1) {
+          // 无领奖规则，直接领取奖品，跳转领奖结果页
           getAwardInfo({ activityTurnId: id }).then(res => {
             if (res.code === 200) {
               this.setState({
@@ -220,6 +224,12 @@ class ProductDetail extends PureComponent {
               this.props.history.push(`/awardResult?type=${res.data.productType}`);
             }
           });
+          return;
+        }
+        if (res.data.status === 2) {
+          // 有回收规则，跳转领奖方式选择页
+          this.props.history.push(`/prizeSelection/${id}`);
+          return;
         }
       }
     });
@@ -500,6 +510,7 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   getDetail: params => dispatch.product.getDetail(params),
   getRules: params => dispatch.product.existRules(params),
+  getAwardRules: params => dispatch.product.awardRule(params),
   getAwardInfo: params => dispatch.prize.result(params),
 });
 

@@ -65,12 +65,6 @@ class User extends PureComponent {
       this.props.history.push(`/login`);
     }
   }
-  handlerOutLogin = () => {
-    localStorage.removeItem('token');
-    this.setState({
-      isLogin: false,
-    });
-  };
 
   render() {
     // eslint-disable-next-line react/destructuring-assignment
@@ -111,7 +105,10 @@ class User extends PureComponent {
                   <img className={styles.coin} src={ic_gocoin_s}></img>
                   <span className={styles.label}>
                     {isLogin
-                      ? `${intl.get('user.myGoCoin1', { moneyVirtualCn: config.moneyVirtualCn, goMoney: user.userInfo.goMoney })}`
+                      ? `${intl.get('user.myGoCoin1', {
+                          moneyVirtualCn: config.moneyVirtualCn,
+                          goMoney: user.userInfo.goMoney,
+                        })}`
                       : `${intl.get('user.myGoCoin', { moneyVirtualCn: config.moneyVirtualCn })}`}
                   </span>
                   <img className={styles.arrow} src={goin_arrow}></img>
@@ -147,13 +144,15 @@ class User extends PureComponent {
               renderItem={item => (
                 <div>
                   <img src={item.icon} className={styles.icon} alt="" />
-                  <div className={styles.label} style={{marginTop:"5px"}}>{item.label}</div>
+                  <div className={styles.label} style={{ marginTop: '5px' }}>
+                    {item.label}
+                  </div>
                 </div>
               )}
             />
           </div>
           <div className={styles.order}>
-              <div className={styles.myorder}>{intl.get('user.myServer')}</div>
+            <div className={styles.myorder}>{intl.get('user.myServer')}</div>
             <Grid
               data={tabServer}
               columnNum={4}
@@ -172,11 +171,6 @@ class User extends PureComponent {
             />
           </div>
         </div>
-        {isLogin ? (
-          <Button onClick={this.handlerOutLogin} className={styles.outLogin}>
-            {intl.get('user.logout')}
-          </Button>
-        ) : null}
         <div className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}>
           <TabBarBox selectedTab="userPage" search={this.props.history.location.search} />
         </div>

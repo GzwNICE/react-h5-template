@@ -17,8 +17,20 @@ class ChangeResult extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      type: queryString.parse(window.location.search).type, //SUBSTANCE->实体；VIRTUAL->虚拟；COIN->虚拟币
+      type: queryString.parse(window.location.search).type,
     };
+  }
+
+  componentDidMount() {
+    Toast.loading('Loading...', 0);
+    const { getOpenList } = this.props;
+    const params = {
+      page: 1,
+      size: 100,
+    };
+    getOpenList(params).then(() => {
+      Toast.hide();
+    });
   }
 
   handleCopy = value => {
@@ -35,70 +47,15 @@ class ChangeResult extends PureComponent {
 
   render() {
     const { type } = this.state;
-    const { prize } = this.props;
+    const money = type === 'coins' ? queryString.parse(window.location.search).money : '';
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    const list = [
-      {
-        activityId: '110',
-        activityName: 'jiesi 活动状态jiesi 活动状态jiesi 活动状态jiesi 活动状态',
-        activityTurnId: '1635',
-        addWinRate: 0.3,
-        cartEnable: 0,
-        currentTurn: 10,
-        imgUrl:
-          'https://legend-oss-public.oss-cn-hangzhou.aliyuncs.com/product/1592896721706495.jpg',
-        isTop: 0,
-        isTopTime: 631123200000,
-        participatePrice: '0',
-        productId: '35',
-        productName: '手机活动',
-        progressRate: 0,
-        remainingCount: 3300,
-        startTime: 1594893733000,
-      },
-      {
-        activityId: '110',
-        activityName: 'jiesi 活动状态',
-        activityTurnId: '1636',
-        addWinRate: 0.3,
-        cartEnable: 0,
-        currentTurn: 10,
-        imgUrl:
-          'https://legend-oss-public.oss-cn-hangzhou.aliyuncs.com/product/1592896721706495.jpg',
-        isTop: 0,
-        isTopTime: 631123200000,
-        participatePrice: '0',
-        productId: '35',
-        productName: '手机活动',
-        progressRate: 0,
-        remainingCount: 3300,
-        startTime: 1594893733000,
-      },
-      {
-        activityId: '110',
-        activityName: 'jiesi 活动状态',
-        activityTurnId: '1638',
-        addWinRate: 0.3,
-        cartEnable: 0,
-        currentTurn: 10,
-        imgUrl:
-          'https://legend-oss-public.oss-cn-hangzhou.aliyuncs.com/product/1592896721706495.jpg',
-        isTop: 0,
-        isTopTime: 631123200000,
-        participatePrice: '0',
-        productId: '35',
-        productName: '手机活动',
-        progressRate: 0,
-        remainingCount: 3300,
-        startTime: 1594893733000,
-      },
-    ];
+    const { endList } = this.props;
     return (
       <div className={styles.changeResult}>
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF5209' }}
+          className={styles.navBar}
           onLeftClick={this.goBack}
         >
           兑换
@@ -107,15 +64,21 @@ class ChangeResult extends PureComponent {
           <Result
             img={
               <img
-                src={type === 'go' ? exchangeSucceed : receiveSuccess}
+                src={type === 'coins' ? exchangeSucceed : receiveSuccess}
                 className={styles.successPic}
                 alt=""
               />
             }
-            title={type === 'go' ? `已成功兑换 3712 GO币` : `兑换现金申请已提交`}
+            title={
+              type === 'coins'
+                ? `已成功兑换 ${money} ${config.moneyVirtualCn}`
+                : `兑换现金申请已提交`
+            }
           />
-          {type === 'go' ? <p className={styles.monTips}>可在我的-我的GO币查看GO入账明细</p> : null}
-          {type === '1' ? (
+          {type === 'coins' ? (
+            <p className={styles.monTips}>可在我的-我的GO币查看GO入账明细</p>
+          ) : null}
+          {type === 'cash' ? (
             <ul className={styles.virtual}>
               <li className={styles.virTips}>
                 GaGaGO已对接第三方礼品回收公司，会在1-7个工作日奖品将卖给第三方公司，并处理你的提现申请。
@@ -130,7 +93,7 @@ class ChangeResult extends PureComponent {
         <div className={styles.recommendBox}>
           <span className={styles.title}>系统推荐</span>
           <Flex wrap="wrap" justify="between">
-            {list.map(i => {
+            {endList.data.map(i => {
               return (
                 <div key={i.id} className={styles.hotItem}>
                   <ActivityCard data={i} recommend />
@@ -143,11 +106,12 @@ class ChangeResult extends PureComponent {
     );
   }
 }
-
 const mapState = state => ({
-  prize: state.prize.data.prize,
+  endList: state.home.data.endList,
 });
 
-const mapDispatch = dispatch => ({});
+const mapDispatch = dispatch => ({
+  getOpenList: params => dispatch.home.fetchGetEndList(params),
+});
 
 export default connect(mapState, mapDispatch)(ChangeResult);

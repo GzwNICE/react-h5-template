@@ -32,7 +32,6 @@ class HotList extends PureComponent {
     const sh = scrollTop + event.srcElement.documentElement.clientHeight - 200;
     // eslint-disable-next-line react/no-find-dom-node
     const h = ReactDOM.findDOMNode(this.load).offsetTop;
-    console.log(1, this.state.fetch);
     if (sh > h) {
       if (!this.state.fetch) {
         this.getPageList();
