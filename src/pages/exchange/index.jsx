@@ -113,29 +113,30 @@ class Exchange extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          兑换
+          {intl.get('payment.str_change_gocoin')}
         </NavBar>
         <div className={styles.content}>
-          <span className={styles.title}>奖品</span>
+          <span className={styles.title}>{intl.get('result.prize')}</span>
           <div className={styles.prodInfoBox}>
             <img src={prodInfo.imgUrl} alt="" className={styles.left} />
             <ul className={styles.textBox}>
               <li className={styles.prodName}>{prodInfo.productName}</li>
               <li className={styles.num}>数量：1</li>
               <li className={styles.price}>
-                零售价：<span>{`${numFormat(prodInfo.marketPrice)} ${config.moneySymbol}`}</span>
+                {intl.get('prize.retailPrice')}：
+                <span>{`${numFormat(prodInfo.marketPrice)} ${config.moneySymbol}`}</span>
               </li>
             </ul>
           </div>
-          <span className={styles.title}>兑换详情</span>
+          <span className={styles.title}>{intl.get('order.dialogDetail')}</span>
           {type === 'coins' ? (
             <List className={styles.exchangeInfo}>
               <Item extra={`${numFormat(recycleInfo.productGoMoney)} ${config.moneyVirtualCn}`}>
-                奖品价值
+                {intl.get('order.productGoMoney')}
               </Item>
-              <Item extra={`${recycleInfo.goGiveRate} %`}>额外赠送比例</Item>
+              <Item extra={`${recycleInfo.goGiveRate} %`}>{intl.get('order.goGiveRate')}</Item>
               <Item extra={`${numFormat(recycleInfo.goGiveMoney)} ${config.moneyVirtualCn}`}>
-                额外赠送数量
+                {intl.get('order.goGiveMoney')}
               </Item>
               <Item extra={`${numFormat(recycleInfo.convertGoMoney)} ${config.moneyVirtualCn}`}>
                 您将获得
@@ -147,9 +148,11 @@ class Exchange extends PureComponent {
                 <Item extra={`${numFormat(recycleInfo.marketPrice)} ${config.moneySymbol}`}>
                   市场零售价
                 </Item>
-                <Item extra={`${recycleInfo.serviceFeeRate} %`}>税费/服务费比例</Item>
+                <Item extra={`${recycleInfo.serviceFeeRate} %`}>
+                  {intl.get('order.serviceFeeRate')}
+                </Item>
                 <Item extra={`${numFormat(recycleInfo.serviceFee)} ${config.moneySymbol}`}>
-                  税费/服务费
+                  {intl.get('order.serviceFee')}
                 </Item>
                 <Item extra={`${numFormat(recycleInfo.convertPrice)} ${config.moneySymbol}`}>
                   实际到账
@@ -167,7 +170,7 @@ class Exchange extends PureComponent {
                     this.nameRef.focus();
                   }}
                 >
-                  持卡人名字
+                  {intl.get('order.realName')}
                 </InputItem>
                 <InputItem
                   {...getFieldProps('bankName', {
@@ -179,7 +182,7 @@ class Exchange extends PureComponent {
                     this.name2Ref.focus();
                   }}
                 >
-                  银行名称
+                  {intl.get('order.bankName')}
                 </InputItem>
                 <InputItem
                   {...getFieldProps('bankCardNum', {
@@ -192,7 +195,7 @@ class Exchange extends PureComponent {
                   }}
                   className={styles.noBorder}
                 >
-                  卡号
+                  {intl.get('order.bankCardNum')}
                 </InputItem>
               </List>
             </div>
@@ -213,14 +216,7 @@ class Exchange extends PureComponent {
             <AgreeItem onChange={this.handlerCheck}>
               <span className={styles.text}>
                 我已同意
-                <i
-                  onClick={() => {
-                    window.location.href =
-                      'https://app-h5.winmybonus.com/#/agreement/service_0605?language=vi';
-                  }}
-                >
-                  《奖品兑换协议》
-                </i>
+                <i onClick={() => this.props.history.push('/agreement/5')}>《奖品兑换协议》</i>
               </span>
             </AgreeItem>
           </div>
@@ -238,10 +234,10 @@ class Exchange extends PureComponent {
             </p>
             <div className={styles.btnGroup}>
               <Button type="primary" className={styles.cancel} onClick={this.onClose}>
-                取消
+                {intl.get('password.cancel')}
               </Button>
               <Button type="primary" className={styles.determine}>
-                确定
+                {intl.get('password.determine')}
               </Button>
             </div>
           </div>

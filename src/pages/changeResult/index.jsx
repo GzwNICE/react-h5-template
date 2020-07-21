@@ -58,7 +58,7 @@ class ChangeResult extends PureComponent {
           className={styles.navBar}
           onLeftClick={this.goBack}
         >
-          兑换
+          {intl.get('payment.str_change_gocoin')}
         </NavBar>
         <div className={styles.resultContent}>
           <Result
