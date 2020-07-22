@@ -9,74 +9,14 @@ import styles from './index.less';
 class SortValueList extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      page: 0,
-      size: 20,
-      order: '',
-      isLoading: true,
-      hasMore: true,
-    };
   }
 
-  componentDidMount() {
-    this.getPageList();
-    window.addEventListener('scroll', this.bindHandleScroll);
-  }
-  bindHandleScroll = event => {
-    // 滚动的高度
-    const scrollTop =
-      (event.srcElement ? event.srcElement.documentElement.scrollTop : false) ||
-      window.pageYOffset || (event.srcElement ? event.srcElement.body.scrollTop : 0);
-    const sh = scrollTop + event.srcElement.documentElement.clientHeight - 200;
-    // eslint-disable-next-line react/no-find-dom-node
-    const h = ReactDOM.findDOMNode(this.load).offsetTop;
-    if (sh > h) {
-      if (!this.fetch) {
-        this.getPageList();
-      }
-    }
+  loadMore = () => {
+    this.props.loadMore();
   };
-  //在componentWillUnmount，进行scroll事件的注销
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.bindHandleScroll);
-  }
-
-  getPageList = () => {
-    // eslint-disable-next-line react/destructuring-assignment
-    if (!this.state.hasMore) return false;
-    this.fetch = true;
-    const { getSortList } = this.props;
-    this.setState(
-      {
-        page: this.state.page + 1,
-        order: 'desc',
-      },
-      () => {
-        const { page, size, order } = this.state;
-        const params = {
-          page: page,
-          size: size,
-          order: order,
-        };
-        getSortList(params).then(() => {
-          this.fetch = false;
-        });
-      }
-    );
-  };
-
-  componentWillReceiveProps(nextPorps) {
-    if (nextPorps.sortList.data.length === nextPorps.sortList.total) {
-      this.setState({
-        hasMore: false,
-        isLoading: false,
-      });
-    }
-  }
 
   render() {
-    const { sortList } = this.props;
-    const { isLoading } = this.state;
+    const { sortList, isLoading, hasMore } = this.props;
     return (
       <div className={styles.hotPage}>
         <Flex wrap="wrap" justify="between">
@@ -88,8 +28,8 @@ class SortValueList extends PureComponent {
             );
           })}
         </Flex>
-        <div ref={lv => (this.load = lv)} className={styles.loading}>
-          {isLoading ? 'loading...' : '已经到底了！'}
+        <div className={styles.loading} onClick={this.loadMore}>
+          {isLoading ? 'loading...' : hasMore ? '点击加载更多...' : '已经到底了！'}
         </div>
       </div>
     );

@@ -167,7 +167,7 @@ export const home = createModel({
     },
     async fetchGetSortList(payload) {
       const response = await homeService.homeSortLit(payload);
-      if (payload.order) {
+      if (payload.page === 1) {
         dispatch.home.getValueList(response);
       } else {
         dispatch.home.getSortList(response);

@@ -104,7 +104,8 @@ class PrizeSelection extends PureComponent {
           </div>
           <div className={styles.countDown}>
             {intl.get('prize.exchangeCountdown')}
-            <span className={styles.time}>{openH}</span>:<span className={styles.time}>{openM}</span>:
+            <span className={styles.time}>{openH}</span>:
+            <span className={styles.time}>{openM}</span>:
             <span className={styles.time}>{openS}</span>
           </div>
           <div className={styles.selectBox}>
@@ -134,19 +135,21 @@ class PrizeSelection extends PureComponent {
                       <li className={styles.way}>{intl.get('result.prizeCollection')}</li>
                       <li className={styles.tipText}>{intl.get('prize.fillInfo')}</li>
                     </div>
-                    <div className={styles.selectItem} onClick={() => this.goExchange('cash')}>
-                      <li className={styles.way}>
-                        {intl.get('payment.str_change_gocoin')}
-                        <span>
-                          {' '}
-                          {`${numFormat(recycleInfo.convertPrice)}${config.moneySymbol}`}
-                        </span>
-                        <span className={styles.title}>{`${intl.get('prize.deducted', {
-                          serviceFeeRate: recycleInfo.serviceFeeRate,
-                        })}`}</span>
-                      </li>
-                      <li className={styles.tipText}>{intl.get('prize.convertCash')}</li>
-                    </div>
+                    {recycleInfo.convertPrice ? (
+                      <div className={styles.selectItem} onClick={() => this.goExchange('cash')}>
+                        <li className={styles.way}>
+                          {intl.get('payment.str_change_gocoin')}
+                          <span>
+                            {' '}
+                            {`${numFormat(recycleInfo.convertPrice)}${config.moneySymbol}`}
+                          </span>
+                          <span className={styles.title}>{`${intl.get('prize.deducted', {
+                            serviceFeeRate: recycleInfo.serviceFeeRate,
+                          })}`}</span>
+                        </li>
+                        <li className={styles.tipText}>{intl.get('prize.convertCash')}</li>
+                      </div>
+                    ) : null}
                   </div>
                 ) : null}
               </Card.Body>

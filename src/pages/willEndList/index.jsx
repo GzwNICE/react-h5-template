@@ -1,6 +1,7 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 // 首页将止列表
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import ActivityCard from '@/components/activityCard';
 import { Flex } from 'antd-mobile';
@@ -12,38 +13,21 @@ class WillEndList extends PureComponent {
     this.state = {
       page: 0,
       size: 20,
-      isLoading: true,
+      isLoading: false,
       hasMore: true,
+      fetch: false,
     };
   }
 
   componentDidMount() {
     this.getPageList();
-    window.addEventListener('scroll', this.bindHandleScroll);
-  }
-  bindHandleScroll = event => {
-    // 滚动的高度
-    const scrollTop =
-      (event.srcElement ? event.srcElement.documentElement.scrollTop : false) ||
-      window.pageYOffset || (event.srcElement ? event.srcElement.body.scrollTop : 0);
-    const sh = scrollTop + event.srcElement.documentElement.clientHeight - 200;
-    // eslint-disable-next-line react/no-find-dom-node
-    const h = ReactDOM.findDOMNode(this.load).offsetTop;
-    if (sh > h) {
-      if (!this.fetch) {
-        this.getPageList();
-      }
-    }
-  };
-  //在componentWillUnmount，进行scroll事件的注销
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.bindHandleScroll);
   }
 
   getPageList = () => {
-    // eslint-disable-next-line react/destructuring-assignment
     if (!this.state.hasMore) return false;
-    this.fetch = true;
+    this.setState({
+      fetch: true,
+    });
     const { getOpenList } = this.props;
     this.setState(
       {
@@ -55,10 +39,22 @@ class WillEndList extends PureComponent {
           size: this.state.size,
         };
         getOpenList(params).then(() => {
-          this.fetch = false;
+          this.setState({
+            fetch: false,
+            isLoading: false,
+          });
         });
       }
     );
+  };
+
+  loadMore = () => {
+    const { hasMore, fetch } = this.state;
+    if (!hasMore || fetch) return;
+    this.setState({
+      isLoading: true,
+    });
+    this.getPageList();
   };
 
   componentWillReceiveProps(nextPorps) {
@@ -72,7 +68,7 @@ class WillEndList extends PureComponent {
 
   render() {
     const { endList } = this.props;
-    const { isLoading } = this.state;
+    const { isLoading, hasMore } = this.state;
     return (
       <div className={styles.hotPage}>
         <Flex wrap="wrap" justify="between">
@@ -84,8 +80,8 @@ class WillEndList extends PureComponent {
             );
           })}
         </Flex>
-        <div ref={lv => (this.load = lv)} className={styles.loading}>
-          {isLoading ? 'loading...' : '已经到底了！'}
+        <div className={styles.loading} onClick={this.loadMore}>
+          {isLoading ? 'loading...' : hasMore ? '点击加载更多...' : '已经到底了！'}
         </div>
       </div>
     );

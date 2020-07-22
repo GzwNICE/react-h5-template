@@ -13,8 +13,8 @@ class HotList extends PureComponent {
     super(props);
     this.state = {
       page: 0,
-      size: 20,
-      isLoading: true,
+      size: 50,
+      isLoading: false,
       hasMore: true,
       fetch: false,
     };
@@ -22,29 +22,9 @@ class HotList extends PureComponent {
 
   componentDidMount() {
     this.getPageList();
-    window.addEventListener('scroll', this.bindHandleScroll);
-  }
-  bindHandleScroll = event => {
-    // 滚动的高度
-    const scrollTop =
-      (event.srcElement ? event.srcElement.documentElement.scrollTop : false) ||
-      window.pageYOffset || (event.srcElement ? event.srcElement.body.scrollTop : 0);
-    const sh = scrollTop + event.srcElement.documentElement.clientHeight - 200;
-    // eslint-disable-next-line react/no-find-dom-node
-    const h = ReactDOM.findDOMNode(this.load).offsetTop;
-    if (sh > h) {
-      if (!this.state.fetch) {
-        this.getPageList();
-      }
-    }
-  };
-  //在componentWillUnmount，进行scroll事件的注销
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.bindHandleScroll);
   }
 
   getPageList = () => {
-    // eslint-disable-next-line react/destructuring-assignment
     if (!this.state.hasMore) return false;
     this.setState({
       fetch: true,
@@ -62,10 +42,20 @@ class HotList extends PureComponent {
         getList(params).then(() => {
           this.setState({
             fetch: false,
+            isLoading: false,
           });
         });
       }
     );
+  };
+
+  loadMore = () => {
+    const { hasMore, fetch } = this.state;
+    if (!hasMore || fetch) return;
+    this.setState({
+      isLoading: true,
+    });
+    this.getPageList();
   };
 
   componentWillReceiveProps(nextPorps) {
@@ -79,7 +69,7 @@ class HotList extends PureComponent {
 
   render() {
     const { hotList } = this.props;
-    const { isLoading } = this.state;
+    const { isLoading, hasMore } = this.state;
     return (
       <div className={styles.hotPage}>
         <Flex wrap="wrap" justify="between">
@@ -91,8 +81,8 @@ class HotList extends PureComponent {
             );
           })}
         </Flex>
-        <div ref={lv => (this.load = lv)} className={styles.loading}>
-          {isLoading ? 'loading...' : '已经到底了！'}
+        <div className={styles.loading} onClick={this.loadMore}>
+          {isLoading ? 'loading...' : hasMore ? '点击加载更多...' : '已经到底了！'}
         </div>
       </div>
     );

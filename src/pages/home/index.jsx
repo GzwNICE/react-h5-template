@@ -1,3 +1,4 @@
+/* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/destructuring-assignment */
 // 首页
 import React, { PureComponent } from 'react';
@@ -34,6 +35,12 @@ class Home extends PureComponent {
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
       sortPic: 1,
+      page: 0,
+      size: 50,
+      order: '',
+      isLoading: false,
+      hasMore: true,
+      fetch: false,
     };
   }
 
@@ -48,6 +55,7 @@ class Home extends PureComponent {
         Toast.hide();
       }, 800);
     });
+    this.getPageList('desc');
   }
 
   componentWillUnmount() {
@@ -62,53 +70,98 @@ class Home extends PureComponent {
   handlerTabClick = (tab, index) => {
     if (index === 3) {
       if (this.state.sortPic === 1) {
-        this.setState({
-          sortPic: 2,
-        });
-        this.descSort();
+        this.setState(
+          {
+            sortPic: 2,
+            hasMore: true,
+          },
+          () => {
+            this.getPageList('desc');
+          }
+        );
       }
       if (this.state.sortPic === 2) {
-        this.setState({
-          sortPic: 3,
-        });
-        this.ascSort();
+        this.setState(
+          {
+            sortPic: 3,
+            hasMore: true,
+          },
+          () => {
+            this.getPageList('desc');
+          }
+        );
       }
       if (this.state.sortPic === 3) {
-        this.setState({
-          sortPic: 2,
-        });
-        this.descSort();
+        this.setState(
+          {
+            sortPic: 2,
+            hasMore: true,
+          },
+          () => {
+            this.getPageList('desc');
+          }
+        );
       }
     } else {
       this.setState({
         sortPic: 1,
+        hasMore: true,
       });
     }
   };
 
-  descSort = () => {
+  getPageList = (type, more) => {
+    if (!this.state.hasMore) return false;
+    this.setState({
+      fetch: true,
+    });
     const { getSortList } = this.props;
-    const params = {
-      page: 1,
-      size: 20,
-      order: 'desc',
-    };
-    getSortList(params);
+    this.setState(
+      {
+        page: more ? this.state.page + 1 : 1,
+        order: type,
+      },
+      () => {
+        const { page, size, order } = this.state;
+        const params = {
+          page: page,
+          size: size,
+          order: order,
+        };
+        getSortList(params).then(() => {
+          this.setState({
+            fetch: false,
+            isLoading: false,
+          });
+        });
+      }
+    );
   };
 
-  ascSort = () => {
-    const { getSortList } = this.props;
-    const params = {
-      page: 1,
-      size: 20,
-      order: 'asc',
-    };
-    getSortList(params);
+  loadMore = () => {
+    const { hasMore, fetch, order } = this.state;
+    if (!hasMore || fetch) return;
+    this.setState({
+      isLoading: true,
+    });
+    this.getPageList(order, 'more');
   };
+
+  componentWillReceiveProps(nextPorps) {
+    if (
+      nextPorps.sortList.data.length > 0 &&
+      nextPorps.sortList.data.length === nextPorps.sortList.total
+    ) {
+      this.setState({
+        hasMore: false,
+        isLoading: false,
+      });
+    }
+  }
 
   render() {
     const { home } = this.props;
-    const { IPhoneX, sortPic } = this.state;
+    const { IPhoneX, sortPic, isLoading, hasMore } = this.state;
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
     const classData = home.classData;
@@ -204,7 +257,7 @@ class Home extends PureComponent {
               <HotList />
               <LatestList />
               <OpenList />
-              <ValueList />
+              <ValueList loadMore={this.loadMore} isLoading={isLoading} hasMore={hasMore} />
             </Tabs>
           </StickyContainer>
         </div>
@@ -221,6 +274,7 @@ class Home extends PureComponent {
 
 const mapState = state => ({
   home: state.home.data,
+  sortList: state.home.data.sortList,
 });
 
 const mapDispatch = dispatch => ({
