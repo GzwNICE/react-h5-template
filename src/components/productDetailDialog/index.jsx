@@ -41,7 +41,7 @@ class DetailDialog extends PureComponent {
           visible={codeModal}
           transparent
           maskClosable={false}
-          title={intl.get('order.dialogDetail')}
+          title={intl.get('order.str_winget_detail')}
           className={styles.codeModal}
         >
           <DialogItem data={{ title: intl.get('order.status'), value: this.state.status }} />
