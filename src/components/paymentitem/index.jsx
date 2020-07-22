@@ -65,7 +65,7 @@ class PaymentItem extends PureComponent {
             {moment(data.createTime).format('DD/MM/YYYY HH:mm')}
           </div>
           <div className={styles.balance}>
-            ({intl.get('payment.str_coin_rest')}
+            {intl.get('payment.str_coin_rest')}
             {data.goMoney}
           </div>
         </div>

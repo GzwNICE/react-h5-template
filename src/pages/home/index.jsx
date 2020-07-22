@@ -36,7 +36,7 @@ class Home extends PureComponent {
       IPhoneX: Cookies.get('IPhoneX'),
       sortPic: 1,
       page: 0,
-      size: 50,
+      size: 100,
       order: '',
       isLoading: false,
       hasMore: true,

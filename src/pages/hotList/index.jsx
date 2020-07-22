@@ -13,7 +13,7 @@ class HotList extends PureComponent {
     super(props);
     this.state = {
       page: 0,
-      size: 50,
+      size: 100,
       isLoading: false,
       hasMore: true,
       fetch: false,

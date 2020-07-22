@@ -22,6 +22,7 @@ class ChangeResult extends PureComponent {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     Toast.loading('Loading...', 0);
     const { getOpenList } = this.props;
     const params = {
