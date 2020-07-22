@@ -36,6 +36,7 @@ class Exchange extends PureComponent {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     const { getInfo } = this.props;
     getInfo({ activityTurnId: this.state.id }).then(res => {
       if (res.code === 200) {
@@ -143,7 +144,7 @@ class Exchange extends PureComponent {
               </li>
             </ul>
           </div>
-          <span className={styles.title}>{intl.get('order.dialogDetail')}</span>
+          <span className={styles.title}>{intl.get('order.str_winget_detail')}</span>
           {type === 'coins' ? (
             <List className={styles.exchangeInfo}>
               <Item extra={`${numFormat(recycleInfo.productGoMoney)} ${config.moneyVirtualCn}`}>
