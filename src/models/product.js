@@ -101,5 +101,9 @@ export const product = createModel({
       const response = await productService.fetchExistRules(payload);
       return response;
     },
+    async awardRule(payload) {
+      const response = await productService.awardRules(payload);
+      return response;
+    },
   }),
 });

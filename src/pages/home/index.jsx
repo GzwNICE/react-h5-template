@@ -11,7 +11,9 @@ import LatestList from '@/pages/latestList';
 import OpenList from '@/pages/willEndList';
 import ValueList from '@/pages/sortValueList';
 import TabBarBox from '@/components/tabBar';
-// import sorting from '@/assets/images/sorting.png';
+import sorting from '@/assets/images/sorting.png';
+import sortingUp from '@/assets/images/sorting_up@2x.png';
+import sortingDown from '@/assets/images/sorting_down@2x.png';
 import styles from './index.less';
 
 function renderTabBar(props) {
@@ -20,6 +22,7 @@ function renderTabBar(props) {
       {({ style }) => (
         <div style={{ ...style, zIndex: 2 }}>
           <Tabs.DefaultTabBar {...props} />
+          <img src={props.tabs[3].sort} alt="sort" className={styles.sortImg} />
         </div>
       )}
     </Sticky>
@@ -30,6 +33,7 @@ class Home extends PureComponent {
     super(props);
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
+      sortPic: 1,
     };
   }
 
@@ -55,9 +59,56 @@ class Home extends PureComponent {
     window.location.href = url;
   };
 
+  handlerTabClick = (tab, index) => {
+    if (index === 3) {
+      if (this.state.sortPic === 1) {
+        this.setState({
+          sortPic: 2,
+        });
+        this.descSort();
+      }
+      if (this.state.sortPic === 2) {
+        this.setState({
+          sortPic: 3,
+        });
+        this.ascSort();
+      }
+      if (this.state.sortPic === 3) {
+        this.setState({
+          sortPic: 2,
+        });
+        this.descSort();
+      }
+    } else {
+      this.setState({
+        sortPic: 1,
+      });
+    }
+  };
+
+  descSort = () => {
+    const { getSortList } = this.props;
+    const params = {
+      page: 1,
+      size: 20,
+      order: 'desc',
+    };
+    getSortList(params);
+  };
+
+  ascSort = () => {
+    const { getSortList } = this.props;
+    const params = {
+      page: 1,
+      size: 20,
+      order: 'asc',
+    };
+    getSortList(params);
+  };
+
   render() {
     const { home } = this.props;
-    const { IPhoneX } = this.state;
+    const { IPhoneX, sortPic } = this.state;
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
     const classData = home.classData;
@@ -65,7 +116,10 @@ class Home extends PureComponent {
       { title: `${intl.get('home.popularity')}` },
       { title: `${intl.get('home.upToDate')}` },
       { title: `${intl.get('home.willEnd')}` },
-      { title: `${intl.get('home.worth')}` },
+      {
+        title: `${intl.get('home.worth')}`,
+        sort: sortPic === 1 ? sorting : sortPic === 2 ? sortingDown : sortingUp,
+      },
     ];
     return (
       <div className={styles.home}>
@@ -145,6 +199,7 @@ class Home extends PureComponent {
               }}
               tabBarActiveTextColor="#FF5209"
               tabBarInactiveTextColor="#333333"
+              onTabClick={this.handlerTabClick}
             >
               <HotList />
               <LatestList />
@@ -174,6 +229,7 @@ const mapDispatch = dispatch => ({
   getClass: params => dispatch.home.fetchGetClass(params),
   homeSys: params => dispatch.home.fetchConf(params),
   clearData: params => dispatch.home.clearList(params),
+  getSortList: params => dispatch.home.fetchGetSortList(params),
 });
 
 export default connect(mapState, mapDispatch)(Home);

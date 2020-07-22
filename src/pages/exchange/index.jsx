@@ -2,34 +2,82 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-// import queryString from 'query-string';
-// import md5 from 'md5';
+import queryString from 'query-string';
 import intl from 'react-intl-universal';
-import { NavBar, Icon, List, InputItem, Card } from 'antd-mobile';
-// import { Link } from 'react-router-dom';
+import {
+  NavBar,
+  Icon,
+  List,
+  InputItem,
+  NoticeBar,
+  Button,
+  Checkbox,
+  Modal,
+  Toast,
+} from 'antd-mobile';
 import { createForm } from 'rc-form';
-import receiveBg from '@/assets/images/receive_pic_bg@2x.png';
-import congratulation from '@/assets/images/receive_pic_congratulation@2x.png';
-// import passwordOpen from '@/assets/images/passwordOpen.png';
+import resultTips from '@/assets/images/resultTips.png';
 import { numFormat } from '@/utils/util';
 import styles from './index.less';
 
 const Item = List.Item;
-
+const AgreeItem = Checkbox.AgreeItem;
 class Exchange extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       id: this.props.match.params.activityTurnId,
+      type: queryString.parse(window.location.search).type,
       select: false,
-      classN: 'styles.close',
+      protocol: false,
+      modal: false,
+      info: null,
     };
   }
 
   componentDidMount() {
-    const { getLists } = this.props;
-    getLists({ activityTurnId: this.state.id });
+    const { getInfo } = this.props;
+    getInfo({ activityTurnId: this.state.id }).then(res => {
+      if (res.code === 200) {
+        this.setState({
+          info: res.data,
+        });
+      }
+    });
+    console.log(this.state.type);
   }
+
+  confirm = () => {
+    const { type, id } = this.state;
+    const { cashFetch } = this.props;
+    if (!this.state.protocol) {
+      return Toast.info(`${intl.get('exchange.pleaseReadAgree')}`, 2);
+    }
+    if (type === 'coins') {
+      this.setState({
+        modal: true,
+      });
+      return;
+    }
+    if (type === 'cash') {
+      this.props.form.validateFields((err, value) => {
+        if (err) {
+          return Toast.info(`${intl.get('prize.ph2')}`, 2);
+        }
+        const params = {
+          activityTurnId: id,
+          bankName: value.bankName,
+          realName: value.realName,
+          bankCardNum: value.bankCardNum,
+        };
+        cashFetch(params).then(res => {
+          if (res.code === 200) {
+            this.props.history.push(`/changeResult?type=cash`);
+          }
+        });
+      });
+    }
+  };
 
   handlerFooterClick = () => {
     this.setState({
@@ -37,10 +85,36 @@ class Exchange extends PureComponent {
     });
   };
 
+  handlerCheck = () => {
+    this.setState({
+      protocol: !this.state.protocol,
+    });
+  };
+
+  onClose = () => {
+    this.setState({
+      modal: false,
+    });
+  };
+
+  onDetermine = () => {
+    const { id } = this.state;
+    const { coinsFetch } = this.props;
+    coinsFetch({
+      activityTurnId: id,
+    }).then(res => {
+      if (res.code === 200) {
+        this.props.history.push(`/changeResult?type=coins&money=${res.data.convertGoMoney}`);
+      }
+    });
+  };
+
   render() {
     const { getFieldProps } = this.props.form;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    const { select, classN } = this.state;
+    const { modal, type, info } = this.state;
+    const prodInfo = (info && info.prizesProductVO) || {};
+    const recycleInfo = (info && info.recycleInfoVO) || {};
     return (
       <div className={styles.exchange}>
         <NavBar
@@ -51,77 +125,153 @@ class Exchange extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          兑换
+          {intl.get('payment.str_change_gocoin')}
         </NavBar>
         <div className={styles.content}>
-          <span className={styles.title}>奖品</span>
+          <span className={styles.title}>{intl.get('result.prize')}</span>
           <div className={styles.prodInfoBox}>
-            <img src={receiveBg} alt="" className={styles.left} />
+            <img src={prodInfo.imgUrl} alt="" className={styles.left} />
             <ul className={styles.textBox}>
-              <li className={styles.prodName}>
-                商品名称 最多显示两行内容和两行信息 超出2行末尾点点点缩略显点点点缩略显点点点缩略显
-              </li>
-              <li className={styles.num}>数量：1</li>
+              <li className={styles.prodName}>{prodInfo.productName}</li>
+              <li className={styles.num}>{intl.get('prize.quantity')}：1</li>
               <li className={styles.price}>
-                零售价：<span>{`${numFormat(1000000000)} ${config.moneySymbol}`}</span>
+                {intl.get('prize.retailPrice')}：
+                <span>{`${numFormat(prodInfo.marketPrice)} ${config.moneySymbol}`}</span>
               </li>
             </ul>
           </div>
-          <span className={styles.title}>兑换详情</span>
-          <List className={styles.exchangeInfo}>
-            <Item extra="10,000,000 ₫">市场零售价</Item>
-            <Item extra="5%">税费/服务费比例</Item>
-            <Item extra="5,000 ₫">税费/服务费</Item>
-            <Item extra="9,500,000 ₫">实际到账</Item>
-          </List>
-          <span className={styles.title}>银行卡信息</span>
-          <List>
-            <InputItem
-              {...getFieldProps('name')}
-              clear
-              placeholder="请输入真实姓名"
-              ref={el => (this.nameRef = el)}
-              onClick={() => {
-                this.nameRef.focus();
-              }}
-            >
-              持卡人名字
-            </InputItem>
-            <InputItem
-              {...getFieldProps('card')}
-              clear
-              placeholder="请输入银行名称"
-              ref={el => (this.name2Ref = el)}
-              onClick={() => {
-                this.name2Ref.focus();
-              }}
-            >
-              银行名称
-            </InputItem>
-            <InputItem
-              {...getFieldProps('card')}
-              clear
-              placeholder="请输入银行名称"
-              ref={el => (this.cardRef = el)}
-              onClick={() => {
-                this.cardRef.focus();
-              }}
-            >
-              卡号
-            </InputItem>
-          </List>
+          <span className={styles.title}>{intl.get('order.dialogDetail')}</span>
+          {type === 'coins' ? (
+            <List className={styles.exchangeInfo}>
+              <Item extra={`${numFormat(recycleInfo.productGoMoney)} ${config.moneyVirtualCn}`}>
+                {intl.get('order.productGoMoney')}
+              </Item>
+              <Item extra={`${recycleInfo.goGiveRate} %`}>{intl.get('order.goGiveRate')}</Item>
+              <Item extra={`${numFormat(recycleInfo.goGiveMoney)} ${config.moneyVirtualCn}`}>
+                {intl.get('order.goGiveMoney')}
+              </Item>
+              <Item extra={`${numFormat(recycleInfo.convertGoMoney)} ${config.moneyVirtualCn}`}>
+                {intl.get('prize.willGet')}
+              </Item>
+            </List>
+          ) : (
+            <div>
+              <List className={styles.exchangeInfo}>
+                <Item extra={`${numFormat(recycleInfo.marketPrice)} ${config.moneySymbol}`}>
+                  {intl.get('exchange.parkedRetail')}
+                </Item>
+                <Item extra={`${recycleInfo.serviceFeeRate} %`}>
+                  {intl.get('order.serviceFeeRate')}
+                </Item>
+                <Item extra={`${numFormat(recycleInfo.serviceFee)} ${config.moneySymbol}`}>
+                  {intl.get('order.serviceFee')}
+                </Item>
+                <Item extra={`${numFormat(recycleInfo.convertPrice)} ${config.moneySymbol}`}>
+                  {intl.get('order.convertPrice')}
+                </Item>
+              </List>
+              <span className={styles.title}>{intl.get('exchange.bankCardInfo')}</span>
+              <List className={styles.cardInfo}>
+                <InputItem
+                  {...getFieldProps('realName', {
+                    rules: [{ required: true }],
+                  })}
+                  placeholder={intl.get('exchange.plh1')}
+                  ref={el => (this.nameRef = el)}
+                  onClick={() => {
+                    this.nameRef.focus();
+                  }}
+                >
+                  {intl.get('order.realName')}
+                </InputItem>
+                <InputItem
+                  {...getFieldProps('bankName', {
+                    rules: [{ required: true }],
+                  })}
+                  placeholder={intl.get('exchange.plh2')}
+                  ref={el => (this.name2Ref = el)}
+                  onClick={() => {
+                    this.name2Ref.focus();
+                  }}
+                >
+                  {intl.get('order.bankName')}
+                </InputItem>
+                <InputItem
+                  {...getFieldProps('bankCardNum', {
+                    rules: [{ required: true }],
+                  })}
+                  placeholder={intl.get('exchange.plh3')}
+                  ref={el => (this.cardRef = el)}
+                  onClick={() => {
+                    this.cardRef.focus();
+                  }}
+                  className={styles.noBorder}
+                >
+                  {intl.get('order.bankCardNum')}
+                </InputItem>
+              </List>
+            </div>
+          )}
+
+          <NoticeBar
+            icon={<img src={resultTips} alt="" className={styles.resultTips} />}
+            className={styles.notice}
+          >
+            {type === 'coins'
+              ? `${intl.get('exchange.issue', { moneyVirtualCn: config.moneyVirtualCn })}`
+              : `${intl.get('exchange.exchangeCash')}`}
+          </NoticeBar>
+          <Button type="primary" className={styles.confirm} onClick={this.confirm}>
+            {intl.get('exchange.confirmExchange')}
+          </Button>
+          <div className={styles.aggBox}>
+            <AgreeItem onChange={this.handlerCheck}>
+              <span className={styles.text}>
+                {intl.get('exchange.agreed')}
+                <i onClick={() => this.props.history.push('/agreement/5')}>
+                  {intl.get('exchange.prizeRedemption')}
+                </i>
+              </span>
+            </AgreeItem>
+          </div>
         </div>
+        <Modal
+          visible={modal}
+          transparent
+          maskClosable={false}
+          title={intl.get('exchange.confirmInfo')}
+          style={{ width: '312px' }}
+        >
+          <div className={styles.modalContent}>
+            <p className={styles.text}>
+              {intl.get('exchange.confirmRedeem', {
+                value: numFormat(recycleInfo.convertGoMoney),
+                moneyVirtualCn: config.moneyVirtualCn,
+              })}
+            </p>
+            <div className={styles.btnGroup}>
+              <Button type="primary" className={styles.cancel} onClick={this.onClose}>
+                {intl.get('password.cancel')}
+              </Button>
+              <Button type="primary" className={styles.determine} onClick={this.onDetermine}>
+                {intl.get('password.determine')}
+              </Button>
+            </div>
+          </div>
+        </Modal>
       </div>
     );
   }
 }
 
 const mapState = state => ({
-  rules: state.product.data.rules,
+  // rules: state.product.data.rules,
 });
 
 const mapDispatch = dispatch => ({
-  getLists: params => dispatch.product.getRules(params),
+  getInfo: params => dispatch.prize.getSelInfo(params),
+  coinsFetch: params => dispatch.prize.coinsFetch(params),
+  cashFetch: params => dispatch.prize.cashFetch(params),
 });
 
 export default connect(mapState, mapDispatch)(createForm()(Exchange));

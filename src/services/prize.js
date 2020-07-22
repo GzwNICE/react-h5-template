@@ -11,3 +11,15 @@ export async function submitPrize(params) {
 export async function resultInfo(params) {
   return request('/app/prizes/result/info', { method: 'post', data: params });
 }
+
+export async function sltInfo(params) {
+  return request('/app/v1/recycle/rules/info', { method: 'get', params: params });
+}
+
+export async function goChange(params) {
+  return request('/app/v1/exchange/info/confirm', { method: 'post', data: params });
+}
+
+export async function cashChange(params) {
+  return request('/app/v1/exchange/info/cash', { method: 'post', data: params });
+}

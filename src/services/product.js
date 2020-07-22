@@ -31,3 +31,7 @@ export async function fetchBuyCancel(params) {
 export async function fetchExistRules(params) {
   return request('/app/prizes/exist/rules', { method: 'post', data: params });
 }
+
+export async function awardRules(params) {
+  return request('/app/v1/recycle/rules/exist', { method: 'get', params: params });
+}

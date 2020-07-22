@@ -40,8 +40,10 @@
     "cancel":"Hủy",
     "confirm":"Xác nhận",
     "logoutInfo":"Bạn có chắc chắn muốn đăng xuất?",
-    "joinFacebook":"加入Facebook群",
-    "joinTelegram":"加入Telegram群"
+    "joinFacebook":"Tham gia nhóm Facebook",
+    "joinTelegram":"Tham gia nhóm Telegram",
+    "helpText": "Sẵn sàng mọi lúc mọi nơi giải đáp thắc mắc của bạn",
+    "questionDetails": "Chi tiết cần để"
   },
   "order": {
     "win": "Đợi xác nhận",
@@ -390,7 +392,20 @@
     "companyName": "Tên công ty",
     "companyAddress": "Địa chỉ công ty",
     "submit": "Gửi",
-    "pleaseChoose": "Vui lòng chọn"
+    "pleaseChoose": "Vui lòng chọn",
+    "receiveAward": "Nhận giải thưởng",
+    "pleaseClaimPrize": "Vui lòng nhận thưởng trong 24H,vượt quả 24H không nhận thưởng sẽ tự động hủy thương.",
+    "quantity": "Số lượng",
+    "exchangeCountdown": "Thời phương thức quy đổi",
+    "chooseMethod": "Chọn phương thức quy đổi",
+    "willGet": "Bạn nhận được",
+    "giveAway": "Tăng thương",
+    "exchangeToGOCoins": "Đổi thưởng thành {moneyVirtualCn}, có thể tiếp tục tham gia hoạt động khác",
+    "fillInfo": "Điền thông tin nhận thưởng. APP gửi thường.",
+    "deducted": "(Đã trừ {serviceFeeRate}% thuê / Chi phí dịch vụ)",
+    "convertCash": "GaGaGO thấy bạn bán giải thưởng hiện vật cho công ty thu mua bên thứ 3, và hoàn trả sót tiền đó vào tài khoản ngân hàng của bạn.",
+    "putAway": "Thu hồi",
+    "moreWays": "Nhiều cách hơn"
   },
   "list": {
     "isEnd": "Không còn nội dung"
@@ -417,6 +432,28 @@
     "cancel": "Hủy",
     "addressManager": "Quản lý địa chỉ nhận hàng",
     "addAddress": "Thêm địa chỉ nhận hàng"
+  },
+  "exchange": {
+    "pleaseReadAgree": "Vui lòng tích chọn thỏa thuận",
+    "parkedRetail": "Giá sản phẩm",
+    "bankCardInfo": "Thông tin thẻ ngân hàng",
+    "plh1": "Vui lòng nhập họ và tên thật",
+    "plh2": "Vui lòng điền tên ngân hàng",
+    "plh3": "Vui lòng điền số tài khoản ngân hàng",
+    "issue": "Xác nhận quy đổi sau đó giải thưởng sẽ phát theo hình thức {moneyVirtualCn}",
+    "exchangeCash": "Quy đổi tiền mặt cần thẩm duyệt thủ công 1-7 ngày làm việc GaGaGO đã đối chiếu với bên thu mua thường thu 3,chúng tôi sẽ sớm xử lý yêu cầu rút tiền của bạn.",
+    "confirmExchange": "Xác nhận quy đổi",
+    "agreed": "Tôi đồng ý",
+    "prizeRedemption": " <THỎA THUẬN QUY ĐỔI GIẢI THƯỞNG>",
+    "confirmInfo": "Xác nhận thông tin",
+    "confirmRedeem": "Chắc chắn muốn quy đổi thành {value} {money Virtual}?Một khi quy đổi thành công thì không hoán đổi hoặc thay đổi phương thức quy đổi khác.",
+    "cashApplication": "Đã nộp yêu cầu quy đổi tiền mặt",
+    "changeSuccess": "Đã quy đổi thành công {money} {moneyVirtualCn}",
+    "text1": "Có thể kiểm tra chi tiết {moneyVirtualCn} vào tài khoản tại.",
+    "text2": "Chúng tôi đã kết nối với bên thu mua thưởng thứ 3, 1-7 ngày làm việc sẽ hoàn thiện giao dịch bán thưởng, và sớm xử lý yêu cầu rút tiền của bạn.",
+    "text3": "Bạn có thể kiểm tra chi tiết tiến độ quy đổi tại Tôi - Đã trúng thưởng.",
+    "backHome": "Trở lại trang đầu",
+    "system": "Danh mục sản phẩm"
   },
   "result": {
     "copySuccess": "Copy thành công",

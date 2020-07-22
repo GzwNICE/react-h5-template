@@ -16,6 +16,7 @@ class HotList extends PureComponent {
       size: 20,
       isLoading: true,
       hasMore: true,
+      fetch: false,
     };
   }
 
@@ -32,7 +33,7 @@ class HotList extends PureComponent {
     // eslint-disable-next-line react/no-find-dom-node
     const h = ReactDOM.findDOMNode(this.load).offsetTop;
     if (sh > h) {
-      if (!this.fetch) {
+      if (!this.state.fetch) {
         this.getPageList();
       }
     }
@@ -45,7 +46,9 @@ class HotList extends PureComponent {
   getPageList = () => {
     // eslint-disable-next-line react/destructuring-assignment
     if (!this.state.hasMore) return false;
-    this.fetch = true;
+    this.setState({
+      fetch: true,
+    });
     const { getList } = this.props;
     this.setState(
       {
@@ -57,7 +60,9 @@ class HotList extends PureComponent {
           size: this.state.size,
         };
         getList(params).then(() => {
-          this.fetch = false;
+          this.setState({
+            fetch: false,
+          });
         });
       }
     );

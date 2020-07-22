@@ -49,6 +49,7 @@ class SortValueList extends PureComponent {
     this.setState(
       {
         page: this.state.page + 1,
+        order: 'desc',
       },
       () => {
         const { page, size, order } = this.state;
