@@ -76,7 +76,7 @@
     "productGoMoney": "Giá trị giải thưởng",
     "goGiveRate": "Tỉ lệ tặng thưởng ngoài",
     "goGiveMoney": "Số lượng tặng thưởng ngoài",
-    "convertGoMoney": "str_last_change_amount",
+    "convertGoMoney": "Số tiền quy đổi cuối cùng",
     "createTime": "Thời gian quy đổi",
     "applying": "Đang phê duyệt",
     "finish": "Đã hoàn thành",
