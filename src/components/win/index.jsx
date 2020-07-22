@@ -192,7 +192,8 @@ class Win extends PureComponent {
       Toast.info(intl.get('order.str_copy_success'), 2);
     }
   }
-  onDetailDialogClick(status, orderId) {
+  onDetailDialogClick(status, orderId, e) {
+    e.stopPropagation();
     if (status === 'COIN_RECYCLE') {
       this.props.parent.setGoCoinDialog(true, orderId);
     } else if (status === 'WAIT_CASH' || status === 'CASHED') {
