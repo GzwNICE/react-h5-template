@@ -85,7 +85,7 @@ request.interceptors.response.use(async response => {
     return response;
   }
   if (data.code === 10001 || data.code === 10002 || data.code === 10003) {
-    Toast.info(data.msg || `${intl.get('user.loginError')}`, 2);
+    Toast.info(`${intl.get('user.loginError')}`, 2);
     setTimeout(() => {
       localStorage.clear();
       history.push(`/login`);

@@ -3,14 +3,20 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-// import md5 from 'md5';
 import intl from 'react-intl-universal';
-import { NavBar, Icon, List, InputItem, NoticeBar, Button, Checkbox, Modal, Toast } from 'antd-mobile';
-// import { Link } from 'react-router-dom';
+import {
+  NavBar,
+  Icon,
+  List,
+  InputItem,
+  NoticeBar,
+  Button,
+  Checkbox,
+  Modal,
+  Toast,
+} from 'antd-mobile';
 import { createForm } from 'rc-form';
-import receiveBg from '@/assets/images/receive_pic_bg@2x.png';
 import resultTips from '@/assets/images/resultTips.png';
-// import passwordOpen from '@/assets/images/passwordOpen.png';
 import { numFormat } from '@/utils/util';
 import styles from './index.less';
 
@@ -23,7 +29,6 @@ class Exchange extends PureComponent {
       id: this.props.match.params.activityTurnId,
       type: queryString.parse(window.location.search).type,
       select: false,
-      classN: 'styles.close',
       protocol: false,
       modal: false,
       info: null,
@@ -44,17 +49,13 @@ class Exchange extends PureComponent {
 
   confirm = () => {
     const { type, id } = this.state;
-    const { coinsFetch, cashFetch } = this.props;
+    const { cashFetch } = this.props;
     if (!this.state.protocol) {
-      return Toast.info('请先阅读并同意奖品兑换协议', 2);
+      return Toast.info(`${intl.get('exchange.pleaseReadAgree')}`, 2);
     }
     if (type === 'coins') {
-      coinsFetch({
-        activityTurnId: id,
-      }).then(res => {
-        if (res.code === 200) {
-          this.props.history.push(`/changeResult?type=coins&money=${res.data.convertGoMoney}`);
-        }
+      this.setState({
+        modal: true,
       });
       return;
     }
@@ -63,7 +64,6 @@ class Exchange extends PureComponent {
         if (err) {
           return Toast.info(`${intl.get('prize.ph2')}`, 2);
         }
-        console.log(value);
         const params = {
           activityTurnId: id,
           bankName: value.bankName,
@@ -97,10 +97,22 @@ class Exchange extends PureComponent {
     });
   };
 
+  onDetermine = () => {
+    const { id } = this.state;
+    const { coinsFetch } = this.props;
+    coinsFetch({
+      activityTurnId: id,
+    }).then(res => {
+      if (res.code === 200) {
+        this.props.history.push(`/changeResult?type=coins&money=${res.data.convertGoMoney}`);
+      }
+    });
+  };
+
   render() {
     const { getFieldProps } = this.props.form;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    const { select, classN, modal, type, info } = this.state;
+    const { modal, type, info } = this.state;
     const prodInfo = (info && info.prizesProductVO) || {};
     const recycleInfo = (info && info.recycleInfoVO) || {};
     return (
@@ -121,7 +133,7 @@ class Exchange extends PureComponent {
             <img src={prodInfo.imgUrl} alt="" className={styles.left} />
             <ul className={styles.textBox}>
               <li className={styles.prodName}>{prodInfo.productName}</li>
-              <li className={styles.num}>数量：1</li>
+              <li className={styles.num}>{intl.get('prize.quantity')}：1</li>
               <li className={styles.price}>
                 {intl.get('prize.retailPrice')}：
                 <span>{`${numFormat(prodInfo.marketPrice)} ${config.moneySymbol}`}</span>
@@ -139,14 +151,14 @@ class Exchange extends PureComponent {
                 {intl.get('order.goGiveMoney')}
               </Item>
               <Item extra={`${numFormat(recycleInfo.convertGoMoney)} ${config.moneyVirtualCn}`}>
-                您将获得
+                {intl.get('prize.willGet')}
               </Item>
             </List>
           ) : (
             <div>
               <List className={styles.exchangeInfo}>
                 <Item extra={`${numFormat(recycleInfo.marketPrice)} ${config.moneySymbol}`}>
-                  市场零售价
+                  {intl.get('exchange.parkedRetail')}
                 </Item>
                 <Item extra={`${recycleInfo.serviceFeeRate} %`}>
                   {intl.get('order.serviceFeeRate')}
@@ -155,16 +167,16 @@ class Exchange extends PureComponent {
                   {intl.get('order.serviceFee')}
                 </Item>
                 <Item extra={`${numFormat(recycleInfo.convertPrice)} ${config.moneySymbol}`}>
-                  实际到账
+                  {intl.get('order.convertPrice')}
                 </Item>
               </List>
-              <span className={styles.title}>银行卡信息</span>
+              <span className={styles.title}>{intl.get('exchange.bankCardInfo')}</span>
               <List className={styles.cardInfo}>
                 <InputItem
                   {...getFieldProps('realName', {
                     rules: [{ required: true }],
                   })}
-                  placeholder="请输入真实姓名"
+                  placeholder={intl.get('exchange.plh1')}
                   ref={el => (this.nameRef = el)}
                   onClick={() => {
                     this.nameRef.focus();
@@ -176,7 +188,7 @@ class Exchange extends PureComponent {
                   {...getFieldProps('bankName', {
                     rules: [{ required: true }],
                   })}
-                  placeholder="请输入银行名称"
+                  placeholder={intl.get('exchange.plh2')}
                   ref={el => (this.name2Ref = el)}
                   onClick={() => {
                     this.name2Ref.focus();
@@ -188,7 +200,7 @@ class Exchange extends PureComponent {
                   {...getFieldProps('bankCardNum', {
                     rules: [{ required: true }],
                   })}
-                  placeholder="请输入银行卡号"
+                  placeholder={intl.get('exchange.plh3')}
                   ref={el => (this.cardRef = el)}
                   onClick={() => {
                     this.cardRef.focus();
@@ -206,17 +218,19 @@ class Exchange extends PureComponent {
             className={styles.notice}
           >
             {type === 'coins'
-              ? `确认兑换后，奖品将以 ${config.moneyVirtualCn} 的形式发放`
-              : `兑换现金需要1-7个工作日的人工审核`}
+              ? `${intl.get('exchange.issue', { moneyVirtualCn: config.moneyVirtualCn })}`
+              : `${intl.get('exchange.exchangeCash')}`}
           </NoticeBar>
           <Button type="primary" className={styles.confirm} onClick={this.confirm}>
-            确认兑换
+            {intl.get('exchange.confirmExchange')}
           </Button>
           <div className={styles.aggBox}>
             <AgreeItem onChange={this.handlerCheck}>
               <span className={styles.text}>
-                我已同意
-                <i onClick={() => this.props.history.push('/agreement/5')}>《奖品兑换协议》</i>
+                {intl.get('exchange.agreed')}
+                <i onClick={() => this.props.history.push('/agreement/5')}>
+                  {intl.get('exchange.prizeRedemption')}
+                </i>
               </span>
             </AgreeItem>
           </div>
@@ -225,18 +239,21 @@ class Exchange extends PureComponent {
           visible={modal}
           transparent
           maskClosable={false}
-          title="确认信息"
+          title={intl.get('exchange.confirmInfo')}
           style={{ width: '312px' }}
         >
           <div className={styles.modalContent}>
             <p className={styles.text}>
-              确认要兑换成 3716 GO币吗？一旦兑换成功后，将无法退换或切换其他兑换方式
+              {intl.get('exchange.confirmRedeem', {
+                value: numFormat(recycleInfo.convertGoMoney),
+                moneyVirtualCn: config.moneyVirtualCn,
+              })}
             </p>
             <div className={styles.btnGroup}>
               <Button type="primary" className={styles.cancel} onClick={this.onClose}>
                 {intl.get('password.cancel')}
               </Button>
-              <Button type="primary" className={styles.determine}>
+              <Button type="primary" className={styles.determine} onClick={this.onDetermine}>
                 {intl.get('password.determine')}
               </Button>
             </div>

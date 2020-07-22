@@ -53,6 +53,7 @@ class User extends PureComponent {
         this.props.history.push(`/join`);
       } else if (_el.type == 2) {
         //帮助中心
+        this.props.history.push(`/help`);
       } else if (_el.type == 3) {
         //意见反馈
         this.props.history.push(`/feedback`);

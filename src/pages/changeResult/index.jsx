@@ -71,27 +71,30 @@ class ChangeResult extends PureComponent {
             }
             title={
               type === 'coins'
-                ? `已成功兑换 ${money} ${config.moneyVirtualCn}`
-                : `兑换现金申请已提交`
+                ? `${intl.get('exchange.changeSuccess', {
+                    money: money,
+                    moneyVirtualCn: config.moneyVirtualCn,
+                  })}`
+                : `${intl.get('exchange.cashApplication')}`
             }
           />
           {type === 'coins' ? (
-            <p className={styles.monTips}>可在我的-我的GO币查看GO入账明细</p>
+            <p className={styles.monTips}>
+              {intl.get('exchange.text1', { moneyVirtualCn: config.moneyVirtualCn })}
+            </p>
           ) : null}
           {type === 'cash' ? (
             <ul className={styles.virtual}>
-              <li className={styles.virTips}>
-                GaGaGO已对接第三方礼品回收公司，会在1-7个工作日奖品将卖给第三方公司，并处理你的提现申请。
-              </li>
-              <li className={styles.virTips}>您可在 我的 - 已中奖 中查看兑换进度。</li>
+              <li className={styles.virTips}>{intl.get('exchange.text2')}</li>
+              <li className={styles.virTips}>{intl.get('exchange.text3')}</li>
             </ul>
           ) : null}
           <Button type="primary" className={styles.backButton} onClick={this.goBack}>
-            返回主页
+            {intl.get('exchange.backHome')}
           </Button>
         </div>
         <div className={styles.recommendBox}>
-          <span className={styles.title}>系统推荐</span>
+          <span className={styles.title}>{intl.get('exchange.system')}</span>
           <Flex wrap="wrap" justify="between">
             {endList.data.map(i => {
               return (

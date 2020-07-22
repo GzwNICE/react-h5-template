@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
@@ -12,7 +13,7 @@ class HelpDetail extends PureComponent {
     super(props);
     this.state = {
       id: this.props.match.params.id,
-      resObj: {}
+      resObj: {},
     };
   }
   componentDidMount() {
@@ -20,18 +21,16 @@ class HelpDetail extends PureComponent {
   }
   getHelpDetail = () => {
     const { helpDetail } = this.props;
-    this.setState(
-      () => {
-        const params = {
-          id: this.state.id
-        };
-        helpDetail(params).then(({ data: res }) => {
-          this.setState({
-            resObj: res
-          });
+    this.setState(() => {
+      const params = {
+        id: this.state.id,
+      };
+      helpDetail(params).then(({ data: res }) => {
+        this.setState({
+          resObj: res,
         });
-      }
-    );
+      });
+    });
   };
   goCenter = () => {
     this.props.history.replace('/help');
@@ -45,24 +44,33 @@ class HelpDetail extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
-          帮助中心
+          {intl.get('user.help')}
         </NavBar>
         <div className={styles.container}>
           <div className={styles.bread}>
-            <span className={styles['b-c1']} onClick={()=>{this.goCenter()}}>帮助中心{">"}</span>
-            <span className={styles['b-c2']}>问题详情</span>
+            <span
+              className={styles['b-c1']}
+              onClick={() => {
+                this.goCenter();
+              }}
+            >
+              {intl.get('user.help')} {'>'}
+            </span>
+            <span className={styles['b-c2']}>{intl.get('user.questionDetails')}</span>
           </div>
           <div className={styles.title}>{this.state.resObj.title}</div>
           <div className={styles.date}>{format(this.state.resObj.updateTime)}</div>
-          <div className={styles.content} dangerouslySetInnerHTML={{__html:this.state.resObj.text}}></div>
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{ __html: this.state.resObj.text }}
+          ></div>
         </div>
       </div>
     );
   }
 }
 
-const mapState = state => ({
-});
+const mapState = state => ({});
 
 const mapDispatch = dispatch => ({
   helpDetail: params => dispatch.user.requestHelpDetail(params),

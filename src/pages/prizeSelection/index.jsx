@@ -2,19 +2,12 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-// import queryString from 'query-string';
-// import md5 from 'md5';
 import intl from 'react-intl-universal';
-import { NavBar, Icon, List, Accordion, Card } from 'antd-mobile';
-// import { Link } from 'react-router-dom';
-// import { createForm } from 'rc-form';
+import { NavBar, Icon, Card } from 'antd-mobile';
 import receiveBg from '@/assets/images/receive_pic_bg@2x.png';
 import congratulation from '@/assets/images/receive_pic_congratulation@2x.png';
-// import passwordOpen from '@/assets/images/passwordOpen.png';
 import { numFormat } from '@/utils/util';
 import styles from './index.less';
-
-const Item = List.Item;
 
 class PrizeSelection extends PureComponent {
   constructor(props) {
@@ -93,65 +86,72 @@ class PrizeSelection extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          领奖
+          {intl.get('prize.receiveAward')}
         </NavBar>
         <div className={styles.content} style={{ backgroundImage: `url(${receiveBg})` }}>
           <img src={congratulation} alt="" className={styles.receiveBg} />
-          <div className={styles.tips}>请在规定时间内领奖，超过规定时间没有领奖将视为自动放弃</div>
+          <div className={styles.tips}>{intl.get('prize.pleaseClaimPrize')}</div>
           <div className={styles.productInfo}>
             <img src={prodInfo.imgUrl} alt="" className={styles.prodImg} />
             <ul className={styles.textBox}>
               <li className={styles.prodName}>{prodInfo.productName}</li>
-              <li className={styles.num}>数量：1</li>
+              <li className={styles.num}>{intl.get('prize.quantity')}：1</li>
               <li className={styles.price}>
-                零售价：<span>{`${numFormat(prodInfo.marketPrice)} ${config.moneySymbol}`}</span>
+                {intl.get('prize.retailPrice')}：
+                <span>{`${numFormat(prodInfo.marketPrice)} ${config.moneySymbol}`}</span>
               </li>
             </ul>
           </div>
           <div className={styles.countDown}>
-            兑换倒计时
+            {intl.get('prize.exchangeCountdown')}
             <span className={styles.time}>{openH}</span>:<span className={styles.time}>{openM}</span>:
             <span className={styles.time}>{openS}</span>
           </div>
           <div className={styles.selectBox}>
             <Card>
-              <Card.Header title="选择兑换方式" className={styles.cardHeader} />
+              <Card.Header title={intl.get('prize.chooseMethod')} className={styles.cardHeader} />
               <Card.Body className={styles.cardBody}>
                 <div className={styles.selectItem} onClick={() => this.goExchange('coins')}>
-                  <li className={styles.way}>兑换{config.moneyVirtualCn}</li>
+                  <li className={styles.way}>
+                    {intl.get('payment.go_convert', { moneyVirtualCn: config.moneyVirtualCn })}
+                  </li>
                   <li className={styles.content}>
-                    您将获得{' '}
+                    {intl.get('prize.willGet')}{' '}
                     <span className={styles.num}>
                       {recycleInfo.convertGoMoney} {config.moneyVirtualCn}
                     </span>{' '}
-                    <span className={styles.give}>{`赠送${recycleInfo.goGiveRate}%`}</span>
+                    <span className={styles.give}>{`${intl.get('prize.giveAway')}${
+                      recycleInfo.goGiveRate
+                    }%`}</span>
                   </li>
-                  <li className={styles.tipText}>奖品兑换为GO币，可继续参与更多活动。</li>
+                  <li className={styles.tipText}>
+                    {intl.get('prize.exchangeToGOCoins', { moneyVirtualCn: config.moneyVirtualCn })}
+                  </li>
                 </div>
                 {select ? (
                   <div>
                     <div className={styles.selectItem} onClick={this.goPrize}>
-                      <li className={styles.way}>领取奖品</li>
-                      <li className={styles.tipText}>填写领奖信息，平台寄出奖品</li>
+                      <li className={styles.way}>{intl.get('result.prizeCollection')}</li>
+                      <li className={styles.tipText}>{intl.get('prize.fillInfo')}</li>
                     </div>
                     <div className={styles.selectItem} onClick={() => this.goExchange('cash')}>
                       <li className={styles.way}>
-                        兑换
+                        {intl.get('payment.str_change_gocoin')}
                         <span>
                           {' '}
                           {`${numFormat(recycleInfo.convertPrice)}${config.moneySymbol}`}
                         </span>
-                        <span
-                          className={styles.title}
-                        >{` (已扣除 ${recycleInfo.serviceFeeRate}% 税费/服务费)`}</span>
+                        <span className={styles.title}>{`${intl.get('prize.deducted', {
+                          serviceFeeRate: recycleInfo.serviceFeeRate,
+                        })}`}</span>
                       </li>
-                      <li className={styles.tipText}>兑换成现金，直接提现到银行卡</li>
+                      <li className={styles.tipText}>{intl.get('prize.convertCash')}</li>
                     </div>
                   </div>
                 ) : null}
               </Card.Body>
               <Card.Footer
-                content={select ? `收起` : `更多方式`}
+                content={select ? `${intl.get('prize.putAway')}` : `${intl.get('prize.moreWays')}`}
                 extra={<Icon type={select ? `up` : `down`} />}
                 className={styles.cardFooter}
                 onClick={this.handlerFooterClick}

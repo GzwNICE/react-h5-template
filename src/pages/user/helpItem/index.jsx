@@ -1,23 +1,28 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
-import { NavBar, Icon, ListView, List  } from 'antd-mobile';
-const Item = List.Item;
+import { NavBar, Icon, ListView, List } from 'antd-mobile';
 import intl from 'react-intl-universal';
 
 import styles from './index.less';
 
+const Item = List.Item;
+
 function ListBody(props) {
   return (
-      <List>
-        <Item>
-          <div className={styles['c-t']}>
-            <div className={styles['c-t-c1']} onClick={ props.jump }>帮助中心{">"}</div>
-            <div className={styles['c-t-c2']}>{props.title}</div>
+    <List>
+      <Item>
+        <div className={styles['c-t']}>
+          <div className={styles['c-t-c1']} onClick={props.jump}>
+            {intl.get('user.help')} {'>'}
           </div>
-        </Item>
-        {props.children}
-      </List>
+          <div className={styles['c-t-c2']}>{props.title}</div>
+        </div>
+      </Item>
+      {props.children}
+    </List>
   );
 }
 
@@ -35,7 +40,7 @@ class HelpItem extends PureComponent {
       page: 0,
       size: 10,
       total: null,
-      itemTitle: null
+      itemTitle: null,
     };
   }
   componentDidMount() {
@@ -43,12 +48,12 @@ class HelpItem extends PureComponent {
   }
   getPageList = () => {
     if (this.state.rows.length === this.state.total) {
-      return false
-    };
+      return false;
+    }
     const { helpCenterItem } = this.props;
     this.setState(
       {
-        page: this.state.page + 1
+        page: this.state.page + 1,
       },
       () => {
         const params = {
@@ -57,7 +62,9 @@ class HelpItem extends PureComponent {
           size: this.state.size,
         };
         helpCenterItem(params).then(({ data: res }) => {
-          params.page === 1 ? this.setState({ rows: res.rows }) : this.setState({ rows: this.state.rows.concat(res.rows) })
+          params.page === 1
+            ? this.setState({ rows: res.rows })
+            : this.setState({ rows: this.state.rows.concat(res.rows) });
           this.setState({
             total: res.total,
             itemTitle: res.rows[0].firstTitle,
@@ -65,9 +72,9 @@ class HelpItem extends PureComponent {
           });
           if (this.state.rows.length === this.state.total) {
             this.setState({
-              isLoading: false
+              isLoading: false,
             });
-          };
+          }
         });
       }
     );
@@ -82,7 +89,9 @@ class HelpItem extends PureComponent {
     const { isLoading } = this.state;
     const Row = d => {
       return (
-      <Item className={styles['l-item-c1']} arrow="horizontal" onClick={() => (this.goDeatil(d))}>{d.title}</Item>
+        <Item className={styles['l-item-c1']} arrow="horizontal" onClick={() => this.goDeatil(d)}>
+          {d.title}
+        </Item>
       );
     };
 
@@ -94,40 +103,39 @@ class HelpItem extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
-          帮助中心
+          {intl.get('user.help')}
         </NavBar>
         <div className={styles.container}>
-          { this.state.rows.length ? 
-          <ListView
-          dataSource={this.state.dataSource}
-          className={styles.list}
-          renderRow={Row}
-          renderBodyComponent={() => <ListBody title={this.state.itemTitle} jump={this.goCenter} />}
-          scrollRenderAheadDistance={100}
-          onEndReachedThreshold={50}
-          initialListSize={20}
-          pageSize={10}
-          // useBodyScroll
-          onEndReached={this.getPageList}
-          renderFooter={() => (
-            <div style={{ padding: 10, textAlign: 'center' }}>
-              {isLoading ? 'Loading...' : intl.get('list.isEnd')}
-            </div>
-          )}
-        /> : null }
-          
+          {this.state.rows.length ? (
+            <ListView
+              dataSource={this.state.dataSource}
+              className={styles.list}
+              renderRow={Row}
+              renderBodyComponent={() => (
+                <ListBody title={this.state.itemTitle} jump={this.goCenter} />
+              )}
+              scrollRenderAheadDistance={100}
+              onEndReachedThreshold={50}
+              initialListSize={20}
+              pageSize={10}
+              onEndReached={this.getPageList}
+              renderFooter={() => (
+                <div style={{ padding: 10, textAlign: 'center' }}>
+                  {isLoading ? 'Loading...' : intl.get('list.isEnd')}
+                </div>
+              )}
+            />
+          ) : null}
         </div>
       </div>
     );
   }
 }
 
-const mapState = state => ({
-});
+const mapState = state => ({});
 
 const mapDispatch = dispatch => ({
   helpCenterItem: params => dispatch.user.requestHelpCenterItem(params),
-  // helpCenter: params => dispatch.order.getRefreshList(params),
 });
 
 export default connect(mapState, mapDispatch)(HelpItem);

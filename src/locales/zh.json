@@ -40,8 +40,9 @@
     "confirm":"确定",
     "logoutInfo":"你确定要退出登录吗？",
     "joinFacebook":"加入Facebook群",
-    "joinTelegram":"加入Telegram群"
-
+    "joinTelegram":"加入Telegram群",
+    "helpText": "随时随地解答你的问题",
+    "questionDetails": "问题详情"
   },
   "order": {
     "win": "奖品待确认",
@@ -389,10 +390,45 @@
     "companyName": "公司名称",
     "companyAddress": "公司地址",
     "submit": "提交",
-    "pleaseChoose": "请选择"
+    "pleaseChoose": "请选择",
+    "receiveAward": "领奖",
+    "pleaseClaimPrize": "请在规定时间内领奖，超过规定时间没有领奖将视为自动放弃",
+    "quantity": "数量",
+    "exchangeCountdown": "兑换倒计时",
+    "chooseMethod": "选择兑换方式",
+    "willGet": "您将获得",
+    "giveAway": "赠送",
+    "exchangeToGOCoins": "奖品兑换为{moneyVirtualCn}，可继续参与更多活动。",
+    "fillInfo": "填写领奖信息，平台寄出奖品",
+    "deducted": "(已扣除{serviceFeeRate}% 税费/服务费)",
+    "convertCash": "兑换成现金，直接提现到银行卡",
+    "putAway": "收起",
+    "moreWays": "更多方式"
   },
   "list":{
     "isEnd":"已经到底了"
+  },
+  "exchange": {
+    "pleaseReadAgree": "请先阅读并同意《奖品兑换协议》",
+    "parkedRetail": "市场零售价",
+    "bankCardInfo": "银行卡信息",
+    "plh1": "请输入真实姓名",
+    "plh2": "请输入银行名称",
+    "plh3": "请输入银行卡号",
+    "issue": "确认兑换后，奖品将以 {moneyVirtualCn} 的形式发放",
+    "exchangeCash": "兑换现金需要1-7个工作日的人工审核",
+    "confirmExchange": "确认兑换",
+    "agreed": "我已同意",
+    "prizeRedemption": "《奖品兑换协议》",
+    "confirmInfo": "确认信息",
+    "confirmRedeem": "确认要兑换成 {value} {moneyVirtualCn}吗？一旦兑换成功后，将无法退换或切换其他兑换方式",
+    "cashApplication": "兑换现金申请已提交",
+    "changeSuccess": "已成功兑换 {money} {moneyVirtualCn}",
+    "text1": "可在我的-我的{moneyVirtualCn}查看{moneyVirtualCn}入账明细",
+    "text2": "GaGaGO已对接第三方礼品回收公司，会在1-7个工作日奖品将卖给第三方公司，并处理你的提现申请。",
+    "text3": "您可在 我的 - 已中奖 中查看兑换进度。",
+    "backHome": "返回主页",
+    "system": "系统推荐"
   },
   "address":{
     "pleaseInputName":"请输入名称",
