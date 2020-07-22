@@ -50,10 +50,10 @@ class Exchange extends PureComponent {
   confirm = () => {
     const { type, id } = this.state;
     const { cashFetch } = this.props;
-    if (!this.state.protocol) {
-      return Toast.info(`${intl.get('exchange.pleaseReadAgree')}`, 2);
-    }
     if (type === 'coins') {
+      if (!this.state.protocol) {
+        return Toast.info(`${intl.get('exchange.pleaseReadAgree')}`, 2);
+      }
       this.setState({
         modal: true,
       });
@@ -63,6 +63,9 @@ class Exchange extends PureComponent {
       this.props.form.validateFields((err, value) => {
         if (err) {
           return Toast.info(`${intl.get('prize.ph2')}`, 2);
+        }
+        if (!this.state.protocol) {
+          return Toast.info(`${intl.get('exchange.pleaseReadAgree')}`, 2);
         }
         const params = {
           activityTurnId: id,
@@ -182,7 +185,7 @@ class Exchange extends PureComponent {
                     this.nameRef.focus();
                   }}
                 >
-                  {intl.get('order.realName')}
+                  *{intl.get('order.realName')}
                 </InputItem>
                 <InputItem
                   {...getFieldProps('bankName', {
@@ -194,7 +197,7 @@ class Exchange extends PureComponent {
                     this.name2Ref.focus();
                   }}
                 >
-                  {intl.get('order.bankName')}
+                  *{intl.get('order.bankName')}
                 </InputItem>
                 <InputItem
                   {...getFieldProps('bankCardNum', {
@@ -207,7 +210,7 @@ class Exchange extends PureComponent {
                   }}
                   className={styles.noBorder}
                 >
-                  {intl.get('order.bankCardNum')}
+                  *{intl.get('order.bankCardNum')}
                 </InputItem>
               </List>
             </div>
