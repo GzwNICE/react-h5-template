@@ -187,7 +187,8 @@ class Win extends PureComponent {
     });
   };
 
-  onCopyClick(copyContent) {
+  onCopyClick(copyContent, e) {
+    e.stopPropagation();
     if (copy(copyContent)) {
       Toast.info(intl.get('order.str_copy_success'), 2);
     }
