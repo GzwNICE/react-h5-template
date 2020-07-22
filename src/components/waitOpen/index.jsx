@@ -62,7 +62,8 @@ class WaitOpen extends PureComponent {
       </div>
     );
   }
-  onCodeClick = () => {
+  onCodeClick = (id, e) => {
+    e.stopPropagation();
     this.props.parent.showCodeDialog(this.props.data.activityTurnId);
   };
 }
