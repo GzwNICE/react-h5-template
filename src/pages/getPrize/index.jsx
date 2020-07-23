@@ -53,7 +53,6 @@ class GetPrize extends PureComponent {
         rewardRulesId: info.appRewardRulesVO.rewardRulesId,
       };
       submitInfo(params).then(res => {
-        console.log(res);
         if (res.code === 200) {
           this.props.history.push(`/awardResult?type=${info.productType}`);
         }
@@ -129,244 +128,271 @@ class GetPrize extends PureComponent {
             {intl.get('prize.ph1')}
           </div>
         )}
-        <div className={styles.goodTitle}>
-          {intl.get('prize.awardInfo')}
-          <span>{intl.get('prize.becauseSpecial')}</span>
-        </div>
-        <div className={styles.Information}>
-          {info.appRewardRulesVO.verifyId === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}>
-                <i>*</i>
-                {intl.get('prize.IDCardInfo')}
-              </span>
-              <div className={styles.content}>
-                <InputItem
-                  {...getFieldProps('verifyId', {
-                    rules: [{ required: true }],
-                  })}
-                  clear
-                  placeholder={intl.get('prize.ph3')}
-                  className={`${styles.inputItem} ${styles.verifyId}`}
-                  ref={el => (this.verInput = el)}
-                  onClick={() => {
-                    this.verInput.focus();
-                  }}
-                />
-              </div>
-            </li>
-          ) : null}
-          {info.appRewardRulesVO.directContact === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}>
-                <i>*</i>
-                {intl.get('prize.emergencyContact')}
-              </span>
-              <div className={styles.content}>
-                <Picker
-                  data={intl.get('prize.directContact')}
-                  cols={1}
-                  {...getFieldProps('directContact', {
-                    rules: [{ required: true }],
-                  })}
-                  okText={intl.get('password.determine')}
-                  dismissText={intl.get('password.cancel')}
-                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
-                >
-                  <List.Item arrow="horizontal" className={styles.select}>
-                    <div className={`${styles.key} ${styles.selKey}`}>
-                      {intl.get('prize.Identity')}
-                    </div>
-                  </List.Item>
-                </Picker>
-              </div>
-              <div className={styles.content}>
-                <span className={styles.key}>{intl.get('prize.phone')}</span>
-                <InputItem
-                  {...getFieldProps('directMobile', {
-                    rules: [{ required: true }],
-                  })}
-                  clear
-                  placeholder={intl.get('prize.ph4')}
-                  className={styles.inputItem}
-                  type="number"
-                  ref={el => (this.dirInput = el)}
-                  onClick={() => {
-                    this.dirInput.focus();
-                  }}
-                />
-              </div>
-            </li>
-          ) : null}
-          {info.appRewardRulesVO.indirectContact === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}>
-                <i>*</i>
-                {intl.get('prize.indirect')}
-              </span>
-              <div className={styles.content}>
-                <Picker
-                  data={intl.get('prize.indirectContact', {
-                    rules: [{ required: true }],
-                  })}
-                  cols={1}
-                  okText={intl.get('password.determine')}
-                  dismissText={intl.get('password.cancel')}
-                  {...getFieldProps('indirectContact')}
-                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
-                >
-                  <List.Item arrow="horizontal" className={styles.select}>
-                    <div className={`${styles.key} ${styles.selKey}`}>
-                      {intl.get('prize.Identity')}
-                    </div>
-                  </List.Item>
-                </Picker>
-              </div>
-              <div className={styles.content}>
-                <span className={styles.key}>{intl.get('prize.phone')}</span>
-                <InputItem
-                  {...getFieldProps('indirectMobile', {
-                    rules: [{ required: true }],
-                  })}
-                  clear
-                  placeholder={intl.get('prize.ph4')}
-                  className={styles.inputItem}
-                  type="number"
-                  ref={el => (this.indirectInput = el)}
-                  onClick={() => {
-                    this.indirectInput.focus();
-                  }}
-                />
-              </div>
-            </li>
-          ) : null}
+        {info.appRewardRulesVO.verifyId === 'N' &&
+        info.appRewardRulesVO.directContact === 'N' &&
+        info.appRewardRulesVO.indirectContact === 'N' &&
+        info.appRewardRulesVO.ageInterval === 'N' &&
+        info.appRewardRulesVO.education === 'N' &&
+        info.appRewardRulesVO.job === 'N' &&
+        info.appRewardRulesVO.income === 'N' &&
+        info.appRewardRulesVO.companyName === 'N' &&
+        info.appRewardRulesVO.companyAddress === 'N' ? null : (
+          <div>
+            <div className={styles.goodTitle}>
+              {intl.get('prize.awardInfo')}
+              <span>{intl.get('prize.becauseSpecial')}</span>
+            </div>
+            <div className={styles.Information}>
+              {info.appRewardRulesVO.verifyId === 'Y' ? (
+                <li className={styles.rows}>
+                  <span className={styles.inputTitle}>
+                    <i>*</i>
+                    {intl.get('prize.IDCardInfo')}
+                  </span>
+                  <div className={styles.content}>
+                    <InputItem
+                      {...getFieldProps('verifyId', {
+                        rules: [{ required: true }],
+                      })}
+                      clear
+                      placeholder={intl.get('prize.ph3')}
+                      className={`${styles.inputItem} ${styles.verifyId}`}
+                      ref={el => (this.verInput = el)}
+                      onClick={() => {
+                        this.verInput.focus();
+                      }}
+                    />
+                  </div>
+                </li>
+              ) : null}
+              {info.appRewardRulesVO.directContact === 'Y' ? (
+                <li className={styles.rows}>
+                  <span className={styles.inputTitle}>
+                    <i>*</i>
+                    {intl.get('prize.emergencyContact')}
+                  </span>
+                  <div className={styles.content}>
+                    <Picker
+                      data={intl.get('prize.directContact')}
+                      cols={1}
+                      {...getFieldProps('directContact', {
+                        rules: [{ required: true }],
+                      })}
+                      okText={intl.get('password.determine')}
+                      dismissText={intl.get('password.cancel')}
+                      extra={
+                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
+                      }
+                    >
+                      <List.Item arrow="horizontal" className={styles.select}>
+                        <div className={`${styles.key} ${styles.selKey}`}>
+                          {intl.get('prize.Identity')}
+                        </div>
+                      </List.Item>
+                    </Picker>
+                  </div>
+                  <div className={styles.content}>
+                    <span className={styles.key}>{intl.get('prize.phone')}</span>
+                    <InputItem
+                      {...getFieldProps('directMobile', {
+                        rules: [{ required: true }],
+                      })}
+                      clear
+                      placeholder={intl.get('prize.ph4')}
+                      className={styles.inputItem}
+                      type="number"
+                      ref={el => (this.dirInput = el)}
+                      onClick={() => {
+                        this.dirInput.focus();
+                      }}
+                    />
+                  </div>
+                </li>
+              ) : null}
+              {info.appRewardRulesVO.indirectContact === 'Y' ? (
+                <li className={styles.rows}>
+                  <span className={styles.inputTitle}>
+                    <i>*</i>
+                    {intl.get('prize.indirect')}
+                  </span>
+                  <div className={styles.content}>
+                    <Picker
+                      data={intl.get('prize.indirectContact', {
+                        rules: [{ required: true }],
+                      })}
+                      cols={1}
+                      okText={intl.get('password.determine')}
+                      dismissText={intl.get('password.cancel')}
+                      {...getFieldProps('indirectContact')}
+                      extra={
+                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
+                      }
+                    >
+                      <List.Item arrow="horizontal" className={styles.select}>
+                        <div className={`${styles.key} ${styles.selKey}`}>
+                          {intl.get('prize.Identity')}
+                        </div>
+                      </List.Item>
+                    </Picker>
+                  </div>
+                  <div className={styles.content}>
+                    <span className={styles.key}>{intl.get('prize.phone')}</span>
+                    <InputItem
+                      {...getFieldProps('indirectMobile', {
+                        rules: [{ required: true }],
+                      })}
+                      clear
+                      placeholder={intl.get('prize.ph4')}
+                      className={styles.inputItem}
+                      type="number"
+                      ref={el => (this.indirectInput = el)}
+                      onClick={() => {
+                        this.indirectInput.focus();
+                      }}
+                    />
+                  </div>
+                </li>
+              ) : null}
 
-          <li className={styles.rows}>
-            <span className={styles.inputTitle}>
-              <i>*</i>
-              {intl.get('prize.basicInfo')}
-            </span>
-            {info.appRewardRulesVO.ageInterval === 'Y' ? (
-              <div className={styles.content}>
-                <Picker
-                  data={intl.get('prize.ageInterval', {
-                    rules: [{ required: true }],
-                  })}
-                  cols={1}
-                  okText={intl.get('password.determine')}
-                  dismissText={intl.get('password.cancel')}
-                  {...getFieldProps('ageInterval')}
-                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
-                >
-                  <List.Item arrow="horizontal" className={styles.select}>
-                    <div className={`${styles.key} ${styles.selKey}`}>{intl.get('prize.age')}</div>
-                  </List.Item>
-                </Picker>
-              </div>
-            ) : null}
-            {info.appRewardRulesVO.education === 'Y' ? (
-              <div className={styles.content}>
-                <Picker
-                  data={intl.get('prize.education')}
-                  cols={1}
-                  {...getFieldProps('education', {
-                    rules: [{ required: true }],
-                  })}
-                  okText={intl.get('password.determine')}
-                  dismissText={intl.get('password.cancel')}
-                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
-                >
-                  <List.Item arrow="horizontal" className={styles.select}>
-                    <div className={`${styles.key} ${styles.selKey}`}>
-                      {intl.get('prize.Education')}
-                    </div>
-                  </List.Item>
-                </Picker>
-              </div>
-            ) : null}
-            {info.appRewardRulesVO.job === 'Y' ? (
-              <div className={styles.content}>
-                <Picker
-                  data={intl.get('prize.job')}
-                  cols={1}
-                  {...getFieldProps('job', {
-                    rules: [{ required: true }],
-                  })}
-                  okText={intl.get('password.determine')}
-                  dismissText={intl.get('password.cancel')}
-                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
-                >
-                  <List.Item arrow="horizontal" className={styles.select}>
-                    <div className={`${styles.key} ${styles.selKey}`}>
-                      {intl.get('prize.Occupation')}
-                    </div>
-                  </List.Item>
-                </Picker>
-              </div>
-            ) : null}
-            {info.appRewardRulesVO.income === 'Y' ? (
-              <div className={styles.content}>
-                <Picker
-                  data={intl.get('prize.income')}
-                  cols={1}
-                  {...getFieldProps('income', {
-                    rules: [{ required: true }],
-                  })}
-                  okText={intl.get('password.determine')}
-                  dismissText={intl.get('password.cancel')}
-                  extra={<div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>}
-                >
-                  <List.Item arrow="horizontal" className={styles.select}>
-                    <div className={`${styles.key} ${styles.selKey}`}>
-                      {intl.get('prize.monthlyIncome')}
-                    </div>
-                  </List.Item>
-                </Picker>
-              </div>
-            ) : null}
-            {info.appRewardRulesVO.companyName === 'Y' ? (
-              <div className={styles.content}>
-                <span className={styles.key}>{intl.get('prize.companyName')}</span>
-                <InputItem
-                  {...getFieldProps('companyName', {
-                    rules: [{ required: true }],
-                  })}
-                  clear
-                  placeholder={intl.get('prize.ph5')}
-                  className={styles.inputItem}
-                  ref={el => (this.companyInput = el)}
-                  onClick={() => {
-                    this.companyInput.focus();
-                  }}
-                />
-              </div>
-            ) : null}
-          </li>
-          {info.appRewardRulesVO.companyAddress === 'Y' ? (
-            <li className={styles.rows}>
-              <span className={styles.inputTitle}>
-                <i>*</i>
-                {intl.get('prize.companyAddress')}
-              </span>
-              <TextareaItem
-                {...getFieldProps('companyAddress', {
-                  rules: [{ required: true }],
-                })}
-                rows={3}
-                clear
-                placeholder={intl.get('prize.ph6')}
-                className={styles.textarea}
-                ref={el => (this.AddressInput = el)}
-                onClick={() => {
-                  this.AddressInput.focus();
-                }}
-              />
-            </li>
-          ) : null}
-          <Button type="primary" className={styles.submit} onClick={this.handleSubmit}>
-            {intl.get('prize.submit')}
-          </Button>
-        </div>
+              <li className={styles.rows}>
+                <span className={styles.inputTitle}>
+                  <i>*</i>
+                  {intl.get('prize.basicInfo')}
+                </span>
+                {info.appRewardRulesVO.ageInterval === 'Y' ? (
+                  <div className={styles.content}>
+                    <Picker
+                      data={intl.get('prize.ageInterval', {
+                        rules: [{ required: true }],
+                      })}
+                      cols={1}
+                      okText={intl.get('password.determine')}
+                      dismissText={intl.get('password.cancel')}
+                      {...getFieldProps('ageInterval')}
+                      extra={
+                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
+                      }
+                    >
+                      <List.Item arrow="horizontal" className={styles.select}>
+                        <div className={`${styles.key} ${styles.selKey}`}>
+                          {intl.get('prize.age')}
+                        </div>
+                      </List.Item>
+                    </Picker>
+                  </div>
+                ) : null}
+                {info.appRewardRulesVO.education === 'Y' ? (
+                  <div className={styles.content}>
+                    <Picker
+                      data={intl.get('prize.education')}
+                      cols={1}
+                      {...getFieldProps('education', {
+                        rules: [{ required: true }],
+                      })}
+                      okText={intl.get('password.determine')}
+                      dismissText={intl.get('password.cancel')}
+                      extra={
+                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
+                      }
+                    >
+                      <List.Item arrow="horizontal" className={styles.select}>
+                        <div className={`${styles.key} ${styles.selKey}`}>
+                          {intl.get('prize.Education')}
+                        </div>
+                      </List.Item>
+                    </Picker>
+                  </div>
+                ) : null}
+                {info.appRewardRulesVO.job === 'Y' ? (
+                  <div className={styles.content}>
+                    <Picker
+                      data={intl.get('prize.job')}
+                      cols={1}
+                      {...getFieldProps('job', {
+                        rules: [{ required: true }],
+                      })}
+                      okText={intl.get('password.determine')}
+                      dismissText={intl.get('password.cancel')}
+                      extra={
+                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
+                      }
+                    >
+                      <List.Item arrow="horizontal" className={styles.select}>
+                        <div className={`${styles.key} ${styles.selKey}`}>
+                          {intl.get('prize.Occupation')}
+                        </div>
+                      </List.Item>
+                    </Picker>
+                  </div>
+                ) : null}
+                {info.appRewardRulesVO.income === 'Y' ? (
+                  <div className={styles.content}>
+                    <Picker
+                      data={intl.get('prize.income')}
+                      cols={1}
+                      {...getFieldProps('income', {
+                        rules: [{ required: true }],
+                      })}
+                      okText={intl.get('password.determine')}
+                      dismissText={intl.get('password.cancel')}
+                      extra={
+                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
+                      }
+                    >
+                      <List.Item arrow="horizontal" className={styles.select}>
+                        <div className={`${styles.key} ${styles.selKey}`}>
+                          {intl.get('prize.monthlyIncome')}
+                        </div>
+                      </List.Item>
+                    </Picker>
+                  </div>
+                ) : null}
+                {info.appRewardRulesVO.companyName === 'Y' ? (
+                  <div className={styles.content}>
+                    <span className={styles.key}>{intl.get('prize.companyName')}</span>
+                    <InputItem
+                      {...getFieldProps('companyName', {
+                        rules: [{ required: true }],
+                      })}
+                      clear
+                      placeholder={intl.get('prize.ph5')}
+                      className={styles.inputItem}
+                      ref={el => (this.companyInput = el)}
+                      onClick={() => {
+                        this.companyInput.focus();
+                      }}
+                    />
+                  </div>
+                ) : null}
+              </li>
+              {info.appRewardRulesVO.companyAddress === 'Y' ? (
+                <li className={styles.rows}>
+                  <span className={styles.inputTitle}>
+                    <i>*</i>
+                    {intl.get('prize.companyAddress')}
+                  </span>
+                  <TextareaItem
+                    {...getFieldProps('companyAddress', {
+                      rules: [{ required: true }],
+                    })}
+                    rows={3}
+                    clear
+                    placeholder={intl.get('prize.ph6')}
+                    className={styles.textarea}
+                    ref={el => (this.AddressInput = el)}
+                    onClick={() => {
+                      this.AddressInput.focus();
+                    }}
+                  />
+                </li>
+              ) : null}
+            </div>
+          </div>
+        )}
+
+        <Button type="primary" className={styles.submit} onClick={this.handleSubmit}>
+          {intl.get('prize.submit')}
+        </Button>
       </div>
     );
   }

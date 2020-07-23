@@ -16,13 +16,9 @@ class DetailDialog extends PureComponent {
       status: '',
     };
   }
-  onClose() {
-    this.props.parent.setCashDialog(false);
-  }
-  render() {
-    const { codeModal, getGoCoinDetail, orderId } = this.props;
-    const { moneySymbol } = JSON.parse(localStorage.getItem('configuration'));
 
+  componentDidMount() {
+    const { getGoCoinDetail, orderId } = this.props;
     getGoCoinDetail({ orderId: orderId }).then(res => {
       let statusContent = '';
       if (res.data.status == 0) {
@@ -35,6 +31,14 @@ class DetailDialog extends PureComponent {
         status: statusContent,
       });
     });
+  }
+
+  onClose() {
+    this.props.parent.setCashDialog(false);
+  }
+  render() {
+    const { codeModal } = this.props;
+    const { moneySymbol } = JSON.parse(localStorage.getItem('configuration'));
     return (
       <div className={styles.regPage}>
         <Modal
@@ -43,6 +47,7 @@ class DetailDialog extends PureComponent {
           maskClosable={false}
           title={intl.get('order.str_winget_detail')}
           className={styles.codeModal}
+          style={{ width: '340px' }}
         >
           <DialogItem data={{ title: intl.get('order.status'), value: this.state.status }} />
           <DialogItem

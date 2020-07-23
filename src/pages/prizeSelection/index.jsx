@@ -140,8 +140,7 @@ class PrizeSelection extends PureComponent {
                         <li className={styles.way}>
                           {intl.get('payment.str_change_gocoin')}
                           <span>
-                            {' '}
-                            {`${numFormat(recycleInfo.convertPrice)}${config.moneySymbol}`}
+                            {`${numFormat(recycleInfo.convertPrice)} ${config.moneySymbol}`}
                           </span>
                           <span className={styles.title}>{`${intl.get('prize.deducted', {
                             serviceFeeRate: recycleInfo.serviceFeeRate,

@@ -109,7 +109,7 @@
     "str_inpay": "Nạp tiền",
     "str_buy_total": "Tổng Tặng {moneyVirtualCn}:{num}",
     "str_one_day_overdue": "Sau 1 ngày hết hạn:{num}",
-    "str_change_gocoin": "Quy đổi",
+    "str_change_gocoin": "Quy đổi ",
     "str_coin_rechargeMoney": "Số tiền thanh toán:",
     "str_server_money": "Phí dịch vụ:",
     "str_coin_giveAwayMoney": "Bao gồm quà tặng ",

@@ -16,20 +16,22 @@ class DetailDialog extends PureComponent {
       result: {},
     };
   }
-  onClose() {
-    this.props.parent.setGoCoinDialog(false);
-  }
 
-  render() {
-    const { codeModal, getGoCoinDetail, orderId } = this.props;
-    const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
-
+  componentDidMount() {
+    const { getGoCoinDetail, orderId } = this.props;
     getGoCoinDetail({ orderId: orderId }).then(res => {
       this.setState({
         result: res.data,
       });
     });
+  }
+  onClose() {
+    this.props.parent.setGoCoinDialog(false);
+  }
 
+  render() {
+    const { codeModal } = this.props;
+    const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
     return (
       <div className={styles.regPage}>
         <Modal
