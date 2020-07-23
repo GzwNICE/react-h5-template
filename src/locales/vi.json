@@ -80,7 +80,7 @@
     "createTime": "Thời gian quy đổi",
     "applying": "Đang phê duyệt",
     "finish": "Đã hoàn thành",
-    "status": "str_exchange_status",
+    "status": "Trạng thái quy đổi",
     "marketPrice": "Giá trị phần thưởng",
     "serviceFeeRate": "Thuế / Tỉ lệ phí dịch vụ",
     "serviceFee": "Thuế / Phí dịch vụ",
