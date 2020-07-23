@@ -50,7 +50,6 @@ class ProductDetail extends PureComponent {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
     this.initDetail();
     window.scrollTo(0, 0);
   }
@@ -68,7 +67,6 @@ class ProductDetail extends PureComponent {
     const thisId = this.props.match.params.activityTurnId;
     const nextId = nextProps.match.params.activityTurnId;
     if (thisId !== nextId) {
-      console.log(3);
       window.location.reload();
     }
   }
@@ -333,25 +331,26 @@ class ProductDetail extends PureComponent {
           {(status === 8 || status === 9 || status === 10) && detail.partakeStatus === 'yes' ? (
             <div className={styles.msgBox}>
               {detail.ifWin === 'yes' ? (
-                <NoticeBar
-                  icon={detail.orderStatus === 0 ? null : <img src={gift} alt="" width="14" />}
-                >
+                <div className={styles.Notice}>
+                  {detail.orderStatus === 0 ? null : <img src={gift} alt="" width="14" />}
                   {detail.orderStatus === 0
                     ? `${intl.get('product.during')}`
                     : `${intl.get('product.winning')}`}
-                </NoticeBar>
+                </div>
               ) : (
-                <NoticeBar icon={<img src={remind} alt="" width="14" />}>
+                <div className={styles.Notice}>
+                  <img src={remind} alt="" width="14" />
                   {intl.get('product.notWin')}
-                </NoticeBar>
+                </div>
               )}
             </div>
           ) : null}
           {detail.partakeStatus === 'no' ? (
             <div className={styles.msgBox}>
-              <NoticeBar icon={<img src={remind} alt="" width="14" />}>
+              <div className={styles.Notice}>
+                <img src={remind} alt="" width="14" />
                 {intl.get('product.takeProduct', { moneySymbol: config.moneySymbol })}
-              </NoticeBar>
+              </div>
             </div>
           ) : null}
           {detail.ifWin === 'yes' && detail.orderStatus === 6 ? (

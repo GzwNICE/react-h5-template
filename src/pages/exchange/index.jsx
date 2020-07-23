@@ -186,7 +186,7 @@ class Exchange extends PureComponent {
                     this.nameRef.focus();
                   }}
                 >
-                  *{intl.get('order.realName')}
+                  <span>*</span> {intl.get('order.realName')}
                 </InputItem>
                 <InputItem
                   {...getFieldProps('bankName', {
@@ -198,7 +198,7 @@ class Exchange extends PureComponent {
                     this.name2Ref.focus();
                   }}
                 >
-                  *{intl.get('order.bankName')}
+                  <span>*</span> {intl.get('order.bankName')}
                 </InputItem>
                 <InputItem
                   {...getFieldProps('bankCardNum', {
@@ -210,21 +210,20 @@ class Exchange extends PureComponent {
                     this.cardRef.focus();
                   }}
                   className={styles.noBorder}
+                  type="number"
                 >
-                  *{intl.get('order.bankCardNum')}
+                  <span>*</span> {intl.get('order.bankCardNum')}
                 </InputItem>
               </List>
             </div>
           )}
 
-          <NoticeBar
-            icon={<img src={resultTips} alt="" className={styles.resultTips} />}
-            className={styles.notice}
-          >
+          <div className={styles.notice}>
+            <img src={resultTips} alt="" className={styles.resultTips} />
             {type === 'coins'
               ? `${intl.get('exchange.issue', { moneyVirtualCn: config.moneyVirtualCn })}`
               : `${intl.get('exchange.exchangeCash')}`}
-          </NoticeBar>
+          </div>
           <Button type="primary" className={styles.confirm} onClick={this.confirm}>
             {intl.get('exchange.confirmExchange')}
           </Button>
@@ -249,8 +248,8 @@ class Exchange extends PureComponent {
           <div className={styles.modalContent}>
             <p className={styles.text}>
               {intl.get('exchange.confirmRedeem', {
-                value: numFormat(recycleInfo.convertGoMoney),
-                moneyVirtualCn: config.moneyVirtualCn,
+                value: `${numFormat(recycleInfo.convertGoMoney)}`,
+                moneyVirtualCn: `${config.moneyVirtualCn}`,
               })}
             </p>
             <div className={styles.btnGroup}>

@@ -1,11 +1,11 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import intl from 'react-intl-universal';
-
-// import intl from 'react-intl-universal';
 import { Button, Modal } from 'antd-mobile';
 import DialogItem from '@/components/dialogItem';
+import { numFormat } from '@/utils/util';
 
 import styles from './index.less';
 
@@ -38,24 +38,30 @@ class DetailDialog extends PureComponent {
           maskClosable={false}
           title={intl.get('order.str_winget_detail')}
           className={styles.codeModal}
+          style={{ width: '340px' }}
         >
           <DialogItem
             data={{
               title: intl.get('order.productGoMoney'),
-              value: `${this.state.result.productGoMoney}${moneyVirtualCn}`,
+              value: `${numFormat(this.state.result.productGoMoney)}${moneyVirtualCn}`,
             }}
           />
-          <DialogItem data={{ title: intl.get('order.goGiveRate'), value: `${this.state.result.goGiveRate}%` }} />
+          <DialogItem
+            data={{
+              title: intl.get('order.goGiveRate'),
+              value: `${this.state.result.goGiveRate}%`,
+            }}
+          />
           <DialogItem
             data={{
               title: intl.get('order.goGiveMoney'),
-              value: `${this.state.result.goGiveMoney}${moneyVirtualCn}`,
+              value: `${numFormat(this.state.result.goGiveMoney)}${moneyVirtualCn}`,
             }}
           />
           <DialogItem
             data={{
               title: intl.get('order.convertGoMoney'),
-              value: `${this.state.result.convertGoMoney}${moneyVirtualCn}`,
+              value: `${numFormat(this.state.result.convertGoMoney)}${moneyVirtualCn}`,
             }}
           />
           <DialogItem

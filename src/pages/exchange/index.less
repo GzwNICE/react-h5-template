@@ -92,6 +92,7 @@
         font-size: 14px;
         font-family: PingFangSC, PingFangSC-Regular;
         color: #666666;
+        flex: 1;
       }
     }
 
@@ -116,6 +117,11 @@
         text-align: left;
         color: #333333;
         line-height: 14px;
+        max-width: 140px;
+        width: auto;
+        span {
+          color: red;
+        }
       }
 
       :global(.am-list-item.am-input-item) {
@@ -123,18 +129,23 @@
       }
     }
 
-    :global(.am-notice-bar) {
+    .notice {
       background-color: #f7f7f7;
       font-size: 12px;
       font-family: PingFangSC, PingFangSC-Regular;
       color: #999999;
-      height: 42px;
-      line-height: 42px;
+      padding: 0 12px;
+      box-sizing: border-box;
+      line-height: 18px;
+      margin-top: 10px;
+      .resultTips {
+        width: 12px;
+        margin-top: 3px;
+        margin-right: 4px;
+      }
     }
 
-    .resultTips {
-      width: 12px;
-    }
+
 
     .confirm {
       width: 315px;
@@ -165,6 +176,11 @@
 
       :global(.am-checkbox-agree) {
         justify-content: center;
+        box-sizing: border-box;
+        margin-left: 0;
+      }
+      :global(.am-checkbox-agree .am-checkbox-agree-label) {
+        margin-left: 0;
       }
 
       :global(.am-checkbox.am-checkbox-checked .am-checkbox-inner) {

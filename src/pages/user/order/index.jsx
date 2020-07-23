@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 // 我的订单列表
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
