@@ -45,7 +45,6 @@ class Exchange extends PureComponent {
         });
       }
     });
-    console.log(this.state.type);
   }
 
   confirm = () => {

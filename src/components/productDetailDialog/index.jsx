@@ -46,18 +46,30 @@ class DetailDialog extends PureComponent {
         >
           <DialogItem data={{ title: intl.get('order.status'), value: this.state.status }} />
           <DialogItem
-            data={{ title: intl.get('order.marketPrice'), value: `${this.state.result.marketPrice} ${moneySymbol}` }}
+            data={{
+              title: intl.get('order.marketPrice'),
+              value: `${this.state.result.marketPrice} ${moneySymbol}`,
+            }}
           />
           <DialogItem
-            data={{ title: intl.get('order.serviceFeeRate'), value: `${this.state.result.serviceFeeRate}%` }}
+            data={{
+              title: intl.get('order.serviceFeeRate'),
+              value: `${this.state.result.serviceFeeRate}%`,
+            }}
           />
 
           <DialogItem
-            data={{ title: intl.get('order.serviceFee'), value: `${this.state.result.serviceFee} ${moneySymbol}` }}
+            data={{
+              title: intl.get('order.serviceFee'),
+              value: `${this.state.result.serviceFee} ${moneySymbol}`,
+            }}
           />
 
           <DialogItem
-            data={{ title: intl.get('order.convertPrice'), value: `${this.state.result.convertPrice} ${moneySymbol}` }}
+            data={{
+              title: intl.get('order.convertPrice'),
+              value: `${this.state.result.convertPrice} ${moneySymbol}`,
+            }}
           />
           <DialogItem
             data={{
@@ -65,9 +77,15 @@ class DetailDialog extends PureComponent {
               value: moment(this.state.result.createTime).format('DD/MM/YYYY HH:mm'),
             }}
           />
-          <DialogItem data={{ title: intl.get('order.realName'), value: this.state.result.realName }} />
-          <DialogItem data={{ title: intl.get('order.bankName'), value: this.state.result.bankName }} />
-          <DialogItem data={{ title: intl.get('order.bankCardNum'), value: this.state.result.bankCardNum }} />
+          <DialogItem
+            data={{ title: intl.get('order.realName'), value: this.state.result.realName }}
+          />
+          <DialogItem
+            data={{ title: intl.get('order.bankName'), value: this.state.result.bankName }}
+          />
+          <DialogItem
+            data={{ title: intl.get('order.bankCardNum'), value: this.state.result.bankCardNum }}
+          />
 
           <div className={styles.companyInfo}>{intl.get('order.unitInfo')}</div>
           <div className={styles.footer}>
