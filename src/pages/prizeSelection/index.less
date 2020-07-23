@@ -23,6 +23,8 @@
     }
 
     .tips {
+      padding: 0 12px;
+      box-sizing: border-box;
       font-size: 12px;
       font-family: PingFangSC, PingFangSC-Regular;
       color: #ffd1be;
@@ -35,7 +37,7 @@
       background: #ffffff;
       border-radius: 8px;
       margin: 20px auto;
-      padding: 15px 20px;
+      padding: 15px;
       box-sizing: border-box;
       display: flex;
       justify-content: space-between;
@@ -47,9 +49,8 @@
 
       .textBox {
         flex: 1;
-        margin-left: 20px;
+        margin-left: 10px;
 
-        // display: flex;
         .prodName {
           width: 100%;
           font-size: 14px;
@@ -128,7 +129,7 @@
         .selectItem {
           width: 100%;
           padding: 12px;
-          box-sizing: initial;
+          box-sizing: border-box;
           border-top: 1px solid #ededed;
 
           .way {
@@ -136,6 +137,9 @@
             font-family: PingFangSC, PingFangSC-Medium;
             font-weight: 500;
             color: #333333;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
 
             .title {
               font-size: 12px;
@@ -145,15 +149,16 @@
 
           .content {
             font-size: 14px;
-            font-family: PingFangSC, PingFangSC-Regular;
+            font-family: PingFangSC-Medium, Arial;
             color: #333333;
             margin-top: 10px;
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
 
             .num {
               font-size: 14px;
-              font-family: PingFangSC, PingFangSC-Medium;
+              font-family: PingFangSC-Medium, Arial;
               font-weight: 500;
               color: #ff5209;
               margin: 0 6px;
@@ -202,30 +207,6 @@
       :global(.am-card-footer-extra) {
         flex: inherit !important;
       }
-    }
-  }
-  .close {
-    animation: close 1s;
-  }
-  .open {
-    animation: open 1s;
-  }
-
-  @keyframes open {
-    from {
-      height: 0;
-    }
-    to {
-      height: auto;
-    }
-  }
-
-  @keyframes close {
-    from {
-      height: auto;
-    }
-    to {
-      height: 0;
     }
   }
 }

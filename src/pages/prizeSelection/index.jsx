@@ -119,7 +119,7 @@ class PrizeSelection extends PureComponent {
                   <li className={styles.content}>
                     {intl.get('prize.willGet')}{' '}
                     <span className={styles.num}>
-                      {recycleInfo.convertGoMoney} {config.moneyVirtualCn}
+                      {numFormat(recycleInfo.convertGoMoney)} {config.moneyVirtualCn}
                     </span>{' '}
                     <span className={styles.give}>{`${intl.get('prize.giveAway')}${
                       recycleInfo.goGiveRate

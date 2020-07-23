@@ -51,7 +51,7 @@
     "refunded": "退回",
     "coin_recycle": "已兑换{moneyVirtualCn}",
     "wait_cash": "已兑换现金",
-    "cashed": "已兑换现金", 
+    "cashed": "已兑换现金",
     "no_confirm": "流奖",
     "str_current_turn":"Round",
     "str_show_applying":"审核中",
@@ -452,7 +452,8 @@
     "save":"保存",
     "cancel":"取消",
     "addressManager":"收货地址管理",
-    "addAddress":"添加收货地址"
+    "addAddress":"添加收货地址",
+    "default": "默认"
   },
   "result": {
     "copySuccess": "复制成功",

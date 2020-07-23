@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import ic_edit from '@/assets/images/ic_edit.png';
 import styles from './index.less';
 
@@ -28,7 +28,9 @@ class AddressItem extends PureComponent {
         <div className={styles.userInfo}>
           <div className={styles.name}>{data.userName}</div>
           <div className={styles.mobile}>{data.mobile}</div>
-          {data.isDefault == 'Y' ? <div className={styles.label}>默认</div> : null}
+          {data.isDefault == 'Y' ? (
+            <div className={styles.label}>{intl.get('address.default')}</div>
+          ) : null}
         </div>
         <div className={styles.addressInfo}>
           <div className={styles.address}>{data.detailAddress}</div>
