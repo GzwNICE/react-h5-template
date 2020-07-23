@@ -5,6 +5,7 @@ import DialogItem from '@/components/dialogItem';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import intl from 'react-intl-universal';
+import { numFormat } from '@/utils/util';
 
 import styles from './index.less';
 
@@ -53,7 +54,7 @@ class DetailDialog extends PureComponent {
           <DialogItem
             data={{
               title: intl.get('order.marketPrice'),
-              value: `${this.state.result.marketPrice} ${moneySymbol}`,
+              value: `${numFormat(this.state.result.marketPrice)} ${moneySymbol}`,
             }}
           />
           <DialogItem
@@ -66,14 +67,14 @@ class DetailDialog extends PureComponent {
           <DialogItem
             data={{
               title: intl.get('order.serviceFee'),
-              value: `${this.state.result.serviceFee} ${moneySymbol}`,
+              value: `${numFormat(this.state.result.serviceFee)} ${moneySymbol}`,
             }}
           />
 
           <DialogItem
             data={{
               title: intl.get('order.convertPrice'),
-              value: `${this.state.result.convertPrice} ${moneySymbol}`,
+              value: `${numFormat(this.state.result.convertPrice)} ${moneySymbol}`,
             }}
           />
           <DialogItem
