@@ -3,21 +3,11 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { NavBar, Icon, Picker, List } from 'antd-mobile';
 import authorImg from '@/assets/images/avatar_notlogin.png';
+import intl from 'react-intl-universal';
 
 import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
-const sexs = [
-  {
-    label: '男',
-    value: '男',
-  },
-  {
-    label: '女',
-    value: '女',
-  },
-];
-
 class Personal extends PureComponent {
   constructor(props) {
     super(props);
@@ -27,8 +17,17 @@ class Personal extends PureComponent {
     };
   }
   componentDidMount() {
+    this.setState({
+      sexs:[{
+        label: intl.get('user.str_man'),
+        value: '男',
+      },
+      {
+        label: intl.get('user.str_woman'),
+        value: '女',
+      },]
+    });
     const { userInfo } = this.props;
-    userInfo();
     userInfo().then(() => {
       this.setState({
         sexValue:[this.props.user.userInfo.sex],
@@ -36,7 +35,7 @@ class Personal extends PureComponent {
     });
   }
   onRealNameClick(name) {
-    this.props.history.push(`/editname?title=编辑真实姓名&type=name&content=${name}`);
+    this.props.history.push(`/editname?title=${intl.get('user.str_realname_title')}&type=name&content=${name}`);
   }
   onSexClick() {
     console.log('onSexClick');
@@ -46,11 +45,11 @@ class Personal extends PureComponent {
   }
 
   onAddCardClick() {
-    this.props.history.push(`/editname?title=身份证号&type=idCard`);
+    this.props.history.push(`/editname?title=${intl.get('user.str_idcard_no')}&type=idCard`);
   }
 
   onChangeSex = sex =>{
-    const { updateUser } = this.props;
+    const { updateUser, userInfo} = this.props;
     this.setState(
       {
         sexValue: sex,
@@ -59,6 +58,8 @@ class Personal extends PureComponent {
         updateUser({
           sex: this.state.sexValue[0],
           updateAvatar: 'false',
+        }).then(() => {
+          userInfo();
         });
       }
     );
@@ -73,14 +74,14 @@ class Personal extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
-          个人资料
+          {intl.get('user.str_personal_data')}
         </NavBar>
         <div className={styles.userInfo}>
           <img
             className={styles.authorImg}
             src={user.userInfo.photoUrl ? user.userInfo.photoUrl : authorImg}
           ></img>
-          <div className={styles.imgEdit}>编辑</div>
+          <div className={styles.imgEdit}>{intl.get('user.str_edit')}</div>
           <input type="file" accept="image/*" className={styles.cameraInput} />
         </div>
         <div
@@ -88,19 +89,19 @@ class Personal extends PureComponent {
           style={{ marginTop: '10px' }}
           onClick={this.onRealNameClick.bind(this, user.userInfo.name)}
         >
-          <div className={styles.title}>真实姓名</div>
+          <div className={styles.title}>{intl.get('user.str_real_name')}</div>
           <div className={styles.arrow}/>
           <div className={styles.content}>
-            {user.userInfo.name ? user.userInfo.name : '请填写真实姓名'}
+            {user.userInfo.name ? user.userInfo.name : intl.get('user.str_input_realname')}
           </div>
         </div>
-        <Picker data={sexs} cols={1} value={this.state.sexValue} onChange={this.onChangeSex}>
+        <Picker data={this.state.sexs} cols={1} value={this.state.sexValue} onChange={this.onChangeSex}>
           <List.Item arrow="horizontal">
-            <div className={styles.title}>性别</div>
+            <div className={styles.title}>{intl.get('user.str_sex')}</div>
           </List.Item>
         </Picker>
         <div className={styles.itemBox} style={{ marginTop: '10px' }}>
-          <div className={styles.title}>手机号</div>
+          <div className={styles.title}>{intl.get('user.str_phone_num')}</div>
           <div className={styles.content}>{user.userInfo.mobile}</div>
         </div>
         <div
@@ -108,7 +109,7 @@ class Personal extends PureComponent {
           style={{ marginTop: '1px' }}
           onClick={this.onAddressClick.bind(this)}
         >
-          <div className={styles.title}>收货地址</div>
+          <div className={styles.title}>{intl.get('user.str_user_address')}</div>
           <div className={styles.arrow}/>
         </div>
         <div
@@ -116,7 +117,7 @@ class Personal extends PureComponent {
           style={{ marginTop: '1px' }}
           onClick={user.userInfo.idCard ? null : this.onAddCardClick.bind(this)}
         >
-          <div className={styles.title}>身份证号</div>
+          <div className={styles.title}>{intl.get('user.str_idcard_no')}</div>
           <div className={styles.arrow}/>
           <div className={styles.content}>{user.userInfo.idCard} </div>
         </div>
@@ -132,7 +133,6 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   userInfo: params => dispatch.user.getUserInfo(params),
   updateUser: params => dispatch.user.updateUserInfo(params),
-
 });
 
 export default connect(mapState, mapDispatch)(Personal);

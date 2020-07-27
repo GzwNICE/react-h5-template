@@ -59,7 +59,7 @@ class Personal extends PureComponent {
           </div>
         </div>
         <InputItem
-          placeholder={type == 'name' ? '请填写真实姓名' : '请填写身份证号'}
+          placeholder={type == 'name' ? intl.get('user.str_input_realname') : intl.get('user.str_input_idcard_no')}
           className={styles.inputItem}
           moneyKeyboardAlign="left"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
@@ -68,17 +68,17 @@ class Personal extends PureComponent {
         />
         {type == 'name' ? (
           <div className={styles.editInfo} style={{ marginTop: '12px' }}>
-            为了方便后续中奖后的确认，请填写真实姓名哦
+            {intl.get('user.str_realname_remind')}
           </div>
         ) : null}
         {type == 'idCard' ? (
           <div className={styles.editInfo} style={{ marginTop: '12px' }}>
-            * 领取超过xxx.xx元的奖品需要认证身份证信息。
+            {intl.get('user.str_idcard_remind')}
           </div>
         ) : null}
-        {type == 'idCard' ? (
+        {/* {type == 'idCard' ? (
           <div className={styles.editInfo}>* 身份证信息认证后无法修改，请谨慎操作。</div>
-        ) : null}
+        ) : null} */}
       </div>
     );
   }

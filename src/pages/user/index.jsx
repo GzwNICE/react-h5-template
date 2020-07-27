@@ -41,7 +41,7 @@ class User extends PureComponent {
     this.props.history.push(`/login`);
   }
   onPersonClick() {
-    // this.props.history.push(`/personal`);
+    this.props.history.push(`/personal`);
   }
   onPayListClick() {
     this.props.history.push(`/paylist`);

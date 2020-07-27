@@ -43,7 +43,22 @@
     "joinFacebook":"Tham gia nhóm Facebook",
     "joinTelegram":"Tham gia nhóm Telegram",
     "helpText": "Sẵn sàng mọi lúc mọi nơi giải đáp thắc mắc của bạn",
-    "questionDetails": "Chi tiết cần để"
+    "questionDetails": "Chi tiết cần để",
+
+    "str_personal_data": "Thông tin cá nhân",
+    "str_edit": "Chỉnh sửa",
+    "str_real_name": "Tên",
+    "str_input_realname": "Vui lòng điền họ và tên",
+    "str_sex": "Giới tính",
+    "str_phone_num": "Số di động",
+    "str_user_address": "Địa chỉ nhận hàng",
+    "str_idcard_no": "Số chứng minh nhân dân", 
+    "str_realname_title": "Biên soạn Họ và tên thực",
+    "str_man": "nam",
+    "str_woman": "Nữ",
+    "str_realname_remind": "Để tiện cho về sau xác nhận trúng thưởng, vui lòng điền Họ và tên thật",
+    "str_idcard_remind": "*Khi nhận sản phẩm thưởng có giá trị cần xác nhận thông tin cá nhân.\n*Thông tin ID không thể được sửa đổi sau khi xác thực, vui lòng tiến hành thận trọng.",
+    "str_input_idcard_no": "Vui lòng điền số chứng minh nhân dân"
   },
   "order": {
     "win": "Đợi xác nhận",
