@@ -4,9 +4,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
-import { Carousel, Grid, Tabs, Toast } from 'antd-mobile';
+import { Carousel, Grid, Tabs, Toast, Modal, Icon } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
 import Cookies from 'js-cookie';
+import { random } from '@/utils/util';
 import HotList from '@/pages/hotList';
 import LatestList from '@/pages/latestList';
 import OpenList from '@/pages/willEndList';
@@ -15,7 +16,9 @@ import TabBarBox from '@/components/tabBar';
 import sorting from '@/assets/images/sorting.png';
 import sortingUp from '@/assets/images/sorting_up@2x.png';
 import sortingDown from '@/assets/images/sorting_down@2x.png';
+import pop_invite from '@/assets/images/pop_invite@2x.png';
 import styles from './index.less';
+// import { from } from 'core-js/fn/array';
 
 function renderTabBar(props) {
   return (
@@ -41,12 +44,15 @@ class Home extends PureComponent {
       isLoading: false,
       hasMore: true,
       fetch: false,
+      advertising: false,
+      promote: {},
+      popData: {},
     };
   }
 
   componentDidMount() {
     Toast.loading('Loading...', 0);
-    const { getWin, getBanner, getClass, homeSys } = this.props;
+    const { getWin, getBanner, getClass, homeSys, getPromote, getHomePop } = this.props;
     getBanner().then(() => {
       getWin();
       getClass();
@@ -54,13 +60,45 @@ class Home extends PureComponent {
       setTimeout(() => {
         Toast.hide();
       }, 800);
+      getPromote().then(res => {
+        this.setState({
+          promote: res.data[0],
+        });
+      });
+      getHomePop().then(res => {
+        if (res.data.length > 0) {
+          const openPop = localStorage.getItem('openPop');
+          if (!openPop || openPop === '1') {
+            localStorage.setItem('openPop', 1);
+            this.setState({
+              popData: res.data[random()],
+              advertising: true,
+            });
+          }
+        }
+      });
     });
     this.getPageList('desc');
+    window.addEventListener('scroll', this.bindHandleScroll);
   }
+
+  bindHandleScroll = event => {
+    // 滚动的高度
+    const scrollTop =
+      (event.srcElement ? event.srcElement.documentElement.scrollTop : false) ||
+      window.pageYOffset ||
+      (event.srcElement ? event.srcElement.body.scrollTop : 0);
+    this.top = scrollTop;
+  };
 
   componentWillUnmount() {
     const { clearData } = this.props;
     clearData();
+    if (this.top) {
+      localStorage.setItem('scrollTop', this.top);
+    } else {
+      localStorage.removeItem('scrollTop');
+    }
   }
 
   handlerGrid = url => {
@@ -87,7 +125,7 @@ class Home extends PureComponent {
             hasMore: true,
           },
           () => {
-            this.getPageList('desc');
+            this.getPageList('asc');
           }
         );
       }
@@ -157,11 +195,28 @@ class Home extends PureComponent {
         isLoading: false,
       });
     }
+    const scrollTop = localStorage.getItem('scrollTop');
+    window.scrollTo(0, Number(scrollTop));
   }
+
+  handleOnClose = () => {
+    this.setState({
+      advertising: false,
+    });
+    localStorage.setItem('openPop', 2);
+  };
+
+  handlerProClick = (type, url) => {
+    if (type === 'IN' || type === 'OUT') {
+      if (url) window.location.href = url;
+    } else {
+      return;
+    }
+  };
 
   render() {
     const { home } = this.props;
-    const { IPhoneX, sortPic, isLoading, hasMore } = this.state;
+    const { IPhoneX, sortPic, isLoading, hasMore, advertising, promote, popData } = this.state;
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
     const classData = home.classData;
@@ -227,6 +282,8 @@ class Home extends PureComponent {
               data={classData}
               columnNum={5}
               hasLine={false}
+              isCarousel
+              carouselMaxRow="1"
               renderItem={item => (
                 <div onClick={() => this.handlerGrid(item.jumpUrl)}>
                   <img src={item.imgURL} className={styles.classImg} alt="" />
@@ -236,6 +293,27 @@ class Home extends PureComponent {
             />
           </div>
         ) : null}
+        <div
+          className={styles.promotion}
+          onClick={() => this.handlerProClick(promote.jumpType, promote.jumpUrl)}
+        >
+          <img src={promote.imgURL} alt="" />
+        </div>
+        <Modal
+          visible={advertising}
+          transparent
+          maskClosable={false}
+          style={{ width: '322px', height: '430px' }}
+        >
+          <div className={styles.modalContent}>
+            <img
+              src={popData && popData.imgURL}
+              alt=""
+              onClick={() => this.handlerProClick(popData.jumpType, popData.jumpUrl)}
+            />
+            <Icon type="cross-circle" className={styles.close} onClick={this.handleOnClose} />
+          </div>
+        </Modal>
         <div className={styles.tabs} ref={el => (this.hlv = el)}>
           <StickyContainer>
             <Tabs //活动列表
@@ -265,7 +343,7 @@ class Home extends PureComponent {
           className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}
           ref={this.myRef}
         >
-          <TabBarBox selectedTab="homePage" search={this.props.history.location.search} />
+          <TabBarBox selectedTab="homePage" />
         </div>
       </div>
     );
@@ -284,6 +362,8 @@ const mapDispatch = dispatch => ({
   homeSys: params => dispatch.home.fetchConf(params),
   clearData: params => dispatch.home.clearList(params),
   getSortList: params => dispatch.home.fetchGetSortList(params),
+  getPromote: params => dispatch.home.getPromote(params),
+  getHomePop: params => dispatch.home.getHomePop(params),
 });
 
 export default connect(mapState, mapDispatch)(Home);

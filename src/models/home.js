@@ -25,6 +25,7 @@ export const home = createModel({
         total: 0,
       },
       order: null,
+      homePop: [],
     },
   },
   reducers: {
@@ -139,6 +140,15 @@ export const home = createModel({
         },
       };
     },
+    saveHomePop(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          homePop: payload.data,
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async fetchGetWin(payload) {
@@ -178,6 +188,15 @@ export const home = createModel({
     },
     async clearList() {
       dispatch.home.clear();
+    },
+    async getPromote(payload) {
+      const response = await homeService.promote(payload);
+      return response;
+    },
+    async getHomePop(payload) {
+      const response = await homeService.homePop(payload);
+      dispatch.home.saveHomePop(response);
+      return response;
     },
   }),
 });
