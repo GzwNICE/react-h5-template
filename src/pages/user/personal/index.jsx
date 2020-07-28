@@ -18,24 +18,28 @@ class Personal extends PureComponent {
   }
   componentDidMount() {
     this.setState({
-      sexs:[{
-        label: intl.get('user.str_man'),
-        value: '男',
-      },
-      {
-        label: intl.get('user.str_woman'),
-        value: '女',
-      },]
+      sexs: [
+        {
+          label: intl.get('user.str_man'),
+          value: '男',
+        },
+        {
+          label: intl.get('user.str_woman'),
+          value: '女',
+        },
+      ],
     });
     const { userInfo } = this.props;
     userInfo().then(() => {
       this.setState({
-        sexValue:[this.props.user.userInfo.sex],
+        sexValue: [this.props.user.userInfo.sex],
       });
     });
   }
   onRealNameClick(name) {
-    this.props.history.push(`/editname?title=${intl.get('user.str_realname_title')}&type=name&content=${name}`);
+    this.props.history.push(
+      `/editname?title=${intl.get('user.str_realname_title')}&type=name&content=${name}`
+    );
   }
   onSexClick() {
     console.log('onSexClick');
@@ -48,8 +52,8 @@ class Personal extends PureComponent {
     this.props.history.push(`/editname?title=${intl.get('user.str_idcard_no')}&type=idCard`);
   }
 
-  onChangeSex = sex =>{
-    const { updateUser, userInfo} = this.props;
+  onChangeSex = sex => {
+    const { updateUser, userInfo } = this.props;
     this.setState(
       {
         sexValue: sex,
@@ -90,12 +94,17 @@ class Personal extends PureComponent {
           onClick={this.onRealNameClick.bind(this, user.userInfo.name)}
         >
           <div className={styles.title}>{intl.get('user.str_real_name')}</div>
-          <div className={styles.arrow}/>
+          <div className={styles.arrow} />
           <div className={styles.content}>
             {user.userInfo.name ? user.userInfo.name : intl.get('user.str_input_realname')}
           </div>
         </div>
-        <Picker data={this.state.sexs} cols={1} value={this.state.sexValue} onChange={this.onChangeSex}>
+        <Picker
+          data={this.state.sexs}
+          cols={1}
+          value={this.state.sexValue}
+          onChange={this.onChangeSex}
+        >
           <List.Item arrow="horizontal">
             <div className={styles.title}>{intl.get('user.str_sex')}</div>
           </List.Item>
@@ -110,7 +119,7 @@ class Personal extends PureComponent {
           onClick={this.onAddressClick.bind(this)}
         >
           <div className={styles.title}>{intl.get('user.str_user_address')}</div>
-          <div className={styles.arrow}/>
+          <div className={styles.arrow} />
         </div>
         <div
           className={styles.itemBox}
@@ -118,7 +127,7 @@ class Personal extends PureComponent {
           onClick={user.userInfo.idCard ? null : this.onAddCardClick.bind(this)}
         >
           <div className={styles.title}>{intl.get('user.str_idcard_no')}</div>
-          <div className={styles.arrow}/>
+          <div className={styles.arrow} />
           <div className={styles.content}>{user.userInfo.idCard} </div>
         </div>
       </div>

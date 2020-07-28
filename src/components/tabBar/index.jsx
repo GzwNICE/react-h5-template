@@ -26,7 +26,7 @@ class TabBarBox extends PureComponent {
     const { selectedTab } = this.props;
     const { IPhoneX } = this.state;
     return (
-      <div className={`${styles.tabBox} ${IPhoneX ? `${styles.tabBoxIPhone}` : null}`}>
+      <div className={`${styles.tabBox} ${IPhoneX === 'true' ? `${styles.tabBoxIPhone}` : null}`}>
         <Flex>
           <Flex.Item className={styles.Item}>
             <Link
