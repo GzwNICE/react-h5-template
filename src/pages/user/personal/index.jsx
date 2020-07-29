@@ -41,9 +41,6 @@ class Personal extends PureComponent {
       `/editname?title=${intl.get('user.str_realname_title')}&type=name&content=${name}`
     );
   }
-  onSexClick() {
-    console.log('onSexClick');
-  }
   onAddressClick() {
     this.props.history.push(`/addressList`);
   }
@@ -98,8 +95,8 @@ class Personal extends PureComponent {
             className={styles.authorImg}
             src={user.userInfo.photoUrl ? user.userInfo.photoUrl : authorImg}
           ></img>
-          <div className={styles.imgEdit}>{intl.get('user.str_edit')}</div>
-          <input type="file" accept="image/*" className={styles.cameraInput} onChange={this.onImageChangeClick.bind(this)}/>
+          <div className={styles.imgEdit}><input type="file" accept="image/*" className={styles.cameraInput} onChange={this.onImageChangeClick.bind(this)} />{intl.get('user.str_edit')}</div>
+          
         </div>
         <div
           className={styles.itemBox}
