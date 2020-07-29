@@ -120,6 +120,7 @@ export const user = createModel({
     async requestUpdateImage(payload) {
       const response = await userService.doUpdateImage(payload);
       dispatch.user.resultImageInfo(response);
+      return response;
     },
     async removeImage(payload) {
       dispatch.user.deleteImageInfo(payload);

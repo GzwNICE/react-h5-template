@@ -47,8 +47,22 @@ class Personal extends PureComponent {
   onAddCardClick() {
     this.props.history.push(`/editname?title=${intl.get('user.str_idcard_no')}&type=idCard`);
   }
-
-  onChangeSex = sex =>{
+  onImageChangeClick(event) {
+    const { updateImage, updateUser } = this.props;
+    let formData = new FormData();
+    formData.append('type', 'image');
+    formData.append('timeLimit', 'longPeriod');
+    formData.append('multipartFile', event.target.files[0]);
+    formData.append('attributeName', 'appAvatar');
+    updateImage(formData).then(e => {
+      console.log('re', e);
+      updateUser({
+        avatarId: e.data.fileId,
+        updateAvatar: 'true',
+      });
+    });
+  }
+  onChangeSex = sex => {
     const { updateUser, userInfo} = this.props;
     this.setState(
       {
@@ -82,7 +96,7 @@ class Personal extends PureComponent {
             src={user.userInfo.photoUrl ? user.userInfo.photoUrl : authorImg}
           ></img>
           <div className={styles.imgEdit}>{intl.get('user.str_edit')}</div>
-          <input type="file" accept="image/*" className={styles.cameraInput} />
+          <input type="file" accept="image/*" className={styles.cameraInput} onChange={this.onImageChangeClick.bind(this)}/>
         </div>
         <div
           className={styles.itemBox}
@@ -131,6 +145,7 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
+  updateImage: params => dispatch.user.requestUpdateImage(params),
   userInfo: params => dispatch.user.getUserInfo(params),
   updateUser: params => dispatch.user.updateUserInfo(params),
 });
