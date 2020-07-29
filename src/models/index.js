@@ -6,5 +6,6 @@ import { order } from '@/models/order';
 import { payment } from '@/models/payment';
 import { product } from '@/models/product';
 import { prize } from '@/models/prize';
+import { commodity } from '@/models/commodity';
 
-export { login, home, user, order, register, product, payment, prize };
+export { login, home, user, order, register, product, payment, prize, commodity };

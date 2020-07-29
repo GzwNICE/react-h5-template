@@ -6,6 +6,7 @@ import * as orderService from '@/services/order';
 import * as paymentService from '@/services/payment';
 import * as productService from '@/services/product';
 import * as prizeService from '@/services/prize';
+import * as commodityService from '@/services/commodity';
 
 export {
   loginService,
@@ -16,4 +17,5 @@ export {
   paymentService,
   productService,
   prizeService,
+  commodityService,
 };

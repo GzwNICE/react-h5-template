@@ -16,7 +16,6 @@ import TabBarBox from '@/components/tabBar';
 import sorting from '@/assets/images/sorting.png';
 import sortingUp from '@/assets/images/sorting_up@2x.png';
 import sortingDown from '@/assets/images/sorting_down@2x.png';
-import pop_invite from '@/assets/images/pop_invite@2x.png';
 import styles from './index.less';
 // import { from } from 'core-js/fn/array';
 
@@ -94,6 +93,7 @@ class Home extends PureComponent {
   componentWillUnmount() {
     const { clearData } = this.props;
     clearData();
+    window.removeEventListener('scroll', this.bindHandleScroll);
     if (this.top) {
       localStorage.setItem('scrollTop', this.top);
     } else {
@@ -195,6 +195,9 @@ class Home extends PureComponent {
         isLoading: false,
       });
     }
+  }
+
+  componentDidUpdate() {
     const scrollTop = localStorage.getItem('scrollTop');
     window.scrollTo(0, Number(scrollTop));
   }
