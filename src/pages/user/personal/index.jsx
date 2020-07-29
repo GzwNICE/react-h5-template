@@ -59,7 +59,6 @@ class Personal extends PureComponent {
     formData.append('multipartFile', event.target.files[0]);
     formData.append('attributeName', 'appAvatar');
     updateImage(formData).then(e => {
-      console.log('re', e);
       updateUser({
         avatarId: e.data.fileId,
         updateAvatar: 'true',
