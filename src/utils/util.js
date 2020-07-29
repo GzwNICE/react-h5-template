@@ -70,5 +70,11 @@ const numFormat = value => {
     return '';
   }
 };
+const random = () => {
+  const min = 0;
+  const max = 2;
+  let rand = Math.floor(Math.random() * (max - min + 1)) + min;
+  return rand;
+};
 
-export { isIPhoneX, debounce, getBaseUrl, format, numFormat };
+export { isIPhoneX, debounce, getBaseUrl, format, numFormat, random };

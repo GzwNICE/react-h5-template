@@ -32,6 +32,7 @@ import HelpDetail from '@/pages/user/helpDetail';
 import PrizeSelection from '@/pages/prizeSelection';
 import Exchange from '@/pages/exchange';
 import ChangeResult from '@/pages/changeResult';
+import commodityPage from '@/pages/commodity';
 // import { Route } from 'react-router-dom';
 
 export const routes = [
@@ -39,6 +40,11 @@ export const routes = [
     path: '/home',
     exact: true,
     component: homePage,
+  },
+  {
+    path: '/commodity',
+    exact: true,
+    component: commodityPage,
   },
   {
     path: '/user',

@@ -173,7 +173,7 @@ class User extends PureComponent {
           </div>
         </div>
         <div className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}>
-          <TabBarBox selectedTab="userPage" search={this.props.history.location.search} />
+          <TabBarBox selectedTab="userPage" />
         </div>
       </div>
     );

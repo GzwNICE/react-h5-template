@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 // 首页价值列表
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';

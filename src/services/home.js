@@ -28,7 +28,15 @@ export async function homeEndLit(params) {
 export async function homeSortLit(params) {
   return request('/app/home/sort/value', { method: 'get', params: params });
 }
-
+// 首页配置
 export async function homeConf() {
   return request('/app/system/conf/index', { method: 'get' });
+}
+// 首页推广位
+export async function promote() {
+  return request('/app/home/promote/list', { method: 'get' });
+}
+// 首页弹窗
+export async function homePop() {
+  return request('/app/home/home/pop', { method: 'get' });
 }
