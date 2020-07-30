@@ -1,7 +1,7 @@
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-// import ReactDOM from 'react-dom';
+import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
 import { Icon, NavBar, Grid, Toast } from 'antd-mobile';
 import Cookies from 'js-cookie';
@@ -91,7 +91,7 @@ class CommodityPage extends PureComponent {
         style={{ paddingBottom: IPhoneX === 'true' ? '64px' : '50px' }}
       >
         <NavBar mode="dark" className={styles.navBar}>
-          全部商品
+          {intl.get('commodity.allProducts')}
         </NavBar>
         <div className={styles.menuBox}>
           <div className={styles.left}>
@@ -112,7 +112,7 @@ class CommodityPage extends PureComponent {
           </div>
           <div className={styles.right}>
             <div className={styles.allBar} onClick={this.handlerClickAll}>
-              <span>全部分类</span>
+              <span>{intl.get('commodity.allCategories')}</span>
               <Icon type={allClass ? 'down' : 'right'} color="#666666" />
             </div>
             {allClass ? (

@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import { Progress } from 'antd-mobile';
 import styles from './index.less';
