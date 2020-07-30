@@ -11,6 +11,8 @@ import goin_arrow from '@/assets/images/personal_ic_arrow@2x.png';
 import wait from '@/assets/images/ic_waiting.png';
 import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
+import invitation from '@/assets/images/ic_invitation.png';
+
 import join from '@/assets/images/ic_join.png';
 import help from '@/assets/images/ic_service.png';
 import feedback from '@/assets/images/ic_feedback.png';
@@ -48,19 +50,12 @@ class User extends PureComponent {
   }
   onMyServerClick(_el) {
     if (this.state.isLogin) {
-      if (_el.type == 1) {
-        //加入社群
-        this.props.history.push(`/join`);
-      } else if (_el.type == 2) {
-        //帮助中心
-        this.props.history.push(`/help`);
-      } else if (_el.type == 3) {
-        //意见反馈
-        this.props.history.push(`/feedback`);
-      } else if (_el.type == 4) {
-        //设置
-        this.props.history.push(`/set`);
-      }
+      //1:分享好友;
+      //2:加入社群;
+      //3:帮助中心;
+      //4:意见反馈;
+      //5:设置;
+      this.props.history.push(`/${_el.type}`);
     } else {
       //登录
       this.props.history.push(`/login`);
@@ -68,17 +63,17 @@ class User extends PureComponent {
   }
 
   render() {
-    // eslint-disable-next-line react/destructuring-assignment
     const tabs = [
       { label: intl.get('user.wait_open'), icon: wait, type: 1 },
       { label: intl.get('user.winning'), icon: win, type: 2 },
       { label: intl.get('user.nowin'), icon: nowin, type: 3 },
     ];
     const tabServer = [
-      { label: intl.get('user.join'), icon: join, type: 1 },
-      { label: intl.get('user.help'), icon: help, type: 2 },
-      { label: intl.get('user.feedback'), icon: feedback, type: 3 },
-      { label: intl.get('user.setting'), icon: setting, type: 4 },
+      { label: intl.get('user.invitation'), icon: invitation, type: 'invitation' },
+      { label: intl.get('user.join'), icon: join, type: 'join' },
+      { label: intl.get('user.help'), icon: help, type: 'help' },
+      { label: intl.get('user.feedback'), icon: feedback, type: 'feedback' },
+      { label: intl.get('user.setting'), icon: setting, type: 'set' },
     ];
     const { user } = this.props;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
