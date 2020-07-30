@@ -1,0 +1,63 @@
+.shopCart {
+  width: 100%;
+  padding-top: 45PX;
+  box-sizing: border-box;
+  .navBar {
+    background-color: #FF5209;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+  }
+  .noLogin {
+    width: 100%;
+    height: calc(100vh - 45PX - 50PX);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+  }
+
+  .missProd {
+    width: 100%;
+    padding-bottom: 50PX;
+    .missBox {
+      width: 100%;
+      height: 244px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .recommendBox {
+      width: 100%;
+      padding: 0 12px 12px;
+      box-sizing: border-box;
+      .title {
+        font-size: 14px;
+        font-family: PingFangSC, PingFangSC-Regular;
+        color: #111111;
+      }
+      .hotItem {
+        margin-top: 10px;
+      }
+    }
+  }
+  .missProdIPhone {
+    padding-bottom: 64PX;
+  }
+
+  .noLoginIPhone {
+    height: calc(100vh - 45PX - 64PX);
+  }
+  .tBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 50PX;
+    width: 100%;
+  }
+  .tBarIPhone {
+    height: 64PX;
+  }
+}

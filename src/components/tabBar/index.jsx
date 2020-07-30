@@ -13,6 +13,8 @@ import allSelected from '@/assets/images/allSelected.png';
 import all from '@/assets/images/all.png';
 import personal from '@/assets/images/personal.png';
 import personalSel from '@/assets/images/personal_selected.png';
+import shop from '@/assets/images/ic_shoppingcart@2x.png';
+import shopSel from '@/assets/images/shoppingCart.png';
 import styles from './index.less';
 
 class TabBarBox extends PureComponent {
@@ -57,6 +59,22 @@ class TabBarBox extends PureComponent {
               )}
               <span style={{ color: selectedTab === 'commodityPage' ? '#FE5108' : '#AEAEAE' }}>
                 {intl.get('commodity.allProducts')}
+              </span>
+            </Link>
+          </Flex.Item>
+          <Flex.Item className={styles.Item}>
+            <Link
+              to={{
+                pathname: '/shopCart',
+              }}
+            >
+              {selectedTab === 'shoppingCart' ? (
+                <img src={shopSel} alt="" />
+              ) : (
+                <img src={shop} alt="" />
+              )}
+              <span style={{ color: selectedTab === 'shoppingCart' ? '#FE5108' : '#AEAEAE' }}>
+                {intl.get('shoppingCart.cart')}
               </span>
             </Link>
           </Flex.Item>
