@@ -69,7 +69,9 @@ class AwardResults extends PureComponent {
           />
           {type === 'COIN' ? (
             <div>
-              <p className={styles.monTips}>{intl.get('result.tpi3', {moneyVirtualCn: config.moneyVirtualCn})}</p>
+              <p className={styles.monTips}>
+                {intl.get('result.tpi3', { moneyVirtualCn: config.moneyVirtualCn })}
+              </p>
               <p className={styles.monTips} style={{ marginTop: '10px' }}>{intl.get('result.tpi2')}</p>
             </div>
           ) : null}

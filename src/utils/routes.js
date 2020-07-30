@@ -32,7 +32,8 @@ import HelpDetail from '@/pages/user/helpDetail';
 import PrizeSelection from '@/pages/prizeSelection';
 import Exchange from '@/pages/exchange';
 import ChangeResult from '@/pages/changeResult';
-import commodityPage from '@/pages/commodity';
+import CommodityPage from '@/pages/commodity';
+import ShopCart from '@/pages/shopCart';
 // import { Route } from 'react-router-dom';
 
 export const routes = [
@@ -44,7 +45,12 @@ export const routes = [
   {
     path: '/commodity',
     exact: true,
-    component: commodityPage,
+    component: CommodityPage,
+  },
+  {
+    path: '/shopCart',
+    exact: true,
+    component: ShopCart,
   },
   {
     path: '/user',

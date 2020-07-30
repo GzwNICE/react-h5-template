@@ -25,22 +25,22 @@ class ActivityCard extends PureComponent {
             <div className={styles.shopTitle}>{data.activityName}</div>
             <div className={styles.schedule}>
               {recommend ? <span className={styles.shedText}>进度：</span> : null}
-              <Progress
-                percent={data.progressRate}
-                position="normal"
-                style={{
-                  flex: '1',
-                  borderRadius: '4px',
-                  backgroundColor: '#FBCEBB',
-                  overflow: 'hidden',
-                }}
-                barStyle={{ backgroundColor: 'rgb(255,82,9)', border: 'none' }}
-              />
-              {recommend ? null : (
-                <span className={styles.remaining}>{`${intl.get('home.remaining')}${
-                  data.remainingCount
-                }`}</span>
-              )}
+              <div className={styles.prog}>
+                <Progress
+                  percent={data.progressRate}
+                  position="normal"
+                  style={{
+                    flex: '1',
+                    borderRadius: '4px',
+                    backgroundColor: '#FBCEBB',
+                    overflow: 'hidden',
+                  }}
+                  barStyle={{ backgroundColor: 'rgb(255,82,9)', border: 'none' }}
+                />
+              </div>
+              <span className={styles.remaining}>{`${intl.get('home.remaining')}${
+                data.remainingCount
+              }`}</span>
             </div>
             {recommend ? null : (
               <div className={styles.oddsOfWinning}>
