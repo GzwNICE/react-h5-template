@@ -5,6 +5,7 @@ import Payment from '@/pages/payment';
 
 import PayList from '@/pages/user/paylist';
 import PayHistory from '@/pages/user/paylist/payhistory';
+import Invitation from '@/pages/user/invitation';
 import Feedback from '@/pages/user/feedback';
 import Join from '@/pages/user/join';
 import Setting from '@/pages/user/set';
@@ -100,6 +101,11 @@ export const routes = [
     path: '/addressAdd',
     exact: true,
     component: AddressAdd,
+  },
+  {
+    path: '/invitation',
+    exact: true,
+    component: Invitation,
   },
   {
     path: '/feedback',
