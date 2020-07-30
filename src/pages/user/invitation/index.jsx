@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
-import { NavBar, Icon } from 'antd-mobile';
+import { NavBar, Icon, Toast } from 'antd-mobile';
 import intl from 'react-intl-universal';
+import copy from 'copy-to-clipboard';
 import Empty from '@/components/empty';
 import send from '@/assets/images/ic_step1_send.png';
 import man from '@/assets/images/ic_step2_man.png';
@@ -11,7 +12,8 @@ import direction from '@/assets/images/direction.png';
 import gold from '@/assets/images/invite_list_ic_gold.png';
 import silver from '@/assets/images/invite_list_ic_silver.png';
 import copper from '@/assets/images/invite_list_ic_copper.png';
-import copy from '@/assets/images/ic_copy.png';
+import icCopy from '@/assets/images/ic_copy.png';
+import question from '@/assets/images/ic_question.png';
 
 import pic_banner from '@/assets/images/pic_banner.png';
 
@@ -23,6 +25,20 @@ class Invitation extends PureComponent {
   }
   onRuleClick() {
     console.log('onRuleClick');
+  }
+  onQuestionClick() {
+    console.log('onQuestionClick');
+  }
+  onCopyClick(copyContent) {
+    if (copy(copyContent)) {
+      Toast.info(intl.get('order.str_copy_success'), 2);
+    }
+  }
+  onRewardMoreClick() {
+    this.props.history.push(`/reward`);
+  }
+  onRankMoreClick() {
+    this.props.history.push(`/rank`);
   }
   componentDidMount() {}
   render() {
@@ -68,20 +84,28 @@ class Invitation extends PureComponent {
               <div className={styles.title}>我的邀请链接</div>
               <div className={styles.invitationBox}>
                 <div className={styles.invitationLink}>https://vngagago.com/invite/6-dc4fbf1-dc4fb...</div>
-                <img className={styles.copy} src={copy}></img>
+                <img
+                  className={styles.copy}
+                  src={icCopy}
+                  onClick={this.onCopyClick.bind('https://vngagago.com/invite/6-dc4fbf1-dc4fb')}
+                ></img>
               </div>
               <div className={styles.share}>分享</div>
             </div>
             <div className={styles.bgBox}>
               <div className={styles.rewardHead}>
                 <div className={styles.head}>我的奖励</div>
-                <div className={styles.more}>更多</div>
+                <div className={styles.more} onClick={this.onRewardMoreClick.bind(this)}>更多</div>
               </div>
               <div className={styles.line}></div>
               <div className={styles.rewardInfo}>
                 <div className={styles.info}>
                   <div className={styles.infoTitle}>Tỉ lệ phân<br/>chia</div>
-                  <img></img>
+                  <img
+                    className={styles.question}
+                    src={question}
+                    onClick={this.onQuestionClick}
+                  ></img>
                   <div className={styles.infoValue}>10%</div>
                 </div>
                 <div className={styles.info}>
@@ -97,7 +121,7 @@ class Invitation extends PureComponent {
             <div className={styles.bgBox}>
               <div className={styles.rewardHead}>
                 <div className={styles.head}>收益排行</div>
-                <div className={styles.more}>更多</div>
+                <div className={styles.more} onClick={this.onRankMoreClick.bind(this)}>更多</div>
               </div>
               <div className={styles.item}>
                 <img className={styles.rankImg} src={gold}></img>

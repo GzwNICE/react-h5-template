@@ -6,6 +6,8 @@ import Payment from '@/pages/payment';
 import PayList from '@/pages/user/paylist';
 import PayHistory from '@/pages/user/paylist/payhistory';
 import Invitation from '@/pages/user/invitation';
+import Rank from '@/pages/user/invitation/rank';
+import Reward from '@/pages/user/invitation/reward';
 import Feedback from '@/pages/user/feedback';
 import Join from '@/pages/user/join';
 import Setting from '@/pages/user/set';
@@ -106,6 +108,16 @@ export const routes = [
     path: '/invitation',
     exact: true,
     component: Invitation,
+  },
+  {
+    path: '/reward',
+    exact: true,
+    component: Reward,
+  },
+  {
+    path: '/rank',
+    exact: true,
+    component: Rank,
   },
   {
     path: '/feedback',
