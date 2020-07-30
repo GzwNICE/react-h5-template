@@ -56,7 +56,7 @@ class TabBarBox extends PureComponent {
                 <img src={all} alt="" />
               )}
               <span style={{ color: selectedTab === 'commodityPage' ? '#FE5108' : '#AEAEAE' }}>
-                全部商品
+                {intl.get('commodity.allProducts')}
               </span>
             </Link>
           </Flex.Item>

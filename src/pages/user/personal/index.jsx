@@ -49,6 +49,7 @@ class Personal extends PureComponent {
     this.props.history.push(`/editname?title=${intl.get('user.str_idcard_no')}&type=idCard`);
   }
   onImageChangeClick(event) {
+    console.log(event);
     const { updateImage, updateUser } = this.props;
     let formData = new FormData();
     formData.append('type', 'image');

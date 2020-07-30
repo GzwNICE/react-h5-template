@@ -1,40 +1,46 @@
 import React, { PureComponent } from 'react';
-import intl from 'react-intl-universal';
+import { Link } from 'react-router-dom';
 import { Progress } from 'antd-mobile';
-import hotImg from '@/assets/images/label_hot.png';
 import styles from './index.less';
 
 class CategoryCard extends PureComponent {
   render() {
-    // const { data, recommend } = this.props;
+    const { data, idEnd } = this.props;
+    const config = JSON.parse(localStorage.getItem('configuration')) || {};
     return (
       <div className={styles.category}>
-        <div className={styles.content}>
-          <img src={hotImg} alt="" className={styles.productPic} />
-          <div className={styles.productInfo}>
-            <div className={styles.name}>
-              台式惠普（惠普）战66微边框商务电脑商务电脑商务电脑23.8英寸
-            </div>
-            <div className={styles.money}>1 GO币</div>
-            <div className={styles.progressBox}>
-              <Progress
-                percent="90"
-                position="normal"
-                style={{
-                  height: '10px',
-                  borderRadius: '5px',
-                  backgroundColor: '#FBCEBB',
-                  overflow: 'hidden',
-                }}
-                barStyle={{
-                  backgroundColor: 'rgb(255,82,9)',
-                  border: 'none',
-                }}
-              />
-              <div className={styles.num}>90%</div>
+        <Link
+          to={{
+            pathname: `/product/${data.activityTurnId}`,
+          }}
+        >
+          <div className={`${styles.content} ${idEnd ? `${styles.contentNo}` : ''}`}>
+            <img src={data.imgUrl} alt="" className={styles.productPic} />
+            <div className={styles.productInfo}>
+              <div className={styles.name}>{data.productName}</div>
+              <div
+                className={styles.money}
+              >{`${data.participatePrice}${config.moneyVirtualCn}`}</div>
+              <div className={styles.progressBox}>
+                <Progress
+                  percent={data.progressRate}
+                  position="normal"
+                  style={{
+                    height: '10px',
+                    borderRadius: '5px',
+                    backgroundColor: '#FBCEBB',
+                    overflow: 'hidden',
+                  }}
+                  barStyle={{
+                    backgroundColor: 'rgb(255,82,9)',
+                    border: 'none',
+                  }}
+                />
+                <div className={styles.num}>{`${data.progressRate}%`}</div>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
     );
   }
