@@ -79,7 +79,7 @@ class User extends PureComponent {
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const { IPhoneX, isLogin } = this.state;
     return (
-      <div>
+      <div className={styles.userPage}>
         <div className={styles.topBox}>
           <NavBar className={styles.navBar}>{intl.get('user.title')}</NavBar>
           <div className={styles.authorInfo}>
