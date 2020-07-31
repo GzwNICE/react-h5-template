@@ -2,6 +2,8 @@
   width: 100%;
   padding-top: 45PX;
   box-sizing: border-box;
+  overflow: hidden;
+
   .navBar {
     background-color: #FF5209;
     position: fixed;
@@ -10,6 +12,7 @@
     width: 100%;
     z-index: 10;
   }
+
   .noLogin {
     width: 100%;
     height: calc(100vh - 45PX - 50PX);
@@ -19,9 +22,73 @@
     background-color: #f7f7f7;
   }
 
+  .content {
+    width: 100%;
+    position: relative;
+    padding-bottom: 125PX;
+
+    .header {
+      width: 100%;
+      height: 65px;
+      background-color: #ff5209;
+    }
+
+    .list {
+      width: 100%;
+      padding: 0 12px;
+      box-sizing: border-box;
+      margin-top: -60px;
+    }
+
+    .buyGroup {
+      position: fixed;
+      left: 0;
+      bottom: 50PX;
+      width: 100%;
+      height: 65PX;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-sizing: border-box;
+
+      .left {
+        font-size: 14px;
+        font-family: PingFangSC, PingFangSC-Regular;
+        font-weight: 400;
+        text-align: left;
+        color: #333333;
+        line-height: 20px;
+
+        span {
+          color: #FF5209;
+        }
+      }
+
+      .settle {
+        width: 110px;
+        height: 40px;
+        line-height: 40px;
+        background: #ff5209;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+    }
+
+    .buyGroupIPhone {
+      bottom: 64PX;
+    }
+  }
+
+  .contentIPhone {
+    padding-bottom: 135PX;
+  }
+
   .missProd {
     width: 100%;
     padding-bottom: 50PX;
+
     .missBox {
       width: 100%;
       height: 244px;
@@ -29,20 +96,24 @@
       align-items: center;
       justify-content: center;
     }
+
     .recommendBox {
       width: 100%;
       padding: 0 12px 12px;
       box-sizing: border-box;
+
       .title {
         font-size: 14px;
         font-family: PingFangSC, PingFangSC-Regular;
         color: #111111;
       }
+
       .hotItem {
         margin-top: 10px;
       }
     }
   }
+
   .missProdIPhone {
     padding-bottom: 64PX;
   }
@@ -50,6 +121,7 @@
   .noLoginIPhone {
     height: calc(100vh - 45PX - 64PX);
   }
+
   .tBar {
     position: fixed;
     bottom: 0;
@@ -57,6 +129,7 @@
     height: 50PX;
     width: 100%;
   }
+
   .tBarIPhone {
     height: 64PX;
   }

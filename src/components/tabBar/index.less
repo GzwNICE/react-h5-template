@@ -15,6 +15,16 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      position: relative;
+      .badge{
+        position: absolute;
+        top: 4px;
+        left: 50%;
+        transform: translateX(4px);
+      }
+      :global(.am-badge-hot .am-badge-text) {
+        background-color: #FF5209;
+      }
     }
     img{
        width: 22PX;

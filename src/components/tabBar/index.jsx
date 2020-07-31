@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Flex } from 'antd-mobile';
+import { Flex, Badge } from 'antd-mobile';
 import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
 import { push } from 'connected-react-router';
@@ -76,6 +76,7 @@ class TabBarBox extends PureComponent {
               <span style={{ color: selectedTab === 'shoppingCart' ? '#FE5108' : '#AEAEAE' }}>
                 {intl.get('shoppingCart.cart')}
               </span>
+              <Badge text={100} overflowCount={99} hot className={styles.badge} />
             </Link>
           </Flex.Item>
           <Flex.Item className={styles.Item}>
