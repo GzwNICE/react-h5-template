@@ -50,3 +50,7 @@ export async function doGetAboutUs() {
 export async function doGetRewardList(api) {
   return request(`/app/inviter/${api}/record/list`, { method: 'get' });
 }
+
+export async function requestData(params) {
+  return request(params.url, { method: 'get' });
+}

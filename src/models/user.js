@@ -119,6 +119,7 @@ export const user = createModel({
         },
       };
     },
+
     doClearRewardList(state) {
       return {
         ...state,
@@ -203,6 +204,10 @@ export const user = createModel({
     },
     async clearRewardList() {
       dispatch.user.doClearRewardList();
+    },
+    async getData(params) {
+      const response = await userService.requestData(params);
+      return response;
     },
   }),
 });

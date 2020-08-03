@@ -24,6 +24,7 @@ class Invitation extends PureComponent {
     super(props);
     this.state = {
       codeModal: false,
+      ranks: [],
     };
   }
   onRuleClick() {
@@ -48,10 +49,29 @@ class Invitation extends PureComponent {
       codeModal: e,
     });
   }
-  componentDidMount() {}
+  onShareClick() {
+  }
+  componentDidMount() {
+    const { canUse, ranks, shareConfig} = this.props;
+    canUse({ url: '/app/invite/rules/config/use' }).then(res => {
+      this.setState({
+        canUse:res.data.useStatus
+      });
+    });
+    ranks({ url: '/app/inviter/reward/income/rank' }).then(res => {
+      this.setState({
+        ranks:res.data
+      });
+    });
+    shareConfig({ url: '/app/invite/rules/config/info' }).then(res => {
+      this.setState({
+        shareConfig:res.data
+      });
+    });
+  }
   render() {
-    const isEmpty = false;
-    const { codeModal } = this.state;
+    const config = JSON.parse(localStorage.getItem('configuration')) || {};
+    const { codeModal, ranks, shareConfig, canUse } = this.state;
     return (
       <div className={styles.help}>
         <NavBar
@@ -63,7 +83,7 @@ class Invitation extends PureComponent {
         >
           {intl.get('user.invitation')}
         </NavBar>
-        {isEmpty ? (
+        {canUse == 0 ? (
           <Empty />
         ) : (
           <div className={styles.container}>
@@ -91,14 +111,14 @@ class Invitation extends PureComponent {
             <div className={styles.invitationBg}>
         <div className={styles.title}>{intl.get('user.str_my_share_link')}</div>
               <div className={styles.invitationBox}>
-                <div className={styles.invitationLink}>https://vngagago.com/invite/6-dc4fbf1-dc4fb...</div>
+                <div className={styles.invitationLink}>{shareConfig!=null?shareConfig.inviteUrl:''}</div>
                 <img
                   className={styles.copy}
                   src={icCopy}
                   onClick={this.onCopyClick.bind('https://vngagago.com/invite/6-dc4fbf1-dc4fb')}
                 ></img>
               </div>
-              <div className={styles.share}>{intl.get('user.str_share')}</div>
+              <div className={styles.share} onClick={this.onShareClick.bind(this)}>{intl.get('user.str_share')}</div>
             </div>
             <div className={styles.bgBox}>
               <div className={styles.rewardHead}>
@@ -108,21 +128,21 @@ class Invitation extends PureComponent {
               <div className={styles.line}></div>
               <div className={styles.rewardInfo}>
                 <div className={styles.info}>
-                  <div className={styles.infoTitle}>分成比例</div>
+                  <div className={styles.infoTitle}>{intl.get('user.str_proportion_title')}</div>
                   <img
                     className={styles.question}
                     src={question}
                     onClick={this.modalEvent.bind(this, true)}
                   ></img>
-                  <div className={styles.infoValue}>10%</div>
+                  <div className={styles.infoValue}>{shareConfig!=null?shareConfig.rewardRate:''}%</div>
                 </div>
                 <div className={styles.info}>
-                  <div className={styles.infoTitle}>邀请人数</div>
-                  <div className={styles.infoValue}>10</div>
+                  <div className={styles.infoTitle}>{intl.get('user.str_getno')}</div>
+                  <div className={styles.infoValue}>{shareConfig!=null?shareConfig.inviteUserCount:''}</div>
                 </div>
                 <div className={styles.info}>
-                  <div className={styles.infoTitle}>累计go币奖励</div>
-                  <div className={styles.infoValue}>10</div>
+                  <div className={styles.infoTitle}>{intl.get('user.myGoCoin', { moneyVirtualCn: config.moneyVirtualCn })}</div>
+                  <div className={styles.infoValue}>{shareConfig!=null?shareConfig.totalRewardGoMoney:''}</div>
                 </div>
               </div>
             </div>
@@ -133,18 +153,18 @@ class Invitation extends PureComponent {
               </div>
               <div className={styles.item}>
                 <img className={styles.rankImg} src={gold}></img>
-                <div className={styles.rankName}>n***kf</div>
-                <div className={styles.rankAmount}>3219 GO币</div>
+                <div className={styles.rankName}>{ranks[0]!=null?ranks[0].inviterName:''}</div>
+                <div className={styles.rankAmount}>{ranks[0]!=null?ranks[0].cumulativeReward:''} {config.moneyVirtualCn}</div>
               </div>
               <div className={styles.item}>
                 <img className={styles.rankImg} src={silver}></img>
-                <div className={styles.rankName}>n***kf</div>
-                <div className={styles.rankAmount}>3219 GO币</div>
+                <div className={styles.rankName}>{ranks[1]!=null?ranks[1].inviterName:''}</div>
+                <div className={styles.rankAmount}>{ranks[1]!=null?ranks[1].cumulativeReward:''} {config.moneyVirtualCn}</div>
               </div>
               <div className={styles.item}>
                 <img className={styles.rankImg} src={copper}></img>
-                <div className={styles.rankName}>n***kf</div>
-                <div className={styles.rankAmount}>3219 GO币</div>
+                <div className={styles.rankName}>{ranks[2]!=null?ranks[2].inviterName:''}</div>
+                <div className={styles.rankAmount}>{ranks[2]!=null?ranks[2].cumulativeReward:''} {config.moneyVirtualCn}</div>
               </div>
             </div>
           </div>
@@ -169,6 +189,11 @@ class Invitation extends PureComponent {
 
 const mapState = state => ({});
 
-const mapDispatch = dispatch => ({});
+const mapDispatch = dispatch => ({
+  canUse: params => dispatch.user.getData(params),
+  ranks: params => dispatch.user.getData(params),
+  shareConfig: params => dispatch.user.getData(params),
+
+});
 
 export default connect(mapState, mapDispatch)(Invitation);

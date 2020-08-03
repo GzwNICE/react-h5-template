@@ -43,7 +43,7 @@ class History extends PureComponent {
   }
 
   getPageList = () => {
-    const { loadList,type } = this.props;
+    const { refreshList,type } = this.props;
     this.setState(
       {
         page: 1,
@@ -54,7 +54,7 @@ class History extends PureComponent {
           size: this.state.size,
           type: type,
         };
-        loadList(params).then(() => {
+        refreshList(params).then(() => {
           if (this.props.result.data) {
             this.setState({
               dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
@@ -65,7 +65,7 @@ class History extends PureComponent {
     );
   };
   loadPageList = () => {
-    // if (this.props.result.data.length === this.props.result.total) return false;
+    if (this.props.result.data.length === this.props.result.total) return false;
     const { loadList, type } = this.props;
     this.setState(
       {
@@ -107,7 +107,7 @@ class History extends PureComponent {
     const Row = d => {
       return (
         <div>
-          {/* <Item data={d} type={type} /> */}
+          <Item data={d} type={type} />
         </div>
       );
     };
@@ -125,7 +125,7 @@ class History extends PureComponent {
         {result.total == 0 ? (
           <Empty />
         ) : (
-          <div >
+          <div>
               {type == "friend"?(<div className={styles.historyTitle}>
                 <div className={styles.title} style={{ textAlign: 'left' }}>
                 {intl.get('user.str_friend_account')}
@@ -173,7 +173,7 @@ class History extends PureComponent {
                 scrollRenderAheadDistance={100}
                 onEndReachedThreshold={10}
                 scrollEventThrottle={100}
-                initialListSize={1000}
+              initialListSize={1000}
                 pageSize={10}
                 onEndReached={this.loadPageList.bind(this)} // 上啦加载
                 renderFooter={() => (
@@ -194,6 +194,8 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
+  refreshList: params => dispatch.user.getRewardList(params),
+
   loadList: params => dispatch.user.getRewardList(params),
   clearList: params => dispatch.user.clearRewardList(params),
 });
