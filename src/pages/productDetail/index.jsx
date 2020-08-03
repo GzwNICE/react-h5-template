@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
-import { NavBar, Carousel, Progress, NoticeBar, Button, Toast } from 'antd-mobile';
+import { NavBar, Carousel, Progress, Button, Toast, Badge } from 'antd-mobile';
 import { Link } from 'react-router-dom';
 import { format } from '@/utils/util';
 import navBack from '@/assets/images/navBack.png';
@@ -15,6 +15,7 @@ import gift from '@/assets/images/activity_ic_gift.png';
 import remind from '@/assets/images/remind.png';
 import avatar from '@/assets/images/avatar_notlogin.png';
 import winning from '@/assets/images/winning_crown.png';
+import shoppingcart from '@/assets/images/ic_shoppingcart@2x.png';
 import RaffleCode from '@/components/luckyCode';
 import Participants from '@/components/participants';
 import ReceiveAward from '@/components/receive';
@@ -76,7 +77,7 @@ class ProductDetail extends PureComponent {
   }
 
   initDetail = () => {
-    const { getDetail } = this.props;
+    const { getDetail, getConf } = this.props;
     getDetail({ activityTurnId: this.state.activityTurnId }).then(res => {
       if (res.code === 200) {
         this.setState({
@@ -116,6 +117,7 @@ class ProductDetail extends PureComponent {
         if (res.data.ifWin === 'yes' && res.data.orderStatus === 6) {
           this.setState({ visibleReceive: true });
         }
+        getConf();
       }
     });
   };
@@ -187,13 +189,33 @@ class ProductDetail extends PureComponent {
     }
   };
 
+  addCart = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Toast.info(`${intl.get('product.pleaseLogin')}`, 2);
+      setTimeout(() => {
+        this.props.history.push(`/login`);
+      }, 2000);
+      return false;
+    }
+    const { addShop, getConf } = this.props;
+    addShop({
+      activityTurnId: this.state.activityTurnId,
+      buyCount: 1,
+    }).then(res => {
+      if (res.code === 200) {
+        Toast.success('添加成功!', 2);
+        getConf();
+      }
+    });
+  };
+
   goPay = () => {
     this.props.history.push(`/payment`);
   };
 
   newActivity = id => {
     this.props.history.push(`/product/${id}`);
-    console.log('xinid');
     this.initDetail();
   };
 
@@ -255,7 +277,7 @@ class ProductDetail extends PureComponent {
       openM,
       openS,
     } = this.state;
-    const { detail } = this.props;
+    const { detail, homeSys } = this.props;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const winData = {
       img: detail.thumbnailUrl,
@@ -439,11 +461,29 @@ class ProductDetail extends PureComponent {
             : null}
         </div>
         {status && status !== 1 && status !== 7 && status !== 8 && status !== 9 && status !== 10 ? (
-          <div
-            className={`${styles.snapped} ${IPhoneX === 'true' ? `${styles.snappedIPhone}` : null}`}
-            onClick={this.visibleBuy}
-          >
-            {intl.get('product.snapNow')}
+          <div className={styles.snapped}>
+            <div className={styles.cartNum} onClick={() => this.props.history.push('/shopCart')}>
+              <img src={shoppingcart} alt="" />
+              {homeSys && homeSys.shopCarCount > 0 ? (
+                <Badge
+                  text={homeSys.shopCarCount}
+                  overflowCount={99}
+                  hot
+                  className={styles.badge}
+                />
+              ) : null}
+            </div>
+            <div className={styles.buttonGroup}>
+              {detail.cartEnable === 1 ? (
+                <Button className={styles.joinCart} onClick={this.addCart}>加入购物车</Button>
+              ) : null}
+              <Button
+                className={`${styles.joinCart} ${styles.buyButton}`}
+                onClick={this.visibleBuy}
+              >
+                {intl.get('product.snapNow')}
+              </Button>
+            </div>
           </div>
         ) : null}
         <BuyGroup
@@ -504,6 +544,7 @@ class ProductDetail extends PureComponent {
 
 const mapState = state => ({
   detail: state.product.data.detail,
+  homeSys: state.home.data.homeSys,
 });
 
 const mapDispatch = dispatch => ({
@@ -511,6 +552,8 @@ const mapDispatch = dispatch => ({
   getRules: params => dispatch.product.existRules(params),
   getAwardRules: params => dispatch.product.awardRule(params),
   getAwardInfo: params => dispatch.prize.result(params),
+  getConf: params => dispatch.home.fetchConf(params),
+  addShop: params => dispatch.shopCart.addShop(params),
 });
 
 export default connect(mapState, mapDispatch)(ProductDetail);

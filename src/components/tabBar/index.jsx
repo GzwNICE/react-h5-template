@@ -24,8 +24,14 @@ class TabBarBox extends PureComponent {
       IPhoneX: Cookies.get('IPhoneX'),
     };
   }
+
+  componentDidMount() {
+    const { getConf } = this.props;
+    getConf();
+  }
+
   render() {
-    const { selectedTab } = this.props;
+    const { selectedTab, homeSys } = this.props;
     const { IPhoneX } = this.state;
     return (
       <div className={`${styles.tabBox} ${IPhoneX === 'true' ? `${styles.tabBoxIPhone}` : null}`}>
@@ -76,7 +82,14 @@ class TabBarBox extends PureComponent {
               <span style={{ color: selectedTab === 'shoppingCart' ? '#FE5108' : '#AEAEAE' }}>
                 {intl.get('shoppingCart.cart')}
               </span>
-              <Badge text={100} overflowCount={99} hot className={styles.badge} />
+              {homeSys && homeSys.shopCarCount > 0 ? (
+                <Badge
+                  text={homeSys.shopCarCount}
+                  overflowCount={99}
+                  hot
+                  className={styles.badge}
+                />
+              ) : null}
             </Link>
           </Flex.Item>
           <Flex.Item className={styles.Item}>
@@ -100,10 +113,12 @@ class TabBarBox extends PureComponent {
     );
   }
 }
-
-const mapDispatch = dispatch => ({
-  goHome: () => dispatch(push('/home')),
-  goUser: () => dispatch(push('/user')),
+const mapState = state => ({
+  homeSys: state.home.data.homeSys,
 });
 
-export default connect(mapDispatch)(TabBarBox);
+const mapDispatch = dispatch => ({
+  getConf: params => dispatch.home.fetchConf(params),
+});
+
+export default connect(mapState, mapDispatch)(TabBarBox);

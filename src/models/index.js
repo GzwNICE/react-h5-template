@@ -7,5 +7,6 @@ import { payment } from '@/models/payment';
 import { product } from '@/models/product';
 import { prize } from '@/models/prize';
 import { commodity } from '@/models/commodity';
+import { shopCart } from '@/models/shopCart';
 
-export { login, home, user, order, register, product, payment, prize, commodity };
+export { login, home, user, order, register, product, payment, prize, commodity, shopCart };

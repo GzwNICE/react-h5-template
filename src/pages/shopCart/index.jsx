@@ -22,32 +22,47 @@ class ShopCart extends PureComponent {
   }
 
   componentDidMount() {
-    const { getOpenList } = this.props;
-    const params = {
-      page: 1,
-      size: 100,
-    };
-    getOpenList(params).then(() => {
-      Toast.hide();
+    this.initList();
+  }
+
+  delete = id => {
+    const { deleteShop } = this.props;
+    deleteShop([id]).then(res => {
+      if (res.code === 200) {
+        Toast.success('删除成功!', 2);
+        this.initList();
+      }
+    });
+  };
+
+  initList() {
+    const { getOpenList, shopCartList } = this.props;
+    shopCartList({ isReload: 0 }).then(res => {
+      if (res.code === 200 && res.data.length === 0) {
+        const params = {
+          page: 1,
+          size: 100,
+        };
+        getOpenList(params);
+      }
     });
   }
 
   render() {
     const { IPhoneX } = this.state;
-    const { endList } = this.props;
+    const { endList, homeSys, shopList } = this.props;
     const token = localStorage.getItem('token');
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    const list = [1, 2, 3, 4, 5];
     return (
       <div className={styles.shopCart}>
         <NavBar mode="dark" className={styles.navBar}>
-          {list.length
-            ? `${intl.get('shoppingCart.cart')}(${list.length})`
+          {shopList.length && token
+            ? `${intl.get('shoppingCart.cart')}(${homeSys.shopCarCount})`
             : `${intl.get('shoppingCart.cart')}`}
         </NavBar>
         {token ? (
           <div>
-            {list.length ? (
+            {shopList.length ? (
               <div
                 className={`${styles.content} ${
                   IPhoneX === 'true' ? `${styles.contentIPhone}` : null
@@ -55,9 +70,9 @@ class ShopCart extends PureComponent {
               >
                 <div className={styles.header}></div>
                 <div className={styles.list}>
-                  <ShopCardItem />
-                  <ShopCardItem />
-                  <ShopCardItem />
+                  {shopList.map(i => {
+                    return <ShopCardItem key={i.id} data={i} delete={this.delete} />;
+                  })}
                 </div>
                 <div
                   className={`${styles.buyGroup} ${
@@ -67,7 +82,9 @@ class ShopCart extends PureComponent {
                   <div className={styles.left}>
                     共6件商品，需支付: <span>{`6 ${config.moneyVirtualCn}`}</span>
                   </div>
-                  <Button type="primary" className={styles.settle}>去结算</Button>
+                  <Button type="primary" className={styles.settle}>
+                    去结算
+                  </Button>
                 </div>
               </div>
             ) : (
@@ -114,11 +131,14 @@ class ShopCart extends PureComponent {
 
 const mapState = state => ({
   endList: state.home.data.endList,
+  homeSys: state.home.data.homeSys,
+  shopList: state.shopCart.data.shopList,
 });
 
 const mapDispatch = dispatch => ({
-  // getCategory: params => dispatch.commodity.getCategory(params),
+  shopCartList: params => dispatch.shopCart.shopCartList(params),
   getOpenList: params => dispatch.home.fetchGetEndList(params),
+  deleteShop: params => dispatch.shopCart.delete(params),
 });
 
 export default connect(mapState, mapDispatch)(ShopCart);

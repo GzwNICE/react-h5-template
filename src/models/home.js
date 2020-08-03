@@ -26,6 +26,7 @@ export const home = createModel({
       },
       order: null,
       homePop: [],
+      homeSys: {},
     },
   },
   reducers: {
@@ -149,6 +150,15 @@ export const home = createModel({
         },
       };
     },
+    saveConfig(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          homeSys: payload.data,
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async fetchGetWin(payload) {
@@ -184,7 +194,8 @@ export const home = createModel({
       }
     },
     async fetchConf() {
-      await homeService.homeConf();
+      const response = await homeService.homeConf();
+      dispatch.home.saveConfig(response);
     },
     async clearList() {
       dispatch.home.clear();

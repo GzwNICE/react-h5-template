@@ -354,21 +354,56 @@
 
   .snapped {
     width: 100%;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    background: #ff5209;
-    box-shadow: 0px -2px 2px 0px rgba(0,0,0,0.05);
-    font-size: 14px;
-    font-family: PingFangSC-Medium, Arial;
-    font-weight: 500;
-    color: #ffffff;
+    height: 64px;
+    line-height: 64px;
+    background: rgba(255,255,255,0.92);
+    box-shadow: 0px -2px 2px 1px rgba(0,0,0,0.05);
     position: fixed;
     bottom: 0;
     left: 0;
-  }
-  .snappedIPhone {
-    height: 64px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .cartNum {
+      width: 28px;
+      height: 28px;
+      position: relative;
+      img {
+        display: block;
+        width: 100%;
+      }
+      .badge {
+        position: absolute;
+        top: -2px;
+        left: 50%;
+        :global(.am-badge-text) {
+          background-color: #FF5209;
+        }
+      }
+    }
+    .buttonGroup {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .joinCart {
+        padding: 0 25px;
+        height: 40px;
+        line-height: 40px;
+        background: #ff9f0a;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        color: #ffffff;
+        margin-right: 12px;
+      }
+      .buyButton {
+        background: #FF5209;
+        margin-right: 0;
+      }
+    }
   }
   .newActBox {
     width: 100%;

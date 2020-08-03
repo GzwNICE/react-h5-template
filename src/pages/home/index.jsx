@@ -51,11 +51,11 @@ class Home extends PureComponent {
 
   componentDidMount() {
     Toast.loading('Loading...', 0);
-    const { getWin, getBanner, getClass, homeSys, getPromote, getHomePop } = this.props;
+    const { getWin, getBanner, getClass, getPromote, getHomePop } = this.props;
     getBanner().then(() => {
       getWin();
       getClass();
-      homeSys();
+      // homeSys();
       setTimeout(() => {
         Toast.hide();
       }, 800);
