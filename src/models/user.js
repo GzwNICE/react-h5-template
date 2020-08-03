@@ -13,6 +13,10 @@ export const user = createModel({
         data: [],
         total: 0,
       },
+      resultList: {
+        data: [],
+        total: 0,
+      },
     },
   },
   reducers: {
@@ -103,6 +107,30 @@ export const user = createModel({
         },
       };
     },
+    resultRewardList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          resultList: {
+            data: payload.data.rows,
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    doClearRewardList(state) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          resultList: {
+            data: [],
+            total: 0,
+          },
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async getUserInfo(payload) {
@@ -166,8 +194,15 @@ export const user = createModel({
 
     async getAboutUs() {
       const response = await userService.doGetAboutUs();
-      console.log("aboutus",response)
       dispatch.user.resultAboutUs(response);
+    },
+
+    async getRewardList(params) {
+      const response = await userService.doGetRewardList(params.type);
+      dispatch.user.resultRewardList(response);
+    },
+    async clearRewardList() {
+      dispatch.user.doClearRewardList();
     },
   }),
 });

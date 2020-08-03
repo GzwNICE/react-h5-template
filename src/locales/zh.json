@@ -57,7 +57,34 @@
     "str_woman": "女",
     "str_realname_remind": "为了方便后续中奖后的确认，请填写真实姓名哦",
     "str_idcard_remind": "* 领取超过xxx.xx元的奖品需要认证身份证信息。\n* 身份证信息认证后无法修改，请谨慎操作。",
-    "str_input_idcard_no": "请填写身份证号"
+    "str_input_idcard_no": "请填写身份证号",
+
+    "str_has_regist": "已注册",
+    "str_has_income": "已充值",
+    "str_unuse": "已失效",
+    "str_invitation": "邀请中",
+    "str_my_reward": "我的奖励",
+    "str_invited_record": "邀请记录",
+    "str_rewards_record": "奖励记录",
+
+    "str_friend_account": "好友账号",
+    "str_invited_time": "邀请时间",
+    "str_invited_state": "状态",
+    "str_perpaid_time": "充值时间",
+    "str_parpaid_amount": "充值金额",
+    "str_reward_amount": "奖励金额",
+
+    "str_rules":"规则",
+    "str_send_friend":"发送邀请\n给好友",
+    "str_register_finish":"好友注册\n并完成充值 ",
+    "str_get_goin":"获得相应\n奖励比例 ",
+    "str_my_share_link":"我的邀请链接",
+    "str_share":"分享",
+    "str_show_more":"更多",
+    "str_ranking":"收益排行",
+    "str_proportion_dividends":"分成比例说明",
+    "str_proportion_dividends_content":"好友接受邀请注册后，每完成一笔充值，您都会得到相关比例的GO币奖励。",
+    "str_proportion_dividends_remind":"* 奖励的GO币直接会直接打到您的GO币账户中，你可以直接使用GO币兑换礼品卡、话费卡、数码产品等平台中的任意商品，快来行动吧！"
 
 
   },

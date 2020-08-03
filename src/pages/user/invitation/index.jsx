@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
-import { NavBar, Icon, Toast } from 'antd-mobile';
+import { NavBar, Icon, Toast, Modal, Button } from 'antd-mobile';
 import intl from 'react-intl-universal';
 import copy from 'copy-to-clipboard';
 import Empty from '@/components/empty';
@@ -22,6 +22,9 @@ import styles from './index.less';
 class Invitation extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      codeModal: false,
+    };
   }
   onRuleClick() {
     console.log('onRuleClick');
@@ -40,17 +43,22 @@ class Invitation extends PureComponent {
   onRankMoreClick() {
     this.props.history.push(`/rank`);
   }
+  modalEvent(e) {
+    this.setState({
+      codeModal: e,
+    });
+  }
   componentDidMount() {}
   render() {
     const isEmpty = false;
-
+    const { codeModal } = this.state;
     return (
       <div className={styles.help}>
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
           style={{ backgroundColor: '#FF5209' }}
-          rightContent={<div onClick={this.onRuleClick}>规则</div>}
+          rightContent={<div onClick={this.onRuleClick}>{intl.get('user.str_rules')}</div>}
           onLeftClick={() => this.props.history.go(-1)}
         >
           {intl.get('user.invitation')}
@@ -65,23 +73,23 @@ class Invitation extends PureComponent {
                 <div className={styles.ruleBox}>
                   <div className={styles.ruleItem}>
                     <img className={styles.ruleImg} src={send}></img>
-                    <div className={styles.ruleContent}>发送邀请<br/>给好友</div>
+                    <div className={styles.ruleContent}>{intl.get('user.str_send_friend')}</div>
                   </div>
                   <img className={styles.ruleNext} src={direction}></img>
                   <div className={styles.ruleItem}>
                     <img className={styles.ruleImg} src={man}></img>
-                    <div className={styles.ruleContent}>好友注册<br/>并完成充值</div>
+                    <div className={styles.ruleContent}>{intl.get('user.str_register_finish')}</div>
                   </div>
                   <img className={styles.ruleNext} src={direction}></img>
                   <div className={styles.ruleItem}>
                     <img className={styles.ruleImg} src={coin}></img>
-                    <div className={styles.ruleContent}>获得相应<br/>奖励比例</div>
+                    <div className={styles.ruleContent}>{intl.get('user.str_get_goin')}</div>
                   </div>
                 </div>
               </div>
             </div>
             <div className={styles.invitationBg}>
-              <div className={styles.title}>我的邀请链接</div>
+        <div className={styles.title}>{intl.get('user.str_my_share_link')}</div>
               <div className={styles.invitationBox}>
                 <div className={styles.invitationLink}>https://vngagago.com/invite/6-dc4fbf1-dc4fb...</div>
                 <img
@@ -90,38 +98,38 @@ class Invitation extends PureComponent {
                   onClick={this.onCopyClick.bind('https://vngagago.com/invite/6-dc4fbf1-dc4fb')}
                 ></img>
               </div>
-              <div className={styles.share}>分享</div>
+              <div className={styles.share}>{intl.get('user.str_share')}</div>
             </div>
             <div className={styles.bgBox}>
               <div className={styles.rewardHead}>
-                <div className={styles.head}>我的奖励</div>
-                <div className={styles.more} onClick={this.onRewardMoreClick.bind(this)}>更多</div>
+                <div className={styles.head}>{intl.get('user.str_my_reward')}</div>
+                <div className={styles.more} onClick={this.onRewardMoreClick.bind(this)}>{intl.get('user.str_show_more')}</div>
               </div>
               <div className={styles.line}></div>
               <div className={styles.rewardInfo}>
                 <div className={styles.info}>
-                  <div className={styles.infoTitle}>Tỉ lệ phân<br/>chia</div>
+                  <div className={styles.infoTitle}>分成比例</div>
                   <img
                     className={styles.question}
                     src={question}
-                    onClick={this.onQuestionClick}
+                    onClick={this.modalEvent.bind(this, true)}
                   ></img>
                   <div className={styles.infoValue}>10%</div>
                 </div>
                 <div className={styles.info}>
-                  <div className={styles.infoTitle}>Số người<br/>chia sẻ</div>
+                  <div className={styles.infoTitle}>邀请人数</div>
                   <div className={styles.infoValue}>10</div>
                 </div>
                 <div className={styles.info}>
-                  <div className={styles.infoTitle}>Tích luỹ GO xu<br/>thưởng</div>
+                  <div className={styles.infoTitle}>累计go币奖励</div>
                   <div className={styles.infoValue}>10</div>
                 </div>
               </div>
             </div>
             <div className={styles.bgBox}>
               <div className={styles.rewardHead}>
-                <div className={styles.head}>收益排行</div>
-                <div className={styles.more} onClick={this.onRankMoreClick.bind(this)}>更多</div>
+                <div className={styles.head}>{intl.get('user.str_ranking')}</div>
+                <div className={styles.more} onClick={this.onRankMoreClick.bind(this)}>{intl.get('user.str_show_more')}</div>
               </div>
               <div className={styles.item}>
                 <img className={styles.rankImg} src={gold}></img>
@@ -141,6 +149,19 @@ class Invitation extends PureComponent {
             </div>
           </div>
         )}
+
+        <Modal
+          visible={codeModal}
+          transparent
+          maskClosable={false}
+          title={<div className={styles.dialogTitle}>{intl.get('user.str_proportion_dividends')}</div>}
+        >
+          <div className={styles.dialogContent1}>{intl.get('user.str_proportion_dividends_content')}</div>
+          <div className={styles.dialogContent2}>{intl.get('user.str_proportion_dividends_remind')}</div>
+          <Button className={styles.cancel} onClick={this.modalEvent.bind(this, false)}>
+            {intl.get('order.know')}
+          </Button>
+        </Modal>
       </div>
     );
   }

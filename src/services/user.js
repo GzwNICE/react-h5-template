@@ -44,8 +44,9 @@ export async function getHelpCenterItem(params) {
 export async function getHelpDetail(params) {
   return request('/app/help/center/text', { method: 'get', params: params });
 }
-
-
 export async function doGetAboutUs() {
   return request('/home/about/us/get/info', { method: 'get' });
+}
+export async function doGetRewardList(api) {
+  return request(`/app/inviter/${api}/record/list`, { method: 'get' });
 }

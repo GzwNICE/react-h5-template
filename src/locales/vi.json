@@ -59,7 +59,34 @@
     "str_woman": "Nữ",
     "str_realname_remind": "Để tiện cho về sau xác nhận trúng thưởng, vui lòng điền Họ và tên thật",
     "str_idcard_remind": "*Khi nhận sản phẩm thưởng có giá trị cần xác nhận thông tin cá nhân.\n*Thông tin ID không thể được sửa đổi sau khi xác thực, vui lòng tiến hành thận trọng.",
-    "str_input_idcard_no": "Vui lòng điền số chứng minh nhân dân"
+    "str_input_idcard_no": "Vui lòng điền số chứng minh nhân dân",
+
+    "str_has_regist": "Đã đăng ký",
+    "str_has_income": "Đã nạp tiền",
+    "str_unuse": "Đã hết hiệu lực",
+    "str_invitation": "Đang chia sẻ",
+    "str_my_reward": "Thưởng của tôi",
+    "str_invited_record": "Lịch sử",
+    "str_rewards_record": "Lịch sử thưởng",
+    "str_friend_account": "Tài khoản\nbạn bè",
+    "str_invited_time": "Thời gian\ntuyển ref",
+    "str_invited_state": "Trạng thái",
+    "str_perpaid_time": "Thời gian\nnạp tiền",
+    "str_parpaid_amount": "Số tiền\nnạp",
+    "str_reward_amount": "Số tiền\nthưởng",
+
+    "str_rules":"Quy tắc",
+    "str_send_friend":"Chia sẻ",
+    "str_register_finish":"Nạp tiền",
+    "str_get_goin":"Thưởng Go xu ",
+    "str_my_share_link":"Link chia sẻ",
+    "str_share":"Chia sẻ",
+    "str_show_more":"Càng nhiều",
+    "str_ranking":"Xếp hạng thu nhập",
+    "str_proportion_dividends":"Thuyết mình tỉ lên chia",
+    "str_proportion_dividends_content":"Bạn bè đăng ký xong, mỗi một giao dịch thành công, bạn đều có thể nhận được thưởng Tỉ lệ Go xu tương quan.",
+    "str_proportion_dividends_remind":"Thưởng Go xu chuyển trực tiếp vào tài khoản Go xu của bạn, bạn có thể sử dụng Go xu quy đổi thành thẻ quà tặng, thẻ nạp... nhanh tay hành động nào!"
+
   },
   "order": {
     "win": "Đợi xác nhận",
