@@ -82,10 +82,19 @@
     "str_share":"分享",
     "str_show_more":"更多",
     "str_ranking":"收益排行",
+    "str_proportion_title":"分成比例",
+    "str_getno":"邀请人数",
+    "str_total_reward":"累计{moneyVirtualCn}奖励",
     "str_proportion_dividends":"分成比例说明",
     "str_proportion_dividends_content":"好友接受邀请注册后，每完成一笔充值，您都会得到相关比例的GO币奖励。",
-    "str_proportion_dividends_remind":"* 奖励的GO币直接会直接打到您的GO币账户中，你可以直接使用GO币兑换礼品卡、话费卡、数码产品等平台中的任意商品，快来行动吧！"
+    "str_proportion_dividends_remind":"* 奖励的GO币直接会直接打到您的GO币账户中，你可以直接使用GO币兑换礼品卡、话费卡、数码产品等平台中的任意商品，快来行动吧！",
 
+    "str_ranking_title":"排名",
+    "str_inviter_account_number":"邀请人账号",
+    "str_reward":"奖励",
+    "str_rank_me":"我",
+    "str_no_ranking":"暂无排名",
+    "str_total_rewards":"累计奖励"
 
   },
   "order": {

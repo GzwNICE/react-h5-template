@@ -83,10 +83,18 @@
     "str_share":"Chia sẻ",
     "str_show_more":"Càng nhiều",
     "str_ranking":"Xếp hạng thu nhập",
+    "str_proportion_title":"Tỉ lệ phân chia",
+    "str_getno":"Số người chia sẻ",
+    "str_total_reward":"Tích luỹ {moneyVirtualCn} thưởng",
     "str_proportion_dividends":"Thuyết mình tỉ lên chia",
     "str_proportion_dividends_content":"Bạn bè đăng ký xong, mỗi một giao dịch thành công, bạn đều có thể nhận được thưởng Tỉ lệ Go xu tương quan.",
-    "str_proportion_dividends_remind":"Thưởng Go xu chuyển trực tiếp vào tài khoản Go xu của bạn, bạn có thể sử dụng Go xu quy đổi thành thẻ quà tặng, thẻ nạp... nhanh tay hành động nào!"
-
+    "str_proportion_dividends_remind":"Thưởng Go xu chuyển trực tiếp vào tài khoản Go xu của bạn, bạn có thể sử dụng Go xu quy đổi thành thẻ quà tặng, thẻ nạp... nhanh tay hành động nào!",
+    "str_ranking_title":"Xếp hạng",
+    "str_inviter_account_number":"Tài khoản người chia sẻ",
+    "str_reward":"Thưởng",
+    "str_rank_me":"Tôi",
+    "str_no_ranking":"Không có thứ hạng",
+    "str_total_rewards":"Tích luỹ thưởng"
   },
   "order": {
     "win": "Đợi xác nhận",
