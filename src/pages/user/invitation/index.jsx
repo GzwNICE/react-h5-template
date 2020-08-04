@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
 import { NavBar, Icon, Toast, Modal, Button } from 'antd-mobile';
+
 import intl from 'react-intl-universal';
 import copy from 'copy-to-clipboard';
 import Empty from '@/components/empty';
@@ -29,10 +30,10 @@ class Invitation extends PureComponent {
   }
   onRuleClick() {
     console.log('onRuleClick');
+    this.props.history.push(`/rule`);
+
   }
-  onQuestionClick() {
-    console.log('onQuestionClick');
-  }
+
   onCopyClick(copyContent) {
     if (copy(copyContent)) {
       Toast.info(intl.get('order.str_copy_success'), 2);
@@ -50,6 +51,7 @@ class Invitation extends PureComponent {
     });
   }
   onShareClick() {
+    navigator.share({});
   }
   componentDidMount() {
     const { canUse, ranks, shareConfig} = this.props;
@@ -78,7 +80,7 @@ class Invitation extends PureComponent {
           mode="dark"
           icon={<Icon type="left" />}
           style={{ backgroundColor: '#FF5209' }}
-          rightContent={<div onClick={this.onRuleClick}>{intl.get('user.str_rules')}</div>}
+          rightContent={<div onClick={this.onRuleClick.bind(this)}>{intl.get('user.str_rules')}</div>}
           onLeftClick={() => this.props.history.go(-1)}
         >
           {intl.get('user.invitation')}

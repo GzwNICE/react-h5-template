@@ -2,10 +2,11 @@ import homePage from '@/pages/home';
 
 import userPage from '@/pages/user';
 import Payment from '@/pages/payment';
-
+import Evaluation from '@/pages/user/evaluation';
 import PayList from '@/pages/user/paylist';
 import PayHistory from '@/pages/user/paylist/payhistory';
 import Invitation from '@/pages/user/invitation';
+import Rule from '@/pages/user/invitation/rule';
 import Rank from '@/pages/user/invitation/rank';
 import Reward from '@/pages/user/invitation/reward';
 import Feedback from '@/pages/user/feedback';
@@ -66,6 +67,11 @@ export const routes = [
     component: userPage,
   },
   {
+    path: '/evaluation',
+    exact: true,
+    component: Evaluation,
+  },
+  {
     path: '/login',
     exact: true,
     component: loginPage,
@@ -119,6 +125,11 @@ export const routes = [
     path: '/invitation',
     exact: true,
     component: Invitation,
+  },
+  {
+    path: '/rule',
+    exact: true,
+    component: Rule,
   },
   {
     path: '/reward',

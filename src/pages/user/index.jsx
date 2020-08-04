@@ -11,6 +11,8 @@ import goin_arrow from '@/assets/images/personal_ic_arrow@2x.png';
 import wait from '@/assets/images/ic_waiting.png';
 import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
+import evaluation from '@/assets/images/ic_evaluation.png';
+
 import invitation from '@/assets/images/ic_invitation.png';
 
 import join from '@/assets/images/ic_join.png';
@@ -67,6 +69,7 @@ class User extends PureComponent {
       { label: intl.get('user.wait_open'), icon: wait, type: 1 },
       { label: intl.get('user.winning'), icon: win, type: 2 },
       { label: intl.get('user.nowin'), icon: nowin, type: 3 },
+      { label: '晒单', icon: evaluation, type: 4 },
     ];
     const tabServer = [
       { label: intl.get('user.invitation'), icon: invitation, type: 'invitation' },
@@ -128,11 +131,15 @@ class User extends PureComponent {
             <div className={styles.myorder}>{intl.get('user.myorder')}</div>
             <Grid
               data={tabs}
-              columnNum={3}
+              columnNum={4}
               hasLine={false}
               onClick={_el => {
                 if (isLogin) {
-                  this.props.history.push(`/order?label=${_el.label}&type=${_el.type}`);
+                  if (_el.type == '4') {
+                    this.props.history.push(`/evaluation`);
+                  } else {
+                    this.props.history.push(`/order?label=${_el.label}&type=${_el.type}`);
+                  }
                 } else {
                   this.props.history.push(`/login`);
                 }

@@ -36,7 +36,6 @@ class Rank extends PureComponent {
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const {ranks,myRank} = this.state
     const { user } = this.props;
-    console.log("user",user)
     return (
       <div>
         <NavBar
@@ -112,9 +111,7 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   ranks: params => dispatch.user.getData(params),
   myRank: params => dispatch.user.getData(params),
-  userInfo: params => dispatch.user.getUserInfo(params),
-
-  clearList: params => dispatch.user.clearRewardList(params),
+  userInfo: params => dispatch.user.getUserInfo(params)
 });
 
 export default connect(mapState, mapDispatch)(Rank);
