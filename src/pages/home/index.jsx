@@ -307,6 +307,7 @@ class Home extends PureComponent {
           transparent
           maskClosable={false}
           style={{ width: '322px', height: '430px' }}
+          className={styles.homePop}
         >
           <div className={styles.modalContent}>
             <img

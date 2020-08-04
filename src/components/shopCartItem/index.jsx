@@ -8,6 +8,10 @@ class ShopCardItem extends PureComponent {
     this.props.delete(id);
   }
 
+  handleStepClick = data => {
+    this.props.changeCount(data);
+  };
+
   render() {
     const { data } = this.props;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
@@ -19,16 +23,18 @@ class ShopCardItem extends PureComponent {
           <span className={styles.prodName}>{`第${data.turnCount}轮 ${data.productName}`}</span>
           <div className={styles.second}>
             <span className={styles.money}>
-              <span>{`${data.price} ${config.moneyVirtualCn}`}</span>/人次
+              <span>{`${data.price} ${config.moneyVirtualCn}`}</span>/奖券
             </span>
-            <Stepper
+            <div
               className={styles.step}
-              showNumber
-              max={data.laveCount}
-              min={1}
-              value={data.buyCount}
-              // onChange={this.onChange}
-            />
+              onClick={() =>
+                this.handleStepClick({ id: data.id, buyCount: data.buyCount, max: data.laveCount })
+              }
+            >
+              <span className={styles.left1}>-</span>
+              <span className={styles.center}>{data.buyCount}</span>
+              <span>+</span>
+            </div>
           </div>
           <div className={styles.last}>
             <Progress
@@ -38,7 +44,7 @@ class ShopCardItem extends PureComponent {
               className={styles.progress}
               barStyle={{ backgroundColor: '#ff5209', border: 'none' }}
             />
-            <span className={styles.num}>{`剩余 ${data.laveCount} 人次`}</span>
+            <span className={styles.num}>{`剩余 ${data.laveCount} 奖券`}</span>
           </div>
         </div>
       </div>
