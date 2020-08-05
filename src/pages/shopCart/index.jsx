@@ -89,23 +89,15 @@ class ShopCart extends PureComponent {
       num += i.buyCount;
     });
     cartPay(arr).then(res => {
-      if (res.code === 200) {
-        this.setState({
-          payData: {
-            idList: res.data.idList,
-            go: this.state.payGo,
-            num,
-            status: res.code,
-          },
-        });
-        this.visibleBuy();
-      } else {
-        this.setState({
-          payData: {
-            status: res.code,
-          },
-        });
-      }
+      this.setState({
+        payData: {
+          idList: res.data.idList,
+          go: this.state.payGo,
+          num,
+          status: res.code,
+        },
+      });
+      this.visibleBuy();
     });
   };
 
@@ -245,7 +237,9 @@ class ShopCart extends PureComponent {
                       <Button className={styles.cancel} onClick={this.closeModal}>
                         取消
                       </Button>
-                      <Button className={styles.determine} onClick={this.determineCount}>确定</Button>
+                      <Button className={styles.determine} onClick={this.determineCount}>
+                        确定
+                      </Button>
                     </div>
                   </div>
                 </Modal>

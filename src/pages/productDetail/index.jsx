@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
-import { NavBar, Carousel, Progress, Button, Toast, Badge } from 'antd-mobile';
+import { NavBar, Carousel, Progress, Button, Toast, Badge, Icon } from 'antd-mobile';
 import { Link } from 'react-router-dom';
 import { format } from '@/utils/util';
 import navBack from '@/assets/images/navBack.png';
@@ -20,6 +20,7 @@ import RaffleCode from '@/components/luckyCode';
 import Participants from '@/components/participants';
 import ReceiveAward from '@/components/receive';
 import BuyGroup from '@/components/buyGroup';
+import ShowCard from '@/components/showCard';
 import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
@@ -450,6 +451,15 @@ class ProductDetail extends PureComponent {
           <div className={styles.sweepstakes} onClick={this.viewLottery('visiblePartic')}>
             {intl.get('product.drawStaff')}
           </div>
+        </div>
+        <div className={styles.postDetail}>
+          <div className={styles.topTel}>
+            <span className={styles.h3tle}>用户晒单（21）</span>
+            <span className={styles.lockAll} onClick={() => this.props.history.push('/single')}>
+              查看全部 <Icon type="right" color="#ff5100" />
+            </span>
+          </div>
+          <ShowCard />
         </div>
         <div className={styles.shopDetail}>
           <h3 className={styles.h3tle}>{intl.get('product.productDetails')}</h3>

@@ -38,6 +38,8 @@ import Exchange from '@/pages/exchange';
 import ChangeResult from '@/pages/changeResult';
 import CommodityPage from '@/pages/commodity';
 import ShopCart from '@/pages/shopCart';
+import SingleRecord from '@/pages/singleRecord';
+
 // import { Route } from 'react-router-dom';
 
 export const routes = [
@@ -226,5 +228,10 @@ export const routes = [
     path: '/changeResult',
     exact: true,
     component: ChangeResult,
+  },
+  {
+    path: '/single',
+    exact: true,
+    component: SingleRecord,
   },
 ];

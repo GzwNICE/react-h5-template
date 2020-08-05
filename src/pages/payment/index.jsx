@@ -56,12 +56,14 @@ class Payment extends PureComponent {
 
   onLeftClick = () => {
     alert(' ', `${intl.get('payment.areYouSure')}`, [
-      { text: `${intl.get('payment.carryOon')}`,
+      {
+        text: `${intl.get('payment.carryOon')}`,
         onPress: () => {
           this.props.history.go(-1);
-        }, },
+        },
+      },
       {
-        text: `${intl.get('password.cancel')}`
+        text: `${intl.get('password.cancel')}`,
       },
     ]);
   };
@@ -80,7 +82,9 @@ class Payment extends PureComponent {
           {intl.get('payment.topUp')}
         </NavBar>
         <div style={{ backgroundColor: '#ffffff' }}>
-          <div className={styles.topGo}>{intl.get('payment.selectAmount',{ moneyVirtualCn: config.moneyVirtualCn })}</div>
+          <div className={styles.topGo}>
+            {intl.get('payment.selectAmount', { moneyVirtualCn: config.moneyVirtualCn })}
+          </div>
           <div className={styles.radioRows}>
             {topUpList.map(i => (
               <div
@@ -131,12 +135,19 @@ class Payment extends PureComponent {
             className={`${styles.radio} ${payType === '1' ? `${styles.radioSleet}` : null}`}
           ></span>
         </div>
+        <div className={styles.payType} onClick={() => this.onChangePay('2')}>
+          <img className={styles.momoImg} src={momo}></img>
+          <div className={styles.name}>Payoo</div>
+          <span
+            className={`${styles.radio} ${payType === '2' ? `${styles.radioSleet}` : null}`}
+          ></span>
+        </div>
         <div className={styles.payTypeTitle}>{intl.get('payment.userNotice')}</div>
         <div style={{ backgroundColor: '#fff' }}>
           <div className={styles.content}>
-            {intl.get('payment.not1',{ moneyVirtualCn: config.moneyVirtualCn } )}
-            <br /> {intl.get('payment.not2',{ moneyVirtualCn: config.moneyVirtualCn })}
-            <br /> {intl.get('payment.not3',{ moneyVirtualCn: config.moneyVirtualCn })}
+            {intl.get('payment.not1', { moneyVirtualCn: config.moneyVirtualCn })}
+            <br /> {intl.get('payment.not2', { moneyVirtualCn: config.moneyVirtualCn })}
+            <br /> {intl.get('payment.not3', { moneyVirtualCn: config.moneyVirtualCn })}
           </div>
         </div>
         <Button className={styles.submit} onClick={this.handlePay}>
