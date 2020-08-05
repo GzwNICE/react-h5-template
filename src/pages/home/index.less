@@ -140,31 +140,34 @@
   }
 
 }
-:global(.am-modal-transparent .am-modal-content) {
-  padding-top: 0;
-  overflow: initial;
-}
-:global(.am-modal-transparent .am-modal-content .am-modal-body) {
-  padding: 0;
-}
-.modalContent {
-  width: 100%;
-  height: 100%;
-  img {
-    display: block;
-    height: 100%;
+.homePop {
+  :global(.am-modal-content) {
+    padding-top: 0 !important;
+    overflow: initial !important;
+  }
+  :global(.am-modal-body) {
+    padding: 0 !important;
+  }
+  .modalContent {
     width: 100%;
-    border-radius: 7px;
-  }
-  .close {
-    position: absolute;
-    left: 50%;
-    bottom: -52px;
-    color: #fff;
-    transform: translateX(-50%);
-  }
-  :global(.am-icon-md) {
-    width: 26px;
-    height: 26px;
+    height: 100%;
+    img {
+      display: block;
+      height: 100%;
+      width: 100%;
+      border-radius: 7px;
+    }
+    .close {
+      position: absolute;
+      left: 50%;
+      bottom: -52px;
+      color: #fff;
+      transform: translateX(-50%);
+    }
+    :global(.am-icon-md) {
+      width: 26px;
+      height: 26px;
+    }
   }
 }
+

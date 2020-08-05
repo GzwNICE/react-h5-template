@@ -81,6 +81,7 @@
     }
   }
 
+
   .contentIPhone {
     padding-bottom: 135PX;
   }
@@ -132,5 +133,51 @@
 
   .tBarIPhone {
     height: 64PX;
+  }
+
+}
+
+.countModal {
+  :global(.am-modal-title) {
+    font-size: 14px;
+    color: #333333 !important;
+  }
+
+  .countContent {
+    padding-top: 10px;
+    box-sizing: border-box;
+
+    .butGroup {
+      width: 100%;
+      margin: 20px 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-sizing: border-box;
+
+      .cancel {
+        background: #ffffff;
+        border: 1px solid #cbcbcb;
+        border-radius: 8px;
+        font-size: 14px;
+        text-align: center;
+        height: 38px;
+        line-height: 38px;
+        margin-right: 12px;
+        flex: 1;
+      }
+
+      .determine {
+        background: #ff5209;
+        border-radius: 8px;
+        font-size: 14px;
+        text-align: center;
+        color: #ffffff;
+        height: 38px;
+        line-height: 38px;
+        flex: 1;
+      }
+    }
   }
 }

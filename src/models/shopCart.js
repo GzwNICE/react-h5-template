@@ -33,5 +33,13 @@ export const shopCart = createModel({
       const response = await shopCartService.delShop(payload);
       return response;
     },
+    async cartPay(payload) {
+      const response = await shopCartService.carPay(payload);
+      return response;
+    },
+    async changeCount(payload) {
+      const response = await shopCartService.buyCount(payload);
+      return response;
+    },
   }),
 });
