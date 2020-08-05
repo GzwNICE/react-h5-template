@@ -1,8 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 // 我的订单列表
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import History from '@/pages/user/invitation/reward/history';
+import NoShow from '@/pages/user/evaluation/noShow';
+import Showing from '@/pages/user/evaluation/showing';
+
 import intl from 'react-intl-universal';
 import { NavBar, Icon, Tabs } from 'antd-mobile';
 import styles from './index.less';
@@ -12,10 +13,14 @@ class Reward extends PureComponent {
   constructor(props) {
     super(props);
     tabs = [
-      { title: '未晒单' },
-      { title: '已晒单' },
+      { title: intl.get('user.str_me_unbask_single') },
+      { title: intl.get('user.str_me_hasbask_single') },
     ];
   }
+
+  handlerPush = url => {
+    this.props.history.push(url);
+  };
   render() {
     return (
       <div className={styles.order}>
@@ -25,7 +30,7 @@ class Reward extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
-          我的晒单
+          {intl.get('user.str_me_bask_single')}
         </NavBar>
         <Tabs
           tabs={tabs}
@@ -39,18 +44,13 @@ class Reward extends PureComponent {
           }}
           tabBarInactiveTextColor="#333333"
         >
-          <History type="wait" />
-          <History type="owner" />
+          <NoShow type="wait" push={this.handlerPush} />
+          <Showing type="owner" push={this.handlerPush} />
         </Tabs>
       </div>
     );
   }
 }
 
-const mapState = state => ({
-});
 
-const mapDispatch = dispatch => ({
-});
-
-export default connect(mapState, mapDispatch)(Reward);
+export default Reward;

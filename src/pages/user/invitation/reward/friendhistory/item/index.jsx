@@ -17,10 +17,9 @@ class RewardItem extends PureComponent {
       } else if (data.status === '3') {
         friendStatus = intl.get('user.str_invitation');
       } 
-    const { data, type } = this.props;
+    const { data } = this.props;
     return (
         <div>
-        {type == 'friend' ? (
           <div className={styles.historyTitle}>
             <div className={styles.title} style={{ textAlign: 'left' }}>
               {data.friendName}
@@ -32,22 +31,7 @@ class RewardItem extends PureComponent {
               {friendStatus}
             </div>
           </div>
-        ) : (
-          <div className={styles.historyTitle}>
-         <div className={styles.title} style={{ textAlign: 'left' }}>
-             {data.friendName}
-         </div>
-         <div className={styles.title} style={{ textAlign: 'left' }}>
-           {moment(data.rechargeDate).format('DD/MM HH:mm')}
-         </div>
-         <div className={styles.title} style={{ textAlign: 'left' }}>
-            {data.rechargeFee}
-        </div>
-          <div className={styles.title} style={{ textAlign: 'right' }}>
-           {data.rewardGoMoney}
-         </div>
-          </div>
-        )}
+       
       </div>
     );
   }

@@ -3,6 +3,9 @@ import homePage from '@/pages/home';
 import userPage from '@/pages/user';
 import Payment from '@/pages/payment';
 import Evaluation from '@/pages/user/evaluation';
+import AddShow from '@/pages/user/evaluation/addShow';
+import EditShow from '@/pages/user/evaluation/editShow';
+
 import PayList from '@/pages/user/paylist';
 import PayHistory from '@/pages/user/paylist/payhistory';
 import Invitation from '@/pages/user/invitation';
@@ -70,6 +73,16 @@ export const routes = [
     path: '/evaluation',
     exact: true,
     component: Evaluation,
+  },
+  {
+    path: '/addShow/:activityTurnId',
+    exact: true,
+    component: AddShow,
+  },
+  {
+    path: '/editShow/:id',
+    exact: true,
+    component: EditShow,
   },
   {
     path: '/login',

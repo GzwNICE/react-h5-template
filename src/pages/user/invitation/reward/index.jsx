@@ -2,7 +2,9 @@
 // 我的订单列表
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import History from '@/pages/user/invitation/reward/history';
+import FriendHistory from '@/pages/user/invitation/reward/friendhistory';
+import RewardHistory from '@/pages/user/invitation/reward/rewardHistory';
+
 import intl from 'react-intl-universal';
 import { NavBar, Icon, Tabs } from 'antd-mobile';
 import styles from './index.less';
@@ -39,8 +41,8 @@ class Reward extends PureComponent {
           }}
           tabBarInactiveTextColor="#333333"
         >
-          <History type="friend" />
-          <History type="reward" />
+          <FriendHistory  />
+          <RewardHistory  />
         </Tabs>
       </div>
     );

@@ -94,7 +94,13 @@
     "str_reward":"奖励",
     "str_rank_me":"我",
     "str_no_ranking":"暂无排名",
-    "str_total_rewards":"累计奖励"
+    "str_total_rewards":"累计奖励",
+
+    "str_me_bask_single":"我的晒单",
+    "str_me_unbask_single":"未晒单",
+    "str_me_hasbask_single":"已晒单",
+    "str_goshow":"去晒单"
+
 
   },
   "order": {

@@ -5,8 +5,8 @@ import { NavBar, Icon, TextareaItem, ImagePicker, Button, Toast } from 'antd-mob
 import intl from 'react-intl-universal';
 
 import styles from './index.less';
-
-class FeedBack extends PureComponent {
+let imgList = [];
+class Show extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,6 +14,18 @@ class FeedBack extends PureComponent {
     };
   }
   componentDidMount() {
+    const { showOrderInfo } = this.props;
+    const id = this.props.match.params.id;
+    showOrderInfo({ url: `/app/order/show/info?id=${id}` }).then(e => {
+      e.data.imgList.map(i => {
+        imgList.push(i.id);
+      });
+      console.log("imgList",imgList)
+      this.setState({
+        files: e.data.imgList,
+        content: e.data.content,
+      });
+    });
     this.setState({
       isEmpty: true,
       content: '',
@@ -22,9 +34,9 @@ class FeedBack extends PureComponent {
   componentWillUnmount() {
     const { clearImage } = this.props;
     clearImage();
+    imgList=[];
   }
   onImageChange = (files, type, index) => {
-    console.log(files, type, index);
     const { updateImage, removeImage } = this.props;
     this.setState({
       files,
@@ -33,7 +45,7 @@ class FeedBack extends PureComponent {
     formData.append('type', 'image');
     formData.append('timeLimit', 'longPeriod');
     formData.append('multipartFile', files[files.length - 1].file);
-    formData.append('attributeName', 'feedback');
+    formData.append('attributeName', 'orderShow');
     if (type == 'add') {
       updateImage(formData);
     } else {
@@ -47,13 +59,27 @@ class FeedBack extends PureComponent {
     });
   };
   submitMsg() {
-    const { addMessage, imageIds } = this.props;
-    addMessage({
-      feedbackContent: this.state.content,
-      imgIds: imageIds,
-      url: '/app/v1/user/feedback',
-    }).then(() => {
-      Toast.info(intl.get('user.str_thank_feedback'), 2);
+    const { submitData, imageIds } = this.props;
+    let imgIds = '';
+    imgList.map(i => {
+      imageIds.push(i);
+    });
+    imageIds.map((i, _index) => {
+      imgIds +=i;
+      if(_index != imageIds.length-1){
+        imgIds +=","
+      }
+    });
+
+    submitData({
+      content: this.state.content,
+      imgIds: imgIds,
+      orderType: 0,
+      id: this.props.match.params.id,
+      url: '/app/order/show/update',
+    }).then(e => {
+      console.log("respmse",e)
+
       this.props.history.go(-1);
     });
   }
@@ -68,7 +94,7 @@ class FeedBack extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
-          {intl.get('user.feedback')}
+          晒单
         </NavBar>
         <TextareaItem
           placeholder={intl.get('user.str_welocme_feedback')}
@@ -89,7 +115,7 @@ class FeedBack extends PureComponent {
             accept="image/gif,image/jpeg,image/jpg,image/png"
           />
         </div>
-        <Button disabled={isEmpty} className={styles.submit} onClick={this.submitMsg.bind(this)}>
+        <Button disabled={isEmpty} className={styles.submitBtn} onClick={this.submitMsg.bind(this)}>
           {intl.get('user.submit')}
         </Button>
       </div>
@@ -103,9 +129,10 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   updateImage: params => dispatch.user.requestUpdateImage(params),
-  addMessage: params => dispatch.user.submitData(params),
+  submitData: params => dispatch.user.submitData(params),
   removeImage: params => dispatch.user.removeImage(params),
+  showOrderInfo: params => dispatch.user.getData(params),
   clearImage: params => dispatch.user.clearImage(params),
 });
 
-export default connect(mapState, mapDispatch)(FeedBack);
+export default connect(mapState, mapDispatch)(Show);

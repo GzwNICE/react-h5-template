@@ -23,7 +23,6 @@ class Win extends PureComponent {
   render() {
     const { data, push } = this.props;
     const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
-
     let orderStatus = '';
     let colorStatus = '';
     if (data.status === 'NO_CONFIRM') {
@@ -87,6 +86,15 @@ class Win extends PureComponent {
               {data.status === 'WIN' ? (
                 <div className={styles.btn} onClick={this.onDetailClick.bind(this, data.activityTurnId)}>
                   {intl.get('order.str_go_confirm')}
+                </div>
+              ) : null}
+              {(data.status === 'PROVIDED' && data.productType === 'SUBSTANCE') ||
+              (data.status === 'PROVIDED' && data.productType === 'VIRTUAL') ||
+              (data.status === 'PROVIDED' && data.productType === 'COIN') ||
+              data.status === 'COIN_RECYCLE' ||
+              data.status === 'CASHED' ? (
+                <div className={styles.btn} onClick={this.onShowClick.bind(this, data.activityTurnNumber)}>
+                   {intl.get('user.str_goshow')}
                 </div>
               ) : null}
             </div>
@@ -186,7 +194,10 @@ class Win extends PureComponent {
       }
     });
   };
-
+  onShowClick(activityTurnNum, e) {
+    e.stopPropagation();
+    this.props.push(`/addShow/${activityTurnNum}`);
+  }
   onCopyClick(copyContent, e) {
     e.stopPropagation();
     if (copy(copyContent)) {

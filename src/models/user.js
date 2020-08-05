@@ -13,10 +13,23 @@ export const user = createModel({
         data: [],
         total: 0,
       },
-      resultList: {
+      resultShowingList: {
         data: [],
         total: 0,
       },
+      resultNoShowList: {
+        data: [],
+        total: 0,
+      },
+      resultFriendList: {
+        data: [],
+        total: 0,
+      },
+      resultRewardList: {
+        data: [],
+        total: 0,
+      },
+      resultData: {},
     },
   },
   reducers: {
@@ -98,34 +111,129 @@ export const user = createModel({
         },
       };
     },
-    resultAboutUs(state, payload) {
+    resultData(state, payload) {
       return {
         ...state,
         data: {
           ...state.data,
-          aboutUs: payload.data,
+          resultData: payload.data,
         },
       };
     },
-    resultRewardList(state, payload) {
+    refreshFriendList(state, payload) {
       return {
         ...state,
         data: {
           ...state.data,
-          resultList: {
+          resultFriendList: {
             data: payload.data.rows,
             total: payload.data.total,
           },
         },
       };
     },
-
-    doClearRewardList(state) {
+    loadFriendList(state, payload) {
       return {
         ...state,
         data: {
           ...state.data,
-          resultList: {
+          resultFriendList: {
+            data: state.data.resultFriendList.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    refreshRewardList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          resultRewardList: {
+            data: payload.data.rows,
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    loadRewardList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          resultRewardList: {
+            data: state.data.resultRewardList.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    refreshShowingList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          resultShowingList: {
+            data: payload.data.rows,
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    loadShowingList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          resultShowingList: {
+            data: state.data.resultShowingList.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    refreshNoShowList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          resultNoShowList: {
+            data: payload.data.rows,
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    loadNoShowList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          resultNoShowList: {
+            data: state.data.resultNoShowList.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    doClearList(state) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          resultShowingList: {
+            data: [],
+            total: 0,
+          },
+          resultNoShowList: {
+            data: [],
+            total: 0,
+          },
+          resultFriendList: {
+            data: [],
+            total: 0,
+          },
+          resultRewardList: {
             data: [],
             total: 0,
           },
@@ -157,8 +265,8 @@ export const user = createModel({
     async clearImage(payload) {
       dispatch.user.clearImageInfo(payload);
     },
-    async requestAddMessage(payload) {
-      const response = await userService.doAddMessage(payload);
+    async submitData(payload) {
+      const response = await userService.postData(payload);
       return response;
     },
     async requestSaveAddress(payload) {
@@ -193,17 +301,45 @@ export const user = createModel({
       return response;
     },
 
-    async getAboutUs() {
-      const response = await userService.doGetAboutUs();
-      dispatch.user.resultAboutUs(response);
+    async getAboutUs(params) {
+      const response = await userService.requestData(params);
+      dispatch.user.resultData(response);
     },
-
+    async getFriendList(params) {
+      const response = await userService.requestData(params);
+      console.log("respossssnse",response)
+      if (params.isRefresh) {
+        dispatch.user.refreshFriendList(response);
+      } else {
+        dispatch.user.loadFriendList(response);
+      }
+    },
     async getRewardList(params) {
-      const response = await userService.doGetRewardList(params.type);
-      dispatch.user.resultRewardList(response);
+      const response = await userService.requestData(params);
+      if (params.isRefresh) {
+        dispatch.user.refreshRewardList(response);
+      } else {
+        dispatch.user.loadRewardList(response);
+      }
     },
-    async clearRewardList() {
-      dispatch.user.doClearRewardList();
+    async getShowingList(params) {
+      const response = await userService.requestData(params);
+      if (params.isRefresh) {
+        dispatch.user.refreshShowingList(response);
+      } else {
+        dispatch.user.loadShowingList(response);
+      }
+    },
+    async getNoShowList(params) {
+      const response = await userService.requestData(params);
+      if (params.isRefresh) {
+        dispatch.user.refreshNoShowList(response);
+      } else {
+        dispatch.user.loadNoShowList(response);
+      }
+    },
+    async clearList() {
+      dispatch.user.doClearList();
     },
     async getData(params) {
       const response = await userService.requestData(params);

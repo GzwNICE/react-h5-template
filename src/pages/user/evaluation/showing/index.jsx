@@ -4,12 +4,14 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import Empty from '@/components/empty';
 import intl from 'react-intl-universal';
-import Item from '@/pages/user/invitation/reward/history/item';
-
+import Item from '@/pages/user/evaluation/showing/item';
 import { ListView } from 'antd-mobile';
 import styles from './index.less';
 
-class History extends PureComponent {
+let page = 0;
+let size = 10;
+
+class Showing extends PureComponent {
   constructor(props) {
     super(props);
     const dataSource = new ListView.DataSource({
@@ -17,11 +19,9 @@ class History extends PureComponent {
     });
     this.state = {
       dataSource,
-      page: 0,
-      size: 10,
       isLoading: true,
       useBodyScroll: false,
-      height: document.documentElement.clientHeight - 500,
+      height: document.documentElement.clientHeight - 50,
     };
   }
   componentDidUpdate() {
@@ -33,7 +33,7 @@ class History extends PureComponent {
   }
   componentDidMount() {
     window.addEventListener('scroll', this.bindHandleScroll);
-    this.getPageList();
+    this.refreshList();
   }
   //在componentWillUnmount，进行scroll事件的注销
   componentWillUnmount() {
@@ -42,50 +42,40 @@ class History extends PureComponent {
     document.body.style.overflow = 'auto';
   }
 
-  getPageList = () => {
-    const { refreshList,type } = this.props;
-    this.setState(
-      {
-        page: 1,
-      },
-      () => {
-        const params = {
-          page: this.state.page,
-          size: this.state.size,
-          type: type,
-        };
-        refreshList(params).then(() => {
-          if (this.props.result.data) {
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
-            });
-          }
+  refreshList = () => {
+    const { getShowingList, type} = this.props;
+    page = 1;
+    const params = {
+      page: page,
+      size: size,
+      isRefresh: true,
+      url: `/app/order/show/${type}/list`,
+    };
+    getShowingList(params).then(() => {
+      if (this.props.result.data) {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
         });
       }
-    );
+    });
   };
   loadPageList = () => {
     if (this.props.result.data.length === this.props.result.total) return false;
-    const { loadList, type } = this.props;
-    this.setState(
-      {
-        page: this.state.page + 1,
-      },
-      () => {
-        const params = {
-          page: this.state.page,
-          size: this.state.size,
-          type: type,
-        };
-        loadList(params).then(() => {
-          if (this.props.result.data) {
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
-            });
-          }
+    const { getShowingList, type } = this.props;
+    page = page + 1;
+    const params = {
+      page: page,
+      size: size,
+      isRefresh: false,
+      url: `/app/order/show/${type}/list`,
+    };
+    getShowingList(params).then(() => {
+      if (this.props.result.data) {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
         });
       }
-    );
+    });
   };
   componentWillReceiveProps(nextPorps) {
     // console.log(nextPorps.orderList);
@@ -102,12 +92,12 @@ class History extends PureComponent {
     }
   }
   render() {
-    const { result, type } = this.props;
+    const { result, push } = this.props;
     const { isLoading } = this.state;
     const Row = d => {
       return (
         <div>
-          <Item data={d} type={type} />
+          <Item data={d} push={push} />
         </div>
       );
     };
@@ -122,7 +112,7 @@ class History extends PureComponent {
     );
     return (
       <div>
-        {result.total == 0 ? (
+        {result.total === 0 ? (
           <Empty />
         ) : (
             <ListView
@@ -162,13 +152,12 @@ class History extends PureComponent {
 }
 
 const mapState = state => ({
-  result: state.user.data.resultList,
+  result: state.user.data.resultShowingList,
 });
 
 const mapDispatch = dispatch => ({
-  refreshList: params => dispatch.user.getRewardList(params),
-  loadList: params => dispatch.user.getRewardList(params),
-  clearList: params => dispatch.user.clearRewardList(params),
+  getShowingList: params => dispatch.user.getShowingList(params),
+  clearList: params => dispatch.user.clearList(params),
 });
 
-export default connect(mapState, mapDispatch)(History);
+export default connect(mapState, mapDispatch)(Showing);

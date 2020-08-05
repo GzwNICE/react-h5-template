@@ -11,13 +11,12 @@ class Setting extends PureComponent {
     super(props);
   }
   componentDidMount() {
-    const { requestAboutUs } = this.props;
-    requestAboutUs();
+    const { requestData } = this.props;
+    requestData({ url: '/home/about/us/get/info' });
   }
 
   render() {
-    const { aboutUs } = this.props;
-
+    const { resultData } = this.props;
     return (
       <div className={styles.contentBox}>
         <NavBar
@@ -29,8 +28,8 @@ class Setting extends PureComponent {
           {intl.get('user.aboutUs')}
         </NavBar>
         <div className={styles.userInfo}>
-          <img className={styles.authorImg} src={aboutUs.url}></img>
-          <div className={styles.imgEdit}>{aboutUs.content}</div>
+          <img className={styles.authorImg} src={resultData.url}></img>
+          <div className={styles.imgEdit}>{resultData.content}</div>
         </div>
         <div
           style={{ display: 'flex', flexDirection: 'row', marginLeft: '15px', marginTop: '20px' }}
@@ -49,11 +48,11 @@ class Setting extends PureComponent {
 }
 
 const mapState = state => ({
-  aboutUs: state.user.data.aboutUs,
+  resultData: state.user.data.resultData,
 });
 
 const mapDispatch = dispatch => ({
-  requestAboutUs: () => dispatch.user.getAboutUs(),
+  requestData: params => dispatch.user.getAboutUs(params),
 });
 
 export default connect(mapState, mapDispatch)(Setting);

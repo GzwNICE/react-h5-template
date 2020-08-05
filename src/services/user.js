@@ -16,8 +16,8 @@ export async function doUpdateImage(params) {
     data: params,
   });
 }
-export async function doAddMessage(params) {
-  return request('/app/v1/user/feedback', { method: 'post', data: params });
+export async function postData(params) {
+  return request(params.url, { method: 'post', data: params });
 }
 export async function doSaveAddress(params) {
   let path = '';
@@ -43,12 +43,6 @@ export async function getHelpCenterItem(params) {
 }
 export async function getHelpDetail(params) {
   return request('/app/help/center/text', { method: 'get', params: params });
-}
-export async function doGetAboutUs() {
-  return request('/home/about/us/get/info', { method: 'get' });
-}
-export async function doGetRewardList(api) {
-  return request(`/app/inviter/${api}/record/list`, { method: 'get' });
 }
 
 export async function requestData(params) {

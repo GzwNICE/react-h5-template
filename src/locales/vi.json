@@ -94,7 +94,13 @@
     "str_reward":"Thưởng",
     "str_rank_me":"Tôi",
     "str_no_ranking":"Không có thứ hạng",
-    "str_total_rewards":"Tích luỹ thưởng"
+    "str_total_rewards":"Tích luỹ thưởng",
+
+    "str_me_bask_single":"Danh sách chia sẻ của tôi",
+    "str_me_unbask_single":"Chưa chia sẻ",
+    "str_me_hasbask_single":"Đã chia sẻ",
+    "str_goshow":"Chia sẻ"
+
   },
   "order": {
     "win": "Đợi xác nhận",

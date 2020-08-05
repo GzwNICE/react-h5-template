@@ -4,10 +4,13 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import Empty from '@/components/empty';
 import intl from 'react-intl-universal';
-import Item from '@/pages/user/invitation/reward/history/item';
+import Item from '@/pages/user/invitation/reward/friendhistory/item';
 
 import { ListView } from 'antd-mobile';
 import styles from './index.less';
+
+let page = 1;
+let size = 10;
 
 class History extends PureComponent {
   constructor(props) {
@@ -17,11 +20,9 @@ class History extends PureComponent {
     });
     this.state = {
       dataSource,
-      page: 0,
-      size: 10,
       isLoading: true,
       useBodyScroll: false,
-      height: document.documentElement.clientHeight - 500,
+      height: document.documentElement.clientHeight - 50,
     };
   }
   componentDidUpdate() {
@@ -33,7 +34,7 @@ class History extends PureComponent {
   }
   componentDidMount() {
     window.addEventListener('scroll', this.bindHandleScroll);
-    this.getPageList();
+    this.refreshList();
   }
   //在componentWillUnmount，进行scroll事件的注销
   componentWillUnmount() {
@@ -42,50 +43,40 @@ class History extends PureComponent {
     document.body.style.overflow = 'auto';
   }
 
-  getPageList = () => {
-    const { refreshList,type } = this.props;
-    this.setState(
-      {
-        page: 1,
-      },
-      () => {
-        const params = {
-          page: this.state.page,
-          size: this.state.size,
-          type: type,
-        };
-        refreshList(params).then(() => {
-          if (this.props.result.data) {
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
-            });
-          }
+  refreshList = () => {
+    const { getList } = this.props;
+    page = 1;
+    const params = {
+      page: page,
+      size: size,
+      isRefresh: true,
+      url: `/app/inviter/reward/record/list`,
+    };
+    getList(params).then(() => {
+      if (this.props.result.data) {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
         });
       }
-    );
+    });
   };
   loadPageList = () => {
     if (this.props.result.data.length === this.props.result.total) return false;
-    const { loadList, type } = this.props;
-    this.setState(
-      {
-        page: this.state.page + 1,
-      },
-      () => {
-        const params = {
-          page: this.state.page,
-          size: this.state.size,
-          type: type,
-        };
-        loadList(params).then(() => {
-          if (this.props.result.data) {
-            this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
-            });
-          }
+    const { getList } = this.props;
+    page = page + 1;
+    const params = {
+      page: page,
+      size: size,
+      isRefresh: false,
+      url: `/app/inviter/reward/record/list`,
+    };
+    getList(params).then(() => {
+      if (this.props.result.data) {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.props.result.data),
         });
       }
-    );
+    });
   };
   componentWillReceiveProps(nextPorps) {
     // console.log(nextPorps.orderList);
@@ -126,17 +117,7 @@ class History extends PureComponent {
           <Empty />
         ) : (
           <div>
-              {type == "friend"?(<div className={styles.historyTitle}>
-                <div className={styles.title} style={{ textAlign: 'left' }}>
-                {intl.get('user.str_friend_account')}
-              </div>
-              <div className={styles.title} style={{ textAlign: 'left' }}>
-                {intl.get('user.str_invited_time')}
-                </div>
-              <div className={styles.title} style={{ textAlign: 'right' }}>
-                {intl.get('user.str_invited_state')}
-              </div>
-              </div>):(<div className={styles.historyTitle}>
+             <div className={styles.historyTitle}>
                 <div className={styles.title} style={{ textAlign: 'left' }}>
                 {intl.get('user.str_friend_account')}
               </div>
@@ -149,9 +130,7 @@ class History extends PureComponent {
               <div className={styles.title} style={{ textAlign: 'right' }}>
               {intl.get('user.str_reward_amount')}
               </div>
-              </div>)}
-           
-              
+              </div>
             <ListView
               ref={el => {
                 this.load = el;
@@ -173,7 +152,7 @@ class History extends PureComponent {
                 scrollRenderAheadDistance={100}
                 onEndReachedThreshold={10}
                 scrollEventThrottle={100}
-              initialListSize={1000}
+               initialListSize={1000}
                 pageSize={10}
                 onEndReached={this.loadPageList.bind(this)} // 上啦加载
                 renderFooter={() => (
@@ -190,14 +169,12 @@ class History extends PureComponent {
 }
 
 const mapState = state => ({
-  result: state.user.data.resultList,
+  result: state.user.data.resultRewardList,
 });
 
 const mapDispatch = dispatch => ({
-  refreshList: params => dispatch.user.getRewardList(params),
-
-  loadList: params => dispatch.user.getRewardList(params),
-  clearList: params => dispatch.user.clearRewardList(params),
+  getList: params => dispatch.user.getRewardList(params),
+  clearList: params => dispatch.user.clearList(params),
 });
 
 export default connect(mapState, mapDispatch)(History);
