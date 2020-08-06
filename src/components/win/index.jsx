@@ -23,6 +23,7 @@ class Win extends PureComponent {
   render() {
     const { data, push } = this.props;
     const { moneyVirtualCn } = JSON.parse(localStorage.getItem('configuration'));
+    console.log("asdas",data)
     let orderStatus = '';
     let colorStatus = '';
     if (data.status === 'NO_CONFIRM') {
@@ -88,11 +89,11 @@ class Win extends PureComponent {
                   {intl.get('order.str_go_confirm')}
                 </div>
               ) : null}
-              {(data.status === 'PROVIDED' && data.productType === 'SUBSTANCE') ||
+              {((data.isShowOrder === 'PROVIDED' && data.productType === 'SUBSTANCE') ||
               (data.status === 'PROVIDED' && data.productType === 'VIRTUAL') ||
               (data.status === 'PROVIDED' && data.productType === 'COIN') ||
               data.status === 'COIN_RECYCLE' ||
-              data.status === 'CASHED' ? (
+              data.status === 'CASHED' )&& data.isShowOrder === 'N' ? (
                 <div className={styles.btn} onClick={this.onShowClick.bind(this, data.activityTurnNumber)}>
                    {intl.get('user.str_goshow')}
                 </div>
