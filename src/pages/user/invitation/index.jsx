@@ -29,9 +29,7 @@ class Invitation extends PureComponent {
     };
   }
   onRuleClick() {
-    console.log('onRuleClick');
     this.props.history.push(`/rule`);
-
   }
 
   onCopyClick(copyContent) {
@@ -114,13 +112,13 @@ class Invitation extends PureComponent {
         <div className={styles.title}>{intl.get('user.str_my_share_link')}</div>
               <div className={styles.invitationBox}>
                 <div className={styles.invitationLink}>{shareConfig!=null?shareConfig.inviteUrl:''}</div>
-                <img
+                {/* <img
                   className={styles.copy}
                   src={icCopy}
                   onClick={this.onCopyClick.bind('https://vngagago.com/invite/6-dc4fbf1-dc4fb')}
-                ></img>
+                ></img> */}
               </div>
-              <div className={styles.share} onClick={this.onShareClick.bind(this)}>{intl.get('user.str_share')}</div>
+              <div className={styles.share} onClick={this.onCopyClick.bind(shareConfig!=null?shareConfig.inviteUrl:'')}>{intl.get('user.str_share')}</div>
             </div>
             <div className={styles.bgBox}>
               <div className={styles.rewardHead}>
@@ -176,13 +174,15 @@ class Invitation extends PureComponent {
           visible={codeModal}
           transparent
           maskClosable={false}
+          style={{ width: '302px'}}
+
           title={<div className={styles.dialogTitle}>{intl.get('user.str_proportion_dividends')}</div>}
         >
           <div className={styles.dialogContent1}>{intl.get('user.str_proportion_dividends_content')}</div>
           <div className={styles.dialogContent2}>{intl.get('user.str_proportion_dividends_remind')}</div>
-          <Button className={styles.cancel} onClick={this.modalEvent.bind(this, false)}>
+          <div className={styles.cancel} onClick={this.modalEvent.bind(this, false)}>
             {intl.get('order.know')}
-          </Button>
+          </div>
         </Modal>
       </div>
     );

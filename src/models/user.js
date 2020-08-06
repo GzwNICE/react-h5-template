@@ -138,7 +138,7 @@ export const user = createModel({
         data: {
           ...state.data,
           resultFriendList: {
-            data: state.data.resultFriendList.concat(payload.data.rows),
+            data: state.data.resultFriendList.data.concat(payload.data.rows),
             total: payload.data.total,
           },
         },
@@ -162,7 +162,7 @@ export const user = createModel({
         data: {
           ...state.data,
           resultRewardList: {
-            data: state.data.resultRewardList.concat(payload.data.rows),
+            data: state.data.resultRewardList.data.concat(payload.data.rows),
             total: payload.data.total,
           },
         },
@@ -186,7 +186,7 @@ export const user = createModel({
         data: {
           ...state.data,
           resultShowingList: {
-            data: state.data.resultShowingList.concat(payload.data.rows),
+            data: state.data.resultShowingList.data.concat(payload.data.rows),
             total: payload.data.total,
           },
         },
@@ -210,7 +210,7 @@ export const user = createModel({
         data: {
           ...state.data,
           resultNoShowList: {
-            data: state.data.resultNoShowList.concat(payload.data.rows),
+            data: state.data.resultNoShowList.data.concat(payload.data.rows),
             total: payload.data.total,
           },
         },
@@ -307,7 +307,6 @@ export const user = createModel({
     },
     async getFriendList(params) {
       const response = await userService.requestData(params);
-      console.log("respossssnse",response)
       if (params.isRefresh) {
         dispatch.user.refreshFriendList(response);
       } else {

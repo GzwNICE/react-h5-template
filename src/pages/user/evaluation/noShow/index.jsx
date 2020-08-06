@@ -46,10 +46,8 @@ class NoShow extends PureComponent {
     const { getList, type} = this.props;
     page = 1;
     const params = {
-      page: page,
-      size: size,
       isRefresh: true,
-      url: `/app/order/show/${type}/list`,
+      url: `/app/order/show/${type}/list?page=${page}&size=${size}`,
     };
     getList(params).then(() => {
       if (this.props.result.data) {
@@ -64,11 +62,11 @@ class NoShow extends PureComponent {
     const { getList, type } = this.props;
     page = page + 1;
     const params = {
-      page: page,
-      size: size,
       isRefresh: false,
-      url: `/app/order/show/${type}/list`,
+      url: `/app/order/show/${type}/list?page=${page}&size=${size}`,
     };
+    console.log("page",params)
+
     getList(params).then(() => {
       if (this.props.result.data) {
         this.setState({
@@ -130,7 +128,7 @@ class NoShow extends PureComponent {
                     : {
                         height: this.state.height,
                         border: '1px solid #ddd',
-                        margin: '5px 0',
+                        margin: '1px 0',
                     }
                 }
                 scrollRenderAheadDistance={100}

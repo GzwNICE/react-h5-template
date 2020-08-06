@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import Empty from '@/components/empty';
 import intl from 'react-intl-universal';
-import Item from '@/pages/user/invitation/reward/friendhistory/item';
+import Item from '@/pages/user/invitation/reward/rewardHistory/item';
 
 import { ListView } from 'antd-mobile';
 import styles from './index.less';
@@ -107,7 +107,7 @@ class History extends PureComponent {
         key={`${sectionID}-${rowID}`}
         style={{
           backgroundColor: '#F5F5F9',
-          height: 8,
+          height: 1,
         }}
       />
     );
@@ -124,7 +124,7 @@ class History extends PureComponent {
               <div className={styles.title} style={{ textAlign: 'left' }}>
               {intl.get('user.str_perpaid_time')}
                 </div>
-              <div className={styles.title} style={{ textAlign: 'left' }}>
+              <div className={styles.title} style={{ textAlign: 'right' }}>
               {intl.get('user.str_parpaid_amount')}
               </div>
               <div className={styles.title} style={{ textAlign: 'right' }}>
@@ -146,7 +146,7 @@ class History extends PureComponent {
                     : {
                         height: this.state.height,
                         border: '1px solid #ddd',
-                        margin: '5px 0',
+                        margin: '1px 0',
                     }
                 }
                 scrollRenderAheadDistance={100}

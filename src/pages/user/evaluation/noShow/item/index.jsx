@@ -8,7 +8,6 @@ class NoShowItem extends PureComponent {
   }
   onShowClick(activityTurnNum,e) {
     e.stopPropagation();
-    console.log(this.props)
     this.props.push(`/addShow/${activityTurnNum}`);
   }
   render() {
@@ -16,11 +15,11 @@ class NoShowItem extends PureComponent {
     return (
      <div className={styles.orderInfo}>
          <img className={styles.orderImg} src={data.picUrl}></img>
-         <div>
+         <div style={{width:'100%'}}>
           <div className={styles.orderTitle}>{data.productName}</div>
              <div className={styles.status}>
-                 <div className={styles.state}>奖品已发放</div>
-                 <div className={styles.btn} onClick={this.onShowClick.bind(this,data.activityTurnNum)} >去晒单</div>
+                  <div className={styles.state}>{intl.get('user.str_has_send')}</div>
+                 <div className={styles.btn} onClick={this.onShowClick.bind(this,data.activityTurnNum)} >{intl.get('user.str_goshow')}</div>
              </div>
          </div>
       </div>

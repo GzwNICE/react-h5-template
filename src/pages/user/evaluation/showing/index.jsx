@@ -46,10 +46,8 @@ class Showing extends PureComponent {
     const { getShowingList, type} = this.props;
     page = 1;
     const params = {
-      page: page,
-      size: size,
       isRefresh: true,
-      url: `/app/order/show/${type}/list`,
+      url: `/app/order/show/${type}/list?page=${page}&size=${size}`,
     };
     getShowingList(params).then(() => {
       if (this.props.result.data) {
@@ -64,10 +62,8 @@ class Showing extends PureComponent {
     const { getShowingList, type } = this.props;
     page = page + 1;
     const params = {
-      page: page,
-      size: size,
       isRefresh: false,
-      url: `/app/order/show/${type}/list`,
+      url: `/app/order/show/${type}/list?page=${page}&size=${size}`,
     };
     getShowingList(params).then(() => {
       if (this.props.result.data) {
@@ -130,13 +126,13 @@ class Showing extends PureComponent {
                     : {
                         height: this.state.height,
                         border: '1px solid #ddd',
-                        margin: '5px 0',
+                        margin: '1px 0',
                     }
                 }
                 scrollRenderAheadDistance={100}
                 onEndReachedThreshold={10}
                 scrollEventThrottle={100}
-                initialListSize={1000}
+                initialListSize={10}
                 pageSize={10}
                 onEndReached={this.loadPageList.bind(this)} // 上啦加载
                 renderFooter={() => (

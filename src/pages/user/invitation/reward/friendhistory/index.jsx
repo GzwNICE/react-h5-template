@@ -107,7 +107,7 @@ class History extends PureComponent {
         key={`${sectionID}-${rowID}`}
         style={{
           backgroundColor: '#F5F5F9',
-          height: 8,
+          height: 1,
         }}
       />
     );
@@ -143,7 +143,7 @@ class History extends PureComponent {
                     : {
                         height: this.state.height,
                         border: '1px solid #ddd',
-                        margin: '5px 0',
+                        margin: '1px 0',
                     }
                 }
                 scrollRenderAheadDistance={100}

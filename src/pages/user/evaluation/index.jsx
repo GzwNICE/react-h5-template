@@ -35,6 +35,7 @@ class Reward extends PureComponent {
         <Tabs
           tabs={tabs}
           initialPage={0}
+          swipeable={false}
           tabBarActiveTextColor="#FF5209"
           tabBarUnderlineStyle={{
             border: '2px solid #FF5209',
