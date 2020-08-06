@@ -99,7 +99,13 @@
     "str_me_bask_single":"我的晒单",
     "str_me_unbask_single":"未晒单",
     "str_me_hasbask_single":"已晒单",
-    "str_goshow":"去晒单"
+    "str_has_send":"奖品已发放",
+    "str_goshow":"去晒单",
+
+    "str_to_apply":"待审核",
+    "str_show_showing":"已发布",
+    "str_show_refused":"审核未通过"
+
 
 
   },

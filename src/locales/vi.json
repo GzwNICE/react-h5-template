@@ -99,7 +99,11 @@
     "str_me_bask_single":"Danh sách chia sẻ của tôi",
     "str_me_unbask_single":"Chưa chia sẻ",
     "str_me_hasbask_single":"Đã chia sẻ",
-    "str_goshow":"Chia sẻ"
+    "str_has_send":"Đã giao hàng",
+    "str_goshow":"Chia sẻ",
+    "str_to_apply":"Đợi phê duyệt",
+    "str_show_showing":"Đã xuất bản",
+    "str_show_refused":"Phê duyệt không thông qua"
 
   },
   "order": {

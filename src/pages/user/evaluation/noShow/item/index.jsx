@@ -19,8 +19,8 @@ class NoShowItem extends PureComponent {
          <div>
           <div className={styles.orderTitle}>{data.productName}</div>
              <div className={styles.status}>
-                 <div className={styles.state}>奖品已发放</div>
-                 <div className={styles.btn} onClick={this.onShowClick.bind(this,data.activityTurnNum)} >去晒单</div>
+                  <div className={styles.state}>{intl.get('user.str_has_send')}</div>
+                 <div className={styles.btn} onClick={this.onShowClick.bind(this,data.activityTurnNum)} >{intl.get('user.str_goshow')}</div>
              </div>
          </div>
       </div>

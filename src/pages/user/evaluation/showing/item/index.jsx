@@ -32,7 +32,21 @@ class Item extends PureComponent {
   render() {
     const { data } = this.props;
     const { showImages } = this.state;
+    let reviewStatus = '';
+    let statusColor = '';
 
+    if (data.reviewStatus === '1') {//待审核
+      reviewStatus = intl.get('user.str_to_apply');
+      } else if (data.reviewStatus === '2') {//审核中
+        reviewStatus = intl.get('user.str_to_apply');
+        statusColor = '#ff9f0a';
+      } else if (data.reviewStatus === '3') {//审核通过
+        reviewStatus = intl.get('user.str_show_showing');
+        statusColor = '#7ED321';
+      } else if (data.reviewStatus === '4') {//审核不通过
+        reviewStatus = intl.get('user.str_show_refused');
+        statusColor = '#ff5209';
+      } 
     return (
      <div className={styles.orderInfo}>
         <div className={styles.orderTitle}>{data.content}</div>
@@ -50,7 +64,9 @@ class Item extends PureComponent {
           <div className={styles.name}>{data.productName}</div>
         </div>
         <div className={styles.orderStatus}>
-          <div className={styles.status}>审核未通过</div>
+          <div className={styles.status} style={{ color: statusColor }}>
+            {reviewStatus}
+          </div>
           <div className={styles.time}>2019/10/01 13：00</div>
         </div>
         <div className={styles.reason}>{data.remark}</div>
