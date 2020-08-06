@@ -77,6 +77,15 @@ class ProductDetail extends PureComponent {
     document.body.style.overflow = 'auto';
   }
 
+  initShowData = () => {
+    const { getShowList, detail } = this.props;
+    getShowList({
+      productId: detail.productId,
+      page: 1,
+      size: 1,
+    });
+  };
+
   initDetail = () => {
     const { getDetail, getConf } = this.props;
     getDetail({ activityTurnId: this.state.activityTurnId }).then(res => {
@@ -97,6 +106,7 @@ class ProductDetail extends PureComponent {
             { value: Math.floor(res.data.participateNum * 0.5), label: '50%' },
           ],
         });
+        this.initShowData();
         if (
           Number(res.data.waitStartTime) > 1000 &&
           (res.data.status === 1 || res.data.status === 7 || res.data.status === 10)
@@ -256,6 +266,18 @@ class ProductDetail extends PureComponent {
     });
   };
 
+  onLikeClick = (id, like) => {
+    const { userStart } = this.props;
+    userStart({
+      topicId: id,
+      likeStatus: like ? 0 : 1,
+    }).then(res => {
+      if (res.code === 200) {
+        this.initShowData();
+      }
+    });
+  };
+
   render() {
     const {
       IPhoneX,
@@ -278,7 +300,7 @@ class ProductDetail extends PureComponent {
       openM,
       openS,
     } = this.state;
-    const { detail, homeSys } = this.props;
+    const { detail, homeSys, showList } = this.props;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const winData = {
       img: detail.thumbnailUrl,
@@ -452,15 +474,20 @@ class ProductDetail extends PureComponent {
             {intl.get('product.drawStaff')}
           </div>
         </div>
-        <div className={styles.postDetail}>
-          <div className={styles.topTel}>
-            <span className={styles.h3tle}>用户晒单（21）</span>
-            <span className={styles.lockAll} onClick={() => this.props.history.push('/single')}>
-              查看全部 <Icon type="right" color="#ff5100" />
-            </span>
+        {showList.total > 0 ? (
+          <div className={styles.postDetail}>
+            <div className={styles.topTel}>
+              <span className={styles.h3tle}>{`用户晒单（${showList.total}）`}</span>
+              <span
+                className={styles.lockAll}
+                onClick={() => this.props.history.push(`/single?productId=${detail.productId}`)}
+              >
+                查看全部 <Icon type="right" color="#ff5100" />
+              </span>
+            </div>
+            <ShowCard data={showList.rows[0]} onLikeClick={this.onLikeClick} />
           </div>
-          <ShowCard />
-        </div>
+        ) : null}
         <div className={styles.shopDetail}>
           <h3 className={styles.h3tle}>{intl.get('product.productDetails')}</h3>
           <p className={styles.text}>{detail.content}</p>
@@ -485,7 +512,9 @@ class ProductDetail extends PureComponent {
             </div>
             <div className={styles.buttonGroup}>
               {detail.cartEnable === 1 ? (
-                <Button className={styles.joinCart} onClick={this.addCart}>加入购物车</Button>
+                <Button className={styles.joinCart} onClick={this.addCart}>
+                  加入购物车
+                </Button>
               ) : null}
               <Button
                 className={`${styles.joinCart} ${styles.buyButton}`}
@@ -555,6 +584,7 @@ class ProductDetail extends PureComponent {
 const mapState = state => ({
   detail: state.product.data.detail,
   homeSys: state.home.data.homeSys,
+  showList: state.product.data.showList,
 });
 
 const mapDispatch = dispatch => ({
@@ -564,6 +594,8 @@ const mapDispatch = dispatch => ({
   getAwardInfo: params => dispatch.prize.result(params),
   getConf: params => dispatch.home.fetchConf(params),
   addShop: params => dispatch.shopCart.addShop(params),
+  getShowList: params => dispatch.product.getShowList(params),
+  userStart: params => dispatch.product.userStart(params),
 });
 
 export default connect(mapState, mapDispatch)(ProductDetail);

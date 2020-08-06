@@ -29,7 +29,6 @@ class LuckyCode extends PureComponent {
 
   getList = () => {
     const { getDrawCode, id } = this.props;
-    console.log(id);
     if (!this.state.hasMore) return false;
     this.fetch = true;
     if (id) {
@@ -61,10 +60,7 @@ class LuckyCode extends PureComponent {
   };
 
   componentWillReceiveProps(nextPros) {
-    // console.log(3, nextPros.visible);
-    // console.log(4, this.props.visible);
     if (nextPros.visible !== this.props.visible && nextPros.visible) {
-      console.log(1111);
       this.getList();
     }
   }
@@ -84,7 +80,10 @@ class LuckyCode extends PureComponent {
       return (
         <div className={styles.listItem} key={i.index}>
           <div className={styles.numbering}>{i.prizesCode}</div>
-          <div className={styles.time}>{`${intl.get('order.str_order_time')} ${format(i.distributeTime, 'str')}`}</div>
+          <div className={styles.time}>{`${intl.get('order.str_order_time')} ${format(
+            i.distributeTime,
+            'str'
+          )}`}</div>
         </div>
       );
     };

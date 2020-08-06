@@ -35,3 +35,12 @@ export async function fetchExistRules(params) {
 export async function awardRules(params) {
   return request('/app/v1/recycle/rules/exist', { method: 'get', params: params });
 }
+// 晒单
+export async function showList(params) {
+  return request('/app/order/show/product/page', { method: 'get', params: params });
+}
+
+// 晒单点赞/取消点赞
+export async function showLike(params) {
+  return request('/app/order/show/like', { method: 'get', params: params });
+}

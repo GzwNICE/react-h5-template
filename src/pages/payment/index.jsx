@@ -136,7 +136,10 @@ class Payment extends PureComponent {
           ></span>
         </div>
         <div className={styles.payType} onClick={() => this.onChangePay('2')}>
-          <img className={styles.momoImg} src={momo}></img>
+          <img
+            className={styles.payooImg}
+            src="https://www.payoo.vn/website/static/css/image/payoo-logo.png"
+          ></img>
           <div className={styles.name}>Payoo</div>
           <span
             className={`${styles.radio} ${payType === '2' ? `${styles.radioSleet}` : null}`}

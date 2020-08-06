@@ -15,6 +15,10 @@ export const product = createModel({
         rows: [],
         total: 0,
       },
+      showList: {
+        rows: [],
+        total: 0,
+      },
     },
   },
   reducers: {
@@ -64,6 +68,48 @@ export const product = createModel({
         },
       };
     },
+    saveShowList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          showList: {
+            rows: state.data.showList.rows.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    refShowList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          showList: {
+            rows: payload.data.rows,
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    start(state, payload) {
+      state.data.showList.rows.map(i => {
+        if (i.id === payload.topicId) {
+          i.isLike = payload.likeStatus ? true : false;
+          i.likeCount = payload.likeStatus ? Number(i.likeCount) + 1 : Number(i.likeCount) - 1;
+        }
+      });
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          showList: {
+            rows: state.data.showList.rows,
+            total: state.data.showList.total,
+          },
+        },
+      };
+    },
   },
   effects: dispatch => ({
     async getRules(payload) {
@@ -104,6 +150,22 @@ export const product = createModel({
     async awardRule(payload) {
       const response = await productService.awardRules(payload);
       return response;
+    },
+    async getShowList(payload) {
+      const response = await productService.showList(payload);
+      if (payload.page === 1) {
+        dispatch.product.refShowList(response);
+      } else {
+        dispatch.product.saveShowList(response);
+      }
+      return response;
+    },
+    async userStart(payload) {
+      const response = await productService.showLike(payload);
+      return response;
+    },
+    async changeStart(payload) {
+      dispatch.product.start(payload);
     },
   }),
 });
