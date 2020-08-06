@@ -19,10 +19,31 @@
         margin-top: 12px;
         flex-direction: row;
         justify-content: left;
-        .image{
-            height: 40px;
-            width: 40px;
+        .imgInfo{
+            position: relative;
+            .image{
+                height: 40px;
+                width: 40px;
+                border-radius: 4px;
+            }
+            .imageMore{
+                width: 40px;
+                height: 40px;
+                opacity: 0.6;
+                background: #000000;
+                border-radius: 4px;
+                color: #fff;
+                margin-left: 12px;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                top: 0;
+                line-height: 40px;
+                text-align: center;
+            }
         }
+      
     }
     .produecInfo {
         display: flex;
@@ -69,5 +90,14 @@
         text-align: center;
         padding: 5px 20px 5px 20px;
       }
+    
 }
-
+.imgPop {
+    :global(.am-modal-content) {
+      padding-top: 0 !important;
+      overflow: initial !important;
+    }
+    :global(.am-modal-body) { 
+      padding: 0 !important;
+    }
+}

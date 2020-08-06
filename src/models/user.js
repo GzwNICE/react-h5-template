@@ -307,7 +307,6 @@ export const user = createModel({
     },
     async getFriendList(params) {
       const response = await userService.requestData(params);
-      console.log("respossssnse",response)
       if (params.isRefresh) {
         dispatch.user.refreshFriendList(response);
       } else {

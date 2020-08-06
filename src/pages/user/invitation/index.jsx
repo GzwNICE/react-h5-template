@@ -176,13 +176,15 @@ class Invitation extends PureComponent {
           visible={codeModal}
           transparent
           maskClosable={false}
+          style={{ width: '302px'}}
+
           title={<div className={styles.dialogTitle}>{intl.get('user.str_proportion_dividends')}</div>}
         >
           <div className={styles.dialogContent1}>{intl.get('user.str_proportion_dividends_content')}</div>
           <div className={styles.dialogContent2}>{intl.get('user.str_proportion_dividends_remind')}</div>
-          <Button className={styles.cancel} onClick={this.modalEvent.bind(this, false)}>
+          <div className={styles.cancel} onClick={this.modalEvent.bind(this, false)}>
             {intl.get('order.know')}
-          </Button>
+          </div>
         </Modal>
       </div>
     );
