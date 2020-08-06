@@ -8,7 +8,6 @@ class NoShowItem extends PureComponent {
   }
   onShowClick(activityTurnNum,e) {
     e.stopPropagation();
-    console.log(this.props)
     this.props.push(`/addShow/${activityTurnNum}`);
   }
   render() {
@@ -16,7 +15,7 @@ class NoShowItem extends PureComponent {
     return (
      <div className={styles.orderInfo}>
          <img className={styles.orderImg} src={data.picUrl}></img>
-         <div>
+         <div style={{width:'100%'}}>
           <div className={styles.orderTitle}>{data.productName}</div>
              <div className={styles.status}>
                   <div className={styles.state}>{intl.get('user.str_has_send')}</div>

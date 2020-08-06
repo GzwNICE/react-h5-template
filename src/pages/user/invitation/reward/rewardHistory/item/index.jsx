@@ -17,7 +17,7 @@ class RewardItem extends PureComponent {
          <div className={styles.title} style={{ textAlign: 'left' }}>
            {moment(data.rechargeDate).format('DD/MM HH:mm')}
          </div>
-         <div className={styles.title} style={{ textAlign: 'left' }}>
+         <div className={styles.title} style={{ textAlign: 'right' }}>
             {data.rechargeFee}
         </div>
           <div className={styles.title} style={{ textAlign: 'right' }}>

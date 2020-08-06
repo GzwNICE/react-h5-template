@@ -79,8 +79,6 @@ class Show extends PureComponent {
       id: this.props.match.params.id,
       url: '/app/order/show/update',
     }).then(e => {
-      console.log("respmse",e)
-
       this.props.history.go(-1);
     });
   }
@@ -95,7 +93,7 @@ class Show extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
-          晒单
+         {intl.get('user.str_title_show_order')}
         </NavBar>
         <TextareaItem
           placeholder={intl.get('user.str_welocme_feedback')}

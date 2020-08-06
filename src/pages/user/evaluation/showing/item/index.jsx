@@ -34,23 +34,23 @@ class Item extends PureComponent {
     const { showImages } = this.state;
     let reviewStatus = '';
     let statusColor = '';
-
-    if (data.reviewStatus === '1') {//待审核
+    if (data.reviewStatus == 1) {//待审核
       reviewStatus = intl.get('user.str_to_apply');
-      } else if (data.reviewStatus === '2') {//审核中
+       statusColor = '#ff9f0a';
+      } else if (data.reviewStatus == 2) {//审核中
         reviewStatus = intl.get('user.str_to_apply');
         statusColor = '#ff9f0a';
-      } else if (data.reviewStatus === '3') {//审核通过
+      } else if (data.reviewStatus == 3) {//审核通过
         reviewStatus = intl.get('user.str_show_showing');
         statusColor = '#7ED321';
-      } else if (data.reviewStatus === '4') {//审核不通过
+      } else if (data.reviewStatus == 4) {//审核不通过
         reviewStatus = intl.get('user.str_show_refused');
         statusColor = '#ff5209';
       } 
     return (
      <div className={styles.orderInfo}>
         <div className={styles.orderTitle}>{data.content}</div>
-        <div className={styles.showImgs}>
+        {data.imgList !=null?(<div className={styles.showImgs}>
           {data.imgList.map((i, index) => {
             if(index<=6)
             return <div className={styles.imgInfo}>
@@ -58,7 +58,8 @@ class Item extends PureComponent {
                 {index==6?(<div className={styles.imageMore} onClick={this.onImageMoreClick.bind(this)}>+{data.imgList.length}</div>):(<div></div>)} 
               </div>;
           })}
-        </div>
+        </div>):(<div></div>)}
+      
         <div className={styles.produecInfo}>
           <img className={styles.logo} src={data.picUrl}></img>
           <div className={styles.name}>{data.productName}</div>
@@ -67,13 +68,13 @@ class Item extends PureComponent {
           <div className={styles.status} style={{ color: statusColor }}>
             {reviewStatus}
           </div>
-          <div className={styles.time}>2019/10/01 13：00</div>
+          <div className={styles.time}>{moment(data.createTime).format('DD/MM/YYYY HH:mm')}</div>
         </div>
         <div className={styles.reason}>{data.remark}</div>
         <div>
           <div className={styles.update} onClick={this.onUpdateClick.bind(this,data.id)}>修改</div>
         </div>
-        <Modal
+        {data.imgList!=null?(<Modal
           visible={showImages}
           transparent
           maskClosable
@@ -81,6 +82,7 @@ class Item extends PureComponent {
           className={styles.imgPop}
           style={{ width: '322px', height: '430px' }}
         >
+          
           <Carousel
             autoplay={false}
             infinite
@@ -88,15 +90,17 @@ class Item extends PureComponent {
             autoplayInterval={15000}
             dotActiveStyle={{ background: '#FF5209' }}
           >
-            {data.imgList.map(val => (
+         {data.imgList.map(val => (
                 <img
                   src={val.url}
                   alt=""
                   style={{ width: '100%', height: '430px', verticalAlign: 'center' }}
                 />
             ))}
+           
           </Carousel>
-        </Modal>
+        </Modal>):(<div></div>)}
+        
       </div>
     );
   }
