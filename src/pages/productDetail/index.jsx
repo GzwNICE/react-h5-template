@@ -21,6 +21,7 @@ import Participants from '@/components/participants';
 import ReceiveAward from '@/components/receive';
 import BuyGroup from '@/components/buyGroup';
 import ShowCard from '@/components/showCard';
+import ImgPreview from '@/components/imgPreview';
 import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
@@ -48,6 +49,9 @@ class ProductDetail extends PureComponent {
       nextH: '00',
       nextM: '00',
       nextS: '00',
+      imgPre: false,
+      imgList: [],
+      imgIndex: 0,
     };
   }
 
@@ -278,6 +282,22 @@ class ProductDetail extends PureComponent {
     });
   };
 
+  imgPreview = (list, index) => {
+    this.setState({
+      imgList: list,
+      imgIndex: index,
+      imgPre: true,
+    });
+  };
+
+  cancelPreview = () => {
+    this.setState({
+      imgList: [],
+      imgIndex: 0,
+      imgPre: false,
+    });
+  };
+
   render() {
     const {
       IPhoneX,
@@ -299,6 +319,9 @@ class ProductDetail extends PureComponent {
       openH,
       openM,
       openS,
+      imgPre,
+      imgList,
+      imgIndex,
     } = this.state;
     const { detail, homeSys, showList } = this.props;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
@@ -485,8 +508,15 @@ class ProductDetail extends PureComponent {
                 查看全部 <Icon type="right" color="#ff5100" />
               </span>
             </div>
-            <ShowCard data={showList.rows[0]} onLikeClick={this.onLikeClick} />
+            <ShowCard
+              data={showList.rows[0]}
+              onLikeClick={this.onLikeClick}
+              preview={this.imgPreview}
+            />
           </div>
+        ) : null}
+        {imgPre ? (
+          <ImgPreview show={imgPre} data={imgList} index={imgIndex} cancel={this.cancelPreview} />
         ) : null}
         <div className={styles.shopDetail}>
           <h3 className={styles.h3tle}>{intl.get('product.productDetails')}</h3>

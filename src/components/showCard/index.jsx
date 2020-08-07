@@ -12,15 +12,12 @@ class ShowCard extends PureComponent {
     this.state = {};
   }
 
-  preview(url) {
-    console.log(url);
+  preview(list, index) {
+    this.props.preview(list, index);
   }
 
   handlerLick(id, like) {
     const { onLikeClick } = this.props;
-    // this.setState({
-    //   start: !this.state.start,
-    // });
     onLikeClick(id, like);
   }
 
@@ -93,13 +90,13 @@ class ShowCard extends PureComponent {
           hasLine={false}
           className={styles.imgBox}
           activeStyle={false}
-          renderItem={dataItem => (
+          renderItem={(dataItem, index) => (
             <div style={{ marginRight: '0.1rem' }}>
               <img
                 src={dataItem.url}
                 className={styles.imgItem}
                 alt="img"
-                onClick={() => this.preview(dataItem.url)}
+                onClick={() => this.preview(data.imgList, index)}
               />
             </div>
           )}

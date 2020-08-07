@@ -6,6 +6,7 @@ import throttle from 'lodash/throttle';
 import queryString from 'query-string';
 import { NavBar, ListView, Icon, WhiteSpace } from 'antd-mobile';
 import ShowCard from '@/components/showCard';
+import ImgPreview from '@/components/imgPreview';
 import styles from './index.less';
 
 let dataSource = new ListView.DataSource({
@@ -21,6 +22,9 @@ class SingleRecord extends PureComponent {
       hasMore: true,
       isLoading: false,
       fist: false,
+      imgPre: false,
+      imgList: [],
+      imgIndex: 0,
     };
     this.initList = throttle(this.initList, 1000);
   }
@@ -88,17 +92,39 @@ class SingleRecord extends PureComponent {
     }
   }
 
+  imgPreview = (list, index) => {
+    this.setState(
+      {
+        imgList: list,
+        imgIndex: index,
+      },
+      () => {
+        this.setState({
+          imgPre: true,
+        });
+      }
+    );
+  };
+
+  cancelPreview = () => {
+    this.setState({
+      imgList: [],
+      imgIndex: 0,
+      imgPre: false,
+    });
+  };
+
   render() {
-    const { dataSource, isLoading, hasMore } = this.state;
+    const { dataSource, isLoading, hasMore, imgPre, imgList, imgIndex } = this.state;
     const { showList } = this.props;
     const row = i => {
       return (
-        <div className={styles.listItem} key={i.id} >
-          <ShowCard data={i} onLikeClick={this.onLikeClick} />
+        <div className={styles.listItem} key={i.id}>
+          <ShowCard data={i} onLikeClick={this.onLikeClick} preview={this.imgPreview} />
         </div>
       );
     };
-    console.log(dataSource);
+    // console.log(dataSource);
     return (
       <div className={styles.singleRecord}>
         <NavBar
@@ -137,6 +163,7 @@ class SingleRecord extends PureComponent {
             <div className={styles.loading}>Loading...</div>
           )}
         </div>
+        {imgPre ? <ImgPreview data={imgList} index={imgIndex} cancel={this.cancelPreview} /> : null}
       </div>
     );
   }
