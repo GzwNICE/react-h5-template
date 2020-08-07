@@ -89,15 +89,20 @@ class ShopCart extends PureComponent {
       num += i.buyCount;
     });
     cartPay(arr).then(res => {
-      this.setState({
-        payData: {
-          idList: res.data.idList,
-          go: this.state.payGo,
-          num,
-          status: res.code,
-        },
-      });
-      this.visibleBuy();
+      if (res.code === 200) {
+        this.setState({
+          payData: {
+            idList: res.data.idList,
+            go: this.state.payGo,
+            num,
+            status: res.code,
+          },
+        });
+        this.visibleBuy();
+      } else {
+        this.initList();
+        this.getConfig();
+      }
     });
   };
 
