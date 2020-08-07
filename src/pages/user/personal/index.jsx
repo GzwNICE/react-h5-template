@@ -138,7 +138,7 @@ class Personal extends PureComponent {
           onClick={user.userInfo.idCard ? null : this.onAddCardClick.bind(this)}
         >
           <div className={styles.title}>{intl.get('user.str_idcard_no')}</div>
-          <div className={styles.arrow} />
+          {user.userInfo.idCard ? '' : <div className={styles.arrow} />}
           <div className={styles.content}>{user.userInfo.idCard} </div>
         </div>
       </div>

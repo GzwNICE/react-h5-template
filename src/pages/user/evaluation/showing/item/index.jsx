@@ -72,7 +72,13 @@ class Item extends PureComponent {
         </div>
         <div className={styles.reason}>{data.remark}</div>
         <div>
-          <div className={styles.update} onClick={this.onUpdateClick.bind(this,data.id)}>修改</div>
+          {data.reviewStatus == 4 ? (
+            <div className={styles.update} onClick={this.onUpdateClick.bind(this, data.id)}>
+              修改
+            </div>
+          ) : (
+            ''
+          )}
         </div>
         {data.imgList!=null?(<Modal
           visible={showImages}

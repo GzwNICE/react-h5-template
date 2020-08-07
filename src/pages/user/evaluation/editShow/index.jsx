@@ -66,9 +66,9 @@ class Show extends PureComponent {
       imgList.push(i);
     });
     imgList.map((i, _index) => {
-      imgIds +=i;
-      if(_index != imgList.length-1){
-        imgIds +=","
+      imgIds += i;
+      if (_index != imgList.length - 1) {
+        imgIds += ',';
       }
     });
 
