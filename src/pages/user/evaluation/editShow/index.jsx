@@ -20,7 +20,6 @@ class Show extends PureComponent {
       e.data.imgList.map(i => {
         imgList.push(i.id);
       });
-      console.log("imgList",imgList)
       this.setState({
         files: e.data.imgList,
         content: e.data.content,
@@ -71,7 +70,9 @@ class Show extends PureComponent {
         imgIds += ',';
       }
     });
-
+    if (imgIds == '') {
+      Toast.info(intl.get('user.str_image_input'), 2);
+    } else {
     submitData({
       content: this.state.content,
       imgIds: imgIds,
@@ -81,6 +82,7 @@ class Show extends PureComponent {
     }).then(e => {
       this.props.history.go(-1);
     });
+  }
   }
 
   render() {
@@ -93,7 +95,7 @@ class Show extends PureComponent {
           style={{ backgroundColor: '#FF5209' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
-         {intl.get('user.str_title_show_order')}
+        {intl.get('user.str_title_show_order')}
         </NavBar>
         <TextareaItem
           placeholder={intl.get('user.str_welocme_feedback')}

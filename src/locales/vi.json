@@ -105,7 +105,8 @@
     "str_to_apply":"Đợi phê duyệt",
     "str_show_showing":"Đã xuất bản",
     "str_show_refused":"Phê duyệt không thông qua",
-    "update":"Chỉnh sửa"
+    "update":"Chỉnh sửa",
+    "str_image_input":"Vui lòng tải lên một hình ảnh"
 
   },
   "order": {

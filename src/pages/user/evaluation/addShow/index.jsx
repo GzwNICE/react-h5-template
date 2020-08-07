@@ -54,7 +54,9 @@ class Show extends PureComponent {
         imgIds +=","
       }
     });
-
+    if (imgIds == '') {
+      Toast.info(intl.get('user.str_image_input'), 2);
+    } else {
     submitData({
       content: this.state.content,
       imgIds: imgIds,
@@ -64,6 +66,7 @@ class Show extends PureComponent {
     }).then(() => {
       this.props.history.go(-1);
     });
+  }
   }
 
   render() {

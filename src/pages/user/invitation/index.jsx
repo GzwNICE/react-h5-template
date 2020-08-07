@@ -32,7 +32,7 @@ class Invitation extends PureComponent {
     this.props.history.push(`/rule`);
   }
 
-  onCopyClick(copyContent) {
+  onCopyClick(copyContent,e) {
     if (copy(copyContent)) {
       Toast.info(intl.get('order.str_copy_success'), 2);
     }
@@ -118,7 +118,7 @@ class Invitation extends PureComponent {
                   onClick={this.onCopyClick.bind('https://vngagago.com/invite/6-dc4fbf1-dc4fb')}
                 ></img> */}
               </div>
-              <div className={styles.share} onClick={this.onCopyClick.bind(shareConfig!=null?shareConfig.inviteUrl:'')}>{intl.get('user.str_share')}</div>
+              <div className={styles.share} onClick={this.onCopyClick.bind(this,shareConfig!=null?shareConfig.inviteUrl:'')}>{intl.get('user.str_share')}</div>
             </div>
             <div className={styles.bgBox}>
               <div className={styles.rewardHead}>
