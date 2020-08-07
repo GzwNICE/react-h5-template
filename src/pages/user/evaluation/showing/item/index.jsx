@@ -74,7 +74,7 @@ class Item extends PureComponent {
         <div>
           {data.reviewStatus == 4 ? (
             <div className={styles.update} onClick={this.onUpdateClick.bind(this, data.id)}>
-              修改
+              {intl.get('user.update')}
             </div>
           ) : (
             ''

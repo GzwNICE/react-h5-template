@@ -104,7 +104,8 @@
     "str_title_show_order":"Chia sẻ",
     "str_to_apply":"Đợi phê duyệt",
     "str_show_showing":"Đã xuất bản",
-    "str_show_refused":"Phê duyệt không thông qua"
+    "str_show_refused":"Phê duyệt không thông qua",
+    "update":"Chỉnh sửa"
 
   },
   "order": {
