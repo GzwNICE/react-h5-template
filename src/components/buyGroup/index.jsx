@@ -190,7 +190,9 @@ class BuyGroup extends PureComponent {
                     {personData.map((i, index) => (
                       <Radio
                         className={`${styles.radioItem} ${
-                          personValue === i.value && personValueIndex === index ? `${styles.radioItemS}` : null
+                          personValue === i.value && personValueIndex === index
+                            ? `${styles.radioItemS}`
+                            : null
                         }`}
                         style={data.remainingCount < i.label ? { color: '#cbcbcb' } : {}}
                         key={i.value + index}
@@ -267,7 +269,7 @@ class BuyGroup extends PureComponent {
                   {!balanceStatus
                     ? `${intl.get('product.confirmPayment')}`
                     : `${intl.get('product.pleaseRecharge', {
-                      moneyVirtualCn: config.moneyVirtualCn,
+                        moneySymbol: config.moneyVirtualCn,
                       })}`}
                 </Button>
               </div>

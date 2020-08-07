@@ -20,7 +20,7 @@ class ShopCardItem extends PureComponent {
         <Icon type="cross" className={styles.close} onClick={() => this.deleteItem(data.id)} />
         <img src={data.picUrl} alt="" className={styles.prodPic} />
         <div className={styles.right}>
-          <span className={styles.prodName}>{`第${data.turnCount}轮 ${data.productName}`}</span>
+          <span className={styles.prodName}>{`第${data.turnCount}轮 ${data.activityName}`}</span>
           <div className={styles.second}>
             <span className={styles.money}>
               <span>{`${data.price} ${config.moneyVirtualCn}`}</span>/奖券
