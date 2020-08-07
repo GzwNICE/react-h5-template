@@ -88,6 +88,9 @@ class Home extends PureComponent {
       window.pageYOffset ||
       (event.srcElement ? event.srcElement.body.scrollTop : 0);
     this.top = scrollTop;
+    if (scrollTop === 0) {
+      localStorage.removeItem('scrollTop');
+    }
   };
 
   componentWillUnmount() {

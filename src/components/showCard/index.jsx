@@ -23,7 +23,7 @@ class ShowCard extends PureComponent {
     onLikeClick(id, like);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     this.setState({
       a: !this.state.a,
     });
