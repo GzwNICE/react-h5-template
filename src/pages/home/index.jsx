@@ -70,7 +70,7 @@ class Home extends PureComponent {
           if (!openPop || openPop === '1') {
             localStorage.setItem('openPop', 1);
             this.setState({
-              popData: res.data[random()],
+              popData: res.data.length === 1 ? res.data[0] : res.data[random()],
               advertising: true,
             });
           }
@@ -235,6 +235,7 @@ class Home extends PureComponent {
         sort: sortPic === 1 ? sorting : sortPic === 2 ? sortingDown : sortingUp,
       },
     ];
+    // console.log(11, popData);
     return (
       <div className={styles.home}>
         {winnerList.length > 0 ? ( //中奖信息

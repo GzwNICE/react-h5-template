@@ -17,7 +17,7 @@ class CategoryCard extends PureComponent {
           <div className={`${styles.content} ${idEnd ? `${styles.contentNo}` : ''}`}>
             <img src={data.imgUrl} alt="" className={styles.productPic} />
             <div className={styles.productInfo}>
-              <div className={styles.name}>{data.productName}</div>
+              <div className={styles.name}>{data.activityName}</div>
               <div
                 className={styles.money}
               >{`${data.participatePrice}${config.moneyVirtualCn}`}</div>
