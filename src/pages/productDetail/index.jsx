@@ -61,7 +61,7 @@ class ProductDetail extends PureComponent {
   }
 
   componentDidUpdate() {
-    if (this.state.buyShow) {
+    if (this.state.buyShow || this.state.imgPre) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';

@@ -21,7 +21,6 @@ class SingleRecord extends PureComponent {
       page: 1,
       hasMore: true,
       isLoading: false,
-      fist: false,
       imgPre: false,
       imgList: [],
       imgIndex: 0,
@@ -93,17 +92,12 @@ class SingleRecord extends PureComponent {
   }
 
   imgPreview = (list, index) => {
-    this.setState(
-      {
-        imgList: list,
-        imgIndex: index,
-      },
-      () => {
-        this.setState({
-          imgPre: true,
-        });
-      }
-    );
+    this.setState({
+      imgList: list,
+      imgIndex: index,
+      imgPre: true,
+    });
+    document.body.style.overflow = 'hidden';
   };
 
   cancelPreview = () => {
@@ -112,6 +106,7 @@ class SingleRecord extends PureComponent {
       imgIndex: 0,
       imgPre: false,
     });
+    document.body.style.overflow = 'auto';
   };
 
   render() {
@@ -124,7 +119,6 @@ class SingleRecord extends PureComponent {
         </div>
       );
     };
-    // console.log(dataSource);
     return (
       <div className={styles.singleRecord}>
         <NavBar

@@ -9,7 +9,9 @@ import styles from './index.less';
 class ShowCard extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      a: false,
+    };
   }
 
   preview(list, index) {
@@ -21,9 +23,15 @@ class ShowCard extends PureComponent {
     onLikeClick(id, like);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      a: !this.state.a,
+    });
+  }
+
   render() {
     const { data } = this.props;
-    // console.log(data, this.state.start);
+    const { a } = this.state;
     return (
       <div className={styles.showCard}>
         <div className={styles.head}>
@@ -101,6 +109,7 @@ class ShowCard extends PureComponent {
             </div>
           )}
         />
+        {a ? <div></div> : null}
         <div className={styles.foot}>
           <div className={styles.left} onClick={() => this.handlerLick(data.id, data.isLike)}>
             <img src={data.isLike ? liked : like} alt="" />
