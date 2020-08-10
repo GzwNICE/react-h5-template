@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
 import { Icon, Button, Toast } from 'antd-mobile';
+import { numFormat } from '@/utils/util';
 import styles from './index.less';
 
 class CartPay extends PureComponent {
@@ -95,11 +96,11 @@ class CartPay extends PureComponent {
                 <span className={styles.left}>
                   {intl.get('product.payGOCoins', { moneySymbol: config.moneyVirtualCn })}
                 </span>
-                <span>{data.go}</span>
+                <span>{numFormat(data.go)}</span>
               </li>
               <li>
                 <span className={styles.left}>{intl.get('product.balance')}</span>
-                <span>{homeSys.goMoney}</span>
+                <span>{numFormat(homeSys.goMoney)}</span>
               </li>
               {homeSys.goMoney > data.go ? (
                 <p>

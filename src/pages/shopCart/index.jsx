@@ -4,14 +4,13 @@ import React, { PureComponent } from 'react';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
 import { NavBar, Toast, Flex, Button, Modal, Stepper } from 'antd-mobile';
-// import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import TabBarBox from '@/components/tabBar';
-// import shopCartBg from '@/assets/images/shopCartBg.png';
 import MissCard from '@/components/shopCartMiss';
 import ActivityCard from '@/components/activityCard';
 import ShopCardItem from '@/components/shopCartItem';
 import CartPay from '@/components/cartPay';
+import { numFormat } from '@/utils/util';
 import styles from './index.less';
 
 class ShopCart extends PureComponent {
@@ -219,7 +218,7 @@ class ShopCart extends PureComponent {
                 >
                   <div className={styles.left}>
                     {`${intl.get('shoppingCart.total', { length: shopList.length })}: `}
-                    <span>{`${payGo} ${config.moneyVirtualCn}`}</span>
+                    <span>{`${numFormat(payGo)} ${config.moneyVirtualCn}`}</span>
                   </div>
                   <Button type="primary" className={styles.settle} onClick={this.settlement}>
                     {intl.get('shoppingCart.settle')}

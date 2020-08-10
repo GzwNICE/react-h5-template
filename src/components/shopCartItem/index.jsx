@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import intl from 'react-intl-universal';
-import { Icon, Stepper, Progress } from 'antd-mobile';
+import { Icon, Progress } from 'antd-mobile';
+import { numFormat } from '@/utils/util';
 import styles from './index.less';
 
 class ShopCardItem extends PureComponent {
@@ -20,10 +21,12 @@ class ShopCardItem extends PureComponent {
         <Icon type="cross" className={styles.close} onClick={() => this.deleteItem(data.id)} />
         <img src={data.picUrl} alt="" className={styles.prodPic} />
         <div className={styles.right}>
-          <span className={styles.prodName}>{`第${data.turnCount}轮 ${data.activityName}`}</span>
+          <span className={styles.prodName}>{`${intl.get('product.round', {
+            currentTurn: data.turnCount,
+          })} ${data.activityName}`}</span>
           <div className={styles.second}>
             <span className={styles.money}>
-              <span>{`${data.price} ${config.moneyVirtualCn}`}</span>/奖券
+              <span>{`${numFormat(data.price)} ${config.moneyVirtualCn}`}</span>/{intl.get('home.personTime')}
             </span>
             <div
               className={styles.step}
@@ -44,7 +47,9 @@ class ShopCardItem extends PureComponent {
               className={styles.progress}
               barStyle={{ backgroundColor: '#ff5209', border: 'none' }}
             />
-            <span className={styles.num}>{`剩余 ${data.laveCount} 奖券`}</span>
+            <span className={styles.num}>{`${intl.get('home.remaining')} ${
+              data.laveCount
+            } ${intl.get('home.personTime')}`}</span>
           </div>
         </div>
       </div>
