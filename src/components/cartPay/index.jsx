@@ -112,7 +112,7 @@ class CartPay extends PureComponent {
                 {homeSys.goMoney > data.go
                   ? `${intl.get('product.confirmPayment')}`
                   : `${intl.get('product.pleaseRecharge', {
-                      moneyVirtualCn: config.moneyVirtualCn,
+                      moneySymbol: config.moneyVirtualCn,
                     })}`}
               </Button>
             </div>

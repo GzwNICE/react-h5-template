@@ -99,6 +99,16 @@ class ShopCart extends PureComponent {
           },
         });
         this.visibleBuy();
+      } else if (res.code === 50007) {
+        this.setState({
+          payData: {
+            idList: [],
+            go: this.state.payGo,
+            num,
+            status: res.code,
+          },
+        });
+        this.visibleBuy();
       } else {
         this.initList();
         this.getConfig();
