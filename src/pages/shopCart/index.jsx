@@ -85,7 +85,7 @@ class ShopCart extends PureComponent {
     let arr = [];
     let num = 0;
     shopList.map(i => {
-      arr.push({ id: i.id, buyCount: i.buyCount });
+      arr.push({ id: i.id, buyCount: i.buyCount, activityTurnId: i.turnActivityId });
       num += i.buyCount;
     });
     cartPay(arr).then(res => {
