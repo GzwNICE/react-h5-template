@@ -546,10 +546,21 @@
   },
   "commodity": {
     "allProducts": "商品",
-    "allCategories": "全部分类"
+    "allCategories": "全部分类",
+    "top": "置顶",
+    "essence": "精华",
+    "singleRecord": "晒单记录",
+    "loadMore": "加载更多..."
   },
   "shoppingCart": {
-    "cart": "购物车"
+    "cart": "购物车",
+    "schedule": "进度",
+    "total": "共{length}件商品，需支付",
+    "settle": "去结算",
+    "quantity": "修改购物车数量",
+    "posting": "用户晒单",
+    "viewAll": "查看全部",
+    "addCart": "加入购物车"
   },
 
   "shareRules":{

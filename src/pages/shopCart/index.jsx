@@ -208,11 +208,11 @@ class ShopCart extends PureComponent {
                   }`}
                 >
                   <div className={styles.left}>
-                    {`共${shopList.length}件商品，需支付: `}
+                    {`${intl.get('shoppingCart.total', { length: shopList.length })}: `}
                     <span>{`${payGo} ${config.moneyVirtualCn}`}</span>
                   </div>
                   <Button type="primary" className={styles.settle} onClick={this.settlement}>
-                    去结算
+                    {intl.get('shoppingCart.settle')}
                   </Button>
                 </div>
                 <CartPay
@@ -225,7 +225,7 @@ class ShopCart extends PureComponent {
                   visible={countModal}
                   transparent
                   maskClosable={false}
-                  title="修改购物车数量"
+                  title={intl.get('shoppingCart.quantity')}
                   style={{ width: '298px' }}
                   className={styles.countModal}
                 >
@@ -240,10 +240,10 @@ class ShopCart extends PureComponent {
                     />
                     <div className={styles.butGroup}>
                       <Button className={styles.cancel} onClick={this.closeModal}>
-                        取消
+                        {intl.get('address.cancel')}
                       </Button>
                       <Button className={styles.determine} onClick={this.determineCount}>
-                        确定
+                        {intl.get('user.confirm')}
                       </Button>
                     </div>
                   </div>

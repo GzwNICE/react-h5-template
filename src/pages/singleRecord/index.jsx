@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-// import { Link } from 'react-router-dom';
+import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
 import queryString from 'query-string';
@@ -129,7 +129,7 @@ class SingleRecord extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          晒单记录
+          {intl.get('commodity.singleRecord')}
         </NavBar>
         <div className={styles.list}>
           {showList.total > 0 ? (
@@ -137,7 +137,11 @@ class SingleRecord extends PureComponent {
               dataSource={dataSource}
               renderFooter={() => (
                 <div style={{ textAlign: 'center' }}>
-                  {isLoading ? 'Loading...' : hasMore ? '加载更多...' : '没有更多了！'}
+                  {isLoading
+                    ? 'Loading...'
+                    : hasMore
+                    ? intl.get('commodity.loadMore')
+                    : intl.get('list.isEnd')}
                 </div>
               )}
               renderRow={row}

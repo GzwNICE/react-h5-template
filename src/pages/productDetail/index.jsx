@@ -500,12 +500,12 @@ class ProductDetail extends PureComponent {
         {showList.total > 0 ? (
           <div className={styles.postDetail}>
             <div className={styles.topTel}>
-              <span className={styles.h3tle}>{`用户晒单（${showList.total}）`}</span>
+              <span className={styles.h3tle}>{`${intl.get('shoppingCart.posting')}（${showList.total}）`}</span>
               <span
                 className={styles.lockAll}
                 onClick={() => this.props.history.push(`/single?productId=${detail.productId}`)}
               >
-                查看全部 <Icon type="right" color="#ff5100" />
+                {intl.get('shoppingCart.viewAll')} <Icon type="right" color="#ff5100" />
               </span>
             </div>
             <ShowCard
@@ -543,7 +543,7 @@ class ProductDetail extends PureComponent {
             <div className={styles.buttonGroup}>
               {detail.cartEnable === 1 ? (
                 <Button className={styles.joinCart} onClick={this.addCart}>
-                  加入购物车
+                  {intl.get('shoppingCart.addCart')}
                 </Button>
               ) : null}
               <Button

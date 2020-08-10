@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 // import { Link } from 'react-router-dom';
 import { Badge, Grid } from 'antd-mobile';
 import { format } from '@/utils/util';
+import intl from 'react-intl-universal';
 import like from '@/assets/images/like.png';
 import liked from '@/assets/images/liked.png';
 import styles from './index.less';
@@ -44,7 +45,7 @@ class ShowCard extends PureComponent {
         <div className={styles.content}>
           {data.type === 3 ? (
             <Badge
-              text="置顶"
+              text={intl.get('commodity.top')}
               style={{
                 padding: '1px 3px',
                 backgroundColor: '#febd52',
@@ -56,7 +57,7 @@ class ShowCard extends PureComponent {
           ) : null}
           {data.type === 2 ? (
             <Badge
-              text="精华"
+              text={intl.get('commodity.essence')}
               style={{
                 padding: '1px 3px',
                 backgroundColor: '#fd7f4a',
@@ -69,7 +70,7 @@ class ShowCard extends PureComponent {
           {data.type === 4 ? (
             <span>
               <Badge
-                text="置顶"
+                text={intl.get('commodity.top')}
                 style={{
                   padding: '1px 3px',
                   backgroundColor: '#febd52',
@@ -79,7 +80,7 @@ class ShowCard extends PureComponent {
                 }}
               />
               <Badge
-                text="精华"
+                text={intl.get('commodity.essence')}
                 style={{
                   padding: '1px 3px',
                   backgroundColor: '#fd7f4a',

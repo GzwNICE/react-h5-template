@@ -49,7 +49,7 @@ class Payment extends PureComponent {
       returnUrl: `${window.location.origin}/payResult`,
     }).then(res => {
       if (res.code === 200) {
-        window.location.href = res.data;
+        window.location.href = res.data.payUrl;
       }
     });
   };

@@ -70,7 +70,7 @@ class Home extends PureComponent {
           if (!openPop || openPop === '1') {
             localStorage.setItem('openPop', 1);
             this.setState({
-              popData: res.data.length === 1 ? res.data[0] : res.data[random()],
+              popData: res.data.length === 1 ? res.data[0] : res.data[random(res.data.length)],
               advertising: true,
             });
           }

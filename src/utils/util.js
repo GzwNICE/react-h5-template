@@ -70,9 +70,9 @@ const numFormat = value => {
     return '';
   }
 };
-const random = () => {
+const random = m => {
   const min = 0;
-  const max = 2;
+  const max = m - 1;
   let rand = Math.floor(Math.random() * (max - min + 1)) + min;
   return rand;
 };

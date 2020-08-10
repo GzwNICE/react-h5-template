@@ -24,7 +24,9 @@ class ActivityCard extends PureComponent {
           <div className={styles.bottomBox}>
             <div className={styles.shopTitle}>{data.activityName}</div>
             <div className={styles.schedule}>
-              {recommend ? <span className={styles.shedText}>进度：</span> : null}
+              {recommend ? (
+                <span className={styles.shedText}>{intl.get('shoppingCart.schedule')}：</span>
+              ) : null}
               <div className={styles.prog}>
                 <Progress
                   percent={data.progressRate}

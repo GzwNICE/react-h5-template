@@ -53,7 +53,7 @@
     "str_sex": "Giới tính",
     "str_phone_num": "Số di động",
     "str_user_address": "Địa chỉ nhận hàng",
-    "str_idcard_no": "Số chứng minh nhân dân", 
+    "str_idcard_no": "Số chứng minh nhân dân",
     "str_realname_title": "Biên soạn Họ và tên thực",
     "str_man": "nam",
     "str_woman": "Nữ",
@@ -543,6 +543,26 @@
     "tips2": "2. Số dư, tổng ước số thời gian chia tổng số vé trong vòng quay thưởng:",
     "tips3": "3. Kết quả: số dư + mã số trúng trưởng của người thứ nhất:"
   },
+
+  "commodity": {
+    "allProducts": "Sản phẩm",
+    "allCategories": "Phân loại",
+    "top": "Đứng đầu",
+    "essence": "Thanh hoa",
+    "singleRecord": "Lịch sử bình luận",
+    "loadMore": "Tìm kiếm..."
+  },
+  "shoppingCart": {
+    "cart": "Giỏ hàng",
+    "schedule": "Tiến độ",
+    "total": "Cung {length} sản phẩm，Thanh toán",
+    "settle": "Thanh toán",
+    "quantity": "Sửa số lượng giỏ hàng",
+    "posting": "Bình luận",
+    "viewAll": "Tìm kiếm",
+    "addCart": "Thêm vào giỏ"
+  },
+
   "shareRules":{
     "ruleTitle":"邀请规则",
     "rule1":"1. 好友接受邀请注册后，每完成一笔充值，您都会得到相应比例的GO币奖励。",
