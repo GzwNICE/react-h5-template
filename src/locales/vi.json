@@ -562,7 +562,8 @@
     "viewAll": "Tìm kiếm",
     "addCart": "Thêm vào giỏ",
     "checkCart": "sau đó Có thể kiểm tra giỏ hàng của tôi",
-    "shoppingEmpty": "Giỏ hàng trống"
+    "shoppingEmpty": "Giỏ hàng trống",
+    "deleted": "đã xóa thành công!"
   },
 
   "shareRules":{

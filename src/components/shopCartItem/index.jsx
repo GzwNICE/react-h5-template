@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import intl from 'react-intl-universal';
 import { Icon, Progress } from 'antd-mobile';
@@ -13,15 +14,28 @@ class ShopCardItem extends PureComponent {
     this.props.changeCount(data);
   };
 
+  goDetail(id) {
+    this.props.goDetail(id);
+  }
+
   render() {
     const { data } = this.props;
+    console.log(data);
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
     return (
       <div className={styles.listItem}>
         <Icon type="cross" className={styles.close} onClick={() => this.deleteItem(data.id)} />
-        <img src={data.picUrl} alt="" className={styles.prodPic} />
+        <img
+          src={data.picUrl}
+          alt=""
+          className={styles.prodPic}
+          onClick={() => this.goDetail(data.turnActivityId)}
+        />
         <div className={styles.right}>
-          <span className={styles.prodName}>{`${intl.get('product.round', {
+          <span
+            className={styles.prodName}
+            onClick={() => this.goDetail(data.turnActivityId)}
+          >{`${intl.get('product.round', {
             currentTurn: data.turnCount,
           })} ${data.activityName}`}</span>
           <div className={styles.second}>

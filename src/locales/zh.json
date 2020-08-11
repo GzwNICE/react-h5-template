@@ -562,7 +562,8 @@
     "viewAll": "查看全部",
     "addCart": "加入购物车",
     "checkCart": "后可查看我的购物车",
-    "shoppingEmpty": "购物车是空的"
+    "shoppingEmpty": "购物车是空的",
+    "deleted": "删除成功!"
   },
 
   "shareRules":{
