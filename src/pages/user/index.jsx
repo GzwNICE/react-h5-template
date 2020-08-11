@@ -69,7 +69,7 @@ class User extends PureComponent {
       { label: intl.get('user.wait_open'), icon: wait, type: 1 },
       { label: intl.get('user.winning'), icon: win, type: 2 },
       { label: intl.get('user.nowin'), icon: nowin, type: 3 },
-      { label: '晒单', icon: evaluation, type: 4 },
+      { label: intl.get('user.str_title_show_order'), icon: evaluation, type: 4 },
     ];
     const tabServer = [
       { label: intl.get('user.invitation'), icon: invitation, type: 'invitation' },
