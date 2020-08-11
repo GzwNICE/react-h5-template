@@ -564,13 +564,13 @@
   },
 
   "shareRules":{
-    "ruleTitle":"邀请规则",
-    "rule1":"1. 好友接受邀请注册后，每完成一笔充值，您都会得到相应比例的GO币奖励。",
-    "rule2":"2. 奖励将以GO币的形式发放到您的交易账户。 ",
-    "rule3":"3. 单个被邀请人提供的奖励比例、奖励周期内上限、邀请人享受好友交易奖励有效时长均以平台公布的数值为准。",
-    "rule4":"4. 奖励的GO币实时结算，一旦被邀请人完成充值，邀请人即可在账户中查询到GO币奖励。",
-    "rule5":"5. 如被邀请人违反邀请奖励的相应风控规则，其邀请奖励将不能发放给邀请人，同时，被邀请人的邀请状态变成【已无效】并且产生的奖励记录状态变成【奖励无效】。",
-    "rule6":"6. 如有深度渠道合作意向，请联系sansanhanoi33@gmail.com，邮件需包含所在地区、自有资源背景、简要展业计划、自我介绍、个人社交软件账号或手机号等信息。",
-    "ruleChange":"规则如有调整，以GaGaGO平台更新为准，最终解释权归GaGaGO所有。 "
+    "ruleTitle":"Quy tắc chia sẻ",
+    "rule1":"1. Sau khi bạn bè chia sẻ đăng ký thành công, mỗi một giao dịch nạp tiền thành công, bạn sẽ nhận được tỉ lệ thưởng Go xu nhất định.",
+    "rule2":"2. Thưởng sẽ là Go xu và được chuyển vào tài khoản giao dịch của bạn, tỉ lệ thưởng mặc định là 5%. ví dụ bạn chia sẻ cho bạn bè và họ nạp 100 Go xu thì bạn sẽ nhận được 5 Go xu.",
+    "rule3":"3. Thưởng Go xu sẽ được trả ngay tại thời điểm bạn chia sẻ của bạn nạp Go xu và bạn có thể kiểm tra tại tài khoản Go xu của mình, chia sẻ càng nhiều thưởng càng lớn, bạn có thể sử dụng Go xu thưởng chia sẻ để mua sản phẩm trong APP, và GaGaGO có thể bán sản phẩm thưởng của bạn cho bên thứ 3 và trực tiếp đổi thành tiền mặt cho bạn.",
+    "rule4":"4. Người chia sẻ được hưởng chính sách bạn bè nạp Go xu có hiệu lực từ thời gian thực tế người bạn chia sẻ đó đăng ký để bắt đầu tính, mặc định là 180 ngày, sau khi đạt đến thời hạn có hiệu lực thì người chia sẻ sẽ không được nhận thưởng.",
+    "rule5":"5. Nếu người chia sẻ vi phạm quy tắc tương ứng trong thưởng chia sẻ, thì thưởng chia sẻ này sẽ không phát, đồng thời trạng thái chia sẻ là [Đã thất bại] và sẽ không có bất kỳ yêu cầu thưởng nào.",
+    "rule6":"6. Nếu có nhu cầu hợp tác xin liên hệ mail: sansanhanoi33@gmail.com, trong mail cần bao gồm thông tin, Họ và tên, Nơi thường trú, nguồn khách hàng, giới thiệu kế hoạch phát triển, giới thiệu bản thân, tài khoản facebook, zalo... số điện thoại...",
+    "ruleChange":"Quy tắc này sẽ có sự thayt đổi, lấy APP GaGaGO cập nhật thông tin mới làm chuẩn, Và quyền hạn thuộc về GaGaGO"
   }
 }
