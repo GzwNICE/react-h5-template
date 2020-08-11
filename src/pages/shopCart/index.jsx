@@ -42,7 +42,7 @@ class ShopCart extends PureComponent {
     const { deleteShop } = this.props;
     deleteShop([id]).then(res => {
       if (res.code === 200) {
-        Toast.success('删除成功!', 2);
+        Toast.success(`${intl.get('shoppingCart.deleted')}`, 2);
         this.initList();
         this.getConfig();
       }
@@ -131,6 +131,10 @@ class ShopCart extends PureComponent {
     this.props.history.push(`/payment`);
   };
 
+  goDetail = id => {
+    this.props.history.push(`/product/${id}`);
+  };
+
   changeCount = data => {
     this.setState(
       {
@@ -207,6 +211,7 @@ class ShopCart extends PureComponent {
                         data={i}
                         delete={this.delete}
                         changeCount={this.changeCount}
+                        goDetail={this.goDetail}
                       />
                     );
                   })}
