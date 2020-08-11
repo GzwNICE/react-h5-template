@@ -284,7 +284,7 @@
     "payGOCoins": "Thanh toán {moneySymbol}",
     "balance": "Số dư của tôi",
     "cancellationOrders": "Tự động hủy đơn hàng chưa thanh toán",
-    "pleaseRecharge": "{moneyVirtualCn} không đủ, vui lòng nạp thêm",
+    "pleaseRecharge": "{moneySymbol} không đủ, vui lòng nạp thêm",
     "myLotteryCode": "Xem mà quay thưởng",
     "drawCodes": "Mã quay thưởng càng nhiều, xác suất trúng thưởng càng cao",
     "noMore": "Không còn nội dung!",
@@ -560,7 +560,9 @@
     "quantity": "Sửa số lượng giỏ hàng",
     "posting": "Bình luận",
     "viewAll": "Tìm kiếm",
-    "addCart": "Thêm vào giỏ"
+    "addCart": "Thêm vào giỏ",
+    "checkCart": "sau đó Có thể kiểm tra giỏ hàng của tôi",
+    "shoppingEmpty": "Giỏ hàng trống"
   },
 
   "shareRules":{

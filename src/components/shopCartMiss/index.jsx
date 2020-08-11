@@ -17,12 +17,12 @@ class MissCard extends PureComponent {
                 pathname: `/login`,
               }}
             >
-              登录
+              {intl.get('login.login')}
             </Link>{' '}
-            后可查看我的购物车
+            {intl.get('shoppingCart.checkCart')}
           </p>
         ) : (
-          <p className={styles.text}>购物车是空的</p>
+          <p className={styles.text}>{intl.get('shoppingCart.shoppingEmpty')}</p>
         )}
       </div>
     );
