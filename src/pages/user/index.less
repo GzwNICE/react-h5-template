@@ -118,23 +118,53 @@
   margin-top: 12px;
   background-color: #ffffff;
   .myorder{
-   padding: 12px;
+   padding: 12px 0 0 12px;
   }
   .itembg{
     background-color: #ff5209;
   }
-  .icon{
-    height: 30px;
-    width: 30px;
-  }
-  .label{
-    margin-top: 10px;
-    transform: scale(0.9);
-    color: #333333;
-    padding: 0 8px;
-  }
+
   :global(.am-flexbox) {
-    background-color:transparent;
+    background-color:#fff;
+  }
+  :global(.am-grid-item-content){
+    height: auto !important ;
+  }
+  .item1{
+    .icon{
+      height: 30px;
+      width: 30px;
+    }
+    .label{
+      margin-top: 10px;
+      transform: scale(0.9);
+      color: #333333;
+      padding: 0 8px;
+    }
+  }
+  .item2{
+    .icon{
+      height: 30px;
+      width: 30px;
+    }
+    .label{
+      margin-top: 10px;
+      transform: scale(0.9);
+      color: #333333;
+      padding: 0 14px;
+    }
+    .itemInfo{
+      background: linear-gradient(318deg,#f92f2f 4%, #c807fb);
+      border-radius: 8px;
+      position: absolute;
+      right: 0;
+      color: #fff;
+      font-size: 10px;
+      transform: scale(0.8);
+      margin-top: 10px;
+      top: 0;
+      padding: 0 3px 0 3px;
+    }
   }
 }
 .feedBack{

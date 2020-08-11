@@ -145,7 +145,7 @@ class User extends PureComponent {
                 }
               }}
               renderItem={item => (
-                <div>
+                <div className={styles.item1}>
                   <img src={item.icon} className={styles.icon} alt="" />
                   <div className={styles.label} style={{ marginTop: '5px' }}>
                     {item.label}
@@ -164,11 +164,12 @@ class User extends PureComponent {
                 this.onMyServerClick(_el);
               }}
               renderItem={item => (
-                <div>
+                <div className={styles.item2}>
                   <img src={item.icon} className={styles.icon} alt="" />
                   <div className={styles.label} style={{ marginTop: '5px' }}>
                     {item.label}
                   </div>
+                 {item.type == 'invitation'?<div className={styles.itemInfo}>{intl.get('user.str_click_getmoney')}</div>:""} 
                 </div>
               )}
             />

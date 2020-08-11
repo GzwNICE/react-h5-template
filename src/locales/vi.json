@@ -106,7 +106,8 @@
     "str_show_showing":"Đã xuất bản",
     "str_show_refused":"Phê duyệt không thông qua",
     "update":"Chỉnh sửa",
-    "str_image_input":"Vui lòng tải lên một hình ảnh"
+    "str_image_input":"Vui lòng tải lên một hình ảnh",
+    "str_click_getmoney":"Kiếm tiền"
 
   },
   "order": {
