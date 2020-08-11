@@ -117,7 +117,7 @@ class AddressAdd extends PureComponent {
         <NavBar
           mode="dark"
           leftContent={intl.get('address.cancel')}
-          style={{ backgroundColor: '#FF5209' }}
+          style={{ backgroundColor: '#FF5209', position: 'fixed', top: '0', width: '100%' }}
           onLeftClick={() => {
             this.props.history.go(-1);
           }}
