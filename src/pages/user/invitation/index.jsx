@@ -127,7 +127,7 @@ class Invitation extends PureComponent {
               </div>
               <div className={styles.line}></div>
               <div className={styles.rewardInfo}>
-                <div className={styles.info}>
+                <div className={styles.info1}>
                   <div className={styles.infoTitle}>{intl.get('user.str_proportion_title')}</div>
                   <img
                     className={styles.question}
