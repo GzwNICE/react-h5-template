@@ -2,14 +2,8 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-// import queryString from 'query-string';
-// import Cookies from 'js-cookie';
-// import intl from 'react-intl-universal';
+import intl from 'react-intl-universal';
 import { NavBar, Icon } from 'antd-mobile';
-// import { createForm } from 'rc-form';
-// import { getBaseUrl } from '@/utils/util';
-// import passwordClose from '@/assets/images/passwordClose.png';
-// import passwordOpen from '@/assets/images/passwordOpen.png';
 import styles from './index.less';
 
 class Agreement extends PureComponent {
@@ -32,22 +26,22 @@ class Agreement extends PureComponent {
     let t = '';
     switch (type) {
       case '0':
-        t = '用户协议';
+        t = `${intl.get('agreement.user')}`;
         break;
       case '1':
-        t = '注册协议';
+        t = `${intl.get('agreement.registration')}`;
         break;
       case '2':
-        t = '隐私协议';
+        t = `${intl.get('agreement.privacy')}`;
         break;
       case '3':
-        t = '免责声明';
+        t = `${intl.get('agreement.disclaimer')}`;
         break;
       case '4':
-        t = '充值协议';
+        t = `${intl.get('agreement.recharge')}`;
         break;
       case '5':
-        t = '兑换协议';
+        t = `${intl.get('agreement.exchange')}`;
         break;
       default:
         t = '';
