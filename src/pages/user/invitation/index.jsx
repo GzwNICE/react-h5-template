@@ -32,7 +32,7 @@ class Invitation extends PureComponent {
     this.props.history.push(`/rule`);
   }
 
-  onCopyClick(copyContent,e) {
+  onCopyClick(copyContent, e) {
     if (copy(copyContent)) {
       Toast.info(intl.get('order.str_copy_success'), 2);
     }
@@ -52,20 +52,20 @@ class Invitation extends PureComponent {
     navigator.share({});
   }
   componentDidMount() {
-    const { canUse, ranks, shareConfig} = this.props;
+    const { canUse, ranks, shareConfig } = this.props;
     canUse({ url: '/app/invite/rules/config/use' }).then(res => {
       this.setState({
-        canUse:res.data.useStatus
+        canUse: res.data.useStatus,
       });
     });
     ranks({ url: '/app/inviter/reward/income/rank' }).then(res => {
       this.setState({
-        ranks:res.data
+        ranks: res.data,
       });
     });
     shareConfig({ url: '/app/invite/rules/config/info' }).then(res => {
       this.setState({
-        shareConfig:res.data
+        shareConfig: res.data,
       });
     });
   }
@@ -78,7 +78,9 @@ class Invitation extends PureComponent {
           mode="dark"
           icon={<Icon type="left" />}
           style={{ backgroundColor: '#FF5209' }}
-          rightContent={<div onClick={this.onRuleClick.bind(this)}>{intl.get('user.str_rules')}</div>}
+          rightContent={
+            <div onClick={this.onRuleClick.bind(this)}>{intl.get('user.str_rules')}</div>
+          }
           onLeftClick={() => this.props.history.go(-1)}
         >
           {intl.get('user.invitation')}
@@ -109,21 +111,33 @@ class Invitation extends PureComponent {
               </div>
             </div>
             <div className={styles.invitationBg}>
-        <div className={styles.title}>{intl.get('user.str_my_share_link')}</div>
+              <div className={styles.title}>{intl.get('user.str_my_share_link')}</div>
               <div className={styles.invitationBox}>
-                <div className={styles.invitationLink}>{shareConfig!=null?shareConfig.inviteUrl:''}</div>
+                <div className={styles.invitationLink}>
+                  {shareConfig != null ? shareConfig.inviteUrl : ''}
+                </div>
                 {/* <img
                   className={styles.copy}
                   src={icCopy}
                   onClick={this.onCopyClick.bind('https://vngagago.com/invite/6-dc4fbf1-dc4fb')}
                 ></img> */}
               </div>
-              <div className={styles.share} onClick={this.onCopyClick.bind(this,shareConfig!=null?shareConfig.inviteUrl:'')}>{intl.get('user.str_share')}</div>
+              <div
+                className={styles.share}
+                onClick={this.onCopyClick.bind(
+                  this,
+                  shareConfig != null ? shareConfig.inviteUrl : ''
+                )}
+              >
+                {intl.get('user.str_share')}
+              </div>
             </div>
             <div className={styles.bgBox}>
               <div className={styles.rewardHead}>
                 <div className={styles.head}>{intl.get('user.str_my_reward')}</div>
-                <div className={styles.more} onClick={this.onRewardMoreClick.bind(this)}>{intl.get('user.str_show_more')}</div>
+                <div className={styles.more} onClick={this.onRewardMoreClick.bind(this)}>
+                  {intl.get('user.str_show_more')}
+                </div>
               </div>
               <div className={styles.line}></div>
               <div className={styles.rewardInfo}>
@@ -134,37 +148,59 @@ class Invitation extends PureComponent {
                     src={question}
                     onClick={this.modalEvent.bind(this, true)}
                   ></img>
-                  <div className={styles.infoValue}>{shareConfig!=null?shareConfig.rewardRate:''}%</div>
+                  <div className={styles.infoValue}>
+                    {shareConfig != null ? shareConfig.rewardRate : ''}%
+                  </div>
                 </div>
                 <div className={styles.info}>
                   <div className={styles.infoTitle}>{intl.get('user.str_getno')}</div>
-                  <div className={styles.infoValue}>{shareConfig!=null?shareConfig.inviteUserCount:''}</div>
+                  <div className={styles.infoValue}>
+                    {shareConfig != null ? shareConfig.inviteUserCount : ''}
+                  </div>
                 </div>
                 <div className={styles.info}>
-                  <div className={styles.infoTitle}>{intl.get('user.myGoCoin', { moneyVirtualCn: config.moneyVirtualCn })}</div>
-                  <div className={styles.infoValue}>{shareConfig!=null?shareConfig.totalRewardGoMoney:''}</div>
+                  <div className={styles.infoTitle}>
+                    {intl.get('user.myGoCoin', { moneyVirtualCn: config.moneyVirtualCn })}
+                  </div>
+                  <div className={styles.infoValue}>
+                    {shareConfig != null ? shareConfig.totalRewardGoMoney : ''}
+                  </div>
                 </div>
               </div>
             </div>
             <div className={styles.bgBox}>
               <div className={styles.rewardHead}>
                 <div className={styles.head}>{intl.get('user.str_ranking')}</div>
-                <div className={styles.more} onClick={this.onRankMoreClick.bind(this)}>{intl.get('user.str_show_more')}</div>
+                <div className={styles.more} onClick={this.onRankMoreClick.bind(this)}>
+                  {intl.get('user.str_show_more')}
+                </div>
               </div>
               <div className={styles.item}>
                 <img className={styles.rankImg} src={gold}></img>
-                <div className={styles.rankName}>{ranks[0]!=null?ranks[0].inviterName:''}</div>
-                <div className={styles.rankAmount}>{ranks[0]!=null?ranks[0].cumulativeReward:''} {config.moneyVirtualCn}</div>
+                <div className={styles.rankName}>
+                  {ranks[0] != null ? ranks[0].inviterName : ''}
+                </div>
+                <div className={styles.rankAmount}>
+                  {ranks[0] != null ? ranks[0].cumulativeReward : ''} {config.moneyVirtualCn}
+                </div>
               </div>
               <div className={styles.item}>
                 <img className={styles.rankImg} src={silver}></img>
-                <div className={styles.rankName}>{ranks[1]!=null?ranks[1].inviterName:''}</div>
-                <div className={styles.rankAmount}>{ranks[1]!=null?ranks[1].cumulativeReward:''} {config.moneyVirtualCn}</div>
+                <div className={styles.rankName}>
+                  {ranks[1] != null ? ranks[1].inviterName : ''}
+                </div>
+                <div className={styles.rankAmount}>
+                  {ranks[1] != null ? ranks[1].cumulativeReward : ''} {config.moneyVirtualCn}
+                </div>
               </div>
               <div className={styles.item}>
                 <img className={styles.rankImg} src={copper}></img>
-                <div className={styles.rankName}>{ranks[2]!=null?ranks[2].inviterName:''}</div>
-                <div className={styles.rankAmount}>{ranks[2]!=null?ranks[2].cumulativeReward:''} {config.moneyVirtualCn}</div>
+                <div className={styles.rankName}>
+                  {ranks[2] != null ? ranks[2].inviterName : ''}
+                </div>
+                <div className={styles.rankAmount}>
+                  {ranks[2] != null ? ranks[2].cumulativeReward : ''} {config.moneyVirtualCn}
+                </div>
               </div>
             </div>
           </div>
@@ -174,12 +210,17 @@ class Invitation extends PureComponent {
           visible={codeModal}
           transparent
           maskClosable={false}
-          style={{ width: '302px'}}
-
-          title={<div className={styles.dialogTitle}>{intl.get('user.str_proportion_dividends')}</div>}
+          style={{ width: '302px' }}
+          title={
+            <div className={styles.dialogTitle}>{intl.get('user.str_proportion_dividends')}</div>
+          }
         >
-          <div className={styles.dialogContent1}>{intl.get('user.str_proportion_dividends_content')}</div>
-          <div className={styles.dialogContent2}>{intl.get('user.str_proportion_dividends_remind')}</div>
+          <div className={styles.dialogContent1}>
+            {intl.get('user.str_proportion_dividends_content')}
+          </div>
+          <div className={styles.dialogContent2}>
+            {intl.get('user.str_proportion_dividends_remind')}
+          </div>
           <div className={styles.cancel} onClick={this.modalEvent.bind(this, false)}>
             {intl.get('order.know')}
           </div>
@@ -195,7 +236,6 @@ const mapDispatch = dispatch => ({
   canUse: params => dispatch.user.getData(params),
   ranks: params => dispatch.user.getData(params),
   shareConfig: params => dispatch.user.getData(params),
-
 });
 
 export default connect(mapState, mapDispatch)(Invitation);

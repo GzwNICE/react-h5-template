@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-import { Grid, Button, NavBar } from 'antd-mobile';
+import { Grid, NavBar } from 'antd-mobile';
 import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
@@ -12,17 +12,13 @@ import wait from '@/assets/images/ic_waiting.png';
 import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
 import evaluation from '@/assets/images/ic_evaluation.png';
-
+import integral from '@/assets/images/credits.png';
 import invitation from '@/assets/images/ic_invitation.png';
-
 import join from '@/assets/images/ic_join.png';
 import help from '@/assets/images/ic_service.png';
 import feedback from '@/assets/images/ic_feedback.png';
 import setting from '@/assets/images/ic_set.png';
-import queryString from 'query-string';
 import styles from './index.less';
-
-const { lang } = queryString.parse(window.location.search);
 
 class User extends PureComponent {
   constructor(props) {
@@ -52,11 +48,7 @@ class User extends PureComponent {
   }
   onMyServerClick(_el) {
     if (this.state.isLogin) {
-      //1:分享好友;
-      //2:加入社群;
-      //3:帮助中心;
-      //4:意见反馈;
-      //5:设置;
+      //1:分享好友; 2:加入社群; 3:帮助中心; 4:意见反馈; 5:设置;
       this.props.history.push(`/${_el.type}`);
     } else {
       //登录
@@ -72,7 +64,13 @@ class User extends PureComponent {
       { label: intl.get('user.str_title_show_order'), icon: evaluation, type: 4 },
     ];
     const tabServer = [
-      { label: intl.get('user.invitation'), icon: invitation, type: 'invitation' },
+      { label: '我的积分', icon: integral, type: 'integral', tips: '领GO币' },
+      {
+        label: intl.get('user.invitation'),
+        icon: invitation,
+        type: 'invitation',
+        tips: intl.get('user.str_click_getmoney'),
+      },
       { label: intl.get('user.join'), icon: join, type: 'join' },
       { label: intl.get('user.help'), icon: help, type: 'help' },
       { label: intl.get('user.feedback'), icon: feedback, type: 'feedback' },
@@ -169,7 +167,7 @@ class User extends PureComponent {
                   <div className={styles.label} style={{ marginTop: '5px' }}>
                     {item.label}
                   </div>
-                 {item.type == 'invitation'?<div className={styles.itemInfo}>{intl.get('user.str_click_getmoney')}</div>:""} 
+                  {item.tips ? <div className={styles.itemInfo}>{item.tips}</div> : ''}
                 </div>
               )}
             />

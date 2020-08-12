@@ -42,6 +42,7 @@ import ChangeResult from '@/pages/changeResult';
 import CommodityPage from '@/pages/commodity';
 import ShopCart from '@/pages/shopCart';
 import SingleRecord from '@/pages/singleRecord';
+import Integral from '@/pages/user/integral';
 
 // import { Route } from 'react-router-dom';
 
@@ -246,5 +247,10 @@ export const routes = [
     path: '/single',
     exact: true,
     component: SingleRecord,
+  },
+  {
+    path: '/integral',
+    exact: true,
+    component: Integral,
   },
 ];
