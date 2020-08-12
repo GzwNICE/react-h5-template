@@ -576,5 +576,13 @@
     "rule5":"5. Nếu người chia sẻ vi phạm quy tắc tương ứng trong thưởng chia sẻ, thì thưởng chia sẻ này sẽ không phát, đồng thời trạng thái chia sẻ là [Đã thất bại] và sẽ không có bất kỳ yêu cầu thưởng nào.",
     "rule6":"6. Nếu có nhu cầu hợp tác xin liên hệ mail: sansanhanoi33@gmail.com, trong mail cần bao gồm thông tin, Họ và tên, Nơi thường trú, nguồn khách hàng, giới thiệu kế hoạch phát triển, giới thiệu bản thân, tài khoản facebook, zalo... số điện thoại...",
     "ruleChange":"Quy tắc này sẽ có sự thayt đổi, lấy APP GaGaGO cập nhật thông tin mới làm chuẩn, Và quyền hạn thuộc về GaGaGO"
+  },
+  "agreement": {
+    "user": "Thỏa thuận dịch vụ người dùng",
+    "registration": "Đăng ký thỏa thuận",
+    "privacy": "Thỏa thuận bảo mật",
+    "disclaimer": "Thuyết minh miễn trách nhiệm",
+    "recharge": "Thỏa thận nạp tiền",
+    "exchange": "Thảo thuận quy đổi"
   }
 }
