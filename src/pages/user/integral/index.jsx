@@ -3,15 +3,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { NavBar, Icon, Toast, Modal, Button } from 'antd-mobile';
 import intl from 'react-intl-universal';
-// import copy from 'copy-to-clipboard';
 // import Empty from '@/components/empty';
-// import send from '@/assets/images/ic_step1_send.png';
-// import man from '@/assets/images/ic_step2_man.png';
-// import coin from '@/assets/images/ic_step3_coin.png';
-// import direction from '@/assets/images/direction.png';
-// import gold from '@/assets/images/invite_list_ic_gold.png';
-// import silver from '@/assets/images/invite_list_ic_silver.png';
-// import copper from '@/assets/images/invite_list_ic_copper.png';
 import IntegralCard from '@/components/integralCard';
 import changeModalImg from '@/assets/images/changeModal.png';
 import integralBg from '@/assets/images/integral_bg.png';
@@ -52,7 +44,12 @@ class Integral extends PureComponent {
         </div>
         <div className={styles.listBox}>
           <div style={{ backgroundImage: `url(${integralBg})` }} className={styles.topBox}>
-            <span className={styles.turnover}>积分流水</span>
+            <span
+              className={styles.turnover}
+              onClick={() => this.props.history.push('/integral/turnover')}
+            >
+              积分流水
+            </span>
             <span className={styles.tle1}>可用积分</span>
             <span className={styles.number}>20,000</span>
             <span className={styles.change}>可换 20 Go币</span>
@@ -61,11 +58,11 @@ class Integral extends PureComponent {
           </div>
           <div className={styles.subtitle}>新手任务</div>
           <div className={styles.noviceTask}>
-            <IntegralCard type="novice" last />
+            <IntegralCard type="noviceTask" last />
           </div>
           <div className={styles.subtitle}>任务大厅</div>
           <div className={styles.noviceTask}>
-            <IntegralCard type="task" last />
+            <IntegralCard type="noviceTask" schedule last />
           </div>
           <div className={styles.noMore}>- 没有更多内容了-</div>
         </div>

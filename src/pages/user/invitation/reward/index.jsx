@@ -41,8 +41,8 @@ class Reward extends PureComponent {
           }}
           tabBarInactiveTextColor="#333333"
         >
-          <FriendHistory  />
-          <RewardHistory  />
+          <FriendHistory />
+          <RewardHistory />
         </Tabs>
       </div>
     );

@@ -43,6 +43,7 @@ import CommodityPage from '@/pages/commodity';
 import ShopCart from '@/pages/shopCart';
 import SingleRecord from '@/pages/singleRecord';
 import Integral from '@/pages/user/integral';
+import IntegralTurnover from '@/pages/user/integral/turnover';
 
 // import { Route } from 'react-router-dom';
 
@@ -252,5 +253,10 @@ export const routes = [
     path: '/integral',
     exact: true,
     component: Integral,
+  },
+  {
+    path: '/integral/turnover',
+    exact: true,
+    component: IntegralTurnover,
   },
 ];

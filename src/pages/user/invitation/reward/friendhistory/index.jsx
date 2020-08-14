@@ -117,44 +117,44 @@ class History extends PureComponent {
           <Empty />
         ) : (
           <div>
-             <div className={styles.historyTitle}>
-                <div className={styles.title} style={{ textAlign: 'left' }}>
+            <div className={styles.historyTitle}>
+              <div className={styles.title} style={{ textAlign: 'left' }}>
                 {intl.get('user.str_friend_account')}
               </div>
               <div className={styles.title} style={{ textAlign: 'left' }}>
                 {intl.get('user.str_invited_time')}
-                </div>
+              </div>
               <div className={styles.title} style={{ textAlign: 'right' }}>
                 {intl.get('user.str_invited_state')}
               </div>
-              </div>
+            </div>
             <ListView
               ref={el => {
                 this.load = el;
-                }}
-                key={this.state.useBodyScroll ? '0' : '1'}
-                dataSource={this.state.dataSource}
-                renderRow={Row}
-                renderSeparator={separator}
-                useBodyScroll={this.state.useBodyScroll}
-                style={
+              }}
+              key={this.state.useBodyScroll ? '0' : '1'}
+              dataSource={this.state.dataSource}
+              renderRow={Row}
+              renderSeparator={separator}
+              useBodyScroll={this.state.useBodyScroll}
+              style={
                 this.state.useBodyScroll
-                    ? {}
-                    : {
-                        height: this.state.height,
-                        border: '1px solid #ddd',
-                        margin: '1px 0',
+                  ? {}
+                  : {
+                      height: this.state.height,
+                      border: '1px solid #ddd',
+                      margin: '1px 0',
                     }
-                }
-                scrollRenderAheadDistance={100}
-                onEndReachedThreshold={10}
-                scrollEventThrottle={100}
-               initialListSize={1000}
-                pageSize={10}
-                onEndReached={this.loadPageList.bind(this)} // 上啦加载
-                renderFooter={() => (
+              }
+              scrollRenderAheadDistance={100}
+              onEndReachedThreshold={10}
+              scrollEventThrottle={100}
+              initialListSize={1000}
+              pageSize={10}
+              onEndReached={this.loadPageList.bind(this)} // 上啦加载
+              renderFooter={() => (
                 <div style={{ padding: 10, textAlign: 'center' }}>
-                    {isLoading ? 'Loading...' : intl.get('list.isEnd')}
+                  {isLoading ? 'Loading...' : intl.get('list.isEnd')}
                 </div>
               )}
             />

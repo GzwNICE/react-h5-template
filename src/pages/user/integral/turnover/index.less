@@ -1,0 +1,35 @@
+.turnover {
+  width: 100%;
+  padding-top: 45PX;
+
+  .navBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #FF5209;
+    z-index: 9999;
+  }
+
+  .tabsBox {
+    width: 100%;
+    height: calc(100vh - 45PX - 43.5PX);
+    overflow-y: scroll;
+    .content {
+      width: 100%;
+      background-color: #fff;
+      padding-left: 12px;
+      box-sizing: border-box;
+    }
+    .noMore {
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-family: PingFangSC, PingFangSC-Regular;
+      color: #999999;
+    }
+  }
+}
