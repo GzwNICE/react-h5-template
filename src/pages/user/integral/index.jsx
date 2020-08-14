@@ -1,9 +1,9 @@
+/* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { NavBar, Icon, Toast, Modal, Button } from 'antd-mobile';
 import intl from 'react-intl-universal';
-// import Empty from '@/components/empty';
 import IntegralCard from '@/components/integralCard';
 import changeModalImg from '@/assets/images/changeModal.png';
 import integralBg from '@/assets/images/integral_bg.png';
