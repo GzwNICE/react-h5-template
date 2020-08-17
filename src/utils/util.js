@@ -77,4 +77,25 @@ const random = m => {
   return rand;
 };
 
-export { isIPhoneX, debounce, getBaseUrl, format, numFormat, random };
+const cycle = code => {
+  let str = '';
+  switch (code) {
+    case 0:
+      str = '永久';
+      break;
+    case 1:
+      str = '每日';
+      break;
+    case 2:
+      str = '每周';
+      break;
+    case 3:
+      str = '每月';
+      break;
+    default:
+      str = '';
+  }
+  return str;
+};
+
+export { isIPhoneX, debounce, getBaseUrl, format, numFormat, random, cycle };

@@ -8,5 +8,18 @@ import { product } from '@/models/product';
 import { prize } from '@/models/prize';
 import { commodity } from '@/models/commodity';
 import { shopCart } from '@/models/shopCart';
+import { integral } from '@/models/integral';
 
-export { login, home, user, order, register, product, payment, prize, commodity, shopCart };
+export {
+  login,
+  home,
+  user,
+  order,
+  register,
+  product,
+  payment,
+  prize,
+  commodity,
+  shopCart,
+  integral,
+};

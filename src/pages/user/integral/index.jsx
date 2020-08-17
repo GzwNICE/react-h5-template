@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { NavBar, Icon, Toast, Modal, Button } from 'antd-mobile';
 import intl from 'react-intl-universal';
+import { numFormat } from '@/utils/util';
 import IntegralCard from '@/components/integralCard';
 import changeModalImg from '@/assets/images/changeModal.png';
 import integralBg from '@/assets/images/integral_bg.png';
@@ -19,14 +20,35 @@ class Integral extends PureComponent {
     };
   }
 
+  componentDidMount() {
+    const { points, task } = this.props;
+    points();
+    task();
+  }
+
   handlerClose = () => {
     this.setState({
       changeModal: !this.state.changeModal,
     });
   };
 
+  handleChange = () => {
+    const { exchange, points } = this.props;
+    exchange().then(res => {
+      if (res.code === 200) {
+        this.setState({
+          changeModal: false,
+        });
+        Toast.success('兑换成功！', 2);
+        points();
+      }
+    });
+  };
+
   render() {
     const { changeModal } = this.state;
+    const { pointData, taskData } = this.props;
+    const config = JSON.parse(localStorage.getItem('configuration')) || {};
     return (
       <div className={styles.integral}>
         <NavBar
@@ -51,18 +73,48 @@ class Integral extends PureComponent {
               积分流水
             </span>
             <span className={styles.tle1}>可用积分</span>
-            <span className={styles.number}>20,000</span>
-            <span className={styles.change}>可换 20 Go币</span>
-            <span className={styles.goCoin} onClick={this.handlerClose}>兑换GO币</span>
-            <span className={styles.expired}>1天后过期积分 1908</span>
+            <span className={styles.number}>{numFormat(pointData.points)}</span>
+            <span
+              className={styles.change}
+            >{`可换 ${pointData.exchangeGoMoney} ${config.moneyVirtualCn}`}</span>
+            {pointData.exchangeGoMoney < 1 ? null : (
+              <span
+                className={styles.goCoin}
+                onClick={this.handlerClose}
+              >{`兑换${config.moneyVirtualCn}`}</span>
+            )}
+            <span className={styles.expired}>{`1天后过期积分 ${pointData.expiredSoonPoints}`}</span>
           </div>
           <div className={styles.subtitle}>新手任务</div>
           <div className={styles.noviceTask}>
-            <IntegralCard type="noviceTask" last />
+            {taskData.newer
+              ? taskData.newer.map((i, index) => {
+                  return (
+                    <IntegralCard
+                      type="noviceTask"
+                      data={i}
+                      last={index === taskData.newer.length - 1}
+                      key={i.taskScene}
+                    />
+                  );
+                })
+              : null}
           </div>
           <div className={styles.subtitle}>任务大厅</div>
           <div className={styles.noviceTask}>
-            <IntegralCard type="noviceTask" schedule last />
+            {taskData.task
+              ? taskData.task.map((i, index) => {
+                  return (
+                    <IntegralCard
+                      type="noviceTask"
+                      schedule
+                      data={i}
+                      last={index === taskData.task.length - 1}
+                      key={i.taskScene}
+                    />
+                  );
+                })
+              : null}
           </div>
           <div className={styles.noMore}>- 没有更多内容了-</div>
         </div>
@@ -76,15 +128,18 @@ class Integral extends PureComponent {
         >
           <div className={styles.content}>
             <img src={changeModalImg} alt="" className={styles.changeModalImg} />
-            <p className={styles.text1}>您将消耗 5000 积分兑换 1 GO币</p>
+            <p className={styles.text1}>{`您将消耗 ${pointData.exchangeGoMoney *
+              pointData.exchangeGoMoneyRadio} 积分兑换 ${pointData.exchangeGoMoney} ${
+              config.moneyVirtualCn
+            }`}</p>
             <p className={styles.text2}>
-              GO币是GaGaGo平台为答谢用户提供的回馈服务，因此通过积分兑换的GO币，不可退款，不可撤销。
+              {`${config.moneyVirtualCn}是GaGaGo平台为答谢用户提供的回馈服务，因此通过积分兑换的${config.moneyVirtualCn}，不可退款，不可撤销。`}
             </p>
             <div className={styles.buttonGroup}>
               <Button type="primary" className={styles.cancel} onClick={this.handlerClose}>
                 取消
               </Button>
-              <Button type="primary" className={styles.determine}>
+              <Button type="primary" className={styles.determine} onClick={this.handleChange}>
                 确定
               </Button>
             </div>
@@ -95,8 +150,15 @@ class Integral extends PureComponent {
   }
 }
 
-const mapState = state => ({});
+const mapState = state => ({
+  pointData: state.integral.data.pointData,
+  taskData: state.integral.data.taskData,
+});
 
-const mapDispatch = dispatch => ({});
+const mapDispatch = dispatch => ({
+  points: params => dispatch.integral.points(params),
+  task: params => dispatch.integral.task(params),
+  exchange: params => dispatch.integral.exchange(params),
+});
 
 export default connect(mapState, mapDispatch)(Integral);
