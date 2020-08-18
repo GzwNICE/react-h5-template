@@ -39,7 +39,7 @@ class Integral extends PureComponent {
         this.setState({
           changeModal: false,
         });
-        Toast.success('兑换成功！', 2);
+        Toast.success(`${intl.get('integral.exchangeSuccess')}`, 2);
         points();
       }
     });
@@ -61,12 +61,12 @@ class Integral extends PureComponent {
           onLeftClick={() => this.props.history.go(-1)}
           className={styles.navBar}
         >
-          我的积分
+          {intl.get('integral.myIntegral')}
         </NavBar>
         <div className={styles.vacancy}>
           <img src={integralBlank} alt="" className={styles.blank} />
-          <span className={styles.forward}>敬请期待</span>
-          <span className={styles.tips}>程序员正在建设中…</span>
+          <span className={styles.forward}>{intl.get('integral.stayTuned')}</span>
+          <span className={styles.tips}>{intl.get('integral.construction')}</span>
         </div>
         <div className={styles.listBox}>
           <div style={{ backgroundImage: `url(${integralBg})` }} className={styles.topBox}>
@@ -74,22 +74,23 @@ class Integral extends PureComponent {
               className={styles.turnover}
               onClick={() => this.props.history.push('/integral/turnover')}
             >
-              积分流水
+              {intl.get('integral.turnover')}
             </span>
-            <span className={styles.tle1}>可用积分</span>
+            <span className={styles.tle1}>{intl.get('integral.available')}</span>
             <span className={styles.number}>{numFormat(pointData.points)}</span>
-            <span
-              className={styles.change}
-            >{`可换 ${pointData.exchangeGoMoney} ${config.moneyVirtualCn}`}</span>
+            <span className={styles.change}>{`${intl.get('integral.interchangeable')} ${
+              pointData.exchangeGoMoney
+            } ${config.moneyVirtualCn}`}</span>
             {pointData.exchangeGoMoney < 1 ? null : (
-              <span
-                className={styles.goCoin}
-                onClick={this.handlerClose}
-              >{`兑换${config.moneyVirtualCn}`}</span>
+              <span className={styles.goCoin} onClick={this.handlerClose}>{`${intl.get(
+                'payment.str_change_gocoin'
+              )} ${config.moneyVirtualCn}`}</span>
             )}
-            <span className={styles.expired}>{`1天后过期积分 ${pointData.expiredSoonPoints}`}</span>
+            <span className={styles.expired}>{`${intl.get('integral.expireAfter')} ${
+              pointData.expiredSoonPoints
+            }`}</span>
           </div>
-          <div className={styles.subtitle}>新手任务</div>
+          <div className={styles.subtitle}>{intl.get('integral.noviceTask')}</div>
           <div className={styles.noviceTask}>
             {taskData.newer
               ? taskData.newer.map((i, index) => {
@@ -105,7 +106,7 @@ class Integral extends PureComponent {
                 })
               : null}
           </div>
-          <div className={styles.subtitle}>任务大厅</div>
+          <div className={styles.subtitle}>{intl.get('integral.missionHall')}</div>
           <div className={styles.noviceTask}>
             {taskData.task
               ? taskData.task.map((i, index) => {
@@ -122,31 +123,32 @@ class Integral extends PureComponent {
                 })
               : null}
           </div>
-          <div className={styles.noMore}>- 没有更多内容了-</div>
+          <div className={styles.noMore}>{intl.get('integral.noMore')}</div>
         </div>
         <Modal
           visible={changeModal}
           transparent
           maskClosable={false}
-          title="兑换提醒"
+          title={intl.get('integral.redemption')}
           style={{ width: '3.02rem' }}
           className={styles.changeModal}
         >
           <div className={styles.content}>
             <img src={changeModalImg} alt="" className={styles.changeModalImg} />
-            <p className={styles.text1}>{`您将消耗 ${pointData.exchangeGoMoney *
-              pointData.exchangeGoMoneyRadio} 积分兑换 ${pointData.exchangeGoMoney} ${
-              config.moneyVirtualCn
-            }`}</p>
+            <p className={styles.text1}>{`${intl.get(
+              'integral.willConsume'
+            )} ${pointData.exchangeGoMoney * pointData.exchangeGoMoneyRadio} ${intl.get(
+              'integral.redeem'
+            )} ${pointData.exchangeGoMoney} ${config.moneyVirtualCn}`}</p>
             <p className={styles.text2}>
-              {`${config.moneyVirtualCn}是GaGaGo平台为答谢用户提供的回馈服务，因此通过积分兑换的${config.moneyVirtualCn}，不可退款，不可撤销。`}
+              {intl.get('integral.redemptionTips', { moneyVirtualCn: config.moneyVirtualCn })}
             </p>
             <div className={styles.buttonGroup}>
               <Button type="primary" className={styles.cancel} onClick={this.handlerClose}>
-                取消
+                {intl.get('user.cancel')}
               </Button>
               <Button type="primary" className={styles.determine} onClick={this.handleChange}>
-                确定
+                {intl.get('user.confirm')}
               </Button>
             </div>
           </div>

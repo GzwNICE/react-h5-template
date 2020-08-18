@@ -57,6 +57,7 @@ class User extends PureComponent {
   }
 
   render() {
+    const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const tabs = [
       { label: intl.get('user.wait_open'), icon: wait, type: 1 },
       { label: intl.get('user.winning'), icon: win, type: 2 },
@@ -64,7 +65,12 @@ class User extends PureComponent {
       { label: intl.get('user.str_title_show_order'), icon: evaluation, type: 4 },
     ];
     const tabServer = [
-      { label: '我的积分', icon: integral, type: 'integral', tips: '领GO币' },
+      {
+        label: intl.get('integral.myIntegral'),
+        icon: integral,
+        type: 'integral',
+        tips: intl.get('integral.collar', { moneyVirtualCn: config.moneyVirtualCn }),
+      },
       {
         label: intl.get('user.invitation'),
         icon: invitation,
@@ -77,7 +83,6 @@ class User extends PureComponent {
       { label: intl.get('user.setting'), icon: setting, type: 'set' },
     ];
     const { user } = this.props;
-    const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const { IPhoneX, isLogin } = this.state;
     return (
       <div className={styles.userPage}>

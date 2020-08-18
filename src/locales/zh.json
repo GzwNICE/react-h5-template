@@ -583,5 +583,32 @@
     "disclaimer": "免责声明",
     "recharge": "充值协议",
     "exchange": "兑换协议"
+  },
+  "integral": {
+    "carryOut": "完成",
+    "upperLimit": "上限",
+    "toFinish": "去完成",
+    "obtain": "获得",
+    "invalidation": "失效",
+    "myIntegral": "我的积分",
+    "collar": "领{moneyVirtualCn}",
+    "exchangeSuccess": "兑换成功！",
+    "stayTuned": "敬请期待",
+    "construction": "程序员正在建设中…",
+    "turnover": "积分流水",
+    "available": "可用积分",
+    "interchangeable": "可换",
+    "expireAfter": "1天后过期积分",
+    "noviceTask": "新手任务",
+    "missionHall": "任务大厅",
+    "noMore": "- 没有更多内容了-",
+    "redemption": "兑换提醒",
+    "willConsume": "您将消耗",
+    "redeem": "积分兑换",
+    "redemptionTips": "{moneyVirtualCn}是GaGaGo平台为答谢用户提供的回馈服务，因此通过积分兑换的{moneyVirtualCn}，不可退款，不可撤销。",
+    "pointsDetails": "积分明细",
+    "exchangeRecord": "兑换记录",
+    "emptyTip1": "暂时还没有兑换记录哦",
+    "emptyTip2": "暂时还没有积分明细哦"
   }
 }

@@ -28,16 +28,17 @@ class IntegralCard extends PureComponent {
               </li>
               <li className={styles.supplement}>{data.taskDesc}</li>
               {schedule ? (
-                <li className={styles.schedule}>{`完成 ${data.completionTimes}/${
-                  data.taskLimitCycleTimes
-                } ${cycle(data.taskCycle)}上限${data.presentPoints *
-                  data.taskLimitCycleTimes}分`}</li>
+                <li className={styles.schedule}>{`${intl.get('integral.carryOut')} ${
+                  data.completionTimes
+                }/${data.taskLimitCycleTimes} ${cycle(data.taskCycle)}${intl.get(
+                  'integral.upperLimit'
+                )}${data.presentPoints * data.taskLimitCycleTimes}`}</li>
               ) : null}
             </div>
             <div className={styles.right}>
               {data.isDone ? (
                 <Button type="primary" className={styles.completed} disabled>
-                  已完成
+                  {intl.get('order.finish')}
                 </Button>
               ) : (
                 <Button
@@ -45,7 +46,7 @@ class IntegralCard extends PureComponent {
                   className={styles.finish}
                   onClick={() => this.handleJump(data.taskScene)}
                 >
-                  去完成
+                  {intl.get('integral.toFinish')}
                 </Button>
               )}
             </div>
@@ -59,13 +60,15 @@ class IntegralCard extends PureComponent {
           >
             <div className={styles.pointsLeft}>
               <li className={styles.project}>{data.tradeDesc}</li>
-              <li className={styles.supplement}>{`${format(data.createTime, 'arr')[0]} 获得`}</li>
+              <li className={styles.supplement}>{`${format(data.createTime, 'arr')[0]} ${intl.get(
+                'integral.obtain'
+              )}`}</li>
             </div>
             <div className={styles.pointsRight}>
               <li className={styles.num}>{`+${data.tradePoint}`}</li>
               <li className={styles.failureTime}>{`${
                 format(data.pointsExpiredDate, 'arr')[0]
-              } 失效`}</li>
+              } ${intl.get('integral.invalidation')}`}</li>
             </div>
           </div>
         ) : null}

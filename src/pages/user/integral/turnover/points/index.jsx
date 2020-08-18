@@ -87,7 +87,7 @@ class PointsDetail extends PureComponent {
                   ? 'Loading...'
                   : hasMore
                   ? intl.get('commodity.loadMore')
-                  : '- 没有更多内容了-'}
+                  : intl.get('integral.noMore')}
               </div>
             )}
             renderRow={row}
@@ -100,7 +100,7 @@ class PointsDetail extends PureComponent {
             onEndReachedThreshold={10}
           />
         ) : (
-          <Empty text="暂时还没有积分明细哦" />
+          <Empty text={intl.get('integral.emptyTip2')} />
         )}
       </div>
     );
