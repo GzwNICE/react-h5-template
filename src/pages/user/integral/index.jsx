@@ -45,6 +45,10 @@ class Integral extends PureComponent {
     });
   };
 
+  jump = link => {
+    this.props.history.push(`${link}`);
+  };
+
   render() {
     const { changeModal } = this.state;
     const { pointData, taskData } = this.props;
@@ -95,6 +99,7 @@ class Integral extends PureComponent {
                       data={i}
                       last={index === taskData.newer.length - 1}
                       key={i.taskScene}
+                      jump={this.jump}
                     />
                   );
                 })
@@ -111,6 +116,7 @@ class Integral extends PureComponent {
                       data={i}
                       last={index === taskData.task.length - 1}
                       key={i.taskScene}
+                      jump={this.jump}
                     />
                   );
                 })

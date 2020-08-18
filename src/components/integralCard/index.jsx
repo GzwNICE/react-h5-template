@@ -3,10 +3,14 @@
 import React, { PureComponent } from 'react';
 import intl from 'react-intl-universal';
 import { Button } from 'antd-mobile';
-import { cycle } from '@/utils/util';
+import { cycle, format, taskJump } from '@/utils/util';
 import styles from './index.less';
 
 class IntegralCard extends PureComponent {
+  handleJump(type) {
+    this.props.jump(taskJump(type));
+  }
+
   render() {
     // data 基本内容
     // type 调用组件的展示类型 string
@@ -36,7 +40,11 @@ class IntegralCard extends PureComponent {
                   已完成
                 </Button>
               ) : (
-                <Button type="primary" className={styles.finish}>
+                <Button
+                  type="primary"
+                  className={styles.finish}
+                  onClick={() => this.handleJump(data.taskScene)}
+                >
                   去完成
                 </Button>
               )}
@@ -50,12 +58,14 @@ class IntegralCard extends PureComponent {
             }`}
           >
             <div className={styles.pointsLeft}>
-              <li className={styles.project}>每日签到</li>
-              <li className={styles.supplement}>2019/12/02获得</li>
+              <li className={styles.project}>{data.tradeDesc}</li>
+              <li className={styles.supplement}>{`${format(data.createTime, 'arr')[0]} 获得`}</li>
             </div>
             <div className={styles.pointsRight}>
-              <li className={styles.num}>+10</li>
-              <li className={styles.failureTime}>2020/12/02失效</li>
+              <li className={styles.num}>{`+${data.tradePoint}`}</li>
+              <li className={styles.failureTime}>{`${
+                format(data.pointsExpiredDate, 'arr')[0]
+              } 失效`}</li>
             </div>
           </div>
         ) : null}
@@ -66,11 +76,11 @@ class IntegralCard extends PureComponent {
             }`}
           >
             <div className={styles.pointsLeft}>
-              <li className={styles.project}>兑换 10 GO币</li>
-              <li className={styles.supplement}>2019/12/02 13:00</li>
+              <li className={styles.project}>{data.tradeDesc}</li>
+              <li className={styles.supplement}>{format(data.createTime)}</li>
             </div>
             <div className={styles.pointsRight}>
-              <li className={styles.recordNum}>-1000000</li>
+              <li className={styles.recordNum}>{`-${data.tradePoint}`}</li>
             </div>
           </div>
         ) : null}

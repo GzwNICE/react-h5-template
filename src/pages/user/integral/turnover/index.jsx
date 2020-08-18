@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { NavBar, Icon, Tabs } from 'antd-mobile';
 import IntegralCard from '@/components/integralCard';
 import Empty from '@/components/empty';
+import PointsDetail from './points';
+import Exchange from './exchange';
 import intl from 'react-intl-universal';
 
 import styles from './index.less';
@@ -36,28 +38,10 @@ class IntegralTurnover extends PureComponent {
           }}
         >
           <div className={styles.tabsBox}>
-            {a ? (
-              <div>
-                <div className={styles.content}>
-                  <IntegralCard type="points" last />
-                </div>
-                <div className={styles.noMore}>- 没有更多内容了-</div>
-              </div>
-            ) : (
-              <Empty text="暂时还没有积分明细哦" />
-            )}
+            <PointsDetail />
           </div>
           <div className={styles.tabsBox}>
-            {a ? (
-              <div>
-                <div className={styles.content}>
-                  <IntegralCard type="record" last />
-                </div>
-                <div className={styles.noMore}>- 没有更多内容了-</div>
-              </div>
-            ) : (
-              <Empty text="暂时还没有兑换记录哦" />
-            )}
+            <Exchange />
           </div>
         </Tabs>
       </div>

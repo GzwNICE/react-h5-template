@@ -11,6 +11,10 @@ export const integral = createModel({
         rows: [],
         total: 0,
       },
+      recordList: {
+        rows: [],
+        total: 0,
+      },
     },
   },
   reducers: {
@@ -24,20 +28,64 @@ export const integral = createModel({
       };
     },
     saveTask(state, payload) {
+      payload.data.task.map(i => {
+        if (i.taskScene === 'SHARED_COMMODITY') {
+          payload.data.task.splice(payload.data.task.indexOf(i), 1);
+        }
+      });
       return {
         ...state,
         data: {
           ...state.data,
-          taskData: payload.data,
+          taskData: {
+            newer: payload.data.newer,
+            task: payload.data.task,
+          },
         },
       };
     },
-    savePintsList(state, payload) {
+    savePointsList(state, payload) {
       return {
         ...state,
         data: {
           ...state.data,
           pointsList: {
+            rows: state.data.pointsList.rows.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    refPointsList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          pointsList: {
+            rows: payload.data.rows,
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    saveRecordList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          recordList: {
+            rows: state.data.recordList.rows.concat(payload.data.rows),
+            total: payload.data.total,
+          },
+        },
+      };
+    },
+    refRecordList(state, payload) {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          recordList: {
             rows: payload.data.rows,
             total: payload.data.total,
           },
@@ -60,9 +108,22 @@ export const integral = createModel({
       const response = await integralService.changePoint(payload);
       return response;
     },
-    async pointsList(payload) {
+    async getPointsList(payload) {
       const response = await integralService.flowIn(payload);
-      dispatch.integral.savePintsList(response);
+      if (payload.page === 1) {
+        dispatch.integral.refPointsList(response);
+      } else {
+        dispatch.integral.savePointsList(response);
+      }
+      return response;
+    },
+    async getRecordList(payload) {
+      const response = await integralService.flowOut(payload);
+      if (payload.page === 1) {
+        dispatch.integral.refRecordList(response);
+      } else {
+        dispatch.integral.saveRecordList(response);
+      }
       return response;
     },
   }),

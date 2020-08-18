@@ -19,3 +19,8 @@ export async function changePoint(params) {
 export async function flowIn(params) {
   return request('/user/points/flow/in', { method: 'get', params: params });
 }
+
+// 我的积分明细
+export async function flowOut(params) {
+  return request('/user/points/flow/out', { method: 'get', params: params });
+}

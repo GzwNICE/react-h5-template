@@ -98,4 +98,43 @@ const cycle = code => {
   return str;
 };
 
-export { isIPhoneX, debounce, getBaseUrl, format, numFormat, random, cycle };
+const taskJump = type => {
+  let str = '';
+  switch (type) {
+    case 'EDITED_INFO_DONE': //完善资料
+      str = '/personal';
+      break;
+    case 'FIRST_RECHARGED': //首次充值
+      str = '/payment';
+      break;
+    case 'SIGNED': // 签到
+      str = '/home';
+      break;
+    case 'INVITED_FRIEND': // 邀请好友
+      str = '/invitation';
+      break;
+    case 'JOINED_IN_ACTIVITY': //参与活动
+      str = '/home';
+      break;
+    case 'SHARED_COMMODITY': // 分享商品
+      str = '/home';
+      break;
+    case 'SHARED_ORDER': // 发布晒单
+      str = '/evaluation';
+      break;
+    case 'PRAISED_SHARED_ORDER': // 晒单点赞
+      str = '/evaluation';
+      break;
+    case 'BETTER_SHARED_ORDER': // 晒单加精
+      str = '/evaluation';
+      break;
+    case 'UP_SHARED_ORDER': // 晒单置顶
+      str = '/evaluation';
+      break;
+    default:
+      str = '';
+  }
+  return str;
+};
+
+export { isIPhoneX, debounce, getBaseUrl, format, numFormat, random, cycle, taskJump };
