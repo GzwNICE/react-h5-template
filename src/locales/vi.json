@@ -584,5 +584,32 @@
     "disclaimer": "Thuyết minh miễn trách nhiệm",
     "recharge": "Thỏa thận nạp tiền",
     "exchange": "Thảo thuận quy đổi"
+  },
+  "integral": {
+    "carryOut": "Hoàn thành",
+    "upperLimit": "Hạn mức max",
+    "toFinish": "Đi hoàn thành",
+    "obtain": "Nhận được",
+    "invalidation": "Thất bại",
+    "myIntegral": "Tích điểm của tôi",
+    "collar": "Nhận {moneyVirtualCn}",
+    "exchangeSuccess": "Quy đổi thành công!",
+    "stayTuned": " Vui lòng chờ đợi",
+    "construction": "Kỹ thuật đang cài đặt…",
+    "turnover": "Hủy thưởng tích điểm",
+    "available": "Có thể dùng tích điểm",
+    "interchangeable": "Có thể đổi",
+    "expireAfter": "Qúa hạn 1 ngày tích điểm",
+    "noviceTask": "Nhiệm vụ của người chơi mới",
+    "missionHall": "Sảnh nhiệm vụ",
+    "noMore": "- Không có nội dung-",
+    "redemption": "Nhắc nhở quy đổi",
+    "willConsume": "Bạn đã tiêu hao",
+    "redeem": "Quy đổi tích điểm",
+    "redemptionTips": "{moneyVirtualCn} là GaGaGO cung cấp dịch vụ để tri ân khách hàng, vì vậy thông qua tích điểm để quy đổi {moneyVirtualCn}，Không thể hoàn trả lại tiền, không thể hủy giao dịch.",
+    "pointsDetails": "Chi tiết tích điểm",
+    "exchangeRecord": "Lịch sử quy đổi",
+    "emptyTip1": "Tạm thời không có lịch sử quy đổi",
+    "emptyTip2": "Tạm thời không có chi tiết tích điểm"
   }
 }
