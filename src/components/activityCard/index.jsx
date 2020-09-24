@@ -19,36 +19,14 @@ class ActivityCard extends PureComponent {
         >
           <div className={styles.topBox}>
             <img src={data.imgUrl} alt="" className={styles.shopImg} />
-            {data.isTop ? <img src={hotImg} alt="" className={styles.hotImg} /> : null}
           </div>
           <div className={styles.bottomBox}>
-            <div className={styles.shopTitle}>{data.activityName}</div>
-            <div className={styles.schedule}>
-              {recommend ? (
-                <span className={styles.shedText}>{intl.get('shoppingCart.schedule')}：</span>
-              ) : null}
-              <div className={styles.prog}>
-                <Progress
-                  percent={data.progressRate}
-                  position="normal"
-                  style={{
-                    flex: '1',
-                    borderRadius: '4px',
-                    backgroundColor: '#FBCEBB',
-                    overflow: 'hidden',
-                  }}
-                  barStyle={{ backgroundColor: 'rgb(255,82,9)', border: 'none' }}
-                />
-              </div>
-              <span className={styles.remaining}>{`${intl.get('home.remaining')}${
-                data.remainingCount
-              }`}</span>
+            <div className={styles.shopTitle}>商品名称最多显示2行显示不下商品名称最多显示2行显示不下</div>
+            <div className={styles.oddsOfWinning}>
+              <span className={styles.money}>¥1.9</span>
+              <span className={styles.eg}>秒杀价</span>
+              <span className={styles.hua}>¥20</span>
             </div>
-            {recommend ? null : (
-              <div className={styles.oddsOfWinning}>
-                {intl.get('home.BuyMore', { addWinRate: data.addWinRate })}
-              </div>
-            )}
           </div>
         </Link>
       </div>

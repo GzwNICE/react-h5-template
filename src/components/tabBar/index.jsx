@@ -13,8 +13,8 @@ import allSelected from '@/assets/images/allSelected.png';
 import all from '@/assets/images/all.png';
 import personal from '@/assets/images/personal.png';
 import personalSel from '@/assets/images/personal_selected.png';
-import shop from '@/assets/images/ic_shoppingcart@2x.png';
-import shopSel from '@/assets/images/shoppingCart.png';
+import message from '@/assets/images/message.png';
+import messageSel from '@/assets/images/messageSel.png';
 import styles from './index.less';
 
 class TabBarBox extends PureComponent {
@@ -64,7 +64,7 @@ class TabBarBox extends PureComponent {
                 <img src={all} alt="" />
               )}
               <span style={{ color: selectedTab === 'commodityPage' ? '#FE5108' : '#AEAEAE' }}>
-                {intl.get('commodity.allProducts')}
+                全部商品
               </span>
             </Link>
           </Flex.Item>
@@ -75,12 +75,12 @@ class TabBarBox extends PureComponent {
               }}
             >
               {selectedTab === 'shoppingCart' ? (
-                <img src={shopSel} alt="" />
+                <img src={messageSel} alt="" />
               ) : (
-                <img src={shop} alt="" />
+                <img src={message} alt="" />
               )}
               <span style={{ color: selectedTab === 'shoppingCart' ? '#FE5108' : '#AEAEAE' }}>
-                {intl.get('shoppingCart.cart')}
+                消息
               </span>
               {homeSys && homeSys.shopCarCount > 0 ? (
                 <Badge

@@ -81,9 +81,6 @@ class HotList extends PureComponent {
             );
           })}
         </Flex>
-        <div className={styles.loading} onClick={this.loadMore}>
-          {isLoading ? 'loading...' : hasMore ? '点击加载更多...' : '已经到底了！'}
-        </div>
       </div>
     );
   }

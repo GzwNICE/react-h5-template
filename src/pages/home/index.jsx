@@ -16,6 +16,12 @@ import TabBarBox from '@/components/tabBar';
 import sorting from '@/assets/images/sorting.png';
 import sortingUp from '@/assets/images/sorting_up@2x.png';
 import sortingDown from '@/assets/images/sorting_down@2x.png';
+import quanBu from '@/assets/images/quanbu@3x.png';
+import dingdan from '@/assets/images/dingdan@3x.png';
+import yaoqing from '@/assets/images/yaoqing@3x.png';
+import bangzhu from '@/assets/images/bangzhu@3x.png';
+import yijian from '@/assets/images/yijian@3x.png';
+import titlePng from '@/assets/images/title@3x.png';
 import styles from './index.less';
 // import { from } from 'core-js/fn/array';
 
@@ -225,7 +231,26 @@ class Home extends PureComponent {
     const { IPhoneX, sortPic, isLoading, hasMore, advertising, promote, popData } = this.state;
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
-    const classData = home.classData;
+    const classData = [{
+      title: '全部商品',
+      imgURL: quanBu
+    },
+    {
+      title: '我的订单',
+      imgURL: dingdan
+    },
+    {
+      title: '邀请好友',
+      imgURL: yaoqing
+    },
+    {
+      title: '帮助中心',
+      imgURL: bangzhu
+    },
+    {
+      title: '收集意见',
+      imgURL: yijian
+    }];
     const tabs = [
       { title: `${intl.get('home.popularity')}` },
       { title: `${intl.get('home.upToDate')}` },
@@ -238,59 +263,34 @@ class Home extends PureComponent {
     // console.log(11, popData);
     return (
       <div className={styles.home}>
-        {winnerList.length > 0 ? ( //中奖信息
-          <div className={styles.winning}>
-            <Carousel
-              className={styles.my_carousel}
-              vertical
-              dots={false}
-              dragging={false}
-              swiping={false}
-              autoplay
-              infinite
+        <div className={styles.bgColor}></div>
+        <Carousel
+          autoplay
+          infinite
+          className={styles.banner}
+          autoplayInterval={15000}
+          dotActiveStyle={{ background: '#FF5209' }}
+        >
+          {bannerList.map(val => (
+            <a
+              key={val.id}
+              href={val.jumpUrl}
+              style={{ display: 'inline-block', width: '100%', height: '100%' }}
             >
-              {winnerList.map(i => {
-                return (
-                  <div className={styles.v_item} key={i.activityTurnId}>
-                    <img src={i.photoUrl} alt="" className={styles.icImg} />
-                    {i.carouselContent}
-                  </div>
-                );
-              })}
-            </Carousel>
-          </div>
-        ) : null}
-        {bannerList.length > 0 ? ( //banner
-          <Carousel
-            autoplay
-            infinite
-            className={styles.banner}
-            autoplayInterval={15000}
-            dotActiveStyle={{ background: '#FF5209' }}
-          >
-            {bannerList.map(val => (
-              <a
-                key={val.id}
-                href={val.jumpUrl}
-                style={{ display: 'inline-block', width: '100%', height: '100%' }}
-              >
-                <img
-                  src={val.imgURL}
-                  alt=""
-                  style={{ width: '100%', height: '130px', verticalAlign: 'center' }}
-                />
-              </a>
-            ))}
-          </Carousel>
-        ) : null}
+              <img
+                src={val.imgURL}
+                alt=""
+                style={{ width: '100%', height: '130px', borderRadius: '6px', verticalAlign: 'center' }}
+              />
+            </a>
+          ))}
+        </Carousel>
         {classData.length > 0 ? ( // 分类导航
           <div className={styles.classification}>
             <Grid
               data={classData}
               columnNum={5}
               hasLine={false}
-              isCarousel
-              carouselMaxRow="1"
               renderItem={item => (
                 <div onClick={() => this.handlerGrid(item.jumpUrl)}>
                   <img src={item.imgURL} className={styles.classImg} alt="" />
@@ -306,46 +306,17 @@ class Home extends PureComponent {
         >
           <img src={promote.imgURL} alt="" />
         </div>
-        <Modal
-          visible={advertising}
-          transparent
-          maskClosable={false}
-          style={{ width: '322px', height: '430px' }}
-          className={styles.homePop}
-        >
-          <div className={styles.modalContent}>
-            <img
-              src={popData && popData.imgURL}
-              alt=""
-              onClick={() => this.handlerProClick(popData.jumpType, popData.jumpUrl)}
-            />
-            <Icon type="cross-circle" className={styles.close} onClick={this.handleOnClose} />
-          </div>
-        </Modal>
+        <div className={styles.msBox}>
+            <img src={titlePng} alt=""/>
+            <div className={styles.openTips}>
+                <span>倒计时</span>
+                <span className={styles.time}>04</span>:
+                <span className={styles.time}>59</span>:
+                <span className={styles.time}>59</span>
+            </div>
+        </div>
         <div className={styles.tabs} ref={el => (this.hlv = el)}>
-          <StickyContainer>
-            <Tabs //活动列表
-              tabs={tabs}
-              initialPage={0}
-              swipeable={false}
-              renderTabBar={renderTabBar}
-              tabBarBackgroundColor="#f7f7f7"
-              tabBarUnderlineStyle={{
-                border: '2px solid #FF5209',
-                width: '11%',
-                marginLeft: '7%',
-                borderRadius: '2px',
-              }}
-              tabBarActiveTextColor="#FF5209"
-              tabBarInactiveTextColor="#333333"
-              onTabClick={this.handlerTabClick}
-            >
-              <HotList />
-              <LatestList />
-              <OpenList />
-              <ValueList loadMore={this.loadMore} isLoading={isLoading} hasMore={hasMore} />
-            </Tabs>
-          </StickyContainer>
+            <HotList />
         </div>
         <div
           className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}

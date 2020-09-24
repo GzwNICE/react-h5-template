@@ -12,14 +12,23 @@ import wait from '@/assets/images/ic_waiting.png';
 import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
 import evaluation from '@/assets/images/ic_evaluation.png';
-import integral from '@/assets/images/credits.png';
-import invitation from '@/assets/images/ic_invitation.png';
-import join from '@/assets/images/ic_join.png';
-import help from '@/assets/images/ic_service.png';
-import feedback from '@/assets/images/ic_feedback.png';
-import setting from '@/assets/images/ic_set.png';
+import sale from '@/assets/images/ic_return.png';
+// import integral from '@/assets/images/credits.png';
+// import invitation from '@/assets/images/ic_invitation.png';
+// import join from '@/assets/images/ic_join.png';
+// import help from '@/assets/images/ic_service.png';
+// import feedback from '@/assets/images/ic_feedback.png';
+// import setting from '@/assets/images/ic_set.png';
+import invitation1 from '@/assets/images/ic_invitation@3x.png';
+import evaluation1 from '@/assets/images/ic_evaluation@3x.png';
+import join1 from '@/assets/images/ic_join@3x.png';
+import service1 from '@/assets/images/ic_service@3x.png';
+import feedback1 from '@/assets/images/ic_feedback@3x.png';
+import set1 from '@/assets/images/ic_set@3x.png';
+import { List } from 'antd-mobile';
 import styles from './index.less';
 
+const Item = List.Item;
 class User extends PureComponent {
   constructor(props) {
     super(props);
@@ -60,28 +69,29 @@ class User extends PureComponent {
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const tabs = [
       { label: intl.get('user.wait_open'), icon: wait, type: 1 },
-      { label: intl.get('user.winning'), icon: win, type: 2 },
-      { label: intl.get('user.nowin'), icon: nowin, type: 3 },
-      { label: intl.get('user.str_title_show_order'), icon: evaluation, type: 4 },
+      { label: '待发货', icon: win, type: 2 },
+      { label: '待收货', icon: nowin, type: 3 },
+      { label: '已完成', icon: evaluation, type: 4 },
+      { label: '退换/售后', icon: sale, type: 5 },
     ];
-    const tabServer = [
-      {
-        label: intl.get('integral.myIntegral'),
-        icon: integral,
-        type: 'integral',
-        tips: intl.get('integral.collar', { moneyVirtualCn: config.moneyVirtualCn }),
-      },
-      {
-        label: intl.get('user.invitation'),
-        icon: invitation,
-        type: 'invitation',
-        tips: intl.get('user.str_click_getmoney'),
-      },
-      { label: intl.get('user.join'), icon: join, type: 'join' },
-      { label: intl.get('user.help'), icon: help, type: 'help' },
-      { label: intl.get('user.feedback'), icon: feedback, type: 'feedback' },
-      { label: intl.get('user.setting'), icon: setting, type: 'set' },
-    ];
+    // const tabServer = [
+    //   {
+    //     label: intl.get('integral.myIntegral'),
+    //     icon: integral,
+    //     type: 'integral',
+    //     tips: intl.get('integral.collar', { moneyVirtualCn: config.moneyVirtualCn }),
+    //   },
+    //   {
+    //     label: intl.get('user.invitation'),
+    //     icon: invitation,
+    //     type: 'invitation',
+    //     tips: intl.get('user.str_click_getmoney'),
+    //   },
+    //   { label: intl.get('user.join'), icon: join, type: 'join' },
+    //   { label: intl.get('user.help'), icon: help, type: 'help' },
+    //   { label: intl.get('user.feedback'), icon: feedback, type: 'feedback' },
+    //   { label: intl.get('user.setting'), icon: setting, type: 'set' },
+    // ];
     const { user } = this.props;
     const { IPhoneX, isLogin } = this.state;
     return (
@@ -100,41 +110,20 @@ class User extends PureComponent {
                   {intl.get('user.loginOrRegister')}
                 </div>
               ) : (
-                <div className={styles.authorName}>{user.userInfo.mobile}</div>
+                <div className={styles.authorName}>1111***4543</div>
               )}
-              <div className={styles.autoBox}>
-                <div className={styles.authorCoin} onClick={this.onPayListClick.bind(this)}>
-                  <img className={styles.coin} src={ic_gocoin_s}></img>
-                  <span className={styles.label}>
-                    {isLogin
-                      ? `${intl.get('user.myGoCoin1', {
-                          moneyVirtualCn: config.moneyVirtualCn,
-                          goMoney: user.userInfo.goMoney,
-                        })}`
-                      : `${intl.get('user.myGoCoin', { moneyVirtualCn: config.moneyVirtualCn })}`}
-                  </span>
-                  <img className={styles.arrow} src={goin_arrow}></img>
-                </div>
-                {isLogin ? (
-                  <div
-                    className={styles.goTopUp}
-                    onClick={() => {
-                      this.props.history.push('/payment');
-                    }}
-                  >
-                    {intl.get('user.deCharge')}
-                  </div>
-                ) : null}
-              </div>
             </div>
           </div>
         </div>
         <div>
           <div className={styles.order}>
-            <div className={styles.myorder}>{intl.get('user.myorder')}</div>
+            <div className={styles.myorder}>
+              <span className={styles.left}>{intl.get('user.myorder')}</span>
+              <span className={styles.right}>查看全部订单</span>
+            </div>
             <Grid
               data={tabs}
-              columnNum={4}
+              columnNum={5}
               hasLine={false}
               onClick={_el => {
                 if (isLogin) {
@@ -158,25 +147,51 @@ class User extends PureComponent {
             />
           </div>
           <div className={styles.order}>
-            <div className={styles.myorder}>{intl.get('user.myServer')}</div>
-            <Grid
-              data={tabServer}
-              columnNum={4}
-              hasLine={false}
-              onClick={_el => {
-                this.onMyServerClick(_el);
-              }}
-              renderItem={item => (
-                <div className={styles.item2}>
-                  <img src={item.icon} className={styles.icon} alt="" />
-                  <div className={styles.label} style={{ marginTop: '5px' }}>
-                    {item.label}
-                  </div>
-                  {item.tips ? <div className={styles.itemInfo}>{item.tips}</div> : ''}
-                </div>
-              )}
-            />
+            <List>
+              <Item
+                thumb={invitation1}
+                arrow="horizontal"
+                onClick={() => {}}
+              >邀请好友</Item>
+              <Item
+                thumb={evaluation1}
+                onClick={() => {}}
+                arrow="horizontal"
+              >
+                我的评价
+              </Item>
+              <Item
+                thumb={join1}
+                onClick={() => {}}
+                arrow="horizontal"
+              >
+                加入社区
+              </Item>
+            </List>
           </div>
+          <div className={styles.order}>
+          <List>
+            <Item
+              thumb={service1}
+              arrow="horizontal"
+              onClick={() => {}}
+            >帮助中心</Item>
+            <Item
+              thumb={feedback1}
+              onClick={() => {}}
+              arrow="horizontal"
+            >
+              意见反馈
+            </Item>
+            <Item
+              thumb={set1}
+              onClick={() => {}}
+              arrow="horizontal"
+            >
+              设置
+            </Item>
+          </List>
+        </div>
         </div>
         <div className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}>
           <TabBarBox selectedTab="userPage" />
