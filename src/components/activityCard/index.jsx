@@ -11,21 +11,21 @@ class ActivityCard extends PureComponent {
   render() {
     const { data, recommend } = this.props;
     return (
-      <div className={recommend ? `${styles.card} ${styles.recommend}` : `${styles.card}`}>
+      <div className={styles.card}>
         <Link
           to={{
-            pathname: `/product/${data.activityTurnId}`,
+            pathname: `/product/${data.id}`,
           }}
         >
           <div className={styles.topBox}>
-            <img src={data.imgUrl} alt="" className={styles.shopImg} />
+            <img src={require('../../assets/images/100@2x.png')} alt="" className={styles.shopImg} />
           </div>
           <div className={styles.bottomBox}>
-            <div className={styles.shopTitle}>商品名称最多显示2行显示不下商品名称最多显示2行显示不下</div>
+            <div className={styles.shopTitle}>{data.name}</div>
             <div className={styles.oddsOfWinning}>
-              <span className={styles.money}>¥1.9</span>
+              <span className={styles.money}>{`¥${data.spikePrice}`}</span>
               <span className={styles.eg}>秒杀价</span>
-              <span className={styles.hua}>¥20</span>
+              <span className={styles.hua}>{`¥${data.price}`}</span>
             </div>
           </div>
         </Link>

@@ -5,6 +5,7 @@ import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import ActivityCard from '@/components/activityCard';
+import prodJson from '@/assets/product.json';
 import { Flex } from 'antd-mobile';
 import styles from './index.less';
 
@@ -17,6 +18,7 @@ class HotList extends PureComponent {
       isLoading: false,
       hasMore: true,
       fetch: false,
+      prodJson: prodJson
     };
   }
 
@@ -69,13 +71,13 @@ class HotList extends PureComponent {
 
   render() {
     const { hotList } = this.props;
-    const { isLoading, hasMore } = this.state;
+    const { prodJson } = this.state;
     return (
       <div className={styles.hotPage}>
         <Flex wrap="wrap" justify="between">
-          {hotList.data.map(i => {
+          {prodJson.map(i => {
             return (
-              <div key={i.activityTurnId} className={styles.hotItem}>
+              <div key={i.id} className={styles.hotItem}>
                 <ActivityCard data={i} hot />
               </div>
             );
