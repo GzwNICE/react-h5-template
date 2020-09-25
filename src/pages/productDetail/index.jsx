@@ -16,6 +16,7 @@ import remind from '@/assets/images/remind.png';
 import avatar from '@/assets/images/avatar_notlogin.png';
 import winning from '@/assets/images/winning_crown.png';
 import shoppingcart from '@/assets/images/ic_shoppingcart@2x.png';
+import xsms from '@/assets/images/label@2x.png';
 import RaffleCode from '@/components/luckyCode';
 import Participants from '@/components/participants';
 import ReceiveAward from '@/components/receive';
@@ -226,8 +227,8 @@ class ProductDetail extends PureComponent {
     });
   };
 
-  goPay = () => {
-    this.props.history.push(`/payment`);
+  goSure = () => {
+    this.props.history.push(`/prize/1`);
   };
 
   newActivity = id => {
@@ -351,138 +352,36 @@ class ProductDetail extends PureComponent {
               ))}
           </Carousel>
         </div>
-        {status === 3 ? (
-          <div className={styles.openTips} style={{ backgroundImage: `url(${priceOpen})` }}>
-            {intl.get('product.participant', { panicBuyRatio: detail.panicBuyRatio })}
-          </div>
-        ) : null}
-        {countdown ? (
-          <div
-            className={styles.openTips}
-            style={{ backgroundImage: `url(${priceOpen})`, justifyContent: 'center' }}
-          >
-            {intl.get('product.countdown')}
-            <span className={styles.time}>{openH}</span>:
-            <span className={styles.time}>{openM}</span>:
-            <span className={styles.time}>{openS}</span>
-          </div>
-        ) : null}
         <div className={styles.priceBox} style={{ backgroundImage: `url(${priceBg})` }}>
-          <img src="" alt=""/>
-          <span className={styles.price}>
-            <span className={styles.pPrice}>{detail.participatePrice}</span>
-          </span>
+          <div className={styles.left}>
+            <img src={xsms} alt="" className={styles.xsms}/>
+            <span className={styles.price}>
+              <span className={styles.msPrice}>¥ <span style={{ fontSize: '20px'}}>9.9</span></span>
+              <span className={styles.odPrice}>¥50</span>
+            </span>
+          </div>
+          <div className={styles.right}>
+            <span className={styles.djs}>倒计时:</span>
+            <div>
+              <span className={styles.time}>{openH}</span>:
+              <span className={styles.time}>{openM}</span>:
+              <span className={styles.time}>{openS}</span>
+            </div>
+          </div>
         </div>
         <div className={styles.infoBox}>
           <div className={styles.titleBox}>
-            <span className={styles.round}>
-              {intl.get('product.round', { currentTurn: detail.currentTurn })}
-            </span>
-            {detail.activityName}
+            商品名称最多显示2行显示不下就...来结尾商品名称最多显示2行显示不下就...来结尾
           </div>
-          <div className={styles.moreBuy}>
-            {intl.get('home.BuyMore', { addWinRate: detail.addWinRate })}
+          <div className={styles.tipsBox}>
+            <span className={styles.l}>温馨提示</span>
+            <span className={styles.r}>该商品以卡密形式发放，下发时可能会有短暂延迟，请关注系统通知，及时查收！</span>
           </div>
-          {(status === 8 || status === 9 || status === 10) && detail.partakeStatus === 'yes' ? (
-            <div className={styles.msgBox}>
-              {detail.ifWin === 'yes' ? (
-                <div className={styles.Notice}>
-                  {detail.orderStatus === 0 ? null : <img src={gift} alt="" width="14" />}
-                  {detail.orderStatus === 0
-                    ? `${intl.get('product.during')}`
-                    : `${intl.get('product.winning')}`}
-                </div>
-              ) : (
-                <div className={styles.Notice}>
-                  <img src={remind} alt="" width="14" />
-                  {intl.get('product.notWin')}
-                </div>
-              )}
-            </div>
-          ) : null}
-          {detail.partakeStatus === 'no' ? (
-            <div className={styles.msgBox}>
-              <div className={styles.Notice}>
-                <img src={remind} alt="" width="14" />
-                {intl.get('product.takeProduct', { moneySymbol: config.moneySymbol })}
-              </div>
-            </div>
-          ) : null}
-          {detail.ifWin === 'yes' && detail.orderStatus === 6 ? (
-            <div
-              className={styles.viewLottery}
-              onClick={() => {
-                this.props.history.push(`/prize/${activityTurnId}`);
-              }}
-            >
-              {intl.get('product.prizeNow')}
-            </div>
-          ) : null}
-          {detail.partakeStatus === 'yes' && detail.ifWin === 'no' ? (
-            <div className={styles.viewLottery} onClick={this.viewLottery('visibleRaffle')}>
-              {intl.get('product.lotteryCode')}
-            </div>
-          ) : null}
-          {(status === 7 || status === 2 || status === 3 || status === 4) &&
-          status !== 9 &&
-          detail.partakeStatus === 'yes' ? (
-            <div className={styles.buyLottery}>
-              <span className={styles.buyTimes}>
-                {intl.get('product.bought', { buyCount: detail.buyCount })}
-              </span>
-              <span className={styles.lottery} onClick={this.viewLottery('visibleRaffle')}>
-                {intl.get('product.lotteryCode')}
-              </span>
-            </div>
-          ) : null}
-          {detail.ifWin === 'yes' && (detail.orderStatus === 2 || detail.orderStatus === 3) ? (
-            <div className={styles.buyFailure}>
-              {detail.orderStatus === 2 ? (
-                <span className={styles.failure}>{intl.get('product.received')}</span>
-              ) : (
-                <span className={styles.failure}>{intl.get('product.prizeWasReceived')}</span>
-              )}
-            </div>
-          ) : null}
-          {status === 8 || status === 9 || status === 10 ? (
-            <div className={styles.winningBox}>
-              <div className={styles.info}>
-                <div className={styles.left}>
-                  <img
-                    src={detail.photoUrl ? detail.photoUrl : avatar}
-                    alt="avatar"
-                    className={styles.avatar}
-                  />
-                  <img src={winning} alt="win" className={styles.winning} />
-                </div>
-                <ul className={styles.right}>
-                  <li>{`${intl.get('product.awardWinner')}：${detail.winnerUserName}`}</li>
-                  <li>{intl.get('product.rounds', { currentTurn: detail.currentTurn })}</li>
-                  <li>{`${intl.get('product.participateRound')}：${detail.winnerBuyCount}${intl.get(
-                    'home.personTime'
-                  )}`}</li>
-                  <li>{`${intl.get('product.drawTime')}：${format(detail.openTime, 'str')}`}</li>
-                </ul>
-              </div>
-              <div className={styles.winNum}>
-                <span className={styles.num}>{`${intl.get('product.prizeNumber')} ${
-                  detail.winningNum
-                }`}</span>
-                <Link
-                  to={{
-                    pathname: `/rules/${activityTurnId}`,
-                  }}
-                  className={styles.rule}
-                >
-                  {intl.get('product.calculationRules')}
-                </Link>
-              </div>
-            </div>
-          ) : null}
-
-          <div className={styles.sweepstakes} onClick={this.viewLottery('visiblePartic')}>
-            {intl.get('product.drawStaff')}
-          </div>
+        </div>
+        <div className={styles.shipBox}>
+            <li><span className={styles.ll}>发货</span><span className={styles.rr}>上海 浦东新区</span></li>
+            <li><span className={styles.ll}>运费</span><span className={styles.rr}>快递包邮</span></li>
+            <li><span className={styles.ll}>服务声明</span><span className={styles.rr}>虚拟商品不支持七天无理由退货</span></li>
         </div>
         {showList.total > 0 ? (
           <div className={styles.postDetail}>
@@ -514,85 +413,18 @@ class ProductDetail extends PureComponent {
               })
             : null}
         </div>
-        {status && status !== 1 && status !== 7 && status !== 8 && status !== 9 && status !== 10 ? (
-          <div className={styles.snapped}>
-            <div className={styles.cartNum} onClick={() => this.props.history.push('/shopCart')}>
-              <img src={shoppingcart} alt="" />
-              {homeSys && homeSys.shopCarCount > 0 ? (
-                <Badge
-                  text={homeSys.shopCarCount}
-                  overflowCount={99}
-                  hot
-                  className={styles.badge}
-                />
-              ) : null}
-            </div>
-            <div className={styles.buttonGroup}>
-              {detail.cartEnable === 1 ? (
-                <Button className={styles.joinCart} onClick={this.addCart}>
-                  {intl.get('shoppingCart.addCart')}
-                </Button>
-              ) : null}
-              <Button
-                className={`${styles.joinCart} ${styles.buyButton}`}
-                onClick={this.visibleBuy}
-              >
-                {intl.get('product.snapNow')}
-              </Button>
+        <div className={styles.buyGroup}>
+          <div className={styles.left}>
+            <span className={styles.hj}>合计：</span>
+            <div>
+              <span className={styles.jg}>¥<span style={{ fontSize: '20px'}}>9.90</span></span>
+              <span className={styles.js}>已节省42.1元</span>
             </div>
           </div>
-        ) : null}
-        <BuyGroup
-          open={buyShow}
-          onOpenChange={this.visibleBuy}
-          data={detail}
-          personData={personData}
-          proportionData={proportionData}
-          goPay={this.goPay}
-        />
-        {status && (status === 1 || status === 10 || status === 9 || status === 7) ? (
-          <div className={styles.newActBox}>
-            {status === 9 ? (
-              <span className={styles.nextAct}>{intl.get('product.newRound')}</span>
-            ) : (
-              <span className={styles.nextAct}>
-                {intl.get('product.eventCountdown')}
-                <span className={styles.time}>{nextH}</span>:
-                <span className={styles.time}>{nextM}</span>:
-                <span className={styles.time}>{nextS}</span>
-              </span>
-            )}
-            <Button
-              type="primary"
-              className={styles.goNow}
-              disabled={status === 1}
-              onClick={() => this.newActivity(detail.nextActivityTurnId)}
-            >
-              {status === 1 ? `${intl.get('product.aboutStart')}` : `${intl.get('product.goNow')}`}
-            </Button>
-          </div>
-        ) : null}
-        {status === 5 || status === 8 ? (
-          <div className={styles.newActBox}>
-            <p>{intl.get('product.productEnded')}</p>
-          </div>
-        ) : null}
-        <RaffleCode
-          visible={visibleRaffle}
-          closeRaffle={this.closeRaffle('visibleRaffle')}
-          id={activityTurnId}
-        />
-        <Participants
-          visible={visiblePartic}
-          closeRaffle={this.closeRaffle('visiblePartic')}
-          id={activityTurnId}
-        />
-        <ReceiveAward
-          visible={visibleReceive}
-          close={this.closeRaffle('visibleReceive')}
-          data={winData}
-          confirm={this.handleConfirm}
-        />
+          <Button type="primary" className={styles.rightBtn} onClick={this.goSure}>
+            立即抢购
+          </Button>
+        </div>
       </div>
     );
   }

@@ -1,40 +1,86 @@
 .prize {
   width: 100%;
+
   .navBar {
-    background-color: #FF5209;
+    background-color: #FF1C1C;
   }
-  .goodTitle {
-    font-size: 14px;
-    font-family: PingFangSC-Medium, Arial;
-    color: #333333;
-    margin: 10px 0;
-    padding-left: 12px;
-    box-sizing: border-box;
-    span {
-      color: #999999;
-      font-size: 12px;
+
+  :global {
+    .am-list-header {
+      background-color: #fff;
+      font-family: PingFangSC-Medium;
+      font-size: 14px;
+      color: #333333;
+    }
+
+    .am-list-item .am-input-label {
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      color: #333333;
+    }
+
+    .am-list-item .am-input-control input {
+      text-align: right;
+      font-size: 14px;
+      color: #333333;
+      padding-right: 6px;
+    }
+
+    .am-list-content {
+      font-family: PingFangSC-Regular;
+      font-size: 14px !important;
+      color: #333333 !important;
+    }
+
+    .am-list-extra {
+      font-size: 14px !important;
+      color: #999999 !important;
     }
   }
-  .addBlank {
+
+  .btnBox {
     width: 100%;
-    height: 84px;
-    background-color: #fff;
+    height: 64px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-family: PingFangSC-Medium, Arial;
-    font-weight: 400;
-    text-align: center;
-    color: #999999;
-    line-height: 22px;
-    span {
-      font-size: 22px;
-      position: relative;
-      top: -3px;
-      left: -3px;
+    justify-content: space-between;
+    padding: 0 12px;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 -2px 2px 1px rgba(0, 0, 0, 0.05);
+    .bl {
+      font-family: PingFangSC-Regular;
+      font-size: 16px;
+      color: #333333;
+    }
+    .bm {
+      font-family: PingFangSC-Medium;
+      font-size: 14px;
+      color: #FF1C1C;
+    }
+    .bn {
+      font-family: PingFangSC-Medium;
+      font-size: 20px;
+      color: #FF1C1C;
+    }
+    .submit {
+      background-color: #FF1C1C;
+      width: 122px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 14px;
+      color: #FFFFFF;
+      border-radius: 20px;
     }
   }
+
+  .payBox {
+    margin-top: 10px;
+  }
+
   .goodInfo {
     width: 100%;
     height: 84px;
@@ -43,16 +89,20 @@
     padding: 12px;
     box-sizing: border-box;
     justify-content: space-between;
+    margin-top: 10px;
+
     .goodPic {
       width: 60px;
       height: 60px;
       border-radius: 4px;
     }
+
     .goodName {
       margin: 0 12px;
       flex: 1;
       display: flex;
       flex-direction: column;
+
       .title {
         font-size: 14px;
         font-family: PingFangSC-Medium, Arial;
@@ -62,6 +112,7 @@
         height: 40px;
 
       }
+
       .price {
         font-size: 14px;
         font-family: PingFangSC-Medium, Arial;
@@ -70,11 +121,13 @@
         color: #333333;
         line-height: 20px;
         margin-top: 4px;
+
         i {
           color: #ff5209;
         }
       }
     }
+
     .quantity {
       display: flex;
       align-items: flex-end;
@@ -84,10 +137,12 @@
       line-height: 20px;
     }
   }
+
   .linBox {
     width: 100%;
     height: 3px;
     overflow: hidden;
+
     .addressLine {
       width: 100%;
     }
@@ -97,16 +152,19 @@
     padding: 12px;
     box-sizing: border-box;
     background-color: #fff;
+
     .top {
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       .name {
         font-size: 14px;
         font-family: PingFangSC-Medium, Arial;
         color: #333333;
         line-height: 16px;
       }
+
       .phone {
         font-size: 14px;
         font-family: PingFangSC-Medium, Arial;
@@ -115,6 +173,7 @@
         flex: 1;
         margin: 0 12px;
       }
+
       .change {
         font-size: 12px;
         font-family: PingFangSC-Medium, Arial;
@@ -122,6 +181,7 @@
         line-height: 17px;
       }
     }
+
     .bot {
       font-size: 12px;
       font-family: PingFangSC-Medium, Arial;
@@ -132,21 +192,25 @@
       margin-top: 10px;
     }
   }
-  .line2{
+
+  .line2 {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
+
   .Information {
     width: 100%;
     background-color: #fff;
     padding: 12px;
     box-sizing: border-box;
+
     .rows {
       width: 100%;
       margin-bottom: 10px;
+
       .inputTitle {
         display: block;
         font-size: 14px;
@@ -154,10 +218,12 @@
         color: #333333;
         line-height: 20px;
         margin-bottom: 8px;
+
         i {
           color: #FF5209;
         }
       }
+
       .inputItem {
         width: 100%;
         background: #ffffff;
@@ -165,16 +231,20 @@
         // border-radius: 4px;
         box-sizing: border-box;
         flex: 1;
+
         input {
           font-size: 14px;
           font-family: PingFangSC-Medium, Arial;
           color: #333333;
         }
-        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+
+        :-moz-placeholder {
+          /* Mozilla Firefox 4 to 18 */
           color: #cbcbcb;
         }
 
-        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        ::-moz-placeholder {
+          /* Mozilla Firefox 19+ */
           color: #cbcbcb;
         }
 
@@ -188,14 +258,17 @@
           color: #cbcbcb;
         }
       }
+
       .verifyId {
         padding-left: 6px !important;
       }
+
       .content {
         display: flex;
         align-items: center;
         margin-bottom: 8px;
         border-bottom: 1px solid #ededed;
+
         .key {
           width: auto;
           max-width: 120px;
@@ -208,23 +281,28 @@
           margin-left: 8px;
           margin-right: 10px;
         }
+
         .selKey {
           margin-left: 0px;
         }
+
         .selValue {
           font-size: .14rem;
           color: #333;
           padding-left: 15px;
         }
+
         div {
           flex: 1;
           box-sizing: border-box;
         }
+
         .select {
           background: #ffffff;
           color: #fff;
           padding-left: 8px;
           width: 100%;
+
           :global(.am-list-extra) {
             text-align: left;
             font-size: 14px;
@@ -233,12 +311,14 @@
           }
         }
       }
+
       .textarea {
         background: #ffffff;
         // border: 1px solid #cbcbcb;
         // border-radius: 4px;
         padding-right: 6px;
         box-sizing: border-box;
+
         textarea {
           font-size: 14px;
           font-family: PingFangSC-Medium, Arial;
@@ -251,24 +331,40 @@
       :global(.am-list-arrow) {
         flex: none !important;
       }
+
       :global(.am-list-line) {
         padding-right: 0;
         flex: 1;
       }
+
       :global(.am-textarea-clear) {
         margin-top: 0;
         width: 18px;
         height: 18px;
         background-size: 18px auto;
       }
+
       :global(.am-list-content) {
         flex: initial !important;
       }
     }
   }
-  .submit {
-    background-color: #ff5209;
-    width: 290px;
-    margin: 40px auto 30px;
-  }
+
+
+}
+:global(.am-modal-transparent) {
+  width: 280px !important;
+}
+:global(.am-modal-title) {
+  font-size: 16px !important;
+  color: #333333 !important;
+}
+:global(.am-modal-transparent .am-modal-content .am-modal-body) {
+  padding: 10px 20px 30px;
+}
+:global(.am-modal-alert-content) {
+  text-align: left;
+}
+:global(.am-modal-button-group-h .am-modal-button:last-child) {
+  color: #FF1C1C !important;
 }

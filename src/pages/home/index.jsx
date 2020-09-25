@@ -21,11 +21,16 @@ import dingdan from '@/assets/images/dingdan@3x.png';
 import yaoqing from '@/assets/images/yaoqing@3x.png';
 import bangzhu from '@/assets/images/bangzhu@3x.png';
 import yijian from '@/assets/images/yijian@3x.png';
+import banner01 from '@/assets/images/banner01.png';
+import banner02 from '@/assets/images/banner2.jpg';
+import banner03 from '@/assets/images/banner3.jpg';
+import banner04 from '@/assets/images/banner1.jpg';
 import titlePng from '@/assets/images/title@3x.png';
+import pic_banner from '@/assets/images/pic_banner@2x.png';
 import styles from './index.less';
 // import { from } from 'core-js/fn/array';
 
-function renderTabBar (props) {
+function renderTabBar(props) {
   return (
     <Sticky topOffset={1}>
       {({ style }) => (
@@ -55,7 +60,7 @@ class Home extends PureComponent {
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     Toast.loading('Loading...', 0);
     const { getWin, getBanner, getClass, getPromote, getHomePop } = this.props;
     getBanner().then(() => {
@@ -99,7 +104,7 @@ class Home extends PureComponent {
     }
   };
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     const { clearData } = this.props;
     clearData();
     window.removeEventListener('scroll', this.bindHandleScroll);
@@ -194,7 +199,7 @@ class Home extends PureComponent {
     this.getPageList(order, 'more');
   };
 
-  componentWillReceiveProps (nextPorps) {
+  componentWillReceiveProps(nextPorps) {
     if (
       nextPorps.sortList.data.length > 0 &&
       nextPorps.sortList.data.length === nextPorps.sortList.total
@@ -206,7 +211,7 @@ class Home extends PureComponent {
     }
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     const scrollTop = localStorage.getItem('scrollTop');
     window.scrollTo(0, Number(scrollTop));
   }
@@ -226,11 +231,28 @@ class Home extends PureComponent {
     }
   };
 
-  render () {
+  render() {
     const { home } = this.props;
     const { IPhoneX, sortPic, isLoading, hasMore, advertising, promote, popData } = this.state;
     const winnerList = home.winnerList;
-    const bannerList = home.bannerList;
+    const bannerList = [
+      {
+        id: 1,
+        imgURL: banner01,
+      },
+      {
+        id: 2,
+        imgURL: banner02,
+      },
+      {
+        id: 3,
+        imgURL: banner03,
+      },
+      {
+        id: 4,
+        imgURL: banner04,
+      },
+    ];
     const classData = [
       {
         title: '全部商品',
@@ -311,7 +333,7 @@ class Home extends PureComponent {
           className={styles.promotion}
           onClick={() => this.handlerProClick(promote.jumpType, promote.jumpUrl)}
         >
-          <img src={promote.imgURL} alt="" />
+          <img src={banner02} alt="" />
         </div>
         <div className={styles.msBox}>
           <img src={titlePng} alt="" />

@@ -3,11 +3,16 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import intl from 'react-intl-universal';
-import { NavBar, Icon, InputItem, Picker, List, TextareaItem, Button, Toast } from 'antd-mobile';
+import { NavBar, Icon, InputItem, Picker, List, TextareaItem, Button, Toast, Modal } from 'antd-mobile';
 import { createForm } from 'rc-form';
-import addressLine from '@/assets/images/address_line.png';
+import addressLine from '@/assets/images/home/AppStore.png';
+import aliPay from '@/assets/images/ic_alipay@2x.png';
+import weChat from '@/assets/images/ic_WeChatpay@2x.png';
+import unIonPay from '@/assets/images/ic_unionpay@2x.png';
 import styles from './index.less';
 
+const Item = List.Item;
+const alert = Modal.alert;
 const { lang } = queryString.parse(window.location.search);
 class GetPrize extends PureComponent {
   constructor(props) {
@@ -19,7 +24,7 @@ class GetPrize extends PureComponent {
 
   componentDidMount() {
     const { getInfo } = this.props;
-    getInfo({ activityTurnId: this.state.activityTurnId });
+    // getInfo({ activityTurnId: this.state.activityTurnId });
   }
 
   selectAdd = () => {
@@ -60,6 +65,20 @@ class GetPrize extends PureComponent {
     });
   };
 
+  onLeftClick = () => {
+    alert('是否放弃本次付款？', '您的订单在30分钟内未支付将被取消，请尽快完成支付', [
+      {
+        text: '放弃',
+        onPress: () => {
+          this.props.history.go(-1);
+        },
+      },
+      {
+        text: '继续',
+      },
+    ]);
+  };
+
   render() {
     const { getFieldProps } = this.props.form;
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
@@ -71,328 +90,58 @@ class GetPrize extends PureComponent {
           mode="dark"
           icon={<Icon type="left" />}
           className={styles.navBar}
-          onLeftClick={() => {
-            this.props.history.go(-1);
-          }}
+          onLeftClick={this.onLeftClick}
         >
-          {intl.get('prize.prizeCollection')}
+          确认订单
         </NavBar>
-        <div className={styles.goodTitle}>{intl.get('prize.productInformation')}</div>
         <div className={styles.goodInfo}>
           <img
-            src={info.prizesProductVO && info.prizesProductVO.imgUrl}
+            src={addressLine}
             alt=""
             className={styles.goodPic}
           />
           <div className={styles.goodName}>
             <span className={`${styles.title} ${styles.line2}`}>
-              {info.prizesProductVO
-                ? `${intl.get('product.round', {
-                    currentTurn: info.prizesProductVO.currentTurn,
-                  })} ${info.prizesProductVO.activityName}`
-                : null}
+              50元联通话费充值卡
             </span>
             <span className={styles.price}>
-              {intl.get('prize.retailPrice')}：
-              <i>{`${info.prizesProductVO.marketPrice} ${config.moneySymbol}`}</i>
+              <i>{`${config.moneySymbol} 50 `}</i>
               <span></span>
             </span>
           </div>
           <span className={styles.quantity}>x1</span>
         </div>
-        <div className={styles.goodTitle}>{intl.get('prize.shippingAddress')}</div>
-        {address.id ? (
-          <div>
-            <div className={styles.linBox}>
-              <img src={addressLine} alt="" className={styles.addressLine} />
-            </div>
-            <div className={styles.address}>
-              <div className={styles.top}>
-                <span className={styles.name}>{address.userName}</span>
-                <span className={styles.phone}>{address.mobile}</span>
-                <span className={styles.change} onClick={this.selectAdd}>
-                  {intl.get('prize.replace')}
-                </span>
-              </div>
-              <div className={`${styles.bot} ${styles.line2}`}>
-                {`${address.city}${address.district}${address.ward}${address.detailAddress}`}
-              </div>
-            </div>
-            <div className={styles.linBox}>
-              <img src={addressLine} alt="" className={styles.addressLine} />
-            </div>
-          </div>
-        ) : (
-          <div className={styles.addBlank} onClick={this.selectAdd}>
-            <span>+</span>
-            {intl.get('prize.ph1')}
-          </div>
-        )}
-        {info.appRewardRulesVO.verifyId === 'N' &&
-        info.appRewardRulesVO.directContact === 'N' &&
-        info.appRewardRulesVO.indirectContact === 'N' &&
-        info.appRewardRulesVO.ageInterval === 'N' &&
-        info.appRewardRulesVO.education === 'N' &&
-        info.appRewardRulesVO.job === 'N' &&
-        info.appRewardRulesVO.income === 'N' &&
-        info.appRewardRulesVO.companyName === 'N' &&
-        info.appRewardRulesVO.companyAddress === 'N' ? null : (
-          <div>
-            <div className={styles.goodTitle}>
-              {intl.get('prize.awardInfo')}
-              <span>{intl.get('prize.becauseSpecial')}</span>
-            </div>
-            <div className={styles.Information}>
-              {info.appRewardRulesVO.verifyId === 'Y' ? (
-                <li className={styles.rows}>
-                  <span className={styles.inputTitle}>
-                    <i>*</i>
-                    {intl.get('prize.IDCardInfo')}
-                  </span>
-                  <div className={styles.content}>
-                    <InputItem
-                      {...getFieldProps('verifyId', {
-                        rules: [{ required: true }],
-                      })}
-                      clear
-                      placeholder={intl.get('prize.ph3')}
-                      className={`${styles.inputItem} ${styles.verifyId}`}
-                      ref={el => (this.verInput = el)}
-                      onClick={() => {
-                        this.verInput.focus();
-                      }}
-                    />
-                  </div>
-                </li>
-              ) : null}
-              {info.appRewardRulesVO.directContact === 'Y' ? (
-                <li className={styles.rows}>
-                  <span className={styles.inputTitle}>
-                    <i>*</i>
-                    {intl.get('prize.emergencyContact')}
-                  </span>
-                  <div className={styles.content}>
-                    <Picker
-                      data={intl.get('prize.directContact')}
-                      cols={1}
-                      {...getFieldProps('directContact', {
-                        rules: [{ required: true }],
-                      })}
-                      okText={intl.get('password.determine')}
-                      dismissText={intl.get('password.cancel')}
-                      extra={
-                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
-                      }
-                    >
-                      <List.Item arrow="horizontal" className={styles.select}>
-                        <div className={`${styles.key} ${styles.selKey}`}>
-                          {intl.get('prize.Identity')}
-                        </div>
-                      </List.Item>
-                    </Picker>
-                  </div>
-                  <div className={styles.content}>
-                    <span className={styles.key}>{intl.get('prize.phone')}</span>
-                    <InputItem
-                      {...getFieldProps('directMobile', {
-                        rules: [{ required: true }],
-                      })}
-                      clear
-                      placeholder={intl.get('prize.ph4')}
-                      className={styles.inputItem}
-                      type="number"
-                      ref={el => (this.dirInput = el)}
-                      onClick={() => {
-                        this.dirInput.focus();
-                      }}
-                    />
-                  </div>
-                </li>
-              ) : null}
-              {info.appRewardRulesVO.indirectContact === 'Y' ? (
-                <li className={styles.rows}>
-                  <span className={styles.inputTitle}>
-                    <i>*</i>
-                    {intl.get('prize.indirect')}
-                  </span>
-                  <div className={styles.content}>
-                    <Picker
-                      data={intl.get('prize.indirectContact', {
-                        rules: [{ required: true }],
-                      })}
-                      cols={1}
-                      okText={intl.get('password.determine')}
-                      dismissText={intl.get('password.cancel')}
-                      {...getFieldProps('indirectContact')}
-                      extra={
-                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
-                      }
-                    >
-                      <List.Item arrow="horizontal" className={styles.select}>
-                        <div className={`${styles.key} ${styles.selKey}`}>
-                          {intl.get('prize.Identity')}
-                        </div>
-                      </List.Item>
-                    </Picker>
-                  </div>
-                  <div className={styles.content}>
-                    <span className={styles.key}>{intl.get('prize.phone')}</span>
-                    <InputItem
-                      {...getFieldProps('indirectMobile', {
-                        rules: [{ required: true }],
-                      })}
-                      clear
-                      placeholder={intl.get('prize.ph4')}
-                      className={styles.inputItem}
-                      type="number"
-                      ref={el => (this.indirectInput = el)}
-                      onClick={() => {
-                        this.indirectInput.focus();
-                      }}
-                    />
-                  </div>
-                </li>
-              ) : null}
-
-              <li className={styles.rows}>
-                <span className={styles.inputTitle}>
-                  <i>*</i>
-                  {intl.get('prize.basicInfo')}
-                </span>
-                {info.appRewardRulesVO.ageInterval === 'Y' ? (
-                  <div className={styles.content}>
-                    <Picker
-                      data={intl.get('prize.ageInterval', {
-                        rules: [{ required: true }],
-                      })}
-                      cols={1}
-                      okText={intl.get('password.determine')}
-                      dismissText={intl.get('password.cancel')}
-                      {...getFieldProps('ageInterval')}
-                      extra={
-                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
-                      }
-                    >
-                      <List.Item arrow="horizontal" className={styles.select}>
-                        <div className={`${styles.key} ${styles.selKey}`}>
-                          {intl.get('prize.age')}
-                        </div>
-                      </List.Item>
-                    </Picker>
-                  </div>
-                ) : null}
-                {info.appRewardRulesVO.education === 'Y' ? (
-                  <div className={styles.content}>
-                    <Picker
-                      data={intl.get('prize.education')}
-                      cols={1}
-                      {...getFieldProps('education', {
-                        rules: [{ required: true }],
-                      })}
-                      okText={intl.get('password.determine')}
-                      dismissText={intl.get('password.cancel')}
-                      extra={
-                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
-                      }
-                    >
-                      <List.Item arrow="horizontal" className={styles.select}>
-                        <div className={`${styles.key} ${styles.selKey}`}>
-                          {intl.get('prize.Education')}
-                        </div>
-                      </List.Item>
-                    </Picker>
-                  </div>
-                ) : null}
-                {info.appRewardRulesVO.job === 'Y' ? (
-                  <div className={styles.content}>
-                    <Picker
-                      data={intl.get('prize.job')}
-                      cols={1}
-                      {...getFieldProps('job', {
-                        rules: [{ required: true }],
-                      })}
-                      okText={intl.get('password.determine')}
-                      dismissText={intl.get('password.cancel')}
-                      extra={
-                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
-                      }
-                    >
-                      <List.Item arrow="horizontal" className={styles.select}>
-                        <div className={`${styles.key} ${styles.selKey}`}>
-                          {intl.get('prize.Occupation')}
-                        </div>
-                      </List.Item>
-                    </Picker>
-                  </div>
-                ) : null}
-                {info.appRewardRulesVO.income === 'Y' ? (
-                  <div className={styles.content}>
-                    <Picker
-                      data={intl.get('prize.income')}
-                      cols={1}
-                      {...getFieldProps('income', {
-                        rules: [{ required: true }],
-                      })}
-                      okText={intl.get('password.determine')}
-                      dismissText={intl.get('password.cancel')}
-                      extra={
-                        <div className={styles.selValue}>{intl.get('prize.pleaseChoose')}</div>
-                      }
-                    >
-                      <List.Item arrow="horizontal" className={styles.select}>
-                        <div className={`${styles.key} ${styles.selKey}`}>
-                          {intl.get('prize.monthlyIncome')}
-                        </div>
-                      </List.Item>
-                    </Picker>
-                  </div>
-                ) : null}
-                {info.appRewardRulesVO.companyName === 'Y' ? (
-                  <div className={styles.content}>
-                    <span className={styles.key}>{intl.get('prize.companyName')}</span>
-                    <InputItem
-                      {...getFieldProps('companyName', {
-                        rules: [{ required: true }],
-                      })}
-                      clear
-                      placeholder={intl.get('prize.ph5')}
-                      className={styles.inputItem}
-                      ref={el => (this.companyInput = el)}
-                      onClick={() => {
-                        this.companyInput.focus();
-                      }}
-                    />
-                  </div>
-                ) : null}
-              </li>
-              {info.appRewardRulesVO.companyAddress === 'Y' ? (
-                <li className={styles.rows}>
-                  <span className={styles.inputTitle}>
-                    <i>*</i>
-                    {intl.get('prize.companyAddress')}
-                  </span>
-                  <TextareaItem
-                    {...getFieldProps('companyAddress', {
-                      rules: [{ required: true }],
-                    })}
-                    rows={3}
-                    clear
-                    placeholder={intl.get('prize.ph6')}
-                    className={styles.textarea}
-                    ref={el => (this.AddressInput = el)}
-                    onClick={() => {
-                      this.AddressInput.focus();
-                    }}
-                  />
-                </li>
-              ) : null}
-            </div>
-          </div>
-        )}
-
-        <Button type="primary" className={styles.submit} onClick={this.handleSubmit}>
-          {intl.get('prize.submit')}
-        </Button>
+        <List className={styles.payBox} renderHeader={() => '收货信息'}>
+          <InputItem
+            placeholder="请填写收货人姓名"
+            clear
+          >姓名</InputItem>
+          <InputItem
+            type="phone"
+            placeholder="请填写手机号"
+            clear
+          >*手机号</InputItem>
+        </List>
+        <List className={styles.payBox}>
+          <Item
+            thumb={aliPay}
+            extra={<Icon type="check-circle" color="#FF1C1C" />}
+          >支付宝支付</Item>
+          <Item
+            thumb={weChat}
+            extra={'敬请期待'}
+          >微信支付</Item>
+          <Item
+            thumb={unIonPay}
+            extra={'敬请期待'}
+          >银行卡支付</Item>
+        </List>
+        <div className={styles.btnBox}>
+          <span className={styles.bl}>合计：<span className={styles.bm}>¥<span className={styles.bn}>50</span></span></span>
+          <Button type="primary" className={styles.submit} onClick={this.handleSubmit}>
+            立即支付
+          </Button>
+        </div>
       </div>
     );
   }

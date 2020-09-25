@@ -32,7 +32,7 @@ class CommodityPage extends PureComponent {
         <NavBar mode="dark" className={styles.navBar}>
           全部商品
         </NavBar>
-        <div className={styles.tabs} ref={el => (this.hlv = el)}>
+        <div className={styles.tabs}>
             <HotList />
         </div>
 
