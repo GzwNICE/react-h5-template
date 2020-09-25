@@ -22,6 +22,7 @@ import ReceiveAward from '@/components/receive';
 import BuyGroup from '@/components/buyGroup';
 import ShowCard from '@/components/showCard';
 import ImgPreview from '@/components/imgPreview';
+import prodJson from '@/assets/product.json';
 import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
@@ -349,7 +350,6 @@ class ProductDetail extends PureComponent {
                 </div>
               ))}
           </Carousel>
-          <div className={styles.dotsBox}>{`${current}/${allCur}`}</div>
         </div>
         {status === 3 ? (
           <div className={styles.openTips} style={{ backgroundImage: `url(${priceOpen})` }}>
@@ -368,23 +368,10 @@ class ProductDetail extends PureComponent {
           </div>
         ) : null}
         <div className={styles.priceBox} style={{ backgroundImage: `url(${priceBg})` }}>
+          <img src="" alt=""/>
           <span className={styles.price}>
             <span className={styles.pPrice}>{detail.participatePrice}</span>
-            <span>{config.moneyVirtualCn}</span> / <span>{intl.get('home.personTime')}</span>
           </span>
-          <div className={styles.remainBox}>
-            <span>{`${intl.get('home.remaining')}${detail.remainingCount}`}</span>
-            <Progress
-              percent={detail.progressRate}
-              position="normal"
-              unfilled
-              barStyle={{
-                backgroundColor: 'rgb(255,82,9)',
-                border: 'none',
-              }}
-              className={styles.progress}
-            />
-          </div>
         </div>
         <div className={styles.infoBox}>
           <div className={styles.titleBox}>
