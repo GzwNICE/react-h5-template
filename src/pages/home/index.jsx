@@ -25,7 +25,7 @@ import titlePng from '@/assets/images/title@3x.png';
 import styles from './index.less';
 // import { from } from 'core-js/fn/array';
 
-function renderTabBar(props) {
+function renderTabBar (props) {
   return (
     <Sticky topOffset={1}>
       {({ style }) => (
@@ -55,7 +55,7 @@ class Home extends PureComponent {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Toast.loading('Loading...', 0);
     const { getWin, getBanner, getClass, getPromote, getHomePop } = this.props;
     getBanner().then(() => {
@@ -99,7 +99,7 @@ class Home extends PureComponent {
     }
   };
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     const { clearData } = this.props;
     clearData();
     window.removeEventListener('scroll', this.bindHandleScroll);
@@ -194,7 +194,7 @@ class Home extends PureComponent {
     this.getPageList(order, 'more');
   };
 
-  componentWillReceiveProps(nextPorps) {
+  componentWillReceiveProps (nextPorps) {
     if (
       nextPorps.sortList.data.length > 0 &&
       nextPorps.sortList.data.length === nextPorps.sortList.total
@@ -206,7 +206,7 @@ class Home extends PureComponent {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     const scrollTop = localStorage.getItem('scrollTop');
     window.scrollTo(0, Number(scrollTop));
   }
@@ -226,31 +226,33 @@ class Home extends PureComponent {
     }
   };
 
-  render() {
+  render () {
     const { home } = this.props;
     const { IPhoneX, sortPic, isLoading, hasMore, advertising, promote, popData } = this.state;
     const winnerList = home.winnerList;
     const bannerList = home.bannerList;
-    const classData = [{
-      title: '全部商品',
-      imgURL: quanBu
-    },
-    {
-      title: '我的订单',
-      imgURL: dingdan
-    },
-    {
-      title: '邀请好友',
-      imgURL: yaoqing
-    },
-    {
-      title: '帮助中心',
-      imgURL: bangzhu
-    },
-    {
-      title: '收集意见',
-      imgURL: yijian
-    }];
+    const classData = [
+      {
+        title: '全部商品',
+        imgURL: quanBu,
+      },
+      {
+        title: '我的订单',
+        imgURL: dingdan,
+      },
+      {
+        title: '邀请好友',
+        imgURL: yaoqing,
+      },
+      {
+        title: '帮助中心',
+        imgURL: bangzhu,
+      },
+      {
+        title: '收集意见',
+        imgURL: yijian,
+      },
+    ];
     const tabs = [
       { title: `${intl.get('home.popularity')}` },
       { title: `${intl.get('home.upToDate')}` },
@@ -280,7 +282,12 @@ class Home extends PureComponent {
               <img
                 src={val.imgURL}
                 alt=""
-                style={{ width: '100%', height: '130px', borderRadius: '6px', verticalAlign: 'center' }}
+                style={{
+                  width: '100%',
+                  height: '130px',
+                  borderRadius: '6px',
+                  verticalAlign: 'center',
+                }}
               />
             </a>
           ))}
@@ -307,16 +314,15 @@ class Home extends PureComponent {
           <img src={promote.imgURL} alt="" />
         </div>
         <div className={styles.msBox}>
-            <img src={titlePng} alt=""/>
-            <div className={styles.openTips}>
-                <span>倒计时</span>
-                <span className={styles.time}>04</span>:
-                <span className={styles.time}>59</span>:
-                <span className={styles.time}>59</span>
-            </div>
+          <img src={titlePng} alt="" />
+          <div className={styles.openTips}>
+            <span>倒计时</span>
+            <span className={styles.time}>04</span>:<span className={styles.time}>59</span>:
+            <span className={styles.time}>59</span>
+          </div>
         </div>
         <div className={styles.tabs} ref={el => (this.hlv = el)}>
-            <HotList />
+          <HotList />
         </div>
         <div
           className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}

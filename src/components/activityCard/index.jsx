@@ -7,8 +7,9 @@ import hotImg from '@/assets/images/label_hot.png';
 import styles from './index.less';
 
 // const { lang } = queryString.parse(window.location.search);
+const imagesContext = require.context('@/assets/images/home', false, /\.png$/);
 class ActivityCard extends PureComponent {
-  render() {
+  render () {
     const { data, recommend } = this.props;
     return (
       <div className={styles.card}>
@@ -18,7 +19,7 @@ class ActivityCard extends PureComponent {
           }}
         >
           <div className={styles.topBox}>
-            <img src={require('../../assets/images/100@2x.png')} alt="" className={styles.shopImg} />
+            <img src={imagesContext(data.img)} alt="" className={styles.shopImg} />
           </div>
           <div className={styles.bottomBox}>
             <div className={styles.shopTitle}>{data.name}</div>
