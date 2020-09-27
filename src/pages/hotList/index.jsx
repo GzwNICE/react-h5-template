@@ -13,64 +13,27 @@ class HotList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      page: 0,
-      size: 100,
-      isLoading: false,
-      hasMore: true,
-      fetch: false,
       prodJson: prodJson
     };
   }
 
   componentDidMount() {
-    this.getPageList();
-  }
-
-  getPageList = () => {
-    if (!this.state.hasMore) return false;
-    this.setState({
-      fetch: true,
-    });
-    const { getList } = this.props;
-    this.setState(
-      {
-        page: this.state.page + 1,
-      },
-      () => {
-        const params = {
-          page: this.state.page,
-          size: this.state.size,
-        };
-        getList(params).then(() => {
-          this.setState({
-            fetch: false,
-            isLoading: false,
-          });
-        });
-      }
-    );
-  };
-
-  loadMore = () => {
-    const { hasMore, fetch } = this.state;
-    if (!hasMore || fetch) return;
-    this.setState({
-      isLoading: true,
-    });
-    this.getPageList();
-  };
-
-  componentWillReceiveProps(nextPorps) {
-    if (nextPorps.hotList.data.length === nextPorps.hotList.total) {
+    const from = this.props.showOff;
+    if (from === 'home') {
+      let arr = []
+      this.state.prodJson.map(i => {
+        if (i.show && i.show === 'home') {
+          arr.push(i)
+        }
+      })
       this.setState({
-        hasMore: false,
-        isLoading: false,
-      });
+        prodJson: arr
+      })
+      return
     }
   }
 
   render() {
-    const { hotList } = this.props;
     const { prodJson } = this.state;
     return (
       <div className={styles.hotPage}>
@@ -88,12 +51,4 @@ class HotList extends PureComponent {
   }
 }
 
-const mapState = state => ({
-  hotList: state.home.data.hotList,
-});
-
-const mapDispatch = dispatch => ({
-  getList: params => dispatch.home.fetchGetHotList(params),
-});
-
-export default connect(mapState, mapDispatch)(HotList);
+export default HotList

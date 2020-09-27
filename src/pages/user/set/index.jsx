@@ -7,6 +7,7 @@ import intl from 'react-intl-universal';
 
 import styles from './index.less';
 
+const alert = Modal.alert;
 const { lang } = queryString.parse(window.location.search);
 class Setting extends PureComponent {
   constructor(props) {
@@ -26,9 +27,17 @@ class Setting extends PureComponent {
     });
   }
   onLogOutClick() {
-    this.setState({
-      isShowDialog: true,
-    });
+    alert(' ', `${intl.get('user.logoutInfo')}`, [
+      {
+        text: '确定',
+        onPress: () => {
+          // this.props.history.go(-1);
+        },
+      },
+      {
+        text: '取消',
+      },
+    ]);
   }
   handlerOutLogin = () => {
     localStorage.removeItem('token');
@@ -38,7 +47,7 @@ class Setting extends PureComponent {
     this.props.history.push('/agreement/2');
   }
   onServerInfoClick() {
-    this.props.history.push('/agreement/0');
+    this.props.history.push('/agreement/2');
   }
   onAboutUsClick() {
     this.props.history.push('/aboutus');
@@ -51,14 +60,14 @@ class Setting extends PureComponent {
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF5209' }}
+          style={{ backgroundColor: '#FF1C1C' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
           {intl.get('user.setting')}
         </NavBar>
         <div className={styles.userInfo}>
           <img className={styles.authorImg} src={logo}></img>
-          <div className={styles.imgEdit}>GAGAGO1.0.0</div>
+          <div className={styles.imgEdit}>京东秒杀版 v1.0.0</div>
         </div>
         <div
           className={styles.itemBox}

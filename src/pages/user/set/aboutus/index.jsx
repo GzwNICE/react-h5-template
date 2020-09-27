@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { NavBar, Icon } from 'antd-mobile';
+import logo from '@/assets/images/logo.png';
 import intl from 'react-intl-universal';
 import styles from './index.less';
 
@@ -22,25 +23,14 @@ class Setting extends PureComponent {
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF5209' }}
+          style={{ backgroundColor: '#FF1C1C' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
           {intl.get('user.aboutUs')}
         </NavBar>
         <div className={styles.userInfo}>
-          <img className={styles.authorImg} src={resultData.url}></img>
-          <div className={styles.imgEdit}>{resultData.content}</div>
-        </div>
-        <div
-          style={{ display: 'flex', flexDirection: 'row', marginLeft: '15px', marginTop: '20px' }}
-        >
-          <div style={{ color: '#333333', fontSize: '16px' }}>{intl.get('user.usMobile')}</div>
-          <a
-            style={{ color: '#4A90E2', fontSize: '16px', marginLeft: '5px' }}
-            href="tel:0327345842"
-          >
-            0327345842
-          </a>
+          <img className={styles.authorImg} src={logo}></img>
+          <div className={styles.imgEdit}> 京东秒杀版 - 优选好商品，每天推出随机2小时限时秒杀活动，话费充值卡、加油卡、京东卡、手机、电脑、小家电、日用百货等等，随时随地帮你省钱，敬请关注。</div>
         </div>
       </div>
     );

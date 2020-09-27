@@ -30,6 +30,7 @@ class Register extends PureComponent {
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    this.changeCodeImg();
     const token = localStorage.getItem('token');
     if (token) {
       this.props.history.push(`/home`);
@@ -141,7 +142,6 @@ class Register extends PureComponent {
     this.setState({
       codeImgUrl: `${this.state.codeUrl}${new Date().getTime()}`,
     });
-    this.afterCloseModal();
   };
 
   ShowPassWord = () => {
@@ -170,7 +170,7 @@ class Register extends PureComponent {
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF5209' }}
+          style={{ backgroundColor: '#FF1C1C' }}
           onLeftClick={() => {
             this.props.history.go(-1);
           }}
@@ -178,55 +178,48 @@ class Register extends PureComponent {
           {intl.get('password.reg')}
         </NavBar>
         <div className={styles.regBox}>
-          <span className={styles.title}>{intl.get('password.reg')}GAGA GO</span>
-          <div className={styles.loginMobile}>{`+${lang === 'zh' ? '86' : '84'} ${mobile}`}</div>
-          <div className={styles.codeBox}>
+          <div className={styles.mobileBox}>
             <InputItem
-              {...getFieldProps('smsCode')}
-              clear
-              placeholder={intl.get('password.ph2')}
-              className={styles.code}
-              maxLength={6}
-              type="number"
-              ref={el => (this.codeInput = el)}
+              {...getFieldProps('phone')}
+              placeholder="请填写手机号"
+              type="phone"
+              className={styles.mobile}
+              ref={el => (this.mobileInput = el)}
               onClick={() => {
-                this.codeInput.focus();
+                this.mobileInput.focus();
               }}
-            />
-            <Button
-              type="primary"
-              className={styles.sendCode}
-              onClick={this.handleCodeClick}
-              disabled={disableCode}
-            >
-              {sendCodeText}
-            </Button>
+            ><span className={styles.countCode}>+86</span></InputItem>
           </div>
           <div className={`${styles.mobileBox} ${styles.passBox}`}>
             <InputItem
               {...getFieldProps('pwd')}
-              clear
-              placeholder={intl.get('password.ph6')}
-              type={pwVisible ? 'text' : 'password'}
+              placeholder="请设置登录密码，不得少于6位数"
+              type="password"
               className={styles.password}
               ref={el => (this.passInput = el)}
               onClick={() => {
                 this.passInput.focus();
               }}
             />
-            <img
-              src={pwVisible ? passwordOpen : passwordClose}
-              alt=""
-              className={styles.passClose}
-              onClick={this.ShowPassWord}
+          </div>
+          <div className={`${styles.mobileBox} ${styles.passBox}`}>
+            <InputItem
+              {...getFieldProps('code')}
+              placeholder="输入图形中的验证码"
+              className={styles.codeBox}
+              ref={el => (this.codeInput = el)}
+              onClick={() => {
+                this.codeInput.focus();
+              }}
             />
+            <img src={codeImgUrl} alt="" onClick={this.changeCodeImg} className={styles.passClose} />
           </div>
           <Button type="primary" className={styles.nextBut} onClick={this.handleRegClick}>
-            {intl.get('password.reg')}
+            提交注册
           </Button>
           <p className={styles.regAg}>
-            {intl.get('password.signing')}
-            <span onClick={this.handleAgreement}>《{intl.get('password.servicesAgreement')}》</span>
+            点击提交注册即代表您同意
+            <span onClick={this.handleAgreement}>《用户服务协议》</span>
           </p>
         </div>
         <Modal

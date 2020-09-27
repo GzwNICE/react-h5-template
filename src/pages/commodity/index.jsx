@@ -33,7 +33,7 @@ class CommodityPage extends PureComponent {
           全部商品
         </NavBar>
         <div className={styles.tabs}>
-            <HotList />
+            <HotList showOff="all" />
         </div>
 
         <div

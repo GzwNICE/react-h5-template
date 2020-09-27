@@ -320,6 +320,7 @@ class Home extends PureComponent {
               data={classData}
               columnNum={5}
               hasLine={false}
+              activeStyle={false}
               renderItem={item => (
                 <div onClick={() => this.handlerGrid(item.jumpUrl)}>
                   <img src={item.imgURL} className={styles.classImg} alt="" />
@@ -344,7 +345,7 @@ class Home extends PureComponent {
           </div>
         </div>
         <div className={styles.tabs} ref={el => (this.hlv = el)}>
-          <HotList />
+          <HotList showOff="home" />
         </div>
         <div
           className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}

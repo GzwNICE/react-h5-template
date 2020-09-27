@@ -13,12 +13,6 @@ import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
 import evaluation from '@/assets/images/ic_evaluation.png';
 import sale from '@/assets/images/ic_return.png';
-// import integral from '@/assets/images/credits.png';
-// import invitation from '@/assets/images/ic_invitation.png';
-// import join from '@/assets/images/ic_join.png';
-// import help from '@/assets/images/ic_service.png';
-// import feedback from '@/assets/images/ic_feedback.png';
-// import setting from '@/assets/images/ic_set.png';
 import invitation1 from '@/assets/images/ic_invitation@3x.png';
 import evaluation1 from '@/assets/images/ic_evaluation@3x.png';
 import join1 from '@/assets/images/ic_join@3x.png';
@@ -35,6 +29,7 @@ class User extends PureComponent {
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
       isLogin: localStorage.getItem('token') != null,
+      // isLogin: true,
     };
   }
 
@@ -65,33 +60,19 @@ class User extends PureComponent {
     }
   }
 
+  toOrder(type) {
+    this.props.history.push(`/order/${type}`);
+  }
+
   render() {
     const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const tabs = [
-      { label: intl.get('user.wait_open'), icon: wait, type: 1 },
-      { label: '待发货', icon: win, type: 2 },
-      { label: '待收货', icon: nowin, type: 3 },
-      { label: '已完成', icon: evaluation, type: 4 },
-      { label: '退换/售后', icon: sale, type: 5 },
+      { label: '待付款', icon: wait, type: '1' },
+      { label: '待发货', icon: win, type: '2' },
+      { label: '待收货', icon: nowin, type: '3' },
+      { label: '已完成', icon: evaluation, type: '4' },
+      { label: '退换/售后', icon: sale, type: '5' },
     ];
-    // const tabServer = [
-    //   {
-    //     label: intl.get('integral.myIntegral'),
-    //     icon: integral,
-    //     type: 'integral',
-    //     tips: intl.get('integral.collar', { moneyVirtualCn: config.moneyVirtualCn }),
-    //   },
-    //   {
-    //     label: intl.get('user.invitation'),
-    //     icon: invitation,
-    //     type: 'invitation',
-    //     tips: intl.get('user.str_click_getmoney'),
-    //   },
-    //   { label: intl.get('user.join'), icon: join, type: 'join' },
-    //   { label: intl.get('user.help'), icon: help, type: 'help' },
-    //   { label: intl.get('user.feedback'), icon: feedback, type: 'feedback' },
-    //   { label: intl.get('user.setting'), icon: setting, type: 'set' },
-    // ];
     const { user } = this.props;
     const { IPhoneX, isLogin } = this.state;
     return (
@@ -119,7 +100,7 @@ class User extends PureComponent {
           <div className={styles.order}>
             <div className={styles.myorder}>
               <span className={styles.left}>{intl.get('user.myorder')}</span>
-              <span className={styles.right}>查看全部订单</span>
+              <span className={styles.right} onClick={() => this.toOrder('0')}>查看全部订单</span>
             </div>
             <Grid
               data={tabs}
@@ -127,10 +108,10 @@ class User extends PureComponent {
               hasLine={false}
               onClick={_el => {
                 if (isLogin) {
-                  if (_el.type == '4') {
+                  if (_el.type == '5') {
                     this.props.history.push(`/evaluation`);
                   } else {
-                    this.props.history.push(`/order?label=${_el.label}&type=${_el.type}`);
+                    this.props.history.push(`/order/${_el.type}`);
                   }
                 } else {
                   this.props.history.push(`/login`);
@@ -151,18 +132,18 @@ class User extends PureComponent {
               <Item
                 thumb={invitation1}
                 arrow="horizontal"
-                onClick={() => {}}
+                onClick={() => {this.props.history.push('/invitation')}}
               >邀请好友</Item>
               <Item
                 thumb={evaluation1}
-                onClick={() => {}}
+                onClick={() => {this.props.history.push('/evaluation')}}
                 arrow="horizontal"
               >
                 我的评价
               </Item>
               <Item
                 thumb={join1}
-                onClick={() => {}}
+                onClick={() => {this.props.history.push('/join')}}
                 arrow="horizontal"
               >
                 加入社区
@@ -174,18 +155,18 @@ class User extends PureComponent {
             <Item
               thumb={service1}
               arrow="horizontal"
-              onClick={() => {}}
+              onClick={() => {this.props.history.push('/help')}}
             >帮助中心</Item>
             <Item
               thumb={feedback1}
-              onClick={() => {}}
+              onClick={() => {this.props.history.push('/feedback')}}
               arrow="horizontal"
             >
               意见反馈
             </Item>
             <Item
               thumb={set1}
-              onClick={() => {}}
+              onClick={() => {this.props.history.push('/set')}}
               arrow="horizontal"
             >
               设置

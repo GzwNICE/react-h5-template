@@ -7,7 +7,7 @@ import { NavBar, Icon, InputItem, Button, Toast } from 'antd-mobile';
 import { Link } from 'react-router-dom';
 import { createForm } from 'rc-form';
 import Cookies from 'js-cookie';
-import loginBg from '@/assets/images/loginBg.png';
+import loginBg from '@/assets/images/bg_login@2x.png';
 import passwordClose from '@/assets/images/passwordClose.png';
 import passwordOpen from '@/assets/images/passwordOpen.png';
 import styles from './index.less';
@@ -98,12 +98,6 @@ class Login extends PureComponent {
     });
   };
 
-  ShowPassWord = () => {
-    this.setState({
-      pwVisible: !this.state.pwVisible,
-    });
-  };
-
   // focus = e => {
   //   this[e].focus();
   // };
@@ -116,47 +110,38 @@ class Login extends PureComponent {
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF5209' }}
+          className={styles.navbar}
           onLeftClick={() => {
             this.props.history.go(-1);
           }}
-        />
+        >
+          登录
+        </NavBar>
         <img src={loginBg} alt="" className={styles.banner} />
-        {!login ? (
+
           <div className={styles.loginBox}>
-            <span className={styles.title}>{intl.get('login.loginReg')}</span>
-            <div className={styles.mobileBox}>
-              <span className={styles.area}>{`+${lang === 'zh' ? '86' : '84'}`}</span>
+            <div className={`${styles.mobileBox}`}>
               <InputItem
                 {...getFieldProps('mobile')}
                 clear
-                placeholder={intl.get('login.ph1')}
+                placeholder="请填写手机号"
+                type="phone"
                 className={styles.mobile}
-                type="number"
-                ref={el => (this.mobileInput = el)}
+                ref={el => (this.moInput = el)}
                 onClick={() => {
-                  this.mobileInput.focus();
+                  this.moInput.focus();
                 }}
                 onBlur={() => {
                   window.scrollTo(0, 0);
                 }}
               ></InputItem>
             </div>
-            <span className={styles.tips}>{intl.get('login.tips')}</span>
-            <Button type="primary" onClick={this.handleNextClick} className={styles.nextBut}>
-              {intl.get('login.next')}
-            </Button>
-          </div>
-        ) : (
-          <div className={styles.loginBox}>
-            <span className={styles.title}>{intl.get('login.welcomeBack')}</span>
-            <div className={styles.loginMobile}>{`+${lang === 'zh' ? '86' : '84'} ${mobile}`}</div>
             <div className={`${styles.mobileBox} ${styles.passBox}`}>
               <InputItem
                 {...getFieldProps('password')}
                 clear
-                placeholder={intl.get('login.ph2')}
-                type={pwVisible ? 'text' : 'password'}
+                placeholder="请输入密码"
+                type="password"
                 className={styles.password}
                 ref={el => (this.pawInput = el)}
                 onClick={() => {
@@ -166,28 +151,21 @@ class Login extends PureComponent {
                   window.scrollTo(0, 0);
                 }}
               ></InputItem>
-              <img
-                src={pwVisible ? passwordOpen : passwordClose}
-                alt=""
-                className={styles.passClose}
-                onClick={this.ShowPassWord}
-              />
             </div>
             <Button type="primary" className={styles.nextBut} onClick={this.handleLoginClick}>
               {intl.get('login.login')}
             </Button>
             <Link
               to={{
-                pathname: '/password',
+                pathname: '/register',
                 search: `${this.props.history.location.search}`,
                 state: { mobile: mobile },
               }}
               className={styles.forgetPassword}
             >
-              {intl.get('login.fegPaw')}
+              没有账号？点击注册
             </Link>
           </div>
-        )}
       </div>
     );
   }

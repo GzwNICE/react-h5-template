@@ -11,6 +11,8 @@ class FeedBack extends PureComponent {
     super(props);
     this.state = {
       files: [],
+      isEmpty: null,
+      content: ''
     };
   }
   componentDidMount() {
@@ -24,30 +26,30 @@ class FeedBack extends PureComponent {
     clearImage();
   }
   onImageChange = (files, type, index) => {
-    console.log(files, type, index);
+    // console.log(files, type, index);
     const { updateImage, removeImage, compressThreshold=2 } = this.props;
     this.setState({
       files,
     });
-    if (type == 'add') {
-      let formData = new FormData();
-      const file = files[files.length - 1].file;
-      let fileSize = file.size / 1024 / 1024;
-      formData.append('type', 'image');
-      formData.append('timeLimit', 'longPeriod');
-      formData.append('attributeName', 'feedback');
-      if (fileSize >= compressThreshold) {
-        this.transformFile(file).then(file => {
-          formData.append('multipartFile', file);
-          updateImage(formData);
-        });
-      } else {
-        formData.append('multipartFile', file);
-        updateImage(formData);
-      }
-    } else {
-      removeImage(index);
-    }
+    // if (type == 'add') {
+    //   let formData = new FormData();
+    //   const file = files[files.length - 1].file;
+    //   let fileSize = file.size / 1024 / 1024;
+    //   formData.append('type', 'image');
+    //   formData.append('timeLimit', 'longPeriod');
+    //   formData.append('attributeName', 'feedback');
+    //   if (fileSize >= compressThreshold) {
+    //     this.transformFile(file).then(file => {
+    //       formData.append('multipartFile', file);
+    //       updateImage(formData);
+    //     });
+    //   } else {
+    //     formData.append('multipartFile', file);
+    //     updateImage(formData);
+    //   }
+    // } else {
+    //   removeImage(index);
+    // }
   };
   //在上传之前转换文件
   transformFile = (file) => {
@@ -132,7 +134,7 @@ class FeedBack extends PureComponent {
                                 console.log("结果：",newFile.size)
 
                                 resolve(newFile);
-                                
+
                             };
                         };
                         reader.onerror = () => {
@@ -173,15 +175,24 @@ class FeedBack extends PureComponent {
     });
   };
   submitMsg() {
-    const { addMessage, imageIds } = this.props;
-    addMessage({
-      feedbackContent: this.state.content,
-      imgIds: imageIds,
-      url: '/app/v1/user/feedback',
-    }).then(() => {
-      Toast.info(intl.get('user.str_thank_feedback'), 2);
+    // const { addMessage, imageIds } = this.props;
+    // addMessage({
+    //   feedbackContent: this.state.content,
+    //   imgIds: imageIds,
+    //   url: '/app/v1/user/feedback',
+    // }).then(() => {
+    //   Toast.info(intl.get('user.str_thank_feedback'), 2);
+    //   this.props.history.go(-1);
+    // });
+    this.setState({
+      isEmpty: true,
+      files: []
+    })
+    this.customFocusInst.state.value = ''
+    Toast.success('感谢您的反馈');
+    setTimeout(()=>{
       this.props.history.go(-1);
-    });
+    }, 2000)
   }
 
   render() {
@@ -191,11 +202,14 @@ class FeedBack extends PureComponent {
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF5209' }}
+          style={{ backgroundColor: '#FF1C1C' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
           {intl.get('user.feedback')}
         </NavBar>
+        <div className={styles.titleBox}>
+          问题描述<span>（必填）</span>
+        </div>
         <TextareaItem
           placeholder={intl.get('user.str_welocme_feedback')}
           autoHeight

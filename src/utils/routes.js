@@ -104,7 +104,7 @@ export const routes = [
     component: Password,
   },
   {
-    path: '/order',
+    path: '/order/:type',
     exact: true,
     component: Order,
   },
