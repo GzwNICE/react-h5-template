@@ -88,10 +88,10 @@ class User extends PureComponent {
     const list1 = [
       {text: '邀请好友', thumb: invitation1, url: '/invitation'},
       {text: '我的评价', thumb: evaluation1, url: '/evaluation'},
-      {text: '加入社区', thumb: join1, url: '/join'}
+      {text: '加入社区', thumb: join1, url: '/miss?title=加入社区'}
     ]
     const list2 = [
-      {text: '帮助中心', thumb: service1, url: '/help'},
+      {text: '帮助中心', thumb: service1, url: '/miss?title=帮助中心'},
       {text: '意见反馈', thumb: feedback1, url: '/feedback'},
       {text: '设置', thumb: set1, url: '/set'}
     ]

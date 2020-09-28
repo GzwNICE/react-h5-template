@@ -14,6 +14,7 @@ import Rank from '@/pages/user/invitation/rank';
 import Reward from '@/pages/user/invitation/reward';
 import Feedback from '@/pages/user/feedback';
 import Join from '@/pages/user/join';
+import Miss from '@/pages/user/miss';
 import Setting from '@/pages/user/set';
 import AboutUs from '@/pages/user/set/aboutus';
 
@@ -178,7 +179,11 @@ export const routes = [
     exact: true,
     component: Join,
   },
-
+  {
+    path: '/miss',
+    exact: true,
+    component: Miss,
+  },
   {
     path: '/paylist',
     exact: true,

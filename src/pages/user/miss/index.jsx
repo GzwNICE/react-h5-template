@@ -1,41 +1,39 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
-import pic_visual from '@/assets/images/pic_visual@2x.png';
+import queryString from 'query-string';
+import emptyImg from '@/assets/images/integralBlank.png';
+import { NavBar, Icon } from 'antd-mobile';
 import styles from './index.less';
 
-class Join extends PureComponent {
+class MissPage extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      title: queryString.parse(window.location.search).title
+    }
   }
 
   render() {
+    const { title } = this.state;
     return (
-      <div className={styles.contentBox}>
-        <img className={styles.bg_visual} src={pic_visual}></img>
-        <div
-          className={styles.join}
-          style={{ marginBottom: '120px' }}
-          onClick={this.onFackbookCLick.bind(this)}
+      <div className={styles.missPage}>
+        <NavBar
+          mode="dark"
+          icon={<Icon type="left" />}
+          style={{ backgroundColor: '#FF1C1C' }}
+          onLeftClick={() => this.props.history.go(-1)}
         >
-          {intl.get('user.joinFacebook')}
-        </div>
-        <div
-          className={styles.join}
-          style={{ marginBottom: '60px' }}
-          onClick={this.onTelegramCLick.bind(this)}
-        >
-          {intl.get('user.joinTelegram')}
-        </div>
+          {title}
+        </NavBar>
+        <div className={styles.box}>
+          <img className={styles.emptyImg} src={emptyImg} />
+        <div className={styles.emptyInfo}>敬请期待</div>
+        <div className={styles.emptyText}>程序员正在建设中…</div>
+      </div>
       </div>
     );
   }
 }
 
-const mapState = state => ({
-});
-
-const mapDispatch = dispatch => ({
-});
-
-export default connect(mapState, mapDispatch)(Join);
+export default MissPage;

@@ -24,17 +24,11 @@ class Login extends PureComponent {
   }
   componentDidMount() {
     window.scrollTo(0, 0);
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('mobile');
     if (token) {
-      // eslint-disable-next-line react/destructuring-assignment
       this.props.history.push(`/home`);
       return;
     }
-    const { mobile } = queryString.parse(window.location.search);
-    this.setState({
-      mobile,
-      login: mobile ? true : false,
-    });
   }
 
   handleLoginClick = e => {
