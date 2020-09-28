@@ -66,7 +66,16 @@ class Home extends PureComponent {
   };
 
   handlerGrid = url => {
-    this.props.history.push(url);
+    if (url === '/commodity') {
+      this.props.history.push('/commodity');
+    } else {
+      const token = localStorage.getItem('mobile');
+      if (token) {
+        this.props.history.push(url);
+      } else {
+        this.props.history.push(`/login`);
+      }
+    }
   };
 
   render() {

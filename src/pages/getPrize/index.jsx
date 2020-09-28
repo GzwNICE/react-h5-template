@@ -55,7 +55,7 @@ class GetPrize extends PureComponent {
         const user_mobile = localStorage.getItem('mobile');
         const goods_id = this.state.prodData.id;
         Toast.loading('loading...', 10);
-        window.location.href = `${window.location.protocol}//${getBaseUrl()}/pay/alipay.php?goods_id=${goods_id}&user_mobile=${user_mobile}&t=${new Date().getTime()}`
+        window.location.href = `${window.location.protocol}//${getBaseUrl()}/v1/alipay.php?goods_id=${goods_id}&user_mobile=${user_mobile}&t=${new Date().getTime()}`
       }
     });
   };

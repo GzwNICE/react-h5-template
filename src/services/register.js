@@ -5,7 +5,7 @@ export async function regSendCode(params) {
 }
 
 export async function register(params) {
-  return request('/register.php', { method: 'post', data: params });
+  return request('/v1/register.php', { method: 'post', data: params });
 }
 
 export async function getCode(params) {
