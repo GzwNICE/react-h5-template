@@ -75,14 +75,14 @@ class Login extends PureComponent {
     const { login } = this.props;
     this.props.form.validateFields((err, value) => {
       if (err) return;
-      if (!value.password) {
-        return Toast.info(`${intl.get('login.ph2')}`, 2);
+      if (!value.mobile) {
+        return Toast.info('请填写手机号', 2);
+      } else if (!value.password) {
+        return Toast.info('请输入密码', 2);
       } else {
         login({
-          mobile: this.state.mobile,
-          checkCode: md5(value.password),
-          type: 'password',
-          countryCode: this.state.lang === 'zh' ? '86' : '84',
+          mobile: value.mobile.replace(/\s*/g, ""),
+          password: md5(value.password),
         }).then(res => {
           if (res.code === 200) {
             Toast.success(`${intl.get('login.success')}`, 2);
@@ -123,7 +123,6 @@ class Login extends PureComponent {
             <div className={`${styles.mobileBox}`}>
               <InputItem
                 {...getFieldProps('mobile')}
-                clear
                 placeholder="请填写手机号"
                 type="phone"
                 className={styles.mobile}
@@ -139,7 +138,6 @@ class Login extends PureComponent {
             <div className={`${styles.mobileBox} ${styles.passBox}`}>
               <InputItem
                 {...getFieldProps('password')}
-                clear
                 placeholder="请输入密码"
                 type="password"
                 className={styles.password}

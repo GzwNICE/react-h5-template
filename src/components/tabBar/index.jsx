@@ -26,8 +26,8 @@ class TabBarBox extends PureComponent {
   }
 
   componentDidMount() {
-    const { getConf } = this.props;
-    getConf();
+    // const { getConf } = this.props;
+    // getConf();
   }
 
   render() {

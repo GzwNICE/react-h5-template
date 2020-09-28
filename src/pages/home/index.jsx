@@ -61,35 +61,35 @@ class Home extends PureComponent {
   }
 
   componentDidMount() {
-    Toast.loading('Loading...', 0);
-    const { getWin, getBanner, getClass, getPromote, getHomePop } = this.props;
-    getBanner().then(() => {
-      getWin();
-      getClass();
-      // homeSys();
-      setTimeout(() => {
-        Toast.hide();
-      }, 800);
-      getPromote().then(res => {
-        this.setState({
-          promote: res.data[0],
-        });
-      });
-      getHomePop().then(res => {
-        if (res.data.length > 0) {
-          const openPop = localStorage.getItem('openPop');
-          if (!openPop || openPop === '1') {
-            localStorage.setItem('openPop', 1);
-            this.setState({
-              popData: res.data.length === 1 ? res.data[0] : res.data[random(res.data.length)],
-              advertising: true,
-            });
-          }
-        }
-      });
-    });
-    this.getPageList('desc');
-    window.addEventListener('scroll', this.bindHandleScroll);
+    // Toast.loading('Loading...', 0);
+    // const { getWin, getBanner, getClass, getPromote, getHomePop } = this.props;
+    // getBanner().then(() => {
+    //   getWin();
+    //   getClass();
+    //   // homeSys();
+    //   setTimeout(() => {
+    //     Toast.hide();
+    //   }, 800);
+    //   getPromote().then(res => {
+    //     this.setState({
+    //       promote: res.data[0],
+    //     });
+    //   });
+    //   getHomePop().then(res => {
+    //     if (res.data.length > 0) {
+    //       const openPop = localStorage.getItem('openPop');
+    //       if (!openPop || openPop === '1') {
+    //         localStorage.setItem('openPop', 1);
+    //         this.setState({
+    //           popData: res.data.length === 1 ? res.data[0] : res.data[random(res.data.length)],
+    //           advertising: true,
+    //         });
+    //       }
+    //     }
+    //   });
+    // });
+    // this.getPageList('desc');
+    // window.addEventListener('scroll', this.bindHandleScroll);
   }
 
   bindHandleScroll = event => {

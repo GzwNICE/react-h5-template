@@ -19,7 +19,7 @@ class Register extends PureComponent {
       mobile: '',
       pwVisible: true,
       codeModal: false,
-      codeUrl: `${window.location.protocol}//${getBaseUrl()}/app/sms/img/code?t=`,
+      codeUrl: `${window.location.protocol}//${getBaseUrl()}/captcha.php?r=`,
       codeImgUrl: '',
       index: 5,
       sendCodeText: `${intl.get('password.sendCode')}`,
@@ -140,7 +140,7 @@ class Register extends PureComponent {
 
   changeCodeImg = () => {
     this.setState({
-      codeImgUrl: `${this.state.codeUrl}${new Date().getTime()}`,
+      codeImgUrl: `${this.state.codeUrl}${Math.random()}`,
     });
   };
 
