@@ -52,22 +52,11 @@ class Invitation extends PureComponent {
     navigator.share({});
   }
   componentDidMount() {
-    const { canUse, ranks, shareConfig } = this.props;
-    canUse({ url: '/app/invite/rules/config/use' }).then(res => {
-      this.setState({
-        canUse: res.data.useStatus,
-      });
-    });
-    ranks({ url: '/app/inviter/reward/income/rank' }).then(res => {
-      this.setState({
-        ranks: res.data,
-      });
-    });
-    shareConfig({ url: '/app/invite/rules/config/info' }).then(res => {
-      this.setState({
-        shareConfig: res.data,
-      });
-    });
+    const isLogin = localStorage.getItem('mobile');
+    if (!isLogin) {
+      this.props.history.push(`/login`);
+      return;
+    }
   }
   render() {
     const config = JSON.parse(localStorage.getItem('configuration')) || {};

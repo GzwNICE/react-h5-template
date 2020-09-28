@@ -18,6 +18,14 @@ class OrderList extends PureComponent {
     };
   }
 
+  componentDidMount() {
+    const isLogin = localStorage.getItem('mobile');
+    if (!isLogin) {
+      this.props.history.push(`/login`);
+      return;
+    }
+  }
+
   handlerPush = url => {
     this.props.history.push('/home');
   };

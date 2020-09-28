@@ -24,7 +24,11 @@ class Help extends PureComponent {
     };
   }
   componentDidMount() {
-    this.getPageList();
+    const isLogin = localStorage.getItem('mobile');
+    if (!isLogin) {
+      this.props.history.push(`/login`);
+      return;
+    }
   }
   getPageList = () => {
     if (this.state.rows.length === this.state.total) {

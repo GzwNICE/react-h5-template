@@ -28,18 +28,18 @@ class User extends PureComponent {
     super(props);
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
-      isLogin: localStorage.getItem('token') != null,
+      isLogin: localStorage.getItem('mobile'),
       // isLogin: true,
     };
   }
 
   componentDidMount() {
     // this.props.history.push('/login');
-    const { userInfo } = this.props;
-    const token = localStorage.getItem('token');
-    if (token) {
-      userInfo();
-    }
+    // const { userInfo } = this.props;
+    // const token = localStorage.getItem('token');
+    // if (token) {
+    //   userInfo();
+    // }
   }
   loginCLick() {
     this.props.history.push(`/login`);
@@ -61,7 +61,19 @@ class User extends PureComponent {
   }
 
   toOrder(type) {
-    this.props.history.push(`/order/${type}`);
+    if (this.state.isLogin) {
+      this.props.history.push(`/order/${type}`);
+    } else {
+      this.props.history.push(`/login`);
+    }
+  }
+
+  listJump(url) {
+    if (this.state.isLogin) {
+      this.props.history.push(url)
+    } else {
+      this.props.history.push(`/login`);
+    }
   }
 
   render() {
@@ -73,6 +85,16 @@ class User extends PureComponent {
       { label: '已完成', icon: evaluation, type: '4' },
       { label: '退换/售后', icon: sale, type: '5' },
     ];
+    const list1 = [
+      {text: '邀请好友', thumb: invitation1, url: '/invitation'},
+      {text: '我的评价', thumb: evaluation1, url: '/evaluation'},
+      {text: '加入社区', thumb: join1, url: '/join'}
+    ]
+    const list2 = [
+      {text: '帮助中心', thumb: service1, url: '/help'},
+      {text: '意见反馈', thumb: feedback1, url: '/feedback'},
+      {text: '设置', thumb: set1, url: '/set'}
+    ]
     const { user } = this.props;
     const { IPhoneX, isLogin } = this.state;
     return (
@@ -82,7 +104,7 @@ class User extends PureComponent {
           <div className={styles.authorInfo}>
             <img
               className={styles.authorImg}
-              src={isLogin ? user.userInfo.photoUrl : authorImg}
+              src={authorImg}
               onClick={this.onPersonClick.bind(this)}
             ></img>
             <div className={styles.authorLoginType}>
@@ -91,7 +113,7 @@ class User extends PureComponent {
                   {intl.get('user.loginOrRegister')}
                 </div>
               ) : (
-                <div className={styles.authorName}>1111***4543</div>
+                <div className={styles.authorName}>{isLogin}</div>
               )}
             </div>
           </div>
@@ -129,48 +151,28 @@ class User extends PureComponent {
           </div>
           <div className={styles.order}>
             <List>
-              <Item
-                thumb={invitation1}
-                arrow="horizontal"
-                onClick={() => {this.props.history.push('/invitation')}}
-              >邀请好友</Item>
-              <Item
-                thumb={evaluation1}
-                onClick={() => {this.props.history.push('/evaluation')}}
-                arrow="horizontal"
-              >
-                我的评价
-              </Item>
-              <Item
-                thumb={join1}
-                onClick={() => {this.props.history.push('/join')}}
-                arrow="horizontal"
-              >
-                加入社区
-              </Item>
+              {list1.map(i=> {
+                return (
+                  <Item
+                  key={i.text}
+                  thumb={i.thumb}
+                  arrow="horizontal"
+                  onClick={() => this.listJump(i.url)}
+                >{i.text}</Item>)
+              })}
             </List>
           </div>
           <div className={styles.order}>
           <List>
-            <Item
-              thumb={service1}
-              arrow="horizontal"
-              onClick={() => {this.props.history.push('/help')}}
-            >帮助中心</Item>
-            <Item
-              thumb={feedback1}
-              onClick={() => {this.props.history.push('/feedback')}}
-              arrow="horizontal"
-            >
-              意见反馈
-            </Item>
-            <Item
-              thumb={set1}
-              onClick={() => {this.props.history.push('/set')}}
-              arrow="horizontal"
-            >
-              设置
-            </Item>
+            {list2.map(i=> {
+              return (
+                <Item
+                key={i.text}
+                thumb={i.thumb}
+                arrow="horizontal"
+                onClick={() => this.listJump(i.url)}
+              >{i.text}</Item>)
+            })}
           </List>
         </div>
         </div>

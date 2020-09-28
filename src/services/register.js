@@ -9,9 +9,7 @@ export async function register(params) {
 }
 
 export async function getCode(params) {
-  return request('/captcha.php', { method: 'get', xhrFields:{
-    withCredentials:true
-    },  params: params });
+  return request('/captcha.php', { method: 'get', params: params });
 }
 
 export async function forgetPaw(params) {

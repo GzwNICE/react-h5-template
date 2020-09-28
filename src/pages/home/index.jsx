@@ -2,20 +2,11 @@
 /* eslint-disable react/destructuring-assignment */
 // 首页
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import intl from 'react-intl-universal';
-import { Carousel, Grid, Tabs, Toast, Modal, Icon } from 'antd-mobile';
+import { Carousel, Grid, Toast, Modal, Icon } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
 import Cookies from 'js-cookie';
-import { random } from '@/utils/util';
 import HotList from '@/pages/hotList';
-import LatestList from '@/pages/latestList';
-import OpenList from '@/pages/willEndList';
-import ValueList from '@/pages/sortValueList';
 import TabBarBox from '@/components/tabBar';
-import sorting from '@/assets/images/sorting.png';
-import sortingUp from '@/assets/images/sorting_up@2x.png';
-import sortingDown from '@/assets/images/sorting_down@2x.png';
 import quanBu from '@/assets/images/quanbu@3x.png';
 import dingdan from '@/assets/images/dingdan@3x.png';
 import yaoqing from '@/assets/images/yaoqing@3x.png';
@@ -28,218 +19,59 @@ import banner04 from '@/assets/images/banner1.jpg';
 import titlePng from '@/assets/images/title@3x.png';
 import pic_banner from '@/assets/images/pic_banner@2x.png';
 import styles from './index.less';
-// import { from } from 'core-js/fn/array';
 
-function renderTabBar(props) {
-  return (
-    <Sticky topOffset={1}>
-      {({ style }) => (
-        <div style={{ ...style, zIndex: 2 }}>
-          <Tabs.DefaultTabBar {...props} />
-          <img src={props.tabs[3].sort} alt="sort" className={styles.sortImg} />
-        </div>
-      )}
-    </Sticky>
-  );
-}
 class Home extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
-      sortPic: 1,
-      page: 0,
-      size: 100,
-      order: '',
-      isLoading: false,
-      hasMore: true,
-      fetch: false,
-      advertising: false,
-      promote: {},
-      popData: {},
+      openH: 0,
+      openM: 0,
+      openS: 0,
     };
   }
 
   componentDidMount() {
-    // Toast.loading('Loading...', 0);
-    // const { getWin, getBanner, getClass, getPromote, getHomePop } = this.props;
-    // getBanner().then(() => {
-    //   getWin();
-    //   getClass();
-    //   // homeSys();
-    //   setTimeout(() => {
-    //     Toast.hide();
-    //   }, 800);
-    //   getPromote().then(res => {
-    //     this.setState({
-    //       promote: res.data[0],
-    //     });
-    //   });
-    //   getHomePop().then(res => {
-    //     if (res.data.length > 0) {
-    //       const openPop = localStorage.getItem('openPop');
-    //       if (!openPop || openPop === '1') {
-    //         localStorage.setItem('openPop', 1);
-    //         this.setState({
-    //           popData: res.data.length === 1 ? res.data[0] : res.data[random(res.data.length)],
-    //           advertising: true,
-    //         });
-    //       }
-    //     }
-    //   });
-    // });
-    // this.getPageList('desc');
-    // window.addEventListener('scroll', this.bindHandleScroll);
+    this.countFun()
   }
 
-  bindHandleScroll = event => {
-    // 滚动的高度
-    const scrollTop =
-      (event.srcElement ? event.srcElement.documentElement.scrollTop : false) ||
-      window.pageYOffset ||
-      (event.srcElement ? event.srcElement.body.scrollTop : 0);
-    this.top = scrollTop;
-    if (scrollTop === 0) {
-      localStorage.removeItem('scrollTop');
-    }
-  };
-
-  componentWillUnmount() {
-    const { clearData } = this.props;
-    clearData();
-    window.removeEventListener('scroll', this.bindHandleScroll);
-    if (this.top) {
-      localStorage.setItem('scrollTop', this.top);
-    } else {
-      localStorage.removeItem('scrollTop');
-    }
+  getDateStr(AddDayCount) {
+    var dd = new Date();
+    dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期
+    var y = dd.getFullYear();
+    var m = dd.getMonth() + 1 < 10 ? '0' + (dd.getMonth() + 1) : dd.getMonth() + 1; //获取当前月份的日期，不足10补0
+    var d = dd.getDate() < 10 ? '0' + dd.getDate() : dd.getDate(); //获取当前几号，不足10补0
+    return y + '/' + m + '/' + d;
   }
 
-  handlerGrid = url => {
-    window.location.href = url;
-  };
-
-  handlerTabClick = (tab, index) => {
-    if (index === 3) {
-      if (this.state.sortPic === 1) {
-        this.setState(
-          {
-            sortPic: 2,
-            hasMore: true,
-          },
-          () => {
-            this.getPageList('desc');
-          }
-        );
-      }
-      if (this.state.sortPic === 2) {
-        this.setState(
-          {
-            sortPic: 3,
-            hasMore: true,
-          },
-          () => {
-            this.getPageList('asc');
-          }
-        );
-      }
-      if (this.state.sortPic === 3) {
-        this.setState(
-          {
-            sortPic: 2,
-            hasMore: true,
-          },
-          () => {
-            this.getPageList('desc');
-          }
-        );
-      }
-    } else {
-      this.setState({
-        sortPic: 1,
-        hasMore: true,
-      });
-    }
-  };
-
-  getPageList = (type, more) => {
-    if (!this.state.hasMore) return false;
-    this.setState({
-      fetch: true,
-    });
-    const { getSortList } = this.props;
-    this.setState(
-      {
-        page: more ? this.state.page + 1 : 1,
-        order: type,
-      },
-      () => {
-        const { page, size, order } = this.state;
-        const params = {
-          page: page,
-          size: size,
-          order: order,
-        };
-        getSortList(params).then(() => {
-          this.setState({
-            fetch: false,
-            isLoading: false,
-          });
+  countFun = () => {
+    let endTime = this.getDateStr(1);
+    let end_time = new Date(`${endTime} 00:00:00`).getTime();
+    let now_time = new Date().getTime();
+    var remaining = end_time - now_time;
+    let timer = setInterval(() => {
+      //防止出现负数
+      if (remaining > 1000) {
+        remaining -= 1000;
+        let hour = Math.floor((remaining / 1000 / 3600) % 24);
+        let minute = Math.floor((remaining / 1000 / 60) % 60);
+        let second = Math.floor((remaining / 1000) % 60);
+        this.setState({
+          openH: hour < 10 ? '0' + hour : hour,
+          openM: minute < 10 ? '0' + minute : minute,
+          openS: second < 10 ? '0' + second : second,
         });
       }
-    );
+    }, 1000);
   };
 
-  loadMore = () => {
-    const { hasMore, fetch, order } = this.state;
-    if (!hasMore || fetch) return;
-    this.setState({
-      isLoading: true,
-    });
-    this.getPageList(order, 'more');
-  };
-
-  componentWillReceiveProps(nextPorps) {
-    if (
-      nextPorps.sortList.data.length > 0 &&
-      nextPorps.sortList.data.length === nextPorps.sortList.total
-    ) {
-      this.setState({
-        hasMore: false,
-        isLoading: false,
-      });
-    }
-  }
-
-  componentDidUpdate() {
-    const scrollTop = localStorage.getItem('scrollTop');
-    window.scrollTo(0, Number(scrollTop));
-  }
-
-  handleOnClose = () => {
-    this.setState({
-      advertising: false,
-    });
-    localStorage.setItem('openPop', 2);
-  };
-
-  handlerProClick = (type, url) => {
-    if (type === 'IN' || type === 'OUT') {
-      if (url) window.location.href = url;
-    } else {
-      return;
-    }
+  handlerGrid = url => {
+    this.props.history.push(url);
   };
 
   render() {
-    const { home } = this.props;
-    const { IPhoneX, sortPic, isLoading, hasMore, advertising, promote, popData } = this.state;
-    const winnerList = home.winnerList;
+    const { IPhoneX, openH, openM, openS } = this.state;
     const bannerList = [
-      {
-        id: 1,
-        imgURL: banner01,
-      },
       {
         id: 2,
         imgURL: banner02,
@@ -257,34 +89,29 @@ class Home extends PureComponent {
       {
         title: '全部商品',
         imgURL: quanBu,
+        jumpUrl: '/commodity',
       },
       {
         title: '我的订单',
         imgURL: dingdan,
+        jumpUrl: '/order/0',
       },
       {
         title: '邀请好友',
         imgURL: yaoqing,
+        jumpUrl: '/invitation',
       },
       {
         title: '帮助中心',
         imgURL: bangzhu,
+        jumpUrl: '/help',
       },
       {
         title: '收集意见',
         imgURL: yijian,
+        jumpUrl: '/feedback',
       },
     ];
-    const tabs = [
-      { title: `${intl.get('home.popularity')}` },
-      { title: `${intl.get('home.upToDate')}` },
-      { title: `${intl.get('home.willEnd')}` },
-      {
-        title: `${intl.get('home.worth')}`,
-        sort: sortPic === 1 ? sorting : sortPic === 2 ? sortingDown : sortingUp,
-      },
-    ];
-    // console.log(11, popData);
     return (
       <div className={styles.home}>
         <div className={styles.bgColor}></div>
@@ -330,18 +157,15 @@ class Home extends PureComponent {
             />
           </div>
         ) : null}
-        <div
-          className={styles.promotion}
-          onClick={() => this.handlerProClick(promote.jumpType, promote.jumpUrl)}
-        >
-          <img src={banner02} alt="" />
+        <div className={styles.promotion}>
+          <img src={banner01} alt="" />
         </div>
         <div className={styles.msBox}>
           <img src={titlePng} alt="" />
           <div className={styles.openTips}>
             <span>倒计时</span>
-            <span className={styles.time}>04</span>:<span className={styles.time}>59</span>:
-            <span className={styles.time}>59</span>
+            <span className={styles.time}>{openH}</span>:<span className={styles.time}>{openM}</span>:
+            <span className={styles.time}>{openS}</span>
           </div>
         </div>
         <div className={styles.tabs} ref={el => (this.hlv = el)}>
@@ -358,20 +182,4 @@ class Home extends PureComponent {
   }
 }
 
-const mapState = state => ({
-  home: state.home.data,
-  sortList: state.home.data.sortList,
-});
-
-const mapDispatch = dispatch => ({
-  getWin: params => dispatch.home.fetchGetWin(params),
-  getBanner: params => dispatch.home.fetchGetBanner(params),
-  getClass: params => dispatch.home.fetchGetClass(params),
-  homeSys: params => dispatch.home.fetchConf(params),
-  clearData: params => dispatch.home.clearList(params),
-  getSortList: params => dispatch.home.fetchGetSortList(params),
-  getPromote: params => dispatch.home.getPromote(params),
-  getHomePop: params => dispatch.home.getHomePop(params),
-});
-
-export default connect(mapState, mapDispatch)(Home);
+export default Home;

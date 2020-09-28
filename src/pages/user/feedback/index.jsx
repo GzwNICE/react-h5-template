@@ -20,6 +20,11 @@ class FeedBack extends PureComponent {
       isEmpty: true,
       content: '',
     });
+    const isLogin = localStorage.getItem('mobile');
+    if (!isLogin) {
+      this.props.history.push(`/login`);
+      return;
+    }
   }
   componentWillUnmount() {
     const { clearImage } = this.props;

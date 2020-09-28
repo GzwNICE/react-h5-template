@@ -9,59 +9,54 @@ import addressLine from '@/assets/images/home/AppStore.png';
 import aliPay from '@/assets/images/ic_alipay@2x.png';
 import weChat from '@/assets/images/ic_WeChatpay@2x.png';
 import unIonPay from '@/assets/images/ic_unionpay@2x.png';
+import prodJson from '@/assets/product.json';
 import styles from './index.less';
 
 const Item = List.Item;
 const alert = Modal.alert;
 const { lang } = queryString.parse(window.location.search);
+
+const imagesContext = require.context('@/assets/images/home', false, /\.png$/);
+
 class GetPrize extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       activityTurnId: this.props.match.params.activityTurnId,
+      prodData: ''
     };
   }
 
   componentDidMount() {
-    const { getInfo } = this.props;
-    // getInfo({ activityTurnId: this.state.activityTurnId });
+    prodJson.map(i => {
+      if (i.id === Number(this.state.activityTurnId)) {
+        this.setState({
+          prodData: i
+        })
+        return
+      }
+    })
   }
 
   selectAdd = () => {
     this.props.history.push(`/addressList?activityTurnId=${this.state.activityTurnId}`);
   };
 
-  handleSubmit = () => {
-    const address = JSON.parse(localStorage.getItem('address')) || {};
-    const { submitInfo, info } = this.props;
-    if (!address.id && info.productType === 'SUBSTANCE') {
-      return Toast.info(`${intl.get('prize.ph1')}`, 2);
-    }
+  handleSubmit = e => {
+    e.preventDefault();
     this.props.form.validateFields((err, value) => {
-      if (err) {
-        return Toast.info(`${intl.get('prize.ph2')}`, 2);
+      if (!value.name) {
+        return Toast.info('请填写收货人姓名', 2);
+      } else if (!value.phone) {
+        return Toast.info('请填写手机号', 2);
+      } else if (value.phone.replace(/\s/g, '').length < 11) {
+        return Toast.info('请填写正确的手机号', 2);
+      } else {
+        const user_mobile = localStorage.getItem('mobile');
+        const goods_id = this.state.prodData.id;
+        Toast.loading('loading...', 10);
+        window.location.href = `${window.location.protocol}//${getBaseUrl()}/pay/alipay.php?goods_id=${goods_id}&user_mobile=${user_mobile}&t=${new Date().getTime()}`
       }
-      const params = {
-        activityTurnId: this.state.activityTurnId,
-        receiveAddressId: info.productType === 'SUBSTANCE' ? address.id : null,
-        verifyId: value.verifyId,
-        ageInterval: value.ageInterval ? value.ageInterval[0] : '',
-        education: value.education ? value.education[0] : '',
-        job: value.job ? value.job[0] : '',
-        income: value.income ? value.income[0] : '',
-        companyName: value.companyName,
-        companyAddress: value.companyAddress,
-        directContact: value.directContact ? value.directContact[0] : '',
-        directMobile: value.directMobile,
-        indirectContact: value.indirectContact,
-        indirectMobile: value.indirectMobile,
-        rewardRulesId: info.appRewardRulesVO.rewardRulesId,
-      };
-      submitInfo(params).then(res => {
-        if (res.code === 200) {
-          this.props.history.push(`/awardResult?type=${info.productType}`);
-        }
-      });
     });
   };
 
@@ -81,9 +76,7 @@ class GetPrize extends PureComponent {
 
   render() {
     const { getFieldProps } = this.props.form;
-    const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    const address = JSON.parse(localStorage.getItem('address')) || {};
-    const { info } = this.props;
+    const { prodData } = this.state;
     return (
       <div className={styles.prize}>
         <NavBar
@@ -95,17 +88,19 @@ class GetPrize extends PureComponent {
           确认订单
         </NavBar>
         <div className={styles.goodInfo}>
-          <img
-            src={addressLine}
-            alt=""
-            className={styles.goodPic}
-          />
+          {prodData.img ? (
+            <img
+              src={imagesContext(prodData.img)}
+              alt=""
+              className={styles.goodPic}
+            />
+          ): null}
           <div className={styles.goodName}>
             <span className={`${styles.title} ${styles.line2}`}>
-              50元联通话费充值卡
+              {prodData.name}
             </span>
             <span className={styles.price}>
-              <i>{`${config.moneySymbol} 50 `}</i>
+              <i>{`¥ ${prodData.spikePrice} `}</i>
               <span></span>
             </span>
           </div>
@@ -113,13 +108,29 @@ class GetPrize extends PureComponent {
         </div>
         <List className={styles.payBox} renderHeader={() => '收货信息'}>
           <InputItem
+            {...getFieldProps('name')}
             placeholder="请填写收货人姓名"
             clear
+            ref={el => (this.nameInput = el)}
+            onClick={() => {
+              this.nameInput.focus();
+            }}
+            onBlur={() => {
+              window.scrollTo(0, 0);
+            }}
           >姓名</InputItem>
           <InputItem
+            {...getFieldProps('phone')}
             type="phone"
             placeholder="请填写手机号"
             clear
+            ref={el => (this.mobileInput = el)}
+            onClick={() => {
+              this.mobileInput.focus();
+            }}
+            onBlur={() => {
+              window.scrollTo(0, 0);
+            }}
           >*手机号</InputItem>
         </List>
         <List className={styles.payBox}>
@@ -137,7 +148,7 @@ class GetPrize extends PureComponent {
           >银行卡支付</Item>
         </List>
         <div className={styles.btnBox}>
-          <span className={styles.bl}>合计：<span className={styles.bm}>¥<span className={styles.bn}>50</span></span></span>
+          <span className={styles.bl}>合计：<span className={styles.bm}>¥<span className={styles.bn}>{prodData.spikePrice}</span></span></span>
           <Button type="primary" className={styles.submit} onClick={this.handleSubmit}>
             立即支付
           </Button>

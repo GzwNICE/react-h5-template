@@ -14,6 +14,7 @@ class Setting extends PureComponent {
     super(props);
     this.state = {
       isShowDialog: false,
+      isLogin: localStorage.getItem('mobile'),
     };
   }
   componentDidMount() {
@@ -31,7 +32,8 @@ class Setting extends PureComponent {
       {
         text: '确定',
         onPress: () => {
-          // this.props.history.go(-1);
+          localStorage.removeItem('mobile')
+          this.props.history.push(`/user`);
         },
       },
       {
@@ -54,7 +56,7 @@ class Setting extends PureComponent {
   }
 
   render() {
-    const { isShowDialog } = this.state;
+    const { isShowDialog, isLogin } = this.state;
     return (
       <div className={styles.contentBox}>
         <NavBar
@@ -93,9 +95,11 @@ class Setting extends PureComponent {
           <div className={styles.title}>{intl.get('user.aboutUs')}</div>
           <div className={styles.arrow} />
         </div>
-        <Button onClick={this.onLogOutClick.bind(this)} className={styles.outLogin}>
+        {isLogin ? (
+          <Button onClick={this.onLogOutClick.bind(this)} className={styles.outLogin}>
           {intl.get('user.logout')}
         </Button>
+        ): null}
         <Modal visible={isShowDialog} transparent maskClosable={false}>
           <div className={styles.loginOut}>{intl.get('user.logoutInfo')}</div>
           <div className={styles.footer}>

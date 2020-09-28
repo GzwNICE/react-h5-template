@@ -49,6 +49,7 @@ class ProductDetail extends PureComponent {
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    this.countFun();
     prodJson.map(i => {
       if (i.id === Number(this.state.id)) {
         this.setState({
@@ -59,8 +60,20 @@ class ProductDetail extends PureComponent {
     })
   }
 
-  countFun = (time, type) => {
-    var remaining = time;
+  getDateStr(AddDayCount) {
+    var  dd =  new  Date();
+    dd.setDate(dd.getDate()+AddDayCount); //获取AddDayCount天后的日期
+    var  y = dd.getFullYear();
+    var  m = (dd.getMonth()+1)<10? "0" +(dd.getMonth()+1):(dd.getMonth()+1); //获取当前月份的日期，不足10补0
+    var  d = dd.getDate()<10? "0" +dd.getDate():dd.getDate(); //获取当前几号，不足10补0
+    return  y+ "/" +m+ "/" +d;
+  }
+
+  countFun = () => {
+    let endTime = this.getDateStr(1);
+    let end_time = new Date(`${endTime} 00:00:00`).getTime();
+    let now_time = new Date().getTime();
+    var remaining = (end_time - now_time);
     let timer = setInterval(() => {
       //防止出现负数
       if (remaining > 1000) {
@@ -68,31 +81,22 @@ class ProductDetail extends PureComponent {
         let hour = Math.floor((remaining / 1000 / 3600) % 24);
         let minute = Math.floor((remaining / 1000 / 60) % 60);
         let second = Math.floor((remaining / 1000) % 60);
-        if (type === 'open') {
-          this.setState({
-            openH: hour < 10 ? '0' + hour : hour,
-            openM: minute < 10 ? '0' + minute : minute,
-            openS: second < 10 ? '0' + second : second,
-          });
-        } else {
-          this.setState({
-            nextH: hour < 10 ? '0' + hour : hour,
-            nextM: minute < 10 ? '0' + minute : minute,
-            nextS: second < 10 ? '0' + second : second,
-          });
-        }
-      } else {
-        clearInterval(timer);
         this.setState({
-          countdown: false,
+          openH: hour < 10 ? '0' + hour : hour,
+          openM: minute < 10 ? '0' + minute : minute,
+          openS: second < 10 ? '0' + second : second,
         });
-        this.initDetail();
       }
     }, 1000);
   };
 
   goSure = () => {
-    this.props.history.push(`/prize/1`);
+    const login = localStorage.getItem('mobile');
+    if (login) {
+      this.props.history.push(`/prize/1`);
+    }else {
+      this.props.history.push(`/login`);
+    }
   };
 
   onLikeClick = (id, like) => {

@@ -116,13 +116,16 @@ class Register extends PureComponent {
             password: value.password,
           })
           .then(res => {
+            if(res.code === 10001) {
+              this.changeCodeImg()
+              this.codeInput.state.value = ''
+            }
             if (res.code === 200) {
               Toast.success(`${intl.get('password.regSuccess')}`, 2);
-              localStorage.setItem('token', `Bearer ${res.data.token}`);
-              localStorage.setItem('refreshToken', res.data.refreshToken);
-              // setTimeout(() => {
-              //   this.props.history.push(`/user`);
-              // }, 2000);
+              localStorage.setItem('mobile', value.mobile.replace(/\s*/g, ""));
+              setTimeout(() => {
+                this.props.history.push(`/user`);
+              }, 2000);
             }
           });
       }
@@ -140,10 +143,6 @@ class Register extends PureComponent {
   };
 
   changeCodeImg = () => {
-    // const { userCode } = this.props;
-    // userCode().then(res=>{
-    //   console.log(res);
-    // })
     this.setState({
       codeImgUrl: `${this.state.codeUrl}${Math.random()}`,
     });

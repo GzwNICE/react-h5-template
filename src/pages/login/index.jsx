@@ -53,8 +53,7 @@ class Login extends PureComponent {
         }).then(res => {
           if (res.code === 200) {
             Toast.success(`${intl.get('login.success')}`, 2);
-            localStorage.setItem('token', `Bearer ${res.data.token}`);
-            localStorage.setItem('refreshToken', res.data.refreshToken);
+            localStorage.setItem('mobile', value.mobile.replace(/\s*/g, ""));
             setTimeout(() => {
               // eslint-disable-next-line react/destructuring-assignment
               this.props.history.go(-1);
