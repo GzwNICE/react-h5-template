@@ -100,28 +100,29 @@ class Register extends PureComponent {
     const Reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
     this.props.form.validateFields((err, value) => {
       if (err) return;
-      if (!value.smsCode) {
-        return Toast.info(`${intl.get('password.ph2')}`, 2);
-      } else if (!value.pwd) {
-        return Toast.info(`${intl.get('password.ph7')}`, 2);
-      } else if (!Reg.test(value.pwd)) {
+      if (!value.mobile) {
+        return Toast.info('请填写手机号', 2);
+      } else if (!value.password) {
+        return Toast.info(`请设置登录密码`, 2);
+      } else if (!Reg.test(value.password)) {
         return Toast.info(`${intl.get('password.ph4')}`, 2);
-      } else {
+      } else if (!value.code) {
+        return Toast.info(`输入图形中的验证码`, 2);
+      }else {
         this.props
           .fetchRegister({
-            countryCode: this.state.lang === 'zh' ? '86' : '84',
-            mobile: this.state.mobile,
-            smsCode: value.smsCode,
-            pwd: value.pwd,
+            mobile: value.mobile.replace(/\s*/g, ""),
+            code: value.code,
+            password: value.password,
           })
           .then(res => {
             if (res.code === 200) {
               Toast.success(`${intl.get('password.regSuccess')}`, 2);
               localStorage.setItem('token', `Bearer ${res.data.token}`);
               localStorage.setItem('refreshToken', res.data.refreshToken);
-              setTimeout(() => {
-                this.props.history.push(`/home`);
-              }, 2000);
+              // setTimeout(() => {
+              //   this.props.history.push(`/user`);
+              // }, 2000);
             }
           });
       }
@@ -139,6 +140,10 @@ class Register extends PureComponent {
   };
 
   changeCodeImg = () => {
+    // const { userCode } = this.props;
+    // userCode().then(res=>{
+    //   console.log(res);
+    // })
     this.setState({
       codeImgUrl: `${this.state.codeUrl}${Math.random()}`,
     });
@@ -180,7 +185,7 @@ class Register extends PureComponent {
         <div className={styles.regBox}>
           <div className={styles.mobileBox}>
             <InputItem
-              {...getFieldProps('phone')}
+              {...getFieldProps('mobile')}
               placeholder="请填写手机号"
               type="phone"
               className={styles.mobile}
@@ -192,7 +197,7 @@ class Register extends PureComponent {
           </div>
           <div className={`${styles.mobileBox} ${styles.passBox}`}>
             <InputItem
-              {...getFieldProps('pwd')}
+              {...getFieldProps('password')}
               placeholder="请设置登录密码，不得少于6位数"
               type="password"
               className={styles.password}
@@ -222,37 +227,6 @@ class Register extends PureComponent {
             <span onClick={this.handleAgreement}>《用户服务协议》</span>
           </p>
         </div>
-        <Modal
-          visible={codeModal}
-          transparent
-          maskClosable={false}
-          title={intl.get('password.ph1')}
-          className={styles.codeModal}
-          afterClose={this.afterCloseModal}
-        >
-          <div className={styles.imgCode}>
-            <InputItem
-              {...getFieldProps('picCode')}
-              clear
-              placeholder={intl.get('password.ph1')}
-              className={styles.codeInput}
-              ref={el => (this.picCodeInput = el)}
-              onClick={() => {
-                this.picCodeInput.focus();
-              }}
-            />
-            <img src={codeImgUrl} alt="" onClick={this.changeCodeImg} className={styles.codePic} />
-          </div>
-          <p className={styles.change}>{intl.get('password.changeOne')}</p>
-          <div className={styles.footer}>
-            <Button className={styles.cancel} onClick={this.onClose('codeModal')}>
-              {intl.get('password.cancel')}
-            </Button>
-            <Button type="primary" className={styles.determine} onClick={this.sendCode}>
-              {intl.get('password.determine')}
-            </Button>
-          </div>
-        </Modal>
       </div>
     );
   }
@@ -263,6 +237,7 @@ const mapState = state => ({});
 const mapDispatch = dispatch => ({
   sendCode: params => dispatch.register.sendCode(params),
   fetchRegister: params => dispatch.register.userRegister(params),
+  userCode: params => dispatch.register.userCode(params),
   fetchAgr: params => dispatch.register.getAgr(params),
 });
 

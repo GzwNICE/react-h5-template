@@ -16,6 +16,10 @@ export const register = createModel({
       const response = await regService.register(payload);
       return response;
     },
+    async userCode(payload) {
+      const response = await regService.getCode(payload);
+      return response;
+    },
     async userResetPsw(payload) {
       const response = await regService.forgetPaw(payload);
       return response;

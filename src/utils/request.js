@@ -84,17 +84,8 @@ request.interceptors.response.use(async response => {
   if (data.code === 200) {
     return response;
   }
-  if (data.code === 10001 || data.code === 10002 || data.code === 10003) {
-    Toast.info(`${intl.get('user.loginError')}`, 2);
-    setTimeout(() => {
-      localStorage.clear();
-      history.push(`/login`);
-      window.location.reload();
-    }, 2000);
-    return;
-  }
   if (data.code !== 200) {
-    Toast.info(data.msg || 'Dị thường mạng', 2);
+    Toast.fail(data.msg , 2);
     return response;
   }
 });

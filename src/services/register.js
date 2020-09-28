@@ -5,7 +5,13 @@ export async function regSendCode(params) {
 }
 
 export async function register(params) {
-  return request('/app/v1/user/register/commit', { method: 'post', data: params });
+  return request('/register.php', { method: 'post', data: params });
+}
+
+export async function getCode(params) {
+  return request('/captcha.php', { method: 'get', xhrFields:{
+    withCredentials:true
+    },  params: params });
 }
 
 export async function forgetPaw(params) {

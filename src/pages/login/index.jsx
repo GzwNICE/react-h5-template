@@ -37,39 +37,6 @@ class Login extends PureComponent {
     });
   }
 
-  handleNextClick = e => {
-    e.preventDefault();
-    const { judgeUser } = this.props;
-    const Reg = /^[0-9]*$/;
-    this.props.form.validateFields((err, value) => {
-      if (err) return;
-      if (!value.mobile) {
-        return Toast.info(`${intl.get('login.ph1')}`, 2);
-      } else if (!Reg.test(value.mobile)) {
-        return Toast.info(`${intl.get('login.ph3')}`, 2);
-      } else {
-        this.setState({
-          mobile: value.mobile,
-        });
-        judgeUser({
-          mobile: value.mobile,
-          countryCode: this.state.lang === 'zh' ? '86' : '84',
-        }).then(res => {
-          if (res.code === 200) {
-            if (res.data) {
-              this.setState({
-                login: true,
-              });
-            } else {
-              // eslint-disable-next-line react/destructuring-assignment
-              this.props.history.push(`/register?mobile=${value.mobile}`);
-            }
-          }
-        });
-      }
-    });
-  };
-
   handleLoginClick = e => {
     e.preventDefault();
     const { login } = this.props;
