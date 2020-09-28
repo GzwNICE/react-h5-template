@@ -19,7 +19,7 @@ class Register extends PureComponent {
       mobile: '',
       pwVisible: true,
       codeModal: false,
-      codeUrl: `${window.location.protocol}//${getBaseUrl()}/captcha.php?r=`,
+      codeUrl: `${window.location.protocol}//${getBaseUrl()}/v1/captcha.php?r=`,
       codeImgUrl: '',
       index: 5,
       sendCodeText: `${intl.get('password.sendCode')}`,
@@ -28,7 +28,7 @@ class Register extends PureComponent {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     window.scrollTo(0, 0);
     this.changeCodeImg();
     const token = localStorage.getItem('token');
@@ -108,21 +108,21 @@ class Register extends PureComponent {
         return Toast.info(`${intl.get('password.ph4')}`, 2);
       } else if (!value.code) {
         return Toast.info(`输入图形中的验证码`, 2);
-      }else {
+      } else {
         this.props
           .fetchRegister({
-            mobile: value.mobile.replace(/\s*/g, ""),
+            mobile: value.mobile.replace(/\s*/g, ''),
             code: value.code,
             password: value.password,
           })
           .then(res => {
-            if(res.code === 10001) {
-              this.changeCodeImg()
-              this.codeInput.state.value = ''
+            if (res.code === 10001) {
+              this.changeCodeImg();
+              this.codeInput.state.value = '';
             }
             if (res.code === 200) {
               Toast.success(`${intl.get('password.regSuccess')}`, 2);
-              localStorage.setItem('mobile', value.mobile.replace(/\s*/g, ""));
+              localStorage.setItem('mobile', value.mobile.replace(/\s*/g, ''));
               setTimeout(() => {
                 this.props.history.push(`/user`);
               }, 2000);
@@ -158,7 +158,7 @@ class Register extends PureComponent {
     this.props.history.push('/agreement/0');
   };
 
-  render() {
+  render () {
     const { getFieldProps } = this.props.form;
     const {
       mobile,
@@ -192,7 +192,9 @@ class Register extends PureComponent {
               onClick={() => {
                 this.mobileInput.focus();
               }}
-            ><span className={styles.countCode}>+86</span></InputItem>
+            >
+              <span className={styles.countCode}>+86</span>
+            </InputItem>
           </div>
           <div className={`${styles.mobileBox} ${styles.passBox}`}>
             <InputItem
@@ -216,7 +218,12 @@ class Register extends PureComponent {
                 this.codeInput.focus();
               }}
             />
-            <img src={codeImgUrl} alt="" onClick={this.changeCodeImg} className={styles.passClose} />
+            <img
+              src={codeImgUrl}
+              alt=""
+              onClick={this.changeCodeImg}
+              className={styles.passClose}
+            />
           </div>
           <Button type="primary" className={styles.nextBut} onClick={this.handleRegClick}>
             提交注册
