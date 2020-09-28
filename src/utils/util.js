@@ -2,8 +2,8 @@ const getBaseUrl = () => {
   let env = process.env.ENV_CONFIG;
   let baseUrl = '';
   if (env === 'development') {
-    // baseUrl = 'ohou-pitaya.5151money.cn';
-    baseUrl = '192.168.1.29';
+    baseUrl = 'ohou-pitaya.5151money.cn';
+    // baseUrl = '192.168.1.29';
   } else if (env === 'test') {
     baseUrl = 'gagago-app-api-test.51moneygo.com';
   } else if (env === 'release') {
