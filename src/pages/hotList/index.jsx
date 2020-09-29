@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import ActivityCard from '@/components/activityCard';
-import prodJson from '@/assets/product.json';
+import prodJson from '@/assets/json/product.json';
 import { Flex } from 'antd-mobile';
 import styles from './index.less';
 

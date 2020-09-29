@@ -9,7 +9,7 @@ import addressLine from '@/assets/images/home/AppStore.png';
 import aliPay from '@/assets/images/ic_alipay@2x.png';
 import weChat from '@/assets/images/ic_WeChatpay@2x.png';
 import unIonPay from '@/assets/images/ic_unionpay@2x.png';
-import prodJson from '@/assets/product.json';
+import prodJson from '@/assets/json/product.json';
 import styles from './index.less';
 
 const Item = List.Item;

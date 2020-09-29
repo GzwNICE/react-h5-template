@@ -24,7 +24,8 @@ import ReceiveAward from '@/components/receive';
 import BuyGroup from '@/components/buyGroup';
 import ShowCard from '@/components/showCard';
 import ImgPreview from '@/components/imgPreview';
-import prodJson from '@/assets/product.json';
+import prodJson from '@/assets/json/product.json';
+import commentJson from '@/assets/json/comment.json';
 import styles from './index.less';
 
 const { lang } = queryString.parse(window.location.search);
@@ -43,7 +44,8 @@ class ProductDetail extends PureComponent {
       imgPre: false,
       imgList: [],
       imgIndex: 0,
-      prodData: ''
+      prodData: '',
+      commentData: ''
     };
   }
 
@@ -54,6 +56,14 @@ class ProductDetail extends PureComponent {
       if (i.id === Number(this.state.id)) {
         this.setState({
           prodData: i
+        })
+        return
+      }
+    })
+    commentJson.map(i => {
+      if (i.id === Number(this.state.id)) {
+        this.setState({
+          commentData: i.comment
         })
         return
       }
@@ -135,7 +145,8 @@ class ProductDetail extends PureComponent {
       imgPre,
       imgList,
       imgIndex,
-      prodData
+      prodData,
+      commentData
     } = this.state;
     const html = { __html: prodData.content };
     const { detail, showList } = this.props;
@@ -185,24 +196,22 @@ class ProductDetail extends PureComponent {
             <li><span className={styles.ll}>运费</span><span className={styles.rr}>快递包邮</span></li>
             <li><span className={styles.ll}>服务声明</span><span className={styles.rr}>虚拟商品不支持七天无理由退货</span></li>
         </div>
-        {showList.total > 0 ? (
-          <div className={styles.postDetail}>
-            <div className={styles.topTel}>
-              <span className={styles.h3tle}>{`${intl.get('shoppingCart.posting')}（${showList.total}）`}</span>
-              <span
-                className={styles.lockAll}
-                onClick={() => this.props.history.push(`/single?productId=${detail.productId}`)}
-              >
-                {intl.get('shoppingCart.viewAll')} <Icon type="right" color="#ff5100" />
-              </span>
-            </div>
-            <ShowCard
-              data={showList.rows[0]}
-              onLikeClick={this.onLikeClick}
-              preview={this.imgPreview}
-            />
+        <div className={styles.postDetail}>
+          <div className={styles.topTel}>
+            <span className={styles.h3tle}>{`${intl.get('shoppingCart.posting')}（${commentData.length}）`}</span>
+            <span
+              className={styles.lockAll}
+              onClick={() => this.props.history.push(`/single?productId=${detail.productId}`)}
+            >
+              {intl.get('shoppingCart.viewAll')} <Icon type="right" color="#ff5100" />
+            </span>
           </div>
-        ) : null}
+          <ShowCard
+            data={commentData && commentData[0]}
+            onLikeClick={this.onLikeClick}
+            preview={this.imgPreview}
+          />
+        </div>
         {imgPre ? (
           <ImgPreview show={imgPre} data={imgList} index={imgIndex} cancel={this.cancelPreview} />
         ) : null}

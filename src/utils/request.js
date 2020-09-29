@@ -62,7 +62,8 @@ request.interceptors.request.use(async (url, options) => {
     };
   }
   let headers = {
-    appId: localStorage.getItem('AppId')
+    appId: localStorage.getItem('AppId'),
+    mobileDevice: localStorage.getItem('mobileDevice')
   };
   let token = localStorage.getItem('token');
   if (token) {

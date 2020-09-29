@@ -5,7 +5,7 @@ const getBaseUrl = () => {
     baseUrl = 'ohou-pitaya.5151money.cn';
     // baseUrl = '192.168.1.29';
   } else if (env === 'test') {
-    baseUrl = 'gagago-app-api-test.51moneygo.com';
+    baseUrl = 'ohou-pitaya.5151money.cn';
   } else if (env === 'release') {
     baseUrl = 'gagago-app-api-vn.9191money.com';
   } else if (env === 'production') {

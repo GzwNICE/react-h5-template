@@ -37,6 +37,8 @@ class Home extends PureComponent {
     this.countFun()
     const AppId = queryString.parse(window.location.search).Appid;
     AppId ? localStorage.setItem('AppId', AppId) : null
+    const mobileDevice = queryString.parse(window.location.search).mobileDevice;
+    mobileDevice ? localStorage.setItem('mobileDevice', mobileDevice) : null
     request('/v1/active_log.php', { method: 'post', data: {mobile: localStorage.getItem('mobile')} });
   }
 
