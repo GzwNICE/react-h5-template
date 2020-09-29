@@ -141,7 +141,8 @@ class Home extends PureComponent {
           {bannerList.map(val => (
             <a
               key={val.id}
-              href={val.jumpUrl}
+              href=""
+              onClick={()=> this.props.history.push('/commodity')}
               style={{ display: 'inline-block', width: '100%', height: '100%' }}
             >
               <img
