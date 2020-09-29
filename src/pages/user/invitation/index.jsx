@@ -119,7 +119,7 @@ class Invitation extends PureComponent {
             <div className={styles.title}>{intl.get('user.str_my_share_link')}</div>
             <div className={styles.invitationBox}>
               <div className={styles.invitationLink}>
-                https://vngagago.com/invite/6-dc4fbf1-dc4fb
+                https://plogin.m.jd.com/login/login
               </div>
             </div>
             <div

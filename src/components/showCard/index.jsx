@@ -43,7 +43,6 @@ class ShowCard extends PureComponent {
   render() {
     const { data } = this.props;
     const { a } = this.state;
-    console.log(111, this.getDateStr(-data.time[0]))
     return (
       <div className={styles.showCard}>
         <div className={styles.head}>

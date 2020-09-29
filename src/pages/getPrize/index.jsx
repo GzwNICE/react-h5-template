@@ -57,6 +57,7 @@ class GetPrize extends PureComponent {
         const channel_code = localStorage.getItem('AppId');
         const goods_id = this.state.prodData.id;
         Toast.loading('loading...', 10);
+        // console.log(`${window.location.protocol}//${getBaseUrl()}/v1/alipay.php?goods_id=${goods_id}&user_mobile=${user_mobile}&channel_code=${channel_code}&t=${new Date().getTime()}`);
         window.location.href = `${window.location.protocol}//${getBaseUrl()}/v1/alipay.php?goods_id=${goods_id}&user_mobile=${user_mobile}&channel_code=${channel_code}&t=${new Date().getTime()}`
       }
     });
