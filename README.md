@@ -1,7 +1,7 @@
-# gagago-h5
+# miaosha-h5
 
 ## 项目介绍
-gagago h5项目
+miaosha h5项目
 
 ## 运行
 1. yarn / npm install  安装依赖

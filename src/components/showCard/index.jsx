@@ -31,16 +31,26 @@ class ShowCard extends PureComponent {
     });
   }
 
+  getDateStr(AddDayCount) {
+    var dd = new Date();
+    dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期
+    var y = dd.getFullYear();
+    var m = dd.getMonth() + 1 < 10 ? '0' + (dd.getMonth() + 1) : dd.getMonth() + 1; //获取当前月份的日期，不足10补0
+    var d = dd.getDate() < 10 ? '0' + dd.getDate() : dd.getDate(); //获取当前几号，不足10补0
+    return y + '.' + m + '.' + d;
+  }
+
   render() {
     const { data } = this.props;
     const { a } = this.state;
+    console.log(111, this.getDateStr(-data.time[0]))
     return (
       <div className={styles.showCard}>
         <div className={styles.head}>
           <img src={authorImg} alt="" className={styles.userPic} />
           <div className={styles.rightBox}>
             <p className={styles.userName}>{data.userName}</p>
-            <span className={styles.prodName}>{data.time}</span>
+            <span className={styles.prodName}>{`${this.getDateStr(-data.time[0])} ${data.time[1]}`}</span>
           </div>
         </div>
         <div className={styles.content}>
