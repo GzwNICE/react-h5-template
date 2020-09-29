@@ -4,7 +4,7 @@ import { Badge, Grid } from 'antd-mobile';
 import { format } from '@/utils/util';
 import intl from 'react-intl-universal';
 import like from '@/assets/images/like.png';
-import authorImg from '@/assets/images/avatar_notlogin.png';
+import authorImg from '@/assets/images/avatar_.png';
 import styles from './index.less';
 
 const imagesContext = require.context('@/assets/images/comment', false, /\.png$/);

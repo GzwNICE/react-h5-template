@@ -43,7 +43,7 @@ class Login extends PureComponent {
       } else {
         login({
           mobile: value.mobile.replace(/\s*/g, ""),
-          password: md5(value.password),
+          password: value.password,
         }).then(res => {
           if (res.code === 200) {
             Toast.success(`${intl.get('login.success')}`, 2);

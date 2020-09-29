@@ -97,6 +97,7 @@ class Register extends PureComponent {
   // 注册
   handleRegClick = e => {
     e.preventDefault();
+    const that = this;
     const Reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
     this.props.form.validateFields((err, value) => {
       if (err) return;
@@ -119,12 +120,11 @@ class Register extends PureComponent {
             if (res.code === 10001) {
               this.changeCodeImg();
               this.codeInput.state.value = '';
-            }
-            if (res.code === 200) {
+            }else if (res.code === 200) {
               Toast.success(`${intl.get('password.regSuccess')}`, 2);
               localStorage.setItem('mobile', value.mobile.replace(/\s*/g, ''));
               setTimeout(() => {
-                this.props.history.push(`/user`);
+                that.props.history.push('/user');
               }, 2000);
             }
           });

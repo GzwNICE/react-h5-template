@@ -7,6 +7,7 @@ import queryString from 'query-string';
 import { NavBar, ListView, Icon, WhiteSpace } from 'antd-mobile';
 import ShowCard from '@/components/showCard';
 import ImgPreview from '@/components/imgPreview';
+import commentJson from '@/assets/json/comment.json';
 import styles from './index.less';
 
 let dataSource = new ListView.DataSource({
@@ -19,7 +20,7 @@ class SingleRecord extends PureComponent {
       dataSource: dataSource,
       productId: queryString.parse(window.location.search).productId,
       page: 1,
-      hasMore: true,
+      hasMore: false,
       isLoading: false,
       imgPre: false,
       imgList: [],
@@ -29,85 +30,17 @@ class SingleRecord extends PureComponent {
   }
 
   componentDidMount() {
-    this.initList();
     window.scrollTo(0, 0);
-  }
-
-  initList = more => {
-    const { getShowList } = this.props;
-    getShowList({
-      productId: this.state.productId,
-      page: more ? this.state.page + 1 : this.state.page,
-      size: 20,
-    }).then(res => {
-      if (res.code === 200) {
-        this.fetch = false;
+    commentJson.map(i => {
+      if (i.id === Number(this.state.productId)) {
+        console.log(i.comment);
         this.setState({
-          isLoading: false,
-          page: res.data.page,
-          dataSource: dataSource.cloneWithRows(this.props.showList.rows),
-        });
+          dataSource: dataSource.cloneWithRows(i.comment)
+        })
+        return
       }
-    });
-  };
-
-  onLikeClick = (id, like) => {
-    const { userStart, changeStart } = this.props;
-    userStart({
-      topicId: id,
-      likeStatus: like ? 0 : 1,
-    }).then(res => {
-      if (res.code === 200) {
-        changeStart({
-          topicId: id,
-          likeStatus: like ? 0 : 1,
-        }).then(() => {
-          this.setState({
-            dataSource: dataSource.cloneWithRows(this.props.showList.rows),
-          });
-        });
-      }
-    });
-  };
-
-  onEndReached = () => {
-    if (!this.state.hasMore) {
-      return;
-    } else {
-      this.setState({ isLoading: true });
-      this.initList('more');
-    }
-  };
-
-  componentWillReceiveProps(nextPros) {
-    if (nextPros.showList.rows.length !== nextPros.showList.total) {
-      this.setState({
-        hasMore: true,
-      });
-    } else {
-      this.setState({
-        hasMore: false,
-      });
-    }
+    })
   }
-
-  imgPreview = (list, index) => {
-    this.setState({
-      imgList: list,
-      imgIndex: index,
-      imgPre: true,
-    });
-    document.body.style.overflow = 'hidden';
-  };
-
-  cancelPreview = () => {
-    this.setState({
-      imgList: [],
-      imgIndex: 0,
-      imgPre: false,
-    });
-    document.body.style.overflow = 'auto';
-  };
 
   render() {
     const { dataSource, isLoading, hasMore, imgPre, imgList, imgIndex } = this.state;
@@ -115,7 +48,7 @@ class SingleRecord extends PureComponent {
     const row = i => {
       return (
         <div className={styles.listItem} key={i.id}>
-          <ShowCard data={i} onLikeClick={this.onLikeClick} preview={this.imgPreview} />
+          <ShowCard data={i} />
         </div>
       );
     };
@@ -129,10 +62,9 @@ class SingleRecord extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          {intl.get('commodity.singleRecord')}
+          用户评价
         </NavBar>
         <div className={styles.list}>
-          {showList.total > 0 ? (
             <ListView
               dataSource={dataSource}
               renderFooter={() => (
@@ -154,12 +86,9 @@ class SingleRecord extends PureComponent {
               )}
               useBodyScroll
               scrollRenderAheadDistance={500}
-              onEndReached={this.onEndReached}
-              onEndReachedThreshold={10}
+              // onEndReached={this.onEndReached}
+              // onEndReachedThreshold={10}
             />
-          ) : (
-            <div className={styles.loading}>Loading...</div>
-          )}
         </div>
         {imgPre ? <ImgPreview data={imgList} index={imgIndex} cancel={this.cancelPreview} /> : null}
       </div>

@@ -201,7 +201,7 @@ class ProductDetail extends PureComponent {
             <span className={styles.h3tle}>{`${intl.get('shoppingCart.posting')}（${commentData.length}）`}</span>
             <span
               className={styles.lockAll}
-              onClick={() => this.props.history.push(`/single?productId=${detail.productId}`)}
+              onClick={() => this.props.history.push(`/single?productId=${this.state.id}`)}
             >
               {intl.get('shoppingCart.viewAll')} <Icon type="right" color="#ff5100" />
             </span>
