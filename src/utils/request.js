@@ -62,9 +62,7 @@ request.interceptors.request.use(async (url, options) => {
     };
   }
   let headers = {
-    // 'Content-Type': options.headers.ContentType || 'application/json',
-    // language: lang,
-    // userFrom: 'H5',
+    appId: localStorage.getItem('AppId')
   };
   let token = localStorage.getItem('token');
   if (token) {

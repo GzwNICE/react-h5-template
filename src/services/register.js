@@ -4,7 +4,7 @@ export async function regSendCode(params) {
     return request('/app/sms/send', { method: 'get', params: params });
 }
 
-export async function register(params) {
+export async function register(params, head) {
     return request('/v1/register.php', { method: 'post', data: params });
 }
 

@@ -4,6 +4,7 @@
 import React, { PureComponent } from 'react';
 import { Carousel, Grid, Toast, Modal, Icon } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
+import { request } from '@/utils/request';
 import Cookies from 'js-cookie';
 import HotList from '@/pages/hotList';
 import TabBarBox from '@/components/tabBar';
@@ -18,6 +19,7 @@ import banner03 from '@/assets/images/banner3.jpg';
 import banner04 from '@/assets/images/banner1.jpg';
 import titlePng from '@/assets/images/title@3x.png';
 import pic_banner from '@/assets/images/pic_banner@2x.png';
+import queryString from 'query-string';
 import styles from './index.less';
 
 class Home extends PureComponent {
@@ -33,6 +35,9 @@ class Home extends PureComponent {
 
   componentDidMount() {
     this.countFun()
+    const AppId = queryString.parse(window.location.search).Appid;
+    AppId ? localStorage.setItem('AppId', AppId) : null
+    request('/v1/active_log.php', { method: 'post', data: {mobile: localStorage.getItem('mobile')} });
   }
 
   getDateStr(AddDayCount) {

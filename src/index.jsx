@@ -36,8 +36,6 @@ intl.init({
 
 Cookies.set('IPhoneX', isIPhoneX(), { expires: 30 });
 
-request('/v1/active_log.php', { method: 'get', params: {mobile: localStorage.getItem('mobile')} });
-
 const Root = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
