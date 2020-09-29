@@ -6,6 +6,7 @@ import intl from 'react-intl-universal';
 import { NavBar, Icon, InputItem, Picker, List, TextareaItem, Button, Toast, Modal } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import addressLine from '@/assets/images/home/AppStore.png';
+import { getBaseUrl } from '@/utils/util';
 import aliPay from '@/assets/images/ic_alipay@2x.png';
 import weChat from '@/assets/images/ic_WeChatpay@2x.png';
 import unIonPay from '@/assets/images/ic_unionpay@2x.png';
@@ -118,7 +119,7 @@ class GetPrize extends PureComponent {
             onBlur={() => {
               window.scrollTo(0, 0);
             }}
-          >姓名</InputItem>
+          >*姓名</InputItem>
           <InputItem
             {...getFieldProps('phone')}
             type="phone"
@@ -132,6 +133,7 @@ class GetPrize extends PureComponent {
               window.scrollTo(0, 0);
             }}
           >*手机号</InputItem>
+          <span className={styles.tips}>* 支付成功后，会员卡信息将以短信的形式发送到你的手机</span>
         </List>
         <List className={styles.payBox}>
           <Item

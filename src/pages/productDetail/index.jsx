@@ -196,25 +196,22 @@ class ProductDetail extends PureComponent {
             <li><span className={styles.ll}>运费</span><span className={styles.rr}>快递包邮</span></li>
             <li><span className={styles.ll}>服务声明</span><span className={styles.rr}>虚拟商品不支持七天无理由退货</span></li>
         </div>
-        <div className={styles.postDetail}>
-          <div className={styles.topTel}>
-            <span className={styles.h3tle}>{`${intl.get('shoppingCart.posting')}（${commentData.length}）`}</span>
-            <span
-              className={styles.lockAll}
-              onClick={() => this.props.history.push(`/single?productId=${this.state.id}`)}
-            >
-              {intl.get('shoppingCart.viewAll')} <Icon type="right" color="#ff5100" />
-            </span>
+        {commentData.length > 0 ? (
+          <div className={styles.postDetail}>
+            <div className={styles.topTel}>
+              <span className={styles.h3tle}>{`${intl.get('shoppingCart.posting')}（${commentData.length}）`}</span>
+              <span
+                className={styles.lockAll}
+                onClick={() => this.props.history.push(`/single?productId=${this.state.id}`)}
+              >
+                {intl.get('shoppingCart.viewAll')} <Icon type="right" color="#ff5100" />
+              </span>
+            </div>
+            <ShowCard
+              data={commentData && commentData[0]}
+            />
           </div>
-          <ShowCard
-            data={commentData && commentData[0]}
-            onLikeClick={this.onLikeClick}
-            preview={this.imgPreview}
-          />
-        </div>
-        {imgPre ? (
-          <ImgPreview show={imgPre} data={imgList} index={imgIndex} cancel={this.cancelPreview} />
-        ) : null}
+        ): null}
         <div className={styles.shopDetail}>
           <h3 className={styles.h3tle}>{intl.get('product.productDetails')}</h3>
           {prodData.contentImg ? <img src={lcImg} alt="img"/> : null}

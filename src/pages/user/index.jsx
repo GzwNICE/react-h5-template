@@ -29,7 +29,7 @@ class User extends PureComponent {
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
       isLogin: localStorage.getItem('mobile'),
-      // isLogin: true,
+      channel: localStorage.getItem('AppId'),
     };
   }
 
@@ -96,7 +96,7 @@ class User extends PureComponent {
       {text: '设置', thumb: set1, url: '/set'}
     ]
     const { user } = this.props;
-    const { IPhoneX, isLogin } = this.state;
+    const { IPhoneX, isLogin, channel } = this.state;
     return (
       <div className={styles.userPage}>
         <div className={styles.topBox}>
@@ -113,7 +113,10 @@ class User extends PureComponent {
                   {intl.get('user.loginOrRegister')}
                 </div>
               ) : (
-                <div className={styles.authorName}>{isLogin}</div>
+                <div className={styles.authorName}>
+                  <span>{isLogin}</span>
+                  <span className={styles.channel}>{`渠道号: ${channel}`}</span>
+                </div>
               )}
             </div>
           </div>

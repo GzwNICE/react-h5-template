@@ -26,7 +26,6 @@ class SingleRecord extends PureComponent {
       imgList: [],
       imgIndex: 0,
     };
-    this.initList = throttle(this.initList, 1000);
   }
 
   componentDidMount() {
@@ -47,7 +46,7 @@ class SingleRecord extends PureComponent {
     const { showList } = this.props;
     const row = i => {
       return (
-        <div className={styles.listItem} key={i.id}>
+        <div className={styles.listItem} key={i.time}>
           <ShowCard data={i} />
         </div>
       );
