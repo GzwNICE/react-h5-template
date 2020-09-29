@@ -117,15 +117,15 @@ class Register extends PureComponent {
             password: value.password,
           })
           .then(res => {
-            if (res.code === 10001) {
-              this.changeCodeImg();
-              this.codeInput.state.value = '';
-            }else if (res.code === 200) {
+            if (res.code === 200) {
               Toast.success(`${intl.get('password.regSuccess')}`, 2);
               localStorage.setItem('mobile', value.mobile.replace(/\s*/g, ''));
               setTimeout(() => {
                 that.props.history.push('/user');
               }, 2000);
+            }else {
+              this.changeCodeImg();
+              this.codeInput.state.value = '';
             }
           });
       }
