@@ -108,10 +108,7 @@ class Invitation extends PureComponent {
             </div>
           </div>
           <div className={styles.invitationBg}>
-            <img
-              src="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg"
-              alt=""
-            />
+            <img src={`${window.location.origin}/my/qrcode/1HGK5_100*100.png`} alt="" />
           </div>
           <div className={styles.bgBox}>
             <div className={styles.head}>我的返利记录</div>
