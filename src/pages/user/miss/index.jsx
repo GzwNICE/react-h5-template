@@ -10,8 +10,8 @@ class MissPage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      title: queryString.parse(window.location.search).title
-    }
+      title: queryString.parse(window.location.search).title,
+    };
   }
 
   render() {

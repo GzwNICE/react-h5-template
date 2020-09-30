@@ -5,16 +5,10 @@ import { NavBar, Icon, Toast, Modal, Button } from 'antd-mobile';
 
 import intl from 'react-intl-universal';
 import copy from 'copy-to-clipboard';
-import Empty from '@/components/empty';
 import send from '@/assets/images/ic_step1_send.png';
 import man from '@/assets/images/ic_step2_man.png';
 import coin from '@/assets/images/ic_step3_coin.png';
 import direction from '@/assets/images/direction.png';
-import gold from '@/assets/images/invite_list_ic_gold.png';
-import silver from '@/assets/images/invite_list_ic_silver.png';
-import copper from '@/assets/images/invite_list_ic_copper.png';
-import icCopy from '@/assets/images/ic_copy.png';
-import question from '@/assets/images/ic_question.png';
 
 import pic_banner from '@/assets/images/pic_banner.png';
 
@@ -59,8 +53,6 @@ class Invitation extends PureComponent {
     }
   }
   render() {
-    const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    const { codeModal, ranks, shareConfig, canUse } = this.state;
     return (
       <div className={styles.help}>
         <NavBar
@@ -116,21 +108,10 @@ class Invitation extends PureComponent {
             </div>
           </div>
           <div className={styles.invitationBg}>
-            <div className={styles.title}>{intl.get('user.str_my_share_link')}</div>
-            <div className={styles.invitationBox}>
-              <div className={styles.invitationLink}>
-                https://plogin.m.jd.com/login/login
-              </div>
-            </div>
-            <div
-              className={styles.share}
-              onClick={this.onCopyClick.bind(
-                this,
-                shareConfig != null ? shareConfig.inviteUrl : ''
-              )}
-            >
-              {intl.get('user.str_share')}
-            </div>
+            <img
+              src="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg"
+              alt=""
+            />
           </div>
           <div className={styles.bgBox}>
             <div className={styles.head}>我的返利记录</div>

@@ -17,7 +17,7 @@ import Join from '@/pages/user/join';
 import Miss from '@/pages/user/miss';
 import Setting from '@/pages/user/set';
 import AboutUs from '@/pages/user/set/aboutus';
-
+import Guide from '@/pages/guide';
 import Personal from '@/pages/user/personal';
 import EditName from '@/pages/user/personal/editname';
 import AddressList from '@/pages/user/personal/addressList';
@@ -173,6 +173,11 @@ export const routes = [
     path: '/aboutus',
     exact: true,
     component: AboutUs,
+  },
+  {
+    path: '/guide',
+    exact: true,
+    component: Guide,
   },
   {
     path: '/join',
