@@ -138,4 +138,13 @@ const taskJump = type => {
   return str;
 };
 
-export { isIPhoneX, debounce, getBaseUrl, format, numFormat, random, cycle, taskJump };
+const isWeiXin = () => {
+  var ua = window.navigator.userAgent.toLowerCase();
+  if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export { isIPhoneX, debounce, getBaseUrl, format, numFormat, random, cycle, taskJump, isWeiXin };
