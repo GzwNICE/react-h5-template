@@ -7,7 +7,7 @@ const getBaseUrl = () => {
   } else if (env === 'test') {
     baseUrl = 'ohou-pitaya.5151money.cn';
   } else if (env === 'release') {
-    baseUrl = 'gagago-app-api-vn.9191money.com';
+    baseUrl = 'test-prod.5151money.cn';
   } else if (env === 'production') {
     baseUrl = 'app-api.winmybonus.com';
   }
