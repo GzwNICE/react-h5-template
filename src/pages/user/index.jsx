@@ -70,14 +70,14 @@ class User extends PureComponent {
 
   listJump(url) {
     if (this.state.isLogin) {
-      this.props.history.push(url)
+      this.props.history.push(url);
     } else {
       this.props.history.push(`/login`);
     }
   }
 
   render() {
-    const config = JSON.parse(localStorage.getItem('configuration')) || {};
+    // const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const tabs = [
       { label: '待付款', icon: wait, type: '1' },
       { label: '待发货', icon: win, type: '2' },
@@ -86,16 +86,16 @@ class User extends PureComponent {
       { label: '退换/售后', icon: sale, type: '5' },
     ];
     const list1 = [
-      {text: '邀请好友', thumb: invitation1, url: '/invitation'},
-      {text: '我的评价', thumb: evaluation1, url: '/evaluation'},
-      {text: '加入社区', thumb: join1, url: '/miss?title=加入社区'}
-    ]
+      { text: '邀请好友', thumb: invitation1, url: '/invitation' },
+      { text: '我的评价', thumb: evaluation1, url: '/evaluation' },
+      { text: '加入社区', thumb: join1, url: '/miss?title=加入社区' },
+    ];
     const list2 = [
-      {text: '帮助中心', thumb: service1, url: '/miss?title=帮助中心'},
-      {text: '意见反馈', thumb: feedback1, url: '/feedback'},
-      {text: '设置', thumb: set1, url: '/set'}
-    ]
-    const { user } = this.props;
+      { text: '帮助中心', thumb: service1, url: '/help' },
+      { text: '意见反馈', thumb: feedback1, url: '/feedback' },
+      { text: '设置', thumb: set1, url: '/set' },
+    ];
+    // const { user } = this.props;
     const { IPhoneX, isLogin, channel } = this.state;
     return (
       <div className={styles.userPage}>
@@ -125,7 +125,9 @@ class User extends PureComponent {
           <div className={styles.order}>
             <div className={styles.myorder}>
               <span className={styles.left}>{intl.get('user.myorder')}</span>
-              <span className={styles.right} onClick={() => this.toOrder('0')}>查看全部订单</span>
+              <span className={styles.right} onClick={() => this.toOrder('0')}>
+                查看全部订单
+              </span>
             </div>
             <Grid
               data={tabs}
@@ -154,30 +156,36 @@ class User extends PureComponent {
           </div>
           <div className={styles.order}>
             <List>
-              {list1.map(i=> {
+              {list1.map(i => {
                 return (
                   <Item
-                  key={i.text}
-                  thumb={i.thumb}
-                  arrow="horizontal"
-                  onClick={() => this.listJump(i.url)}
-                >{i.text}</Item>)
+                    key={i.text}
+                    thumb={i.thumb}
+                    arrow="horizontal"
+                    onClick={() => this.listJump(i.url)}
+                  >
+                    {i.text}
+                  </Item>
+                );
               })}
             </List>
           </div>
           <div className={styles.order}>
-          <List>
-            {list2.map(i=> {
-              return (
-                <Item
-                key={i.text}
-                thumb={i.thumb}
-                arrow="horizontal"
-                onClick={() => this.listJump(i.url)}
-              >{i.text}</Item>)
-            })}
-          </List>
-        </div>
+            <List>
+              {list2.map(i => {
+                return (
+                  <Item
+                    key={i.text}
+                    thumb={i.thumb}
+                    arrow="horizontal"
+                    onClick={() => this.listJump(i.url)}
+                  >
+                    {i.text}
+                  </Item>
+                );
+              })}
+            </List>
+          </div>
         </div>
         <div className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}>
           <TabBarBox selectedTab="userPage" />
