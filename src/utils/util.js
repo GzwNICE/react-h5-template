@@ -9,7 +9,7 @@ const getBaseUrl = () => {
   } else if (env === 'release') {
     baseUrl = 'test-prod.5151money.cn';
   } else if (env === 'production') {
-    baseUrl = 'app-api.winmybonus.com';
+    baseUrl = 'www.5216880.xyz';
   }
   return baseUrl;
 };
