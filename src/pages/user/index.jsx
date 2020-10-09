@@ -86,7 +86,7 @@ class User extends PureComponent {
       { label: '退换/售后', icon: sale, type: '5' },
     ];
     const list1 = [
-      { text: '邀请好友', thumb: invitation1, url: '/invitation' },
+      { text: '邀请好友', thumb: invitation1, url: `/invitation?t=${new Date().getTime()}` },
       { text: '我的评价', thumb: evaluation1, url: '/evaluation' },
       { text: '加入社区', thumb: join1, url: '/miss?title=加入社区' },
     ];
