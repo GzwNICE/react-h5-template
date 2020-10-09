@@ -2,8 +2,8 @@
 /* eslint-disable react/destructuring-assignment */
 // 首页人气列表
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+// import ReactDOM from 'react-dom';
+// import { connect } from 'react-redux';
 import ActivityCard from '@/components/activityCard';
 import prodJson from '@/assets/json/product.json';
 import { Flex } from 'antd-mobile';
@@ -13,23 +13,23 @@ class HotList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      prodJson: prodJson
+      prodJson: prodJson,
     };
   }
 
   componentDidMount() {
     const from = this.props.showOff;
     if (from === 'home') {
-      let arr = []
+      let arr = [];
       this.state.prodJson.map(i => {
         if (i.show && i.show === 'home') {
-          arr.push(i)
+          arr.push(i);
         }
-      })
+      });
       this.setState({
-        prodJson: arr
-      })
-      return
+        prodJson: arr,
+      });
+      return;
     }
   }
 
@@ -51,4 +51,4 @@ class HotList extends PureComponent {
   }
 }
 
-export default HotList
+export default HotList;

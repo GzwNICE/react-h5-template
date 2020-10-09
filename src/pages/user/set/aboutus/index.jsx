@@ -30,7 +30,7 @@ class Setting extends PureComponent {
         </NavBar>
         <div className={styles.userInfo}>
           <img className={styles.authorImg} src={logo}></img>
-          <div className={styles.imgEdit}> 京东秒杀版 - 优选好商品，每天推出随机2小时限时秒杀活动，话费充值卡、加油卡、京东卡、手机、电脑、小家电、日用百货等等，随时随地帮你省钱，敬请关注。</div>
+          <div className={styles.imgEdit}> 超优惠 - 优选好商品，每天推出随机2小时限时秒杀活动，话费充值卡、加油卡、京东卡、手机、电脑、小家电、日用百货等等，随时随地帮你省钱，敬请关注。</div>
         </div>
       </div>
     );
