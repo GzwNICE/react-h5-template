@@ -47,7 +47,7 @@ class TabBarBox extends PureComponent {
               ) : (
                 <img src={homePng} alt="" />
               )}
-              <span style={{ color: selectedTab === 'homePage' ? '#FE5108' : '#AEAEAE' }}>
+              <span style={{ color: selectedTab === 'homePage' ? '#0091FF' : '#AEAEAE' }}>
                 {intl.get('home.home')}
               </span>
             </Link>
@@ -63,7 +63,7 @@ class TabBarBox extends PureComponent {
               ) : (
                 <img src={all} alt="" />
               )}
-              <span style={{ color: selectedTab === 'commodityPage' ? '#FE5108' : '#AEAEAE' }}>
+              <span style={{ color: selectedTab === 'commodityPage' ? '#0091FF' : '#AEAEAE' }}>
                 全部商品
               </span>
             </Link>
@@ -79,7 +79,7 @@ class TabBarBox extends PureComponent {
               ) : (
                 <img src={message} alt="" />
               )}
-              <span style={{ color: selectedTab === 'shoppingCart' ? '#FE5108' : '#AEAEAE' }}>
+              <span style={{ color: selectedTab === 'shoppingCart' ? '#0091FF' : '#AEAEAE' }}>
                 消息
               </span>
               {homeSys && homeSys.shopCarCount > 0 ? (
@@ -103,7 +103,7 @@ class TabBarBox extends PureComponent {
               ) : (
                 <img src={personal} alt="" />
               )}
-              <span style={{ color: selectedTab === 'userPage' ? '#FE5108' : '#AEAEAE' }}>
+              <span style={{ color: selectedTab === 'userPage' ? '#0091FF' : '#AEAEAE' }}>
                 {intl.get('home.user')}
               </span>
             </Link>

@@ -13,10 +13,8 @@ import dingdan from '@/assets/images/dingdan@3x.png';
 import yaoqing from '@/assets/images/yaoqing@3x.png';
 import bangzhu from '@/assets/images/bangzhu@3x.png';
 import yijian from '@/assets/images/yijian@3x.png';
-import banner01 from '@/assets/images/banner01.png';
-import banner02 from '@/assets/images/banner2.jpg';
-import banner03 from '@/assets/images/banner3.jpg';
-import banner04 from '@/assets/images/banner1.jpg';
+import banner02 from '@/assets/images/banner2.png';
+import notice from '@/assets/images/ic_notice@2x.png';
 import titlePng from '@/assets/images/title@3x.png';
 import pic_banner from '@/assets/images/pic_banner@2x.png';
 import queryString from 'query-string';
@@ -34,12 +32,15 @@ class Home extends PureComponent {
   }
 
   componentDidMount() {
-    this.countFun()
+    // this.countFun()
     const AppId = queryString.parse(window.location.search).Appid;
-    AppId ? localStorage.setItem('AppId', AppId) : null
+    AppId ? localStorage.setItem('AppId', AppId) : null;
     const mobileDevice = queryString.parse(window.location.search).mobileDevice;
-    mobileDevice ? localStorage.setItem('mobileDevice', mobileDevice) : null
-    request('/v1/active_log.php', { method: 'post', data: {mobile: localStorage.getItem('mobile')} });
+    mobileDevice ? localStorage.setItem('mobileDevice', mobileDevice) : null;
+    request('/v1/active_log.php', {
+      method: 'post',
+      data: { mobile: localStorage.getItem('mobile') },
+    });
   }
 
   getDateStr(AddDayCount) {
@@ -89,17 +90,22 @@ class Home extends PureComponent {
     const { IPhoneX, openH, openM, openS } = this.state;
     const bannerList = [
       {
-        id: 2,
+        id: 1,
         imgURL: banner02,
       },
-      {
-        id: 3,
-        imgURL: banner03,
-      },
-      {
-        id: 4,
-        imgURL: banner04,
-      },
+    ];
+    const winnerList = [
+      '恭喜134****1236  成为季卡会员；',
+      '恭喜131****9970 成为月卡会员；',
+      '恭喜139****3537  成为周卡会员；',
+      '恭喜188****6643  成为日卡会员；',
+      '恭喜186****5750  成为季卡会员；',
+      '恭喜130****4491  成为月卡会员；',
+      '恭喜136****9075  成为季卡会员；',
+      '恭喜138****5758  成为月卡会员；',
+      '恭喜135****6201  成为季卡会员；',
+      '恭喜133****7939  成为月卡会员；',
+      '恭喜134****1016  成为季卡会员；',
     ];
     const classData = [
       {
@@ -108,7 +114,7 @@ class Home extends PureComponent {
         jumpUrl: '/commodity',
       },
       {
-        title: '我的订单',
+        title: '安装教程',
         imgURL: dingdan,
         jumpUrl: '/order/0',
       },
@@ -130,33 +136,27 @@ class Home extends PureComponent {
     ];
     return (
       <div className={styles.home}>
-        <div className={styles.bgColor}></div>
+        <div className={styles.bannerBox}>
+          <img src={banner02} alt="" />
+        </div>
         <Carousel
+          className="my-carousel"
+          vertical
+          dots={false}
+          dragging={false}
+          swiping={false}
           autoplay
+          autoplayInterval={2000}
           infinite
-          className={styles.banner}
-          autoplayInterval={15000}
-          dotActiveStyle={{ background: '#FF5209' }}
         >
-          {bannerList.map(val => (
-            <a
-              key={val.id}
-              href=""
-              onClick={()=> this.props.history.push('/commodity')}
-              style={{ display: 'inline-block', width: '100%', height: '100%' }}
-            >
-              <img
-                src={val.imgURL}
-                alt=""
-                style={{
-                  width: '100%',
-                  height: '130px',
-                  borderRadius: '6px',
-                  verticalAlign: 'center',
-                }}
-              />
-            </a>
-          ))}
+          {winnerList.map(i => {
+            return (
+              <div className={styles.winnerItem} key={i}>
+                <img src={notice} alt="" className={styles.leftIcon}/>
+                <span>{i}</span>
+              </div>
+            );
+          })}
         </Carousel>
         {classData.length > 0 ? ( // 分类导航
           <div className={styles.classification}>
@@ -174,19 +174,19 @@ class Home extends PureComponent {
             />
           </div>
         ) : null}
-        <div className={styles.promotion}>
-          <img src={banner01} alt="" />
-        </div>
-        <div className={styles.msBox}>
-          <img src={titlePng} alt="" />
-          <div className={styles.openTips}>
-            <span>倒计时</span>
-            <span className={styles.time}>{openH}</span>:<span className={styles.time}>{openM}</span>:
-            <span className={styles.time}>{openS}</span>
-          </div>
+        <div className={styles.allTitle}>
+          <span className={styles.left}>棋牌专区</span>
+          <span className={styles.right}>查看更多</span>
         </div>
         <div className={styles.tabs} ref={el => (this.hlv = el)}>
-          <HotList showOff="home" />
+          <HotList showOff="homeTop" />
+        </div>
+        <div className={styles.allTitle}>
+          <span className={styles.left}>其他专区</span>
+          <span className={styles.right}>查看更多</span>
+        </div>
+        <div className={styles.tabs} ref={el => (this.hlv = el)}>
+          <HotList showOff="homeBot" />
         </div>
         <div
           className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}

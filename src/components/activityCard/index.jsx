@@ -22,12 +22,10 @@ class ActivityCard extends PureComponent {
             <img src={imagesContext(data.img)} alt="" className={styles.shopImg} />
           </div>
           <div className={styles.bottomBox}>
-            <div className={styles.shopTitle}>{data.name}</div>
-            <div className={styles.oddsOfWinning}>
-              <span className={styles.money}>{`¥${data.spikePrice}`}</span>
-              <span className={styles.eg}>秒杀价</span>
-              <span className={styles.hua}>{`¥${data.price}`}</span>
-            </div>
+            <span className={styles.shopTitle}>
+              <span style={{ color: '#FA6400', marginRight: '8px'}}>{data.name}</span>
+              {data.content}
+            </span>
           </div>
         </Link>
       </div>

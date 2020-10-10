@@ -19,10 +19,22 @@ class HotList extends PureComponent {
 
   componentDidMount() {
     const from = this.props.showOff;
-    if (from === 'home') {
+    if (from === 'homeTop') {
       let arr = [];
       this.state.prodJson.map(i => {
-        if (i.show && i.show === 'home') {
+        if (i.show && i.show === 'homeTop') {
+          arr.push(i);
+        }
+      });
+      this.setState({
+        prodJson: arr,
+      });
+      return;
+    }
+    if (from === 'homeBot') {
+      let arr = [];
+      this.state.prodJson.map(i => {
+        if (i.show && i.show === 'homeBot') {
           arr.push(i);
         }
       });

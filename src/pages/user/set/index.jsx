@@ -69,7 +69,7 @@ class Setting extends PureComponent {
         </NavBar>
         <div className={styles.userInfo}>
           <img className={styles.authorImg} src={logo}></img>
-          <div className={styles.imgEdit}>超优惠 v1.0.0</div>
+          <div className={styles.imgEdit}>大赢家 v1.0.0</div>
         </div>
         <div
           className={styles.itemBox}
