@@ -102,11 +102,7 @@ class User extends PureComponent {
         <div className={styles.topBox}>
           <NavBar className={styles.navBar}>{intl.get('user.title')}</NavBar>
           <div className={styles.authorInfo}>
-            <img
-              className={styles.authorImg}
-              src={authorImg}
-              onClick={this.onPersonClick.bind(this)}
-            ></img>
+            <img className={styles.authorImg} src={authorImg}></img>
             <div className={styles.authorLoginType}>
               {!isLogin ? (
                 <div className={styles.authorLogin} onClick={this.loginCLick.bind(this)}>
