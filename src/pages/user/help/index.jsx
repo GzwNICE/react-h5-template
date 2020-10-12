@@ -69,7 +69,7 @@ class Help extends PureComponent {
           mode="dark"
           icon={<Icon type="left" />}
           className={styles.navBar}
-          style={{ backgroundColor: '#FF1C1C' }}
+          style={{ backgroundColor: '#0091FF' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
           帮助中心

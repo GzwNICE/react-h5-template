@@ -23,14 +23,14 @@ class Setting extends PureComponent {
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF1C1C' }}
+          style={{ backgroundColor: '#0091FF' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
           {intl.get('user.aboutUs')}
         </NavBar>
         <div className={styles.userInfo}>
           <img className={styles.authorImg} src={logo}></img>
-          <div className={styles.imgEdit}> 大赢家 - 优选好商品，每天推出随机2小时限时秒杀活动，话费充值卡、加油卡、京东卡、手机、电脑、小家电、日用百货等等，随时随地帮你省钱，敬请关注。</div>
+          <div className={styles.imgEdit}> 大赢家-专注各种娱乐程序软件开发，有棋牌游戏、对战游戏、休闲游戏等各种切入，帮助用户获取更多快乐。</div>
         </div>
       </div>
     );

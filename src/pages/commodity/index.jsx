@@ -16,6 +16,10 @@ class CommodityPage extends PureComponent {
     this.state = {};
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     const { IPhoneX, allClass, categoryActive } = this.state;
     const { category, childList, productList } = this.props;
@@ -35,7 +39,7 @@ class CommodityPage extends PureComponent {
         <div className={styles.tabs}>
             <HotList showOff="all" />
         </div>
-
+        <div className={styles.onBottom}>到底了</div>
         <div
           className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}
           ref={this.myRef}

@@ -44,7 +44,7 @@ class OrderList extends PureComponent {
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF1C1C' }}
+          style={{ backgroundColor: '#0091FF' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
           我的订单
@@ -52,10 +52,10 @@ class OrderList extends PureComponent {
         <Tabs
           tabs={tabs2}
           initialPage={Number(type)}
-          tabBarUnderlineStyle="#FF1C1C"
-          tabBarActiveTextColor="#FF1C1C"
+          tabBarUnderlineStyle="#0091FF"
+          tabBarActiveTextColor="#0091FF"
           tabBarUnderlineStyle={{
-            border: '2px solid #FF1C1C',
+            border: '2px solid #0091FF',
             width: '10%',
             marginLeft: '5%',
             borderRadius: '2px',

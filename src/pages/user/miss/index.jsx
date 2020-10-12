@@ -21,7 +21,7 @@ class MissPage extends PureComponent {
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF1C1C' }}
+          style={{ backgroundColor: '#0091FF' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
           {title}

@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
-import { NavBar, Toast, Flex, Button, Modal, Stepper } from 'antd-mobile';
+import { NavBar, Toast, NoticeBar, Button, Modal, Stepper } from 'antd-mobile';
 import Cookies from 'js-cookie';
 import TabBarBox from '@/components/tabBar';
 import MissCard from '@/components/shopCartMiss';
@@ -41,6 +41,9 @@ class ShopCart extends PureComponent {
         </div>
         ): (
           <div className={styles.noLogin}>
+            <NoticeBar icon={null} className={styles.noTicBar}>
+              温馨提示：请收到安装链接后请按照引导安装授权；
+            </NoticeBar>
             <img src={nocontent} alt="" className={styles.noContent}/>
             <p className={styles.tips}>暂无消息</p>
           </div>

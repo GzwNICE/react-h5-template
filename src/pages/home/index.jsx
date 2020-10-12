@@ -37,10 +37,10 @@ class Home extends PureComponent {
     AppId ? localStorage.setItem('AppId', AppId) : null;
     const mobileDevice = queryString.parse(window.location.search).mobileDevice;
     mobileDevice ? localStorage.setItem('mobileDevice', mobileDevice) : null;
-    request('/v1/active_log.php', {
-      method: 'post',
-      data: { mobile: localStorage.getItem('mobile') },
-    });
+    // request('/v1/active_log.php', {
+    //   method: 'post',
+    //   data: { mobile: localStorage.getItem('mobile') },
+    // });
   }
 
   getDateStr(AddDayCount) {
@@ -176,18 +176,19 @@ class Home extends PureComponent {
         ) : null}
         <div className={styles.allTitle}>
           <span className={styles.left}>棋牌专区</span>
-          <span className={styles.right}>查看更多</span>
+          <span className={styles.right} onClick={() => this.handlerGrid('/commodity')}>查看更多</span>
         </div>
         <div className={styles.tabs} ref={el => (this.hlv = el)}>
           <HotList showOff="homeTop" />
         </div>
         <div className={styles.allTitle}>
           <span className={styles.left}>其他专区</span>
-          <span className={styles.right}>查看更多</span>
+          <span className={styles.right} onClick={() => this.handlerGrid('/commodity')}>查看更多</span>
         </div>
         <div className={styles.tabs} ref={el => (this.hlv = el)}>
           <HotList showOff="homeBot" />
         </div>
+        <div className={styles.onBottom} onClick={() => this.handlerGrid('/commodity')}>查看全部</div>
         <div
           className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}
           ref={this.myRef}

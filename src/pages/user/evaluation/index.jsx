@@ -25,7 +25,7 @@ class Reward extends PureComponent {
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
-          style={{ backgroundColor: '#FF1C1C' }}
+          style={{ backgroundColor: '#0091FF' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
           退换/售后
@@ -33,10 +33,10 @@ class Reward extends PureComponent {
         <Tabs
           tabs={tabs2}
           initialPage={0}
-          tabBarUnderlineStyle="#FF1C1C"
-          tabBarActiveTextColor="#FF1C1C"
+          tabBarUnderlineStyle="#0091FF"
+          tabBarActiveTextColor="#0091FF"
           tabBarUnderlineStyle={{
-            border: '2px solid #FF1C1C',
+            border: '2px solid #0091FF',
             width: '10%',
             marginLeft: '7%',
             borderRadius: '2px',

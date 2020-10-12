@@ -5,7 +5,7 @@ import queryString from 'query-string';
 import intl from 'react-intl-universal';
 import { NavBar, Icon, InputItem, Picker, List, TextareaItem, Button, Toast, Modal } from 'antd-mobile';
 import { createForm } from 'rc-form';
-import addressLine from '@/assets/images/home/AppStore.png';
+// import addressLine from '@/assets/images/home/AppStore.png';
 import { getBaseUrl } from '@/utils/util';
 import aliPay from '@/assets/images/ic_alipay@2x.png';
 import weChat from '@/assets/images/ic_WeChatpay@2x.png';
@@ -80,6 +80,39 @@ class GetPrize extends PureComponent {
   render() {
     const { getFieldProps } = this.props.form;
     const { prodData } = this.state;
+    const cardList = [
+      {
+        price: '1.00',
+        oldPrice: 500,
+        title: '体验卡（ 1天 ）',
+        content: '只限新用户，只允许绑定1个手机设备',
+      },
+      {
+        price: 1000,
+        oldPrice: 1200,
+        title: '日卡（ 1天 ）',
+        content: '只限新用户，只允许绑定1个手机设备',
+      },
+      {
+        price: 1888,
+        oldPrice: 2500,
+        title: '周卡（ 7天 ）',
+        content: '只允许绑定1个手机设备',
+      },
+      {
+        price: 3888,
+        oldPrice: 5000,
+        title: '月卡（ 30天 ）',
+        content: '只允许绑定1个手机设备',
+      },
+      {
+        price: 8888,
+        oldPrice: 10000,
+        title: '季卡（ 90天 ）',
+        content: '只允许绑定1个手机设备',
+      },
+
+    ]
     return (
       <div className={styles.prize}>
         <NavBar
@@ -88,59 +121,39 @@ class GetPrize extends PureComponent {
           className={styles.navBar}
           onLeftClick={this.onLeftClick}
         >
-          确认订单
+          开通会员
         </NavBar>
         <div className={styles.goodInfo}>
-          {prodData.img ? (
-            <img
-              src={imagesContext(prodData.img)}
-              alt=""
-              className={styles.goodPic}
-            />
-          ): null}
-          <div className={styles.goodName}>
-            <span className={`${styles.title} ${styles.line2}`}>
-              {prodData.name}
-            </span>
-            <span className={styles.price}>
-              <i>{`¥ ${prodData.spikePrice} `}</i>
-              <span></span>
-            </span>
-          </div>
-          <span className={styles.quantity}>x1</span>
+          <span className={styles.title}>*请确认您已年满18岁，合理安排娱乐时间</span>
+          {cardList.map(i => {
+            return (
+              <div className={styles.cardItem} key={i.price}>
+                <div className={styles.top}>
+                  <div className={styles.ttL}>
+                    <span className={styles.tLName}>{i.title}</span>
+                    <span className={styles.tLIcon}>{i.price === '1.00' ? `新用户首次专享`: `限时折扣`}</span>
+                  </div>
+                  <span className={styles.ttR}>{`¥ ${i.price}`}</span>
+                </div>
+                <div className={styles.bottom}>
+                  <span className={styles.bll}>{i.content}</span>
+                  <span className={styles.brr}>{`¥ ${i.oldPrice}`}</span>
+                </div>
+              </div>
+            )
+          })}
         </div>
-        <List className={styles.payBox} renderHeader={() => '收货信息'}>
-          <InputItem
-            {...getFieldProps('name')}
-            placeholder="请填写收货人姓名"
-            clear
-            ref={el => (this.nameInput = el)}
-            onClick={() => {
-              this.nameInput.focus();
-            }}
-            onBlur={() => {
-              window.scrollTo(0, 0);
-            }}
-          >*姓名</InputItem>
-          <InputItem
-            {...getFieldProps('phone')}
-            type="phone"
-            placeholder="请填写手机号"
-            clear
-            ref={el => (this.mobileInput = el)}
-            onClick={() => {
-              this.mobileInput.focus();
-            }}
-            onBlur={() => {
-              window.scrollTo(0, 0);
-            }}
-          >*手机号</InputItem>
-          <span className={styles.tips}>* 支付成功后，会员卡信息将以短信的形式发送到你的手机</span>
-        </List>
+        <div className={styles.tipsBox}>
+          <span>温馨提示：</span>
+          <p>1、新注册用户只允许买一次1天体验卡，同时只允许绑定1个手号和1台手机设备；<br />
+          2、其他套餐只允许绑定1个手机号和1台手机设备；<br />
+          3、不允许绑定多台设备，如果违规，账号会自动被封禁处理.<br />
+          4、安装链接以消息推送到设备上，请收到安装链接后请按照引导安装授权；</p>
+        </div>
         <List className={styles.payBox}>
           <Item
             thumb={aliPay}
-            extra={<Icon type="check-circle" color="#FF1C1C" />}
+            extra={<Icon type="check-circle" color="#40D622" />}
           >支付宝支付</Item>
           <Item
             thumb={weChat}
@@ -151,12 +164,9 @@ class GetPrize extends PureComponent {
             extra={'敬请期待'}
           >银行卡支付</Item>
         </List>
-        <div className={styles.btnBox}>
-          <span className={styles.bl}>合计：<span className={styles.bm}>¥<span className={styles.bn}>{prodData.spikePrice}</span></span></span>
-          <Button type="primary" className={styles.submit} onClick={this.handleSubmit}>
-            立即支付
-          </Button>
-        </div>
+        <Button type="primary" className={styles.submit} onClick={this.handleSubmit}>
+          立即支付
+        </Button>
       </div>
     );
   }

@@ -11,11 +11,13 @@ import goin_arrow from '@/assets/images/personal_ic_arrow@2x.png';
 import wait from '@/assets/images/ic_waiting.png';
 import win from '@/assets/images/ic_gift.png';
 import nowin from '@/assets/images/ic_order.png';
+import ic_vip from '@/assets/images/ic_vip@2x.png';
 import evaluation from '@/assets/images/ic_evaluation.png';
 import sale from '@/assets/images/ic_return.png';
+import ic_jiLu from '@/assets/images/czjl.png';
 import invitation1 from '@/assets/images/ic_invitation@3x.png';
 import evaluation1 from '@/assets/images/ic_evaluation@3x.png';
-import join1 from '@/assets/images/ic_join@3x.png';
+import teach from '@/assets/images/ic_teach@3x.png';
 import service1 from '@/assets/images/ic_service@3x.png';
 import feedback1 from '@/assets/images/ic_feedback@3x.png';
 import set1 from '@/assets/images/ic_set@3x.png';
@@ -78,17 +80,11 @@ class User extends PureComponent {
 
   render() {
     // const config = JSON.parse(localStorage.getItem('configuration')) || {};
-    const tabs = [
-      { label: '待付款', icon: wait, type: '1' },
-      { label: '待发货', icon: win, type: '2' },
-      { label: '待收货', icon: nowin, type: '3' },
-      { label: '已完成', icon: evaluation, type: '4' },
-      { label: '退换/售后', icon: sale, type: '5' },
-    ];
     const list1 = [
+      { text: '充值记录', thumb: ic_jiLu, url: `/invitation?t=${new Date().getTime()}` },
       { text: '邀请好友', thumb: invitation1, url: `/invitation?t=${new Date().getTime()}` },
       { text: '我的评价', thumb: evaluation1, url: '/evaluation' },
-      { text: '加入社区', thumb: join1, url: '/miss?title=加入社区' },
+      { text: '安装教程', thumb: teach, url: '/miss?title=加入社区' },
     ];
     const list2 = [
       { text: '帮助中心', thumb: service1, url: '/help' },
@@ -117,71 +113,42 @@ class User extends PureComponent {
             </div>
           </div>
         </div>
-        <div>
-          <div className={styles.order}>
-            <div className={styles.myorder}>
-              <span className={styles.left}>{intl.get('user.myorder')}</span>
-              <span className={styles.right} onClick={() => this.toOrder('0')}>
-                查看全部订单
-              </span>
-            </div>
-            <Grid
-              data={tabs}
-              columnNum={5}
-              hasLine={false}
-              onClick={_el => {
-                if (isLogin) {
-                  if (_el.type == '5') {
-                    this.props.history.push(`/evaluation`);
-                  } else {
-                    this.props.history.push(`/order/${_el.type}`);
-                  }
-                } else {
-                  this.props.history.push(`/login`);
-                }
-              }}
-              renderItem={item => (
-                <div className={styles.item1}>
-                  <img src={item.icon} className={styles.icon} alt="" />
-                  <div className={styles.label} style={{ marginTop: '5px' }}>
-                    {item.label}
-                  </div>
-                </div>
-              )}
-            />
-          </div>
-          <div className={styles.order}>
-            <List>
-              {list1.map(i => {
-                return (
-                  <Item
-                    key={i.text}
-                    thumb={i.thumb}
-                    arrow="horizontal"
-                    onClick={() => this.listJump(i.url)}
-                  >
-                    {i.text}
-                  </Item>
-                );
-              })}
-            </List>
-          </div>
-          <div className={styles.order}>
-            <List>
-              {list2.map(i => {
-                return (
-                  <Item
-                    key={i.text}
-                    thumb={i.thumb}
-                    arrow="horizontal"
-                    onClick={() => this.listJump(i.url)}
-                  >
-                    {i.text}
-                  </Item>
-                );
-              })}
-            </List>
-          </div>
+        <div className={styles.vipBox}>
+          <img src={ic_vip} alt="" className={styles.left} />
+          <span className={styles.center}>开通服务<span className={styles.ty}>新用户首次专项1日体验卡</span></span>
+          <div className={styles.right}>立即前往</div>
+        </div>
+        <div className={styles.order}>
+          <List>
+            {list1.map(i => {
+              return (
+                <Item
+                  key={i.text}
+                  thumb={i.thumb}
+                  arrow="horizontal"
+                  onClick={() => this.listJump(i.url)}
+                >
+                  {i.text}
+                </Item>
+              );
+            })}
+          </List>
+        </div>
+        <div className={styles.order}>
+          <List>
+            {list2.map(i => {
+              return (
+                <Item
+                  key={i.text}
+                  thumb={i.thumb}
+                  arrow="horizontal"
+                  onClick={() => this.listJump(i.url)}
+                >
+                  {i.text}
+                </Item>
+              );
+            })}
+          </List>
         </div>
         <div className={`${styles.tBar} ${IPhoneX === 'true' ? `${styles.tBarIPhone}` : null}`}>
           <TabBarBox selectedTab="userPage" />

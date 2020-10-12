@@ -77,8 +77,6 @@ class Login extends PureComponent {
         >
           登录
         </NavBar>
-        <img src={loginBg} alt="" className={styles.banner} />
-
           <div className={styles.loginBox}>
             <div className={`${styles.mobileBox}`}>
               <InputItem
