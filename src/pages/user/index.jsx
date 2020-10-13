@@ -116,9 +116,10 @@ class User extends PureComponent {
               ) : (
                 <div className={styles.authorName}>
                   <span>{isLogin}</span>
-                  <span className={styles.channel}>{`推广码: ${channel}`}</span>
+
                 </div>
               )}
+              <span className={styles.channel}>{`ID: ${channel}`}</span>
             </div>
           </div>
         </div>
