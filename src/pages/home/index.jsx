@@ -116,12 +116,12 @@ class Home extends PureComponent {
       {
         title: '安装教程',
         imgURL: dingdan,
-        jumpUrl: '/order/0',
+        jumpUrl: '/order',
       },
       {
         title: '邀请好友',
         imgURL: yaoqing,
-        jumpUrl: '/invitation',
+        jumpUrl: `/invitation?t=${new Date().getTime()}`,
       },
       {
         title: '帮助中心',

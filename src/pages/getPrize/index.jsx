@@ -24,11 +24,12 @@ class GetPrize extends PureComponent {
     super(props);
     this.state = {
       activityTurnId: this.props.match.params.activityTurnId,
-      prodData: ''
+      cardSelect: 3888
     };
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     prodJson.map(i => {
       if (i.id === Number(this.state.activityTurnId)) {
         this.setState({
@@ -64,7 +65,7 @@ class GetPrize extends PureComponent {
   };
 
   onLeftClick = () => {
-    alert('是否放弃本次付款？', '您的订单在30分钟内未支付将被取消，请尽快完成支付', [
+    alert('是否放弃本次付款？', '您的订单在10分钟内未支付将被取消，请尽快完成支付', [
       {
         text: '放弃',
         onPress: () => {
@@ -77,9 +78,15 @@ class GetPrize extends PureComponent {
     ]);
   };
 
+  cardClick(price) {
+    this.setState({
+      cardSelect: price
+    })
+  }
+
   render() {
     const { getFieldProps } = this.props.form;
-    const { prodData } = this.state;
+    const { cardSelect } = this.state;
     const cardList = [
       {
         price: '1.00',
@@ -111,7 +118,6 @@ class GetPrize extends PureComponent {
         title: '季卡（ 90天 ）',
         content: '只允许绑定1个手机设备',
       },
-
     ]
     return (
       <div className={styles.prize}>
@@ -127,7 +133,7 @@ class GetPrize extends PureComponent {
           <span className={styles.title}>*请确认您已年满18岁，合理安排娱乐时间</span>
           {cardList.map(i => {
             return (
-              <div className={styles.cardItem} key={i.price}>
+              <div className={`${styles.cardItem} ${cardSelect === i.price ?  `${styles.cardSel}` : null}`} key={i.price} onClick={() => this.cardClick(i.price)}>
                 <div className={styles.top}>
                   <div className={styles.ttL}>
                     <span className={styles.tLName}>{i.title}</span>

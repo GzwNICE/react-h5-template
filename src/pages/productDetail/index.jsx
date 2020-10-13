@@ -103,7 +103,7 @@ class ProductDetail extends PureComponent {
   goSure = () => {
     const login = localStorage.getItem('mobile');
     if (login) {
-      this.props.history.push(`/prize/${this.state.id}`);
+      this.props.history.push(`/prize`);
     }else {
       this.props.history.push(`/login`);
     }

@@ -70,6 +70,15 @@ class User extends PureComponent {
     }
   }
 
+  goSure = () => {
+    const login = localStorage.getItem('mobile');
+    if (login) {
+      this.props.history.push(`/prize`);
+    }else {
+      this.props.history.push(`/login`);
+    }
+  };
+
   listJump(url) {
     if (this.state.isLogin) {
       this.props.history.push(url);
@@ -81,10 +90,10 @@ class User extends PureComponent {
   render() {
     // const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const list1 = [
-      { text: '充值记录', thumb: ic_jiLu, url: `/invitation?t=${new Date().getTime()}` },
+      { text: '充值记录', thumb: ic_jiLu, url: `/miss?title=充值记录` },
       { text: '邀请好友', thumb: invitation1, url: `/invitation?t=${new Date().getTime()}` },
       { text: '我的评价', thumb: evaluation1, url: '/evaluation' },
-      { text: '安装教程', thumb: teach, url: '/miss?title=加入社区' },
+      { text: '安装教程', thumb: teach, url: '/order' },
     ];
     const list2 = [
       { text: '帮助中心', thumb: service1, url: '/help' },
@@ -113,7 +122,7 @@ class User extends PureComponent {
             </div>
           </div>
         </div>
-        <div className={styles.vipBox}>
+        <div className={styles.vipBox} onClick={this.goSure}>
           <img src={ic_vip} alt="" className={styles.left} />
           <span className={styles.center}>开通服务<span className={styles.ty}>新用户首次专项1日体验卡</span></span>
           <div className={styles.right}>立即前往</div>

@@ -22,17 +22,20 @@ class Guide extends PureComponent {
   };
 
   render() {
-    console.log(isWeiXin());
     return (
       <div className={styles.guidePage}>
         <img className={styles.emptyImg} src={emptyImg} />
-        <Button type="primary" className={styles.button} onClick={this.downLoad}>
-          下载APP
-        </Button>
-        <p className={styles.tips}>
-          * 暂只支持安卓版本 <br />
-          苹果版本正在上架中，敬请期待
-        </p>
+        <div className={styles.content}>
+          <p className={styles.jQqd}>更多外挂程序陆续更新上架<br />
+          优惠有限，敬请关注！</p>
+          <Button type="primary" className={styles.button} onClick={this.downLoad}>
+            下载APP
+          </Button>
+          <p className={styles.tips}>
+            * 暂只支持安卓版本 <br />
+            苹果版本正在破解上架中，敬请期待
+          </p>
+        </div>
         {isWeiXin() ? (
           <div className={styles.shad}>
             <img src={downArrow} alt="" className={styles.tt} />

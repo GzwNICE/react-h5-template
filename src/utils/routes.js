@@ -105,7 +105,7 @@ export const routes = [
     component: Password,
   },
   {
-    path: '/order/:type',
+    path: '/order',
     exact: true,
     component: Order,
   },
@@ -200,7 +200,7 @@ export const routes = [
     component: PayHistory,
   },
   {
-    path: '/prize/:activityTurnId',
+    path: '/prize',
     exact: true,
     component: GetPrize,
   },

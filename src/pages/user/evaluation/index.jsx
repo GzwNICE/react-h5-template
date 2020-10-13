@@ -15,10 +15,8 @@ class Reward extends PureComponent {
   };
   render() {
     const tabs2 = [
-      { title: '售后申请', sub: '1' },
-      { title: '处理中', sub: '2' },
-      { title: '售后评价', sub: '3' },
-      { title: '申请记录', sub: '4' }
+      { title: '未评价', sub: '1' },
+      { title: '已评价', sub: '2' }
     ];
     return (
       <div className={styles.order}>
@@ -28,7 +26,7 @@ class Reward extends PureComponent {
           style={{ backgroundColor: '#0091FF' }}
           onLeftClick={() => this.props.history.go(-1)}
         >
-          退换/售后
+          我的评价
         </NavBar>
         <Tabs
           tabs={tabs2}
@@ -37,14 +35,14 @@ class Reward extends PureComponent {
           tabBarActiveTextColor="#0091FF"
           tabBarUnderlineStyle={{
             border: '2px solid #0091FF',
-            width: '10%',
-            marginLeft: '7%',
+            width: '12%',
+            marginLeft: '19%',
             borderRadius: '2px',
           }}
           tabBarInactiveTextColor="#333333"
         >
           <div>
-            <Empty text="暂时还没有订单" />
+            <Empty text="空空如也" />
             <Button type="primary" className={styles.goHome} onClick={this.handlerPush}>去首页</Button>
           </div>
         </Tabs>
