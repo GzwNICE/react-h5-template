@@ -203,11 +203,11 @@ class ProductDetail extends PureComponent {
             />
           </div>
         ): null}
-        <div className={styles.shopDetail}>
+        {/*<div className={styles.shopDetail}>
           <h3 className={styles.h3tle}>{intl.get('product.productDetails')}</h3>
           {prodData.contentImg ? <img src={lcImg} alt="img"/> : null}
           <p className={styles.text} dangerouslySetInnerHTML={html}></p>
-        </div>
+        </div>*/}
         <div className={styles.buyGroup}>
           <Button type="primary" className={styles.rightBtn} onClick={this.goSure}>
             马上选择
