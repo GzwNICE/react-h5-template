@@ -25,6 +25,7 @@ class SingleRecord extends PureComponent {
       imgPre: false,
       imgList: [],
       imgIndex: 0,
+      dataList: []
     };
   }
 
@@ -32,9 +33,9 @@ class SingleRecord extends PureComponent {
     window.scrollTo(0, 0);
     commentJson.map(i => {
       if (i.id === Number(this.state.productId)) {
-        console.log(i.comment);
         this.setState({
-          dataSource: dataSource.cloneWithRows(i.comment)
+          dataSource: dataSource.cloneWithRows(i.comment),
+          dataList: i.comment
         })
         return
       }
@@ -42,8 +43,7 @@ class SingleRecord extends PureComponent {
   }
 
   render() {
-    const { dataSource, isLoading, hasMore, imgPre, imgList, imgIndex } = this.state;
-    const { showList } = this.props;
+    const { dataSource, isLoading, hasMore, imgPre, imgList, imgIndex, dataList } = this.state;
     const row = i => {
       return (
         <div className={styles.listItem} key={i.time}>
@@ -51,6 +51,9 @@ class SingleRecord extends PureComponent {
         </div>
       );
     };
+    const tags =  [
+      '好用+1', '便宜实惠+8', '方便好用+15', '价格优惠+5', '发货超快+8', '效果显著+9'
+    ]
     return (
       <div className={styles.singleRecord}>
         <NavBar
@@ -61,8 +64,13 @@ class SingleRecord extends PureComponent {
             this.props.history.go(-1);
           }}
         >
-          用户评价
+          精选评价
         </NavBar>
+        <div className={styles.tagBox}>
+          {tags.map(i => {
+            return <span key={i}>{i}</span>
+          })}
+        </div>
         <div className={styles.list}>
             <ListView
               dataSource={dataSource}
@@ -80,13 +88,11 @@ class SingleRecord extends PureComponent {
                 <WhiteSpace
                   key={`${sectionID}-${rowID}`}
                   size="md"
-                  style={{ backgroundColor: '#f7f7f7', height: '0.1rem' }}
+                  style={{ backgroundColor: '#f7f7f7', height: '0.01rem' }}
                 />
               )}
               useBodyScroll
               scrollRenderAheadDistance={500}
-              // onEndReached={this.onEndReached}
-              // onEndReachedThreshold={10}
             />
         </div>
         {imgPre ? <ImgPreview data={imgList} index={imgIndex} cancel={this.cancelPreview} /> : null}

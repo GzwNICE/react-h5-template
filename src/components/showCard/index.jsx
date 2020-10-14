@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { Badge, Grid } from 'antd-mobile';
 import { format } from '@/utils/util';
 import intl from 'react-intl-universal';
-import like from '@/assets/images/like.png';
+import like from '@/assets/images/ic_redstar@3x.png';
 import authorImg from '@/assets/images/avatar_.png';
 import styles from './index.less';
 
@@ -49,7 +49,11 @@ class ShowCard extends PureComponent {
           <img src={authorImg} alt="" className={styles.userPic} />
           <div className={styles.rightBox}>
             <p className={styles.userName}>{data.userName}</p>
-            <span className={styles.prodName}>{`${this.getDateStr(-data.time[0])} ${data.time[1]}`}</span>
+            <img src={like} alt="" style={{ width: '12px', marginRight: '2px' }}/>
+            <img src={like} alt="" style={{ width: '12px', marginRight: '2px' }}/>
+            <img src={like} alt="" style={{ width: '12px', marginRight: '2px' }}/>
+            <img src={like} alt="" style={{ width: '12px', marginRight: '2px' }}/>
+            <img src={like} alt="" style={{ width: '12px', marginRight: '2px' }}/>
           </div>
         </div>
         <div className={styles.content}>
@@ -60,6 +64,10 @@ class ShowCard extends PureComponent {
           className={styles.imgItem}
           alt="img"
         />) : null}
+        <div className={styles.bb}>
+          <span className={styles.prodName}>{`${this.getDateStr(-data.time[0])} ${data.time[1]}`}</span>
+          <span className={styles.ll}>{`浏览量 ${data.star}`}</span>
+        </div>
       </div>
     );
   }

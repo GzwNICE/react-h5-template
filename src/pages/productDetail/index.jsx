@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
-import { NavBar, Carousel, Progress, Button, Toast, Badge, Icon } from 'antd-mobile';
+import { NavBar, Carousel, Progress, Button, Toast, Tag, Icon } from 'antd-mobile';
 import { Link } from 'react-router-dom';
 import { format } from '@/utils/util';
 import navBack from '@/assets/images/navBack.png';
@@ -150,6 +150,9 @@ class ProductDetail extends PureComponent {
     } = this.state;
     const html = { __html: prodData.content };
     const { detail, showList } = this.props;
+    const tags =  [
+      '好用+1', '便宜实惠+8', '方便好用+15', '价格优惠+5', '发货超快+8', '效果显著+9'
+    ]
     return (
       <div className={styles.productPage}>
         <NavBar
@@ -182,13 +185,18 @@ class ProductDetail extends PureComponent {
         {commentData.length > 0 ? (
           <div className={styles.postDetail}>
             <div className={styles.topTel}>
-              <span className={styles.h3tle}>{`${intl.get('shoppingCart.posting')}（${commentData.length}）`}</span>
+              <span className={styles.h3tle}>{`精选评价（${commentData.length}）`}</span>
               <span
                 className={styles.lockAll}
                 onClick={() => this.props.history.push(`/single?productId=${this.state.id}`)}
               >
-                {intl.get('shoppingCart.viewAll')} <Icon type="right" color="#ff5100" />
+                {intl.get('shoppingCart.viewAll')} <Icon type="right" color="#666666" />
               </span>
+            </div>
+            <div className={styles.tagBox}>
+              {tags.map(i => {
+                return <span key={i}>{i}</span>
+              })}
             </div>
             <ShowCard
               data={commentData && commentData[0]}

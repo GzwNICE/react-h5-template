@@ -3,15 +3,15 @@ import homePage from '@/pages/home';
 import userPage from '@/pages/user';
 import Payment from '@/pages/payment';
 import Evaluation from '@/pages/user/evaluation';
-import AddShow from '@/pages/user/evaluation/addShow';
-import EditShow from '@/pages/user/evaluation/editShow';
+// import AddShow from '@/pages/user/evaluation/addShow';
+// import EditShow from '@/pages/user/evaluation/editShow';
 
 import PayList from '@/pages/user/paylist';
 import PayHistory from '@/pages/user/paylist/payhistory';
 import Invitation from '@/pages/user/invitation';
-import Rule from '@/pages/user/invitation/rule';
-import Rank from '@/pages/user/invitation/rank';
-import Reward from '@/pages/user/invitation/reward';
+// import Rule from '@/pages/user/invitation/rule';
+// import Rank from '@/pages/user/invitation/rank';
+// import Reward from '@/pages/user/invitation/reward';
 import Feedback from '@/pages/user/feedback';
 import Join from '@/pages/user/join';
 import Miss from '@/pages/user/miss';
@@ -27,7 +27,7 @@ import loginPage from '@/pages/login';
 import regPage from '@/pages/register';
 import Password from '@/pages/password';
 import ProductDetail from '@/pages/productDetail';
-import RulePage from '@/pages/rules';
+// import RulePage from '@/pages/rules';
 import GetPrize from '@/pages/getPrize';
 import AwardResults from '@/pages/awardResults';
 import PayResult from '@/pages/payResult';
@@ -79,16 +79,16 @@ export const routes = [
     exact: true,
     component: Evaluation,
   },
-  {
-    path: '/addShow/:activityTurnId',
-    exact: true,
-    component: AddShow,
-  },
-  {
-    path: '/editShow/:id',
-    exact: true,
-    component: EditShow,
-  },
+  // {
+  //   path: '/addShow/:activityTurnId',
+  //   exact: true,
+  //   component: AddShow,
+  // },
+  // {
+  //   path: '/editShow/:id',
+  //   exact: true,
+  //   component: EditShow,
+  // },
   {
     path: '/login',
     exact: true,
@@ -115,11 +115,6 @@ export const routes = [
     component: Personal,
   },
   {
-    path: '/rules/:activityTurnId',
-    exact: true,
-    component: RulePage,
-  },
-  {
     path: '/product/:activityTurnId',
     exact: true,
     component: ProductDetail,
@@ -144,21 +139,16 @@ export const routes = [
     exact: true,
     component: Invitation,
   },
-  {
-    path: '/rule',
-    exact: true,
-    component: Rule,
-  },
-  {
-    path: '/reward',
-    exact: true,
-    component: Reward,
-  },
-  {
-    path: '/rank',
-    exact: true,
-    component: Rank,
-  },
+  // {
+  //   path: '/reward',
+  //   exact: true,
+  //   component: Reward,
+  // },
+  // {
+  //   path: '/rank',
+  //   exact: true,
+  //   component: Rank,
+  // },
   {
     path: '/feedback',
     exact: true,
