@@ -210,7 +210,7 @@ class ProductDetail extends PureComponent {
         </div>*/}
         <div className={styles.buyGroup}>
           <Button type="primary" className={styles.rightBtn} onClick={this.goSure}>
-            马上选择
+            马上安装
           </Button>
         </div>
       </div>
