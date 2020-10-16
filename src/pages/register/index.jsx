@@ -31,11 +31,11 @@ class Register extends PureComponent {
   componentDidMount () {
     window.scrollTo(0, 0);
     this.changeCodeImg();
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.props.history.push(`/home`);
-      return;
-    }
+    // const token = localStorage.getItem('token');
+    // if (token) {
+    //   this.props.history.push(`/home`);
+    //   return;
+    // }
     const { mobile } = queryString.parse(window.location.search);
     this.setState({
       mobile,
@@ -223,6 +223,17 @@ class Register extends PureComponent {
               alt=""
               onClick={this.changeCodeImg}
               className={styles.passClose}
+            />
+          </div>
+          <div className={`${styles.mobileBox} ${styles.passBox}`}>
+            <InputItem
+              {...getFieldProps('inviteCode')}
+              placeholder="请填写邀请码"
+              className={styles.password}
+              ref={el => (this.inviteInput = el)}
+              onClick={() => {
+                this.inviteInput.focus();
+              }}
             />
           </div>
           <Button type="primary" className={styles.nextBut} onClick={this.handleRegClick}>
