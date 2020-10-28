@@ -4,8 +4,8 @@ import React, { PureComponent } from 'react';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
 import { NavBar, Icon, Button, Radio, Badge, Modal, Toast } from 'antd-mobile';
-import momo from '@/assets/images/momo.png';
-import funpay from '@/assets/images/funpay.png';
+// import momo from '@/assets/images/momo.png';
+// import funpay from '@/assets/images/funpay.png';
 import styles from './index.less';
 
 const alert = Modal.alert;

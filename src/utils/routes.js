@@ -27,7 +27,7 @@ import loginPage from '@/pages/login';
 import regPage from '@/pages/register';
 import Password from '@/pages/password';
 import ProductDetail from '@/pages/productDetail';
-// import RulePage from '@/pages/rules';
+import Promote from '@/pages/promote';
 import GetPrize from '@/pages/getPrize';
 import AwardResults from '@/pages/awardResults';
 import PayResult from '@/pages/payResult';
@@ -84,11 +84,11 @@ export const routes = [
   //   exact: true,
   //   component: AddShow,
   // },
-  // {
-  //   path: '/editShow/:id',
-  //   exact: true,
-  //   component: EditShow,
-  // },
+  {
+    path: '/promote',
+    exact: true,
+    component: Promote,
+  },
   {
     path: '/login',
     exact: true,

@@ -8,7 +8,7 @@ import { numFormat } from '@/utils/util';
 import IntegralCard from '@/components/integralCard';
 import changeModalImg from '@/assets/images/changeModal.png';
 import integralBg from '@/assets/images/integral_bg.png';
-import integralBlank from '@/assets/images/integralBlank.png';
+// import integralBlank from '@/assets/images/integralBlank.png';
 
 import styles from './index.less';
 

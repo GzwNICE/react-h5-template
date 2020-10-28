@@ -1,19 +1,12 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { PureComponent } from 'react';
-import { Grid, NavBar } from 'antd-mobile';
+import { NavBar } from 'antd-mobile';
 import { connect } from 'react-redux';
 import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
 import TabBarBox from '@/components/tabBar';
 import authorImg from '@/assets/images/avatar_notlogin.png';
-import ic_gocoin_s from '@/assets/images/ic_gocoin_s.png';
-import goin_arrow from '@/assets/images/personal_ic_arrow@2x.png';
-import wait from '@/assets/images/ic_waiting.png';
-import win from '@/assets/images/ic_gift.png';
-import nowin from '@/assets/images/ic_order.png';
 import ic_vip from '@/assets/images/ic_vip@2x.png';
-import evaluation from '@/assets/images/ic_evaluation.png';
-import sale from '@/assets/images/ic_return.png';
 import ic_jiLu from '@/assets/images/czjl.png';
 import invitation1 from '@/assets/images/ic_invitation@3x.png';
 import evaluation1 from '@/assets/images/ic_evaluation@3x.png';

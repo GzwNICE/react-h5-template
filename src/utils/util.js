@@ -2,10 +2,10 @@ const getBaseUrl = () => {
   let env = process.env.ENV_CONFIG;
   let baseUrl = '';
   if (env === 'development') {
-    baseUrl = 'game-api.fac4155.xyz';
+    baseUrl = 'game-api.fac4155.xyz:8128';
     // baseUrl = '192.168.1.29';
   } else if (env === 'test') {
-    baseUrl = 'game-api.fac4155.xyz';
+    baseUrl = 'game-api.fac4155.xyz:8128';
   } else if (env === 'release') {
     baseUrl = 'test-prod.5151money.cn';
   } else if (env === 'production') {
