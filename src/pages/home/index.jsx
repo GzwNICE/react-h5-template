@@ -25,53 +25,21 @@ class Home extends PureComponent {
     super(props);
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
-      openH: 0,
-      openM: 0,
-      openS: 0,
     };
   }
 
   componentDidMount() {
-    // this.countFun()
-    // const AppId = queryString.parse(window.location.search).Appid;
-    // AppId ? localStorage.setItem('AppId', AppId) : null;
+    const AppId = queryString.parse(window.location.search).channelCode;
+    AppId ? localStorage.setItem('AppId', AppId) : null;
+
     const mobileDevice = queryString.parse(window.location.search).mobileDevice;
     mobileDevice ? localStorage.setItem('mobileDevice', mobileDevice) : null;
+
     request('/v1/active_log.php', {
       method: 'post',
       data: { mobile: localStorage.getItem('mobile') },
     });
   }
-
-  getDateStr(AddDayCount) {
-    var dd = new Date();
-    dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期
-    var y = dd.getFullYear();
-    var m = dd.getMonth() + 1 < 10 ? '0' + (dd.getMonth() + 1) : dd.getMonth() + 1; //获取当前月份的日期，不足10补0
-    var d = dd.getDate() < 10 ? '0' + dd.getDate() : dd.getDate(); //获取当前几号，不足10补0
-    return y + '/' + m + '/' + d;
-  }
-
-  countFun = () => {
-    let endTime = this.getDateStr(1);
-    let end_time = new Date(`${endTime} 00:00:00`).getTime();
-    let now_time = new Date().getTime();
-    var remaining = end_time - now_time;
-    let timer = setInterval(() => {
-      //防止出现负数
-      if (remaining > 1000) {
-        remaining -= 1000;
-        let hour = Math.floor((remaining / 1000 / 3600) % 24);
-        let minute = Math.floor((remaining / 1000 / 60) % 60);
-        let second = Math.floor((remaining / 1000) % 60);
-        this.setState({
-          openH: hour < 10 ? '0' + hour : hour,
-          openM: minute < 10 ? '0' + minute : minute,
-          openS: second < 10 ? '0' + second : second,
-        });
-      }
-    }, 1000);
-  };
 
   handlerGrid = url => {
     if (url === '/commodity') {
@@ -81,19 +49,13 @@ class Home extends PureComponent {
       if (token) {
         this.props.history.push(url);
       } else {
-        this.props.history.push(`/login`);
+        this.props.history.push(`/login?redirect=${this.props.history.location.pathname}`);
       }
     }
   };
 
   render() {
-    const { IPhoneX, openH, openM, openS } = this.state;
-    const bannerList = [
-      {
-        id: 1,
-        imgURL: banner02,
-      },
-    ];
+    const { IPhoneX } = this.state;
     const winnerList = [
       '恭喜134****1236  成为季卡会员；',
       '恭喜131****9970 成为月卡会员；',

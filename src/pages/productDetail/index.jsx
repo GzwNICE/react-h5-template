@@ -37,122 +37,44 @@ class ProductDetail extends PureComponent {
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
       id: this.props.match.params.activityTurnId,
-      countdown: false, //倒计时
-      openH: '00',
-      openM: '00',
-      openS: '00',
-      imgPre: false,
-      imgList: [],
-      imgIndex: 0,
       prodData: '',
-      commentData: ''
+      commentData: '',
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    // this.countFun();
     prodJson.map(i => {
       if (i.id === Number(this.state.id)) {
         this.setState({
-          prodData: i
-        })
-        return
+          prodData: i,
+        });
+        return;
       }
-    })
+    });
     commentJson.map(i => {
       if (i.id === Number(this.state.id)) {
         this.setState({
-          commentData: i.comment
-        })
-        return
-      }
-    })
-  }
-
-  getDateStr(AddDayCount) {
-    var  dd =  new  Date();
-    dd.setDate(dd.getDate()+AddDayCount); //获取AddDayCount天后的日期
-    var  y = dd.getFullYear();
-    var  m = (dd.getMonth()+1)<10? "0" +(dd.getMonth()+1):(dd.getMonth()+1); //获取当前月份的日期，不足10补0
-    var  d = dd.getDate()<10? "0" +dd.getDate():dd.getDate(); //获取当前几号，不足10补0
-    return  y+ "/" +m+ "/" +d;
-  }
-
-  countFun = () => {
-    let endTime = this.getDateStr(1);
-    let end_time = new Date(`${endTime} 00:00:00`).getTime();
-    let now_time = new Date().getTime();
-    var remaining = (end_time - now_time);
-    let timer = setInterval(() => {
-      //防止出现负数
-      if (remaining > 1000) {
-        remaining -= 1000;
-        let hour = Math.floor((remaining / 1000 / 3600) % 24);
-        let minute = Math.floor((remaining / 1000 / 60) % 60);
-        let second = Math.floor((remaining / 1000) % 60);
-        this.setState({
-          openH: hour < 10 ? '0' + hour : hour,
-          openM: minute < 10 ? '0' + minute : minute,
-          openS: second < 10 ? '0' + second : second,
+          commentData: i.comment,
         });
+        return;
       }
-    }, 1000);
-  };
+    });
+  }
 
   goSure = () => {
     const login = localStorage.getItem('mobile');
     if (login) {
       this.props.history.push(`/prize`);
-    }else {
-      this.props.history.push(`/login`);
+    } else {
+      this.props.history.push(`/login?redirect=${this.props.history.location.pathname}`);
     }
   };
 
-  onLikeClick = (id, like) => {
-    const { userStart } = this.props;
-    userStart({
-      topicId: id,
-      likeStatus: like ? 0 : 1,
-    }).then(res => {
-      if (res.code === 200) {
-        this.initShowData();
-      }
-    });
-  };
-
-  imgPreview = (list, index) => {
-    this.setState({
-      imgList: list,
-      imgIndex: index,
-      imgPre: true,
-    });
-  };
-
-  cancelPreview = () => {
-    this.setState({
-      imgList: [],
-      imgIndex: 0,
-      imgPre: false,
-    });
-  };
-
   render() {
-    const {
-      openH,
-      openM,
-      openS,
-      imgPre,
-      imgList,
-      imgIndex,
-      prodData,
-      commentData
-    } = this.state;
+    const { prodData, commentData } = this.state;
     const html = { __html: prodData.content };
-    const { detail, showList } = this.props;
-    const tags =  [
-      '好用+1', '便宜实惠+8', '方便好用+15', '价格优惠+5', '发货超快+8', '效果显著+9'
-    ]
+    const tags = ['好用+1', '便宜实惠+8', '方便好用+15', '价格优惠+5', '发货超快+8', '效果显著+9'];
     return (
       <div className={styles.productPage}>
         <NavBar
@@ -167,14 +89,16 @@ class ProductDetail extends PureComponent {
           <div className={styles.carousel}>
             <img src={imagesContext(prodData.img)} alt="img" className={styles.carouselImg} />
           </div>
-        ): null}
+        ) : null}
         <div className={styles.infoBox}>
           <div className={styles.titleBox}>
             {prodData.name} {prodData.content}
           </div>
           <div className={styles.tipsBox}>
             <span className={styles.l}>温馨提示</span>
-            <span className={styles.r}>支付成功后，该程序安装链接将以卡系统消息推送，可能会因网络有短暂延迟，请关注系统通知，及时查收！</span>
+            <span className={styles.r}>
+              支付成功后，该程序安装链接将以卡系统消息推送，可能会因网络有短暂延迟，请关注系统通知，及时查收！
+            </span>
           </div>
         </div>
         {/* <div className={styles.shipBox}>
@@ -195,14 +119,12 @@ class ProductDetail extends PureComponent {
             </div>
             <div className={styles.tagBox}>
               {tags.map(i => {
-                return <span key={i}>{i}</span>
+                return <span key={i}>{i}</span>;
               })}
             </div>
-            <ShowCard
-              data={commentData && commentData[0]}
-            />
+            <ShowCard data={commentData && commentData[0]} />
           </div>
-        ): null}
+        ) : null}
         {/*<div className={styles.shopDetail}>
           <h3 className={styles.h3tle}>{intl.get('product.productDetails')}</h3>
           {prodData.contentImg ? <img src={lcImg} alt="img"/> : null}

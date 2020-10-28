@@ -35,39 +35,8 @@ class User extends PureComponent {
     };
   }
 
-  componentDidMount() {
-    // this.props.history.push('/login');
-    // const { userInfo } = this.props;
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   userInfo();
-    // }
-  }
   loginCLick() {
     this.props.history.push(`/login`);
-  }
-  onPersonClick() {
-    this.props.history.push(`/personal`);
-  }
-  onPayListClick() {
-    this.props.history.push(`/paylist`);
-  }
-  onMyServerClick(_el) {
-    if (this.state.isLogin) {
-      //1:分享好友; 2:加入社群; 3:帮助中心; 4:意见反馈; 5:设置;
-      this.props.history.push(`/${_el.type}`);
-    } else {
-      //登录
-      this.props.history.push(`/login`);
-    }
-  }
-
-  toOrder(type) {
-    if (this.state.isLogin) {
-      this.props.history.push(`/order/${type}`);
-    } else {
-      this.props.history.push(`/login`);
-    }
   }
 
   goSure = () => {
@@ -88,7 +57,6 @@ class User extends PureComponent {
   }
 
   render() {
-    // const config = JSON.parse(localStorage.getItem('configuration')) || {};
     const list1 = [
       { text: '充值记录', thumb: ic_jiLu, url: `/miss?title=充值记录` },
       { text: '邀请好友', thumb: invitation1, url: `/invitation?t=${new Date().getTime()}` },
@@ -100,7 +68,6 @@ class User extends PureComponent {
       { text: '意见反馈', thumb: feedback1, url: '/feedback' },
       { text: '设置', thumb: set1, url: '/set' },
     ];
-    // const { user } = this.props;
     const { IPhoneX, isLogin, channel } = this.state;
     return (
       <div className={styles.userPage}>

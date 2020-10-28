@@ -16,16 +16,13 @@ class Login extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      login: false,
-      mobile: '',
-      pwVisible: false,
-      lang: Cookies.get('lang'),
+      redirect: queryString.parse(window.location.search).redirect,
     };
   }
   componentDidMount() {
     window.scrollTo(0, 0);
-    const token = localStorage.getItem('mobile');
-    if (token) {
+    const mobile = localStorage.getItem('mobile');
+    if (mobile) {
       this.props.history.push(`/home`);
       return;
     }
@@ -42,14 +39,13 @@ class Login extends PureComponent {
         return Toast.info('请输入密码', 2);
       } else {
         login({
-          mobile: value.mobile.replace(/\s*/g, ""),
+          mobile: value.mobile.replace(/\s*/g, ''),
           password: value.password,
         }).then(res => {
           if (res.code === 200) {
             Toast.success(`${intl.get('login.success')}`, 2);
-            localStorage.setItem('mobile', value.mobile.replace(/\s*/g, ""));
+            localStorage.setItem('mobile', value.mobile.replace(/\s*/g, ''));
             setTimeout(() => {
-              // eslint-disable-next-line react/destructuring-assignment
               this.props.history.go(-1);
             }, 2000);
           }
@@ -58,13 +54,17 @@ class Login extends PureComponent {
     });
   };
 
-  // focus = e => {
-  //   this[e].focus();
-  // };
+  toRegister = () => {
+    const { redirect } = this.state;
+    if (redirect) {
+      this.props.history.push(`/register?redirect=${redirect}`);
+    } else {
+      this.props.history.push(`/register`);
+    }
+  };
 
   render() {
     const { getFieldProps } = this.props.form;
-    const { login, mobile, pwVisible, lang } = this.state;
     return (
       <div className={styles.loginPage}>
         <NavBar
@@ -77,51 +77,44 @@ class Login extends PureComponent {
         >
           登录
         </NavBar>
-          <div className={styles.loginBox}>
-            <div className={`${styles.mobileBox}`}>
-              <InputItem
-                {...getFieldProps('mobile')}
-                placeholder="请填写手机号"
-                type="phone"
-                className={styles.mobile}
-                ref={el => (this.moInput = el)}
-                onClick={() => {
-                  this.moInput.focus();
-                }}
-                onBlur={() => {
-                  window.scrollTo(0, 0);
-                }}
-              ></InputItem>
-            </div>
-            <div className={`${styles.mobileBox} ${styles.passBox}`}>
-              <InputItem
-                {...getFieldProps('password')}
-                placeholder="请输入密码"
-                type="password"
-                className={styles.password}
-                ref={el => (this.pawInput = el)}
-                onClick={() => {
-                  this.pawInput.focus();
-                }}
-                onBlur={() => {
-                  window.scrollTo(0, 0);
-                }}
-              ></InputItem>
-            </div>
-            <Button type="primary" className={styles.nextBut} onClick={this.handleLoginClick}>
-              {intl.get('login.login')}
-            </Button>
-            <Link
-              to={{
-                pathname: '/register',
-                search: `${this.props.history.location.search}`,
-                state: { mobile: mobile },
+        <div className={styles.loginBox}>
+          <div className={`${styles.mobileBox}`}>
+            <InputItem
+              {...getFieldProps('mobile')}
+              placeholder="请填写手机号"
+              type="phone"
+              className={styles.mobile}
+              ref={el => (this.moInput = el)}
+              onClick={() => {
+                this.moInput.focus();
               }}
-              className={styles.forgetPassword}
-            >
-              没有账号？点击注册
-            </Link>
+              onBlur={() => {
+                window.scrollTo(0, 0);
+              }}
+            ></InputItem>
           </div>
+          <div className={`${styles.mobileBox} ${styles.passBox}`}>
+            <InputItem
+              {...getFieldProps('password')}
+              placeholder="请输入密码"
+              type="password"
+              className={styles.password}
+              ref={el => (this.pawInput = el)}
+              onClick={() => {
+                this.pawInput.focus();
+              }}
+              onBlur={() => {
+                window.scrollTo(0, 0);
+              }}
+            ></InputItem>
+          </div>
+          <Button type="primary" className={styles.nextBut} onClick={this.handleLoginClick}>
+            {intl.get('login.login')}
+          </Button>
+          <div onClick={this.toRegister} className={styles.forgetPassword}>
+            没有账号？点击注册
+          </div>
+        </div>
       </div>
     );
   }
@@ -130,7 +123,6 @@ class Login extends PureComponent {
 const mapState = state => ({});
 
 const mapDispatch = dispatch => ({
-  judgeUser: params => dispatch.login.exist(params),
   login: params => dispatch.login.login(params),
 });
 

@@ -35,7 +35,7 @@ class ShopCart extends PureComponent {
           <div className={styles.noLogin}>
           <img src={prompt} alt="" className={styles.errorImg}/>
           <p className={styles.tips}>您还未登录哦，赶紧登录查看吧~</p>
-          <Button type="primary" className={styles.goLogin} onClick={() => this.props.history.push('/login')}>
+          <Button type="primary" className={styles.goLogin} onClick={() => this.props.history.push(`/login?redirect=${this.props.history.location.pathname}`)}>
             登录/注册
           </Button>
         </div>
