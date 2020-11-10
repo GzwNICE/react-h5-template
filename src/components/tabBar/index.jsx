@@ -4,17 +4,14 @@ import { Link } from 'react-router-dom';
 import { Flex, Badge } from 'antd-mobile';
 import intl from 'react-intl-universal';
 import Cookies from 'js-cookie';
-import { push } from 'connected-react-router';
-// import UserPage from '@/pages/user';
-// import HomePage from '@/pages/home';
 import homeSelPng from '@/assets/images/home_selected.png';
 import homePng from '@/assets/images/home.png';
-import allSelected from '@/assets/images/allSelected.png';
-import all from '@/assets/images/all.png';
+import allSelected from '@/assets/images/park_selected.png';
+import all from '@/assets/images/park.png';
 import personal from '@/assets/images/personal.png';
 import personalSel from '@/assets/images/personal_selected.png';
-import message from '@/assets/images/message.png';
-import messageSel from '@/assets/images/messageSel.png';
+import message from '@/assets/images/order.png';
+import messageSel from '@/assets/images/order_selected.png';
 import styles from './index.less';
 
 class TabBarBox extends PureComponent {
@@ -23,11 +20,6 @@ class TabBarBox extends PureComponent {
     this.state = {
       IPhoneX: Cookies.get('IPhoneX'),
     };
-  }
-
-  componentDidMount() {
-    // const { getConf } = this.props;
-    // getConf();
   }
 
   render() {
@@ -47,8 +39,8 @@ class TabBarBox extends PureComponent {
               ) : (
                 <img src={homePng} alt="" />
               )}
-              <span style={{ color: selectedTab === 'homePage' ? '#0091FF' : '#AEAEAE' }}>
-                {intl.get('home.home')}
+              <span style={{ color: selectedTab === 'homePage' ? '#3EE2CA' : '#AEAEAE' }}>
+                首页
               </span>
             </Link>
           </Flex.Item>
@@ -63,8 +55,8 @@ class TabBarBox extends PureComponent {
               ) : (
                 <img src={all} alt="" />
               )}
-              <span style={{ color: selectedTab === 'commodityPage' ? '#0091FF' : '#AEAEAE' }}>
-                全部商品
+              <span style={{ color: selectedTab === 'commodityPage' ? '#3EE2CA' : '#AEAEAE' }}>
+                茶园
               </span>
             </Link>
           </Flex.Item>
@@ -79,8 +71,8 @@ class TabBarBox extends PureComponent {
               ) : (
                 <img src={message} alt="" />
               )}
-              <span style={{ color: selectedTab === 'shoppingCart' ? '#0091FF' : '#AEAEAE' }}>
-                消息
+              <span style={{ color: selectedTab === 'shoppingCart' ? '#3EE2CA' : '#AEAEAE' }}>
+                订单
               </span>
               {homeSys && homeSys.shopCarCount > 0 ? (
                 <Badge
@@ -103,8 +95,8 @@ class TabBarBox extends PureComponent {
               ) : (
                 <img src={personal} alt="" />
               )}
-              <span style={{ color: selectedTab === 'userPage' ? '#0091FF' : '#AEAEAE' }}>
-                {intl.get('home.user')}
+              <span style={{ color: selectedTab === 'userPage' ? '#3EE2CA' : '#AEAEAE' }}>
+                我的
               </span>
             </Link>
           </Flex.Item>
@@ -113,12 +105,8 @@ class TabBarBox extends PureComponent {
     );
   }
 }
-const mapState = state => ({
-  homeSys: state.home.data.homeSys,
-});
+const mapState = state => ({});
 
-const mapDispatch = dispatch => ({
-  getConf: params => dispatch.home.fetchConf(params),
-});
+const mapDispatch = dispatch => ({});
 
 export default connect(mapState, mapDispatch)(TabBarBox);

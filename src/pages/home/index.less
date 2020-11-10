@@ -1,211 +1,22 @@
-.home {
+.homePage {
   width: 100%;
-  overflow: hidden;
-  padding-bottom: 50px;
-  .bannerBox {
-    width: 100%;
-    background-color: #fff;
-    overflow: hidden;
-    padding: 0 12px;
-    box-sizing: border-box;
-    img {
-      display: block;
-      width: 100%;
-      height: 110px;
-      margin: 12px auto;
-    }
+  .navbar {
+    background-image: linear-gradient(135deg, #4DAAF5 0%, #3CEDC2 100%);
   }
-  .winnerItem {
-    width: 100%;
-    background-color: #fff;
-    padding: 6px 12px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    .leftIcon {
-      width: 20px;
-    }
-    span {
-      font-size: 12px;
-      color: #666666;
-      margin-left: 10px;
-    }
-  }
-
   .banner {
-    height: 130px;
-    padding: 0 12px;
-    box-sizing: border-box;
-    overflow: hidden;
-    margin-top: 12px;
-    :global(.am-carousel-wrap-dot>span) {
-      background: #fff;
-    }
-  }
-
-  .classification {
-    padding-top: 20px;
-    max-height: 200px;
-    background-color: #fff;
-    box-sizing: border-box;
-    .classImg {
-      max-width: 46px;
-      max-height: 46px;
-      border-radius: 5px;
-      margin-left: -2px;
-    }
-    .tips {
-      width: 56px;
-      margin: 4px auto;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      font-size:10px;
-      font-family:PingFangSC-Regular,PingFang SC;
-      font-weight:400;
-      color:rgba(102,102,102,1);
-      line-height:12px;
-    }
-  }
-  .onBottom {
     width: 100%;
-    padding: 10px 0;
-    box-sizing: border-box;
-    text-align: center;
-    font-size: 12px;
-    color: #666666;
-  }
-  .allTitle {
-    width: 100%;
-    padding: 10px 12px 0;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .left {
-      font-family: PingFangSC-Medium;
-      font-size: 14px;
-      color: #333333;
-    }
-    .right {
-      font-family: PingFangSC-Regular;
-      font-size: 12px;
-      color: #333333;
-    }
-  }
-  .msBox {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 12px;
-    box-sizing: border-box;
-    margin-top: 20px;
-    img {
-      width: 62px;
-    }
-    .openTips {
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-      color: #333333;
-
-      .time {
-        display: inline-block;
-        font-size: 12px;
-        font-family: PingFangSC-Medium, Arial;
-        color: #fff;
-        width: 18px;
-        height: 18px;
-        line-height: 18px;
-        text-align: center;
-        background:#0091FF;
-        border-radius: 4px;
-        margin: 0 4px;
-      }
-    }
-  }
-  .promotion {
-    width: 100%;
-    margin: 6px 0 10px;
-    padding: 0 12px;
-    box-sizing: border-box;
     img {
       width: 100%;
-      // height: 80px;
-      border-radius: 8px;
-    }
-  }
-
-
-
-  .tabs {
-    padding: 0 12px;
-    box-sizing: border-box;
-    background-color: #F7F7F7;
-    :global(.am-tabs-default-bar-top .am-tabs-default-bar-tab:after) {
-      display: none;
-    }
-    .sortImg {
-      width: 10px;
-      height: 10px;
-      position: absolute;
-      right: 14px;
-      top: 37%;
-      z-index: 3;
-    }
-  }
-
-  .tBar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 50PX;
-    width: 100%;
-  }
-  .tBarIPhone {
-    height: 64PX;
-  }
-  .filling {
-    width: 100%;
-    height: 17px;
-    background-color: #fff;
-    position: fixed;
-    bottom: 17px;
-    left: 0;
-  }
-
-}
-.homePop {
-  :global(.am-modal-content) {
-    padding-top: 0 !important;
-    overflow: initial !important;
-  }
-  :global(.am-modal-body) {
-    padding: 0 !important;
-  }
-  .modalContent {
-    width: 100%;
-    height: 100%;
-    img {
-      display: block;
-      height: 100%;
-      width: 100%;
-      border-radius: 7px;
-    }
-    .close {
-      position: absolute;
-      left: 50%;
-      bottom: -52px;
-      color: #fff;
-      transform: translateX(-50%);
-    }
-    :global(.am-icon-md) {
-      width: 26px;
-      height: 26px;
     }
   }
 }
-
+:global {
+  .am-grid.am-grid-square .am-grid-item .am-grid-item-inner-content .am-grid-icon {
+    width: 45% !important;
+    margin-top: 4px;
+  }
+  .am-grid-text {
+    color: #333333 !important;
+    margin-top: 4px !important;
+  }
+}

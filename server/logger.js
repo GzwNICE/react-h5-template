@@ -24,7 +24,7 @@ const logger = {
       console.log(`Tunnel initialised ${chalk.green('✓')}`);
     }
 
-    openBrowser(`http://${host}:${port}/home`);
+    openBrowser(`http://${host}:${port}`);
 
     console.log(`
       ${chalk.bold('Access URLs:')}${divider}

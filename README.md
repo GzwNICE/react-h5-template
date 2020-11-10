@@ -1,7 +1,7 @@
-# miaosha-h5
+# dating-h5
 
 ## 项目介绍
-miaosha h5项目
+dating h5项目
 
 ## 运行
 1. yarn / npm install  安装依赖
@@ -12,11 +12,7 @@ miaosha h5项目
    react: https://reactjs.bootcss.com/docs/getting-started.html
    redux: https://www.redux.org.cn/docs/react-redux/
 
-2. 国际化多语言使用  react-intl-universal 由阿里巴巴推出的react国际化库
-   github官网：https://github.com/alibaba/react-intl-universal
-   多类型字段国际化使用参考： https://juejin.im/post/5d11ae8b6fb9a07ee4637047#heading-18
-
-3. UI库使用  antd-mobile  阿里巴巴前端UI框架
+2. UI库使用  antd-mobile  阿里巴巴前端UI框架
    官网：https://mobile.ant.design/docs/react/introduce-cn
 
 ## :star: 特性
@@ -35,7 +31,6 @@ miaosha h5项目
     ├── server 服务端，承载 HMR，mock，proxy
     ├── src 源代码
         ├── components 公共组件
-        ├── locales 国际化文档
         ├── models  sotre/reducers
         ├── pages  页面文件
         ├── services  请求方法地址
