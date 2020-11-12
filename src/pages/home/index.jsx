@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavBar, Grid } from 'antd-mobile';
+import Cookies from 'js-cookie';
+import { NavBar, Grid, Carousel, Flex } from 'antd-mobile';
 import TabBarBox from '@/components/tabBar';
-import banner01 from "@/assets/images/banner01.png";
-import styles from './index.less'
+import Card from '@/components/card'
+import banner01 from '@/assets/images/banner01.png';
+import banner02 from '@/assets/images/banner02.png';
+import banner03 from '@/assets/images/banner03.png';
+import styles from './index.less';
 
 export class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      IPhoneX: Cookies.get('IPhoneX')
+    };
   }
 
   render() {
+    const { IPhoneX } = this.state;
     const gridData = [
       {
         icon: require('@/assets/images/yuYue.png'),
@@ -32,20 +39,51 @@ export class Home extends Component {
       {
         icon: require('@/assets/images/opinions.png'),
         text: '意见收集',
-      }
-    ]
+      },
+    ];
+    const bannerData = [{img: banner01 , id: 1}, {img: banner02 , id: 2}, {img: banner03 , id: 3}]
     return (
       <div className={styles.homePage}>
-        <NavBar
-          className={styles.navbar}
+        <NavBar className={styles.navbar}>首页</NavBar>
+        <Carousel
+          autoplay
+          autoplayInterval={2000}
+          infinite
+          className={styles.bannerBox}
         >
-          首页
-        </NavBar>
-        <div className={styles.banner}>
-          <img src={banner01} alt="banner"/>
-        </div>
+          {bannerData.map(val => {
+            return <div key={val.id} className={styles.item}><img src={val.img} alt="banner" /></div>;
+          })}
+        </Carousel>
         <div className={styles.classBox}>
-          <Grid data={gridData} columnNum={5} />
+          <Grid data={gridData} columnNum={5} hasLine={false} />
+        </div>
+        <div className={styles.content} style={{ marginBottom: IPhoneX === 'true' ? '64px' : '50px'}}>
+          <div className={styles.titleBox}>
+            <div className={styles.ll}>
+              <span className={styles.ss}></span>
+              <span className={styles.text}>推荐</span>
+            </div>
+            <div className={styles.rr}>查看更多</div>
+          </div>
+          <Flex wrap="wrap" justify="between" className={styles.recommend}>
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+          </Flex>
+          <div className={styles.titleBox}>
+            <div className={styles.ll}>
+              <span className={styles.ss}></span>
+              <span className={styles.text}>人气</span>
+            </div>
+            <div className={styles.rr}>查看更多</div>
+          </div>
+          <Flex wrap="wrap" justify="between" className={styles.recommend}>
+            <Card />
+            <Card />
+          </Flex>
+          <div className={styles.look}>查看全部</div>
         </div>
         <TabBarBox selectedTab="homePage" />
       </div>

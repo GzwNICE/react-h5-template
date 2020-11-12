@@ -47,15 +47,15 @@ class TabBarBox extends PureComponent {
           <Flex.Item className={styles.Item}>
             <Link
               to={{
-                pathname: '/commodity',
+                pathname: '/garden',
               }}
             >
-              {selectedTab === 'commodityPage' ? (
+              {selectedTab === 'garden' ? (
                 <img src={allSelected} alt="" />
               ) : (
                 <img src={all} alt="" />
               )}
-              <span style={{ color: selectedTab === 'commodityPage' ? '#3EE2CA' : '#AEAEAE' }}>
+              <span style={{ color: selectedTab === 'garden' ? '#3EE2CA' : '#AEAEAE' }}>
                 茶园
               </span>
             </Link>
