@@ -67,10 +67,7 @@ export class Home extends Component {
             <div className={styles.rr}>查看更多</div>
           </div>
           <Flex wrap="wrap" justify="between" className={styles.recommend}>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Card type='home' />
           </Flex>
           <div className={styles.titleBox}>
             <div className={styles.ll}>
@@ -80,8 +77,7 @@ export class Home extends Component {
             <div className={styles.rr}>查看更多</div>
           </div>
           <Flex wrap="wrap" justify="between" className={styles.recommend}>
-            <Card />
-            <Card />
+            <Card type='home' />
           </Flex>
           <div className={styles.look}>查看全部</div>
         </div>

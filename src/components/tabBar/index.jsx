@@ -63,15 +63,15 @@ class TabBarBox extends PureComponent {
           <Flex.Item className={styles.Item}>
             <Link
               to={{
-                pathname: '/shopCart',
+                pathname: '/order',
               }}
             >
-              {selectedTab === 'shoppingCart' ? (
+              {selectedTab === 'order' ? (
                 <img src={messageSel} alt="" />
               ) : (
                 <img src={message} alt="" />
               )}
-              <span style={{ color: selectedTab === 'shoppingCart' ? '#3EE2CA' : '#AEAEAE' }}>
+              <span style={{ color: selectedTab === 'order' ? '#3EE2CA' : '#AEAEAE' }}>
                 订单
               </span>
               {homeSys && homeSys.shopCarCount > 0 ? (
@@ -90,12 +90,12 @@ class TabBarBox extends PureComponent {
                 pathname: '/user',
               }}
             >
-              {selectedTab === 'userPage' ? (
+              {selectedTab === 'user' ? (
                 <img src={personalSel} alt="" />
               ) : (
                 <img src={personal} alt="" />
               )}
-              <span style={{ color: selectedTab === 'userPage' ? '#3EE2CA' : '#AEAEAE' }}>
+              <span style={{ color: selectedTab === 'user' ? '#3EE2CA' : '#AEAEAE' }}>
                 我的
               </span>
             </Link>
