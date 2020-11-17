@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
-import { Grid } from 'antd-mobile';
+import { Grid, List } from 'antd-mobile';
 import TabBarBox from '@/components/tabBar';
 import avatar from '@/assets/images/avatar.png';
 import crown from '@/assets/images/crown.png';
+import hot from '@/assets/images/hot.png';
 import styles from './index.less'
 
-
+const Item = List.Item;
 export class User extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +32,40 @@ export class User extends Component {
         text: '账单',
       }
     ];
+    const list1 = [
+      {
+        icon: require('@/assets/images/ic_invitation.png'),
+        text: '邀请有奖',
+        hot: true
+      },
+      {
+        icon: require('@/assets/images/ic_zhaopin.png'),
+        text: '技师招聘',
+        hot: true
+      },
+      {
+        icon: require('@/assets/images/ic_teach.png'),
+        text: '预约教程',
+      },
+      {
+        icon: require('@/assets/images/ic_ping.png'),
+        text: '我的评价',
+      }
+    ];
+    const list2 = [
+      {
+        icon: require('@/assets/images/ic_service.png'),
+        text: '帮助中心',
+      },
+      {
+        icon: require('@/assets/images/feedback.png'),
+        text: '意见反馈',
+      },
+      {
+        icon: require('@/assets/images/ic_set.png'),
+        text: '设置',
+      }
+    ];
     return (
       <div className={styles.userPage}>
         <div className={styles.header}>
@@ -49,6 +84,36 @@ export class User extends Component {
             <span className={styles.bt}>立即开通</span>
           </div>
         </div>
+        <List className={styles.list}>
+          {list1.map(i => {
+            return (
+              <Item
+                thumb={i.icon}
+                arrow="horizontal"
+                onClick={() => {}}
+                key={i.text}
+              >
+                {i.text}
+                {i.hot ? <img src={hot} alt="" className={styles.hotImg}/> : null}
+              </Item>
+            )
+          })}
+        </List>
+        <List className={styles.list}>
+          {list2.map(i => {
+            return (
+              <Item
+                thumb={i.icon}
+                arrow="horizontal"
+                onClick={() => {}}
+                key={i.text}
+              >
+                {i.text}
+                {i.hot ? <img src={hot} alt="" className={styles.hotImg}/> : null}
+              </Item>
+            )
+          })}
+        </List>
         <TabBarBox selectedTab="user" />
       </div>
     );

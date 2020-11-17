@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const FirendlyErrorePlugin = require('friendly-errors-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');  //文件压缩
 
 const appSrc = path.join(process.cwd(), 'src');
 
@@ -125,13 +126,13 @@ module.exports = options => {
           ],
         },
         {
-          test: /\.(jpg|png|gif)$/,
+          test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
           use: [
             {
               loader: 'url-loader',
               options: {
                 // Inline files smaller than 10 kB
-                limit: 10 * 1024,
+                limit: 1 * 1024,
               },
             },
           ],
@@ -162,6 +163,7 @@ module.exports = options => {
       }),
       new ProgressBarPlugin(),
       new FirendlyErrorePlugin(),
+      new CompressionPlugin(),
     ]),
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],

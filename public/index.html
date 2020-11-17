@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
-
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -16,8 +15,6 @@
   <meta name="browsermode" content="application">
   <title>约爱</title>
 </head>
-<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script> -->
 <body>
   <div id="root"></div>
 </body>
@@ -41,6 +38,11 @@
       'script>'
     );
   }
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script>
+  eruda.init();
+  console.log('白屏时间为：',new Date() - performance.timing.navigationStart)
 </script>
 <script>
   (function (doc, win) {

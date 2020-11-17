@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'antd-mobile';
+import { Link } from 'react-router-dom';
 import message from '@/assets/images/nomessage.png';
 import styles from './index.less';
 
@@ -10,9 +11,12 @@ export class Blank extends Component {
       <div className={styles.blankBox}>
         <img src={message} alt=""/>
         <span className={styles.text}>暂无订单</span>
-        <Button type="primary" className={styles.btn} onClick={this.goSure}>
-          去首页
-        </Button>
+        <Link
+          to={{
+            pathname: '/',
+          }}
+          className={styles.btn}
+        >去首页</Link>
       </div>
     )
   }
