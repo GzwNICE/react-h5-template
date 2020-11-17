@@ -7,17 +7,12 @@
     content="width=device-width, initial-scale=1, shrink-to-fit=no,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <meta name="renderer" content="webkit" />
   <meta name="force-rendering" content="webkit" />
-  <meta name='full-screen' content='true' />
-  <meta name='x5-fullscreen' content='true' />
-  <meta name='360-fullscreen' content='true' />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="full-screen" content="yes">
   <meta name="browsermode" content="application">
   <title>约爱</title>
 </head>
-<body>
-  <div id="root"></div>
-</body>
+<!-- 移动端点击300ms延迟处理 -->
 <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
 <script>
   if ('addEventListener' in document) {
@@ -39,11 +34,18 @@
     );
   }
 </script>
+
+<body>
+  <div id="root"></div>
+</body>
+
+<!-- 调试工具 -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/eruda"></script>
 <script>
-  eruda.init();
-  console.log('白屏时间为：',new Date() - performance.timing.navigationStart)
+    eruda.init();
+    console.log('白屏时间为：',new Date() - performance.timing.navigationStart)
 </script>
+
 <script>
   (function (doc, win) {
     var docEl = doc.documentElement,
