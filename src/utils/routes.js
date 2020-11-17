@@ -2,6 +2,8 @@ import Home from '@/pages/home';
 import Garden from '@/pages/garden';
 import Order from '@/pages/order';
 import User from '@/pages/user';
+import Login from '@/pages/login';
+import FeedBack from '@/pages/feedback';
 
 export const routes = [
   {
@@ -28,5 +30,15 @@ export const routes = [
     path: '/user',
     exact: true,
     component: User,
+  },
+  {
+    path: '/login',
+    exact: true,
+    component: Login,
+  },
+  {
+    path: '/feedBack',
+    exact: true,
+    component: FeedBack,
   }
 ];

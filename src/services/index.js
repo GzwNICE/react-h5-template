@@ -1,5 +1,5 @@
-// import * as homeService from '@/services/home';
+import * as homeService from '@/services/home';
 
 export {
-  // homeService,
+  homeService,
 };

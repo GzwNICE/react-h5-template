@@ -17,6 +17,10 @@ export class User extends Component {
     };
   }
 
+  listClick (url) {
+    this.props.history.push(url);
+  }
+
   render() {
     const gridData = [
       {
@@ -60,6 +64,7 @@ export class User extends Component {
       {
         icon: require('@/assets/images/feedback.png'),
         text: '意见反馈',
+        url: '/feedBack'
       },
       {
         icon: require('@/assets/images/ic_set.png'),
@@ -90,7 +95,7 @@ export class User extends Component {
               <Item
                 thumb={i.icon}
                 arrow="horizontal"
-                onClick={() => {}}
+                onClick={() => this.listClick(i.url)}
                 key={i.text}
               >
                 {i.text}
@@ -105,7 +110,7 @@ export class User extends Component {
               <Item
                 thumb={i.icon}
                 arrow="horizontal"
-                onClick={() => {}}
+                onClick={() => this.listClick(i.url)}
                 key={i.text}
               >
                 {i.text}

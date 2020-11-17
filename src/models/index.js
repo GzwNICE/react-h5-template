@@ -1,5 +1,5 @@
-// import { home } from '@/models/home';
+import { home } from '@/models/home';
 
 export {
-  // home,
+  home,
 };
