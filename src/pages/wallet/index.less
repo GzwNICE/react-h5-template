@@ -1,0 +1,102 @@
+.wallet {
+  width: 100%;
+  padding-top: 45PX;
+
+  .navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-image: linear-gradient(135deg, #4DAAF5 0%, #3CEDC2 100%);
+  }
+
+  .balance {
+    width: 100%;
+    height: 100px;
+    background-color: #fff;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .text {
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      line-height: 14px;
+      color: #333333;
+      margin-top: 12px;
+    }
+    .money {
+      font-family: PingFangSC-Medium;
+      font-size: 22px;
+      line-height: 22px;
+      color: #333333;
+      margin-top: 20px;
+    }
+  }
+  .selectTitle {
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    color: #333333;
+  }
+
+  .goodInfo {
+    width: 100%;
+    background-color: #fff;
+    padding: 16px 12px 10px;
+    box-sizing: border-box;
+    .cardItem {
+      width: 110px;
+      height: 76px;
+      border: 1px solid #F7F7F7;
+      background: #F7F7F7;
+      border-radius: 8px;
+      padding: 12px 8px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      .tLName {
+        font-size: 14px;
+        color: #333333;
+      }
+      .tLIcon {
+        font-size: 10px;
+        color: #FFFFFF;
+        background: #F54343;
+        border-radius: 10px 10px 10px 0;
+        padding: 1px 4px;
+        position: absolute;
+        top: -8px;
+        left: 0;
+      }
+      .bl {
+        margin-top: 8px;
+        .ttL {
+          font-family: PingFangSC-Medium;
+          font-size: 16px;
+          color: #333333;
+        }
+        .ttR {
+          font-family: PingFangSC-Regular;
+          font-size: 14px;
+          color: #333333;
+        }
+      }
+    }
+    .cardSel {
+      background: #DDFEF7;
+      border: 1px solid #3DEAC4;
+    }
+  }
+
+  .payBox {
+    margin-top: 10px;
+  }
+}

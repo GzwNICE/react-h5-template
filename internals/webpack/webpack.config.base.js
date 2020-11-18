@@ -32,34 +32,34 @@ module.exports = options => {
             options: options.babelQuery,
           },
         },
-        {
-          // Preprocess our own .css files
-          // This is the place to add your own loaders (e.g. sass/less etc.)
-          // for a list of loaders, see https://webpack.js.org/loaders/#styling
-          test: /\.(scss|css)$/,
-          include: /node_modules/,
-          use: [
-            'style-loader',
-            { loader: 'css-loader', options: { importLoaders: 1 } },
-            'postcss-loader',
-            'sass-loader',
-          ],
-        },
-        {
-          test: /\.(scss|css)$/,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'style-loader',
-              options: {
-                hmr: false,
-              },
-            },
-            { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
-            'postcss-loader',
-            'sass-loader',
-          ],
-        },
+        // {
+        //   // Preprocess our own .css files
+        //   // This is the place to add your own loaders (e.g. sass/less etc.)
+        //   // for a list of loaders, see https://webpack.js.org/loaders/#styling
+        //   test: /\.(scss|css)$/,
+        //   include: /node_modules/,
+        //   use: [
+        //     'style-loader',
+        //     { loader: 'css-loader', options: { importLoaders: 1 } },
+        //     'postcss-loader',
+        //     'sass-loader',
+        //   ],
+        // },
+        // {
+        //   test: /\.(scss|css)$/,
+        //   exclude: /node_modules/,
+        //   use: [
+        //     {
+        //       loader: 'style-loader',
+        //       options: {
+        //         hmr: false,
+        //       },
+        //     },
+        //     { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
+        //     'postcss-loader',
+        //     'sass-loader',
+        //   ],
+        // },
         {
           test: /\.less$/,
           include: /node_modules/,
@@ -133,6 +133,7 @@ module.exports = options => {
               options: {
                 // Inline files smaller than 10 kB
                 limit: 1 * 1024,
+                // name: 'assets/images/[name][hash:8].[ext]',
               },
             },
           ],
@@ -163,7 +164,7 @@ module.exports = options => {
       }),
       new ProgressBarPlugin(),
       new FirendlyErrorePlugin(),
-      new CompressionPlugin(),
+      // new CompressionPlugin(),
     ]),
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],

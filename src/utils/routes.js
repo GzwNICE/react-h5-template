@@ -3,7 +3,9 @@ import Garden from '@/pages/garden';
 import Order from '@/pages/order';
 import User from '@/pages/user';
 import Login from '@/pages/login';
+import Register from '@/pages/register';
 import FeedBack from '@/pages/feedback';
+import Wallet from '@/pages/wallet';
 
 export const routes = [
   {
@@ -37,8 +39,18 @@ export const routes = [
     component: Login,
   },
   {
+    path: '/register',
+    exact: true,
+    component: Register,
+  },
+  {
     path: '/feedBack',
     exact: true,
     component: FeedBack,
+  },
+  {
+    path: '/wallet',
+    exact: true,
+    component: Wallet,
   }
 ];

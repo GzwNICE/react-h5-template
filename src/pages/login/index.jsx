@@ -120,7 +120,7 @@ class Login extends PureComponent {
 const mapState = state => ({});
 
 const mapDispatch = dispatch => ({
-  login: params => dispatch.login.login(params),
+  login: params => dispatch.home.login(params),
 });
 
 export default connect(mapState, mapDispatch)(createForm()(Login));

@@ -106,6 +106,13 @@ html {
   }
 }
 
-:global(.am-button-primary:before) {
-  display: none;
+:global {
+  .am-button-primary:before {
+    display: none !important;
+  }
+  .am-list-body:before {
+    display: none !important;
+  }
 }
+
+

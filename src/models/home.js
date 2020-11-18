@@ -9,5 +9,9 @@ export const home = createModel({
       const response = await homeService.userLogin(payload);
       return response;
     },
+    async userRegister(payload) {
+      const response = await homeService.register(payload);
+      return response;
+    },
   }),
 });
