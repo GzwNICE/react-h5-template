@@ -13,7 +13,9 @@ export class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      IPhoneX: Cookies.get('IPhoneX')
+      IPhoneX: Cookies.get('IPhoneX'),
+      isLogin: localStorage.getItem('mobile'),
+      channel: localStorage.getItem('AppId'),
     };
   }
 
@@ -21,7 +23,12 @@ export class User extends Component {
     this.props.history.push(url);
   }
 
+  loginCLick = () => {
+    this.props.history.push(`/login`);
+  }
+
   render() {
+    const { isLogin, channel } = this.state;
     const gridData = [
       {
         icon: require('@/assets/images/wallet.png'),
@@ -44,7 +51,7 @@ export class User extends Component {
       },
       {
         icon: require('@/assets/images/ic_zhaopin.png'),
-        text: '技师招聘',
+        text: '技师招募',
         hot: true
       },
       {
@@ -75,8 +82,14 @@ export class User extends Component {
       <div className={styles.userPage}>
         <div className={styles.header}>
           <img src={avatar} alt="" className={styles.avatar} />
-          <span className={styles.username}>098****4111</span>
-          <span className={styles.code}>推广码：1HE6H</span>
+          {isLogin ? (
+            <div className={styles.authorName}>
+              <span className={styles.username}>098****4111</span>
+              <span className={styles.code}>推广码：1HE6H</span>
+            </div>
+          ): (
+            <div className={styles.authorLogin} onClick={this.loginCLick}>注册/登录</div>
+          )}
         </div>
         <div className={styles.gridBox}>
           <Grid data={gridData} columnNum={3} hasLine={false} itemStyle={{ height: 80 }} activeStyle={false} />

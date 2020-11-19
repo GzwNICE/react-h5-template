@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavBar, Icon, Flex, List, Toast } from 'antd-mobile';
+import { NavBar, Icon, Flex, List, Toast, Button } from 'antd-mobile';
 import aliPay from '@/assets/images/ic_alipay@2x.png';
 import weChat from '@/assets/images/ic_WeChatpay@2x.png';
 import unIonPay from '@/assets/images/ic_unionpay@2x.png';
+import vipCard from '@/assets/images/card_vip@2x.png';
 import styles from './index.less';
 
 const Item = List.Item;
@@ -12,21 +13,22 @@ export class Wallet extends Component {
     super(props);
     this.state = {
       cardSelect: 80,
+      page: 'wallet',
     };
   }
 
   cardClick(price) {
     this.setState({
-      cardSelect: price
-    })
+      cardSelect: price,
+    });
   }
 
   withdrawal = () => {
-    Toast.offline('暂无余额提现', 2)
-  }
+    Toast.offline('暂无余额提现', 2);
+  };
 
   render() {
-    const { cardSelect } = this.state;
+    const { cardSelect, page } = this.state;
     const cardList = [
       {
         price: 1,
@@ -72,10 +74,16 @@ export class Wallet extends Component {
         >
           我的钱包
         </NavBar>
-        <div className={styles.balance}>
-          <span className={styles.text}>账户余额（元）</span>
-          <span className={styles.money}>0.00</span>
-        </div>
+        {page === 'wallet' ? (
+          <div className={styles.balance}>
+            <span className={styles.text}>账户余额（元）</span>
+            <span className={styles.money}>0.00</span>
+          </div>
+        ) : (
+          <div className={styles.vipBox}>
+            <img src={vipCard} alt="" />
+          </div>
+        )}
         <div className={styles.selectTitle}>选择会员套餐</div>
         <Flex className={styles.goodInfo} justify="between" wrap="wrap">
           {cardList.map(i => {
@@ -91,29 +99,43 @@ export class Wallet extends Component {
                 {i.price === 1 ? <span className={styles.tLIcon}>新用户专享</span> : null}
                 <div className={styles.bl}>
                   <span className={styles.ttL}>{`¥ ${i.price}`}</span>
-                  {i.data === '永久' ? null : (
-                    <span className={styles.ttR}>{`/${i.data}天`}</span>
-                  )}
+                  {i.data === '永久' ? null : <span className={styles.ttR}>{`/${i.data}天`}</span>}
                 </div>
               </div>
             );
           })}
         </Flex>
         <List className={styles.payBox}>
-          <Item
-            thumb={aliPay}
-            extra={<Icon type="check-circle" color="#40D622" size="xs"  />}
-          >支付宝支付</Item>
-          <Item
-            thumb={weChat}
-            extra={'敬请期待'}
-          >微信支付</Item>
-          <Item
-            thumb={unIonPay}
-            extra={'敬请期待'}
-          >银行卡支付</Item>
+          <Item thumb={aliPay} extra={<Icon type="check-circle" color="#40D622" size="xs" />}>
+            支付宝支付
+          </Item>
+          <Item thumb={weChat} extra={'敬请期待'}>
+            微信支付
+          </Item>
+          <Item thumb={unIonPay} extra={'敬请期待'}>
+            银行卡支付
+          </Item>
         </List>
-
+        <div className={styles.tips}>
+          <span className={styles.tt}>温馨提示：</span>
+          {page === 'wallet' ? (
+            <span>
+              <br />
+              余额可随时提现，100元以下提现需收取5%手续费，提现请联系客服或后台反馈申请;
+            </span>
+          ) : (
+            <span>会员套餐充值不支持退款哦</span>
+          )}
+        </div>
+        <div className={styles.bottomBox}>
+          <div className={styles.ll}>
+            <span className={styles.zf}>支付：¥</span>
+            <span className={styles.q}> 68</span>
+          </div>
+          <Button type="primary" className={styles.nextBut}>
+            登录
+          </Button>
+        </div>
       </div>
     );
   }

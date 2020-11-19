@@ -1,6 +1,7 @@
 .wallet {
   width: 100%;
   padding-top: 45PX;
+  padding-bottom: 78px;
 
   .navbar {
     width: 100%;
@@ -9,6 +10,16 @@
     left: 0;
     width: 100%;
     background-image: linear-gradient(135deg, #4DAAF5 0%, #3CEDC2 100%);
+  }
+
+  .vipBox {
+    width: 100%;
+    box-sizing: border-box;
+    img {
+      width: 100%;
+      margin: 0 auto;
+      display: block;
+    }
   }
 
   .balance {
@@ -98,5 +109,55 @@
 
   .payBox {
     margin-top: 10px;
+  }
+
+  .tips {
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #333333;
+    padding: 12px;
+    box-sizing: border-box;
+    .tt {
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    span {
+      font-family: PingFangSC-Regular;
+      color: #666666;
+    }
+  }
+
+  .bottomBox {
+    background: rgba(255,255,255,0.92);
+    box-shadow: 0 -2px 2px 1px rgba(0,0,0,0.05);
+    width: 100%;
+    height: 64px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:  0 14px;
+    box-sizing: border-box;
+    .ll {
+      .zf {
+        font-family: PingFangSC-Regular;
+        font-size: 16px;
+        color: #333333;
+      }
+      .q {
+        font-family: PingFangSC-Medium;
+        font-size: 20px;
+        color: #FF1C1C;
+      }
+    }
+    .nextBut {
+      width: 123px;
+      height: 44px;
+      line-height: 44px;
+      border-radius: 22px;
+      background-image: linear-gradient(135deg, #4DAAF5 0%, #3CEDC2 100%);
+    }
   }
 }
