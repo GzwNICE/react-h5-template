@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import { NavBar, Tabs } from 'antd-mobile';
 import TabBarBox from '@/components/tabBar';
-import Card from '@/components/card'
 import styles from './index.less';
 
 export class Garden extends Component {
