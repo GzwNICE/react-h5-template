@@ -36,15 +36,3 @@ react-h5项目
         ├── services  请求方法地址
         ├── utlis   各种封装/路由/请求
 
-
-## :bookmark_tabs: 文档
-
-- [项目使用指南](./docs/项目使用指南.md)
-
-- [Git Commit 规范](./docs/Git%20Commit规范.md)
-
-- [版本规范.md](./版本规范.md)
-
-## :paperclip: 更新日志
-
-[CHANGELOG.md](./CHANGELOG.md)
