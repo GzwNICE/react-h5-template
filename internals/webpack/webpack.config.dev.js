@@ -23,7 +23,7 @@ module.exports = require('./webpack.config.base')({
   devServer: {
     contentBase: path.resolve(__dirname),
     hot: true,
-//     proxy: {
+//     proxy: { //本地开发跨域需要的话打开
 //       '/API': {    // 定义代理的名称
 //         changeOrigin: true,  // 是否启动代理
 //         target: 'http://192.168.1.29', // 代理的域名

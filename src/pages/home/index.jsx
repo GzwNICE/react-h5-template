@@ -1,94 +1,54 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
-import { NavBar, Grid, Carousel, Flex } from 'antd-mobile';
+import { NavBar } from 'antd-mobile';
 import TabBarBox from '@/components/tabBar';
-import Card from '@/components/card'
-import banner01 from '@/assets/images/banner01.png';
-import banner02 from '@/assets/images/banner02.png';
-import banner03 from '@/assets/images/banner03.png';
 import styles from './index.less';
 
 export class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      IPhoneX: Cookies.get('IPhoneX')
+      IPhoneX: Cookies.get('IPhoneX'),
+      champion: [2015, 2017, 2018]
     };
   }
 
+  handleClick = () => {
+    const { homeRedux } = this.props
+    homeRedux(30)
+  }
+
   render() {
-    const { IPhoneX } = this.state;
-    const gridData = [
-      {
-        icon: require('@/assets/images/yuYue.png'),
-        text: '预约教程',
-      },
-      {
-        icon: require('@/assets/images/zhaoMu.png'),
-        text: '技师招募',
-      },
-      {
-        icon: require('@/assets/images/jiSu.png'),
-        text: '极速预约',
-      },
-      {
-        icon: require('@/assets/images/yaoQing.png'),
-        text: '邀请有奖',
-      },
-      {
-        icon: require('@/assets/images/opinions.png'),
-        text: '意见收集',
-      },
-    ];
-    const bannerData = [{img: banner01 , id: 1}, {img: banner02 , id: 2}, {img: banner03 , id: 3}]
+    const { homeData } = this.props //props来源于redux
+    const { champion } = this.state //state来源于页面自身管理的状态
+    console.log(`我是首页redux中获取的props： ${homeData.name} ${homeData.achievement}`);
+    console.log(`我是首页的state： ${champion}`);
     return (
       <div className={styles.homePage}>
         <NavBar className={styles.navbar}>首页</NavBar>
-        <Carousel
-          autoplay
-          autoplayInterval={2000}
-          infinite
-          className={styles.bannerBox}
-        >
-          {bannerData.map(val => {
-            return <div key={val.id} className={styles.item}><img src={val.img} alt="banner" /></div>;
+        <div>{`${homeData.name} NBA2015-2016年常规赛 ${homeData.achievement}`}</div>
+        <div>{`${homeData.name} 获得三次总冠军分别是：`}</div>
+        <span>
+          {champion.map(i => {
+            return `${i},`
           })}
-        </Carousel>
-        <div className={styles.classBox}>
-          <Grid data={gridData} columnNum={5} hasLine={false} />
-        </div>
-        <div className={styles.content} style={{ marginBottom: IPhoneX === 'true' ? '64px' : '50px'}}>
-          <div className={styles.titleBox}>
-            <div className={styles.ll}>
-              <span className={styles.ss}></span>
-              <span className={styles.text}>推荐</span>
-            </div>
-            <div className={styles.rr}>查看更多</div>
-          </div>
-          <Flex wrap="wrap" justify="between" className={styles.recommend}>
-            <Card type='home' />
-          </Flex>
-          <div className={styles.titleBox}>
-            <div className={styles.ll}>
-              <span className={styles.ss}></span>
-              <span className={styles.text}>人气</span>
-            </div>
-            <div className={styles.rr}>查看更多</div>
-          </div>
-          <Flex wrap="wrap" justify="between" className={styles.recommend}>
-            <Card type='home' />
-          </Flex>
-          <div className={styles.look}>查看全部</div>
-        </div>
+        </span>
+        <div onClick={this.handleClick} className={styles.btn}>点击改变MVP数据</div>
+        {/* 父组件传值给子组件，自定义props名，值可以是任意内容，包括state和props  */}
         <TabBarBox selectedTab="homePage" />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({ // Props
+  homeData: state.home.homeData
+  //redux中首页的数据关连到首页，都在此获取，homeData定义在 /models/home.js 中的state中，可以定义多个数据，分别引入，处理不同的逻辑，如果单纯做数据展示，不推荐使用redux
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => ({ // 页面中的接口请求和改变redux中props值
+  homeRedux: params => dispatch.home.changeHomeData(params),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

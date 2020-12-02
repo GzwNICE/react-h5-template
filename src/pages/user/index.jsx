@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 import { Grid, List } from 'antd-mobile';
 import TabBarBox from '@/components/tabBar';
 import avatar from '@/assets/images/avatar.png';
@@ -43,26 +44,6 @@ export class User extends Component {
         text: '账单',
       }
     ];
-    const list1 = [
-      {
-        icon: require('@/assets/images/ic_invitation.png'),
-        text: '邀请有奖',
-        hot: true
-      },
-      {
-        icon: require('@/assets/images/ic_zhaopin.png'),
-        text: '技师招募',
-        hot: true
-      },
-      {
-        icon: require('@/assets/images/ic_teach.png'),
-        text: '预约教程',
-      },
-      {
-        icon: require('@/assets/images/ic_ping.png'),
-        text: '我的评价',
-      }
-    ];
     const list2 = [
       {
         icon: require('@/assets/images/ic_service.png'),
@@ -93,7 +74,7 @@ export class User extends Component {
         </div>
         <div className={styles.gridBox}>
           <Grid data={gridData} columnNum={3} hasLine={false} itemStyle={{ height: 80 }} activeStyle={false} />
-          <div className={styles.vipBox}>
+          <div className={styles.vipBox} onClick={(e) => {console.log(e)}}>
             <div className={styles.ll}>
               <img src={crown} alt=""/>
               <span className={styles.kt}>开通会员</span>
@@ -102,21 +83,7 @@ export class User extends Component {
             <span className={styles.bt}>立即开通</span>
           </div>
         </div>
-        <List className={styles.list}>
-          {list1.map(i => {
-            return (
-              <Item
-                thumb={i.icon}
-                arrow="horizontal"
-                onClick={() => this.listClick(i.url)}
-                key={i.text}
-              >
-                {i.text}
-                {i.hot ? <img src={hot} alt="" className={styles.hotImg}/> : null}
-              </Item>
-            )
-          })}
-        </List>
+
         <List className={styles.list}>
           {list2.map(i => {
             return (

@@ -28,8 +28,7 @@ export class Garden extends Component {
         <div className={`${styles.tabBox} ${IPhoneX === 'true' ? `${styles.tabBoxIPhone}` : null}`} >
           <Tabs tabs={tabs} tabBarActiveTextColor="#333333" tabBarInactiveTextColor="#333333" tabBarUnderlineStyle={{ height: 4, width: 24, marginLeft: '38px', backgroundImage: 'linear-gradient(135deg, #4DAAF5 0%, #3CEDC2 100%)', border: 'none', borderRadius: '2px' }}>
             <div key="1">
-              <Card type='garden' />
-              <Card type='garden' />
+              1
             </div>
             <div key="2">2</div>
             <div key="3">3</div>

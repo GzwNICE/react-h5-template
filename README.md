@@ -1,7 +1,7 @@
-# dating-h5
+# react-h5
 
 ## 项目介绍
-dating h5项目
+react-h5项目
 
 ## 运行
 1. yarn / npm install  安装依赖
@@ -12,7 +12,7 @@ dating h5项目
    react: https://reactjs.bootcss.com/docs/getting-started.html
    redux: https://www.redux.org.cn/docs/react-redux/
 
-2. UI库使用  antd-mobile  阿里巴巴前端UI框架
+2. UI库使用  antd-mobile  前端UI框架
    官网：https://mobile.ant.design/docs/react/introduce-cn
 
 ## :star: 特性

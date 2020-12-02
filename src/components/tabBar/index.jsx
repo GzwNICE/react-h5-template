@@ -24,6 +24,7 @@ class TabBarBox extends PureComponent {
 
   render() {
     const { selectedTab, homeSys } = this.props;
+    console.log(`我是子组件接收到的值：${selectedTab}`);
     const { IPhoneX } = this.state;
     return (
       <div className={`${styles.tabBox} ${IPhoneX === 'true' ? `${styles.tabBoxIPhone}` : null}`}>

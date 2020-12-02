@@ -25,7 +25,7 @@ export class Order extends Component {
     ];
     return (
       <div className={styles.orderPage}>
-        <NavBar className={styles.navbar}>茶园</NavBar>
+        <NavBar className={styles.navbar}>订单</NavBar>
         <div className={`${styles.tabBox} ${IPhoneX === 'true' ? `${styles.tabBoxIPhone}` : null}`} >
           <Tabs tabs={tabs} tabBarActiveTextColor="#333333" tabBarInactiveTextColor="#333333" tabBarUnderlineStyle={{ height: 4, width: 24, marginLeft: '6.5%', backgroundImage: 'linear-gradient(135deg, #4DAAF5 0%, #3CEDC2 100%)', border: 'none', borderRadius: '2px' }}>
             <Blank data='1111123123' />
