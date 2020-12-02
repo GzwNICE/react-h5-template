@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import { NavBar } from 'antd-mobile';
 import TabBarBox from '@/components/tabBar';
+import Hook from '@/components/hooks';
 import styles from './index.less';
 
 export class Home extends Component {
@@ -91,6 +92,8 @@ export class Home extends Component {
           })}
         </span>
         <div onClick={this.handleClick} className={styles.btn}>点击改变MVP数据</div>
+
+        <Hook />
         {/* 父组件传值给子组件，自定义props名，值可以是任意内容，包括state和props  */}
         <TabBarBox selectedTab="homePage" />
       </div>
