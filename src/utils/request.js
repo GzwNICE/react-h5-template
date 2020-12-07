@@ -4,15 +4,9 @@
  */
 import { extend } from 'umi-request';
 import { Toast } from 'antd-mobile';
-// import { push } from 'connected-react-router';
-import intl from 'react-intl-universal';
-import Cookies from 'js-cookie';
-import { createBrowserHistory } from 'history';
 import { getBaseUrl } from '@/utils/util';
 
 const domain = `${window.location.protocol}//${getBaseUrl()}`;
-const history = createBrowserHistory();
-const lang = Cookies.get('lang');
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
